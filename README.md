@@ -39,4 +39,25 @@ And then afterwards, restart the server accordingly.
 python manage.py runserver
 ```
 
+## IMPORTANT NOTES:
+
+1. **DO NOT** do `git push origin master` unless you're Red (this is for our collective sanity).
+
+2. **Create your own branch** if you're working on a particular feature of the project, and keep us updated via Discord or Facebook Messenger.
+   
+    Read the [useful references](#useful-references) below on Git / GitHub in order to know more.
+3. **Keep open communication** with the rest of the team! Don't be embarassed to ask "stupid questions." We're all in this together :)   
+
 ## Useful references
+**Official Django 3.1 Documentation**
+- https://docs.djangoproject.com/en/3.1/
+
+**Official Django 3.1 Tutorial**
+- https://docs.djangoproject.com/en/3.1/intro/tutorial01/
+
+**Django Crash Course by TraversyMedia**
+- https://www.youtube.com/watch?v=e1IyzVyrLSU
+    (**NOTE:** *This is using an older version of Django 2.x, but much of it will still apply in Django 3.x.*)
+
+Official GitHub Tutorial
+- https://guides.github.com/activities/hello-world/
