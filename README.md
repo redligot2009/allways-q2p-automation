@@ -46,7 +46,7 @@ python manage.py runserver
 2. **Create your own branch** if you're working on a particular feature of the project, and keep us updated via Discord or Facebook Messenger.
    
     Read the [useful references](#useful-references) below on Git / GitHub in order to know more.
-3. **Keep open communication** with the rest of the team! Don't be embarassed to ask "stupid questions." We're all in this together :)   
+3. **Keep open communication** with the rest of the team! Don't be embarassed to ask "stupid questions." We're all in this together 😊   
 
 ## Useful references
 **Official Django 3.1 Documentation**
