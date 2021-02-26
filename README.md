@@ -2,9 +2,20 @@
 
 ## Installation instructions
 
+First make sure that you have Python 3.9 (https://www.python.org/downloads/), pip (comes with Python by default), and pipenv (https://pypi.org/project/pipenv/) installed.
+
+```cmd
+pip install pipenv
+```
+
 Install dependencies
 ```cmd
 pipenv install
+```
+
+Run virtual environment in terminal
+```cmd
+pipenv shell
 ```
 
 Make migrations to enable Django admin site.
