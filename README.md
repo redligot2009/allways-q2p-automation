@@ -9,7 +9,7 @@ pipenv install
 
 Make migrations to enable Django admin site.
 ```cmd
-cd mysite
+cd backend
 python manage.py migrate
 ```
 
@@ -19,8 +19,8 @@ python manage.py createsuperuser
 ```
 Now you're all set 😊
 
-## How to run development server
-Navigate to mysite directory using `cd mysite` if you haven't already, then run the following command.
+## How to run backend development server
+Navigate to mysite directory using `cd backend` if you haven't already, then run the following command.
 ```cmd
 python manage.py runserver
 ```
@@ -37,6 +37,15 @@ python manage.py migrate
 And then afterwards, restart the server accordingly.
 ```cmd
 python manage.py runserver
+```
+
+## How to run frontend React development server
+
+Navigate to `frontend` folder, and run `npm start`. More instructions on specific frontend commands in `frontend/README.md` document.
+
+```cmd
+cd frontend
+npm start
 ```
 
 ## IMPORTANT NOTES:
