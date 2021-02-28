@@ -11,7 +11,7 @@ class Accounts(models.Model):
     surname=models.CharField(max_length=20)
     username=models.CharField(max_length=20)
     shipping_address=models.CharField(max_length=200)
-    mobile_number=models.IntegerField(max_length=20, blank=True, null=True)
+    mobile_number=models.IntegerField
     
 #    def __str__(self):
 #       return str(self.pk)+": "+self.username
@@ -37,13 +37,13 @@ class Invoice(models.Model):
     payment_status=models.CharField(max_length=6,choices=STATUS, default='paid')
     invoice_email=models.CharField(max_length=20)
     i_d_employee_number=models.CharField(max_length=7)
-    invoice_date=models.DateTimeField(null=False, blank=False)
+    invoice_date=models.DateTimeField(null=True, blank=True)
    
 class Product(models.Model):
     product_number=models.CharField(max_length=5)
     product_name=models.CharField(max_length=20)
     product_price=models.FloatField(max_length=22, default=0.0)
-    product_description=models.CharField(max_length=200, null=True, blank=True)
+    product_description=models.CharField(max_length=200)
  
 class JobOrder(models.Model):
     STATUS=[
