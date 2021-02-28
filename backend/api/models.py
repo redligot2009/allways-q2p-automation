@@ -140,4 +140,108 @@ class QuotationItem(models.Model):
     item_type_other=models.CharField(max_length=10) #note: not in datadict but added for ease of convenience sa choice dropdown above
     
 class ColorSpecs(models.Model):
+    COLOR=[
+        ('bw','Black and White'),
+        ('color','Colored'),
+        ]
+    color_specs_id=models.CharField(max_length=15,choices=COLOR)
+    q_item_id=models.CharField(max_length=10)
+    colors_id=models.CharField(max_length=10)
+    colors_specs_desc=models.CharField(max_length=200,blank=True,null=True)
     
+class PaperSpecs(models.Model):
+    paper_specs_id=models.CharField(max_length=5,choices=COLOR)
+    q_item_id=models.CharField(max_length=10)
+    paper_id=models.CharField(max_length=10)
+    paper_specs_desc=models.CharField(max_length=200,blank=True,null=True)
+
+class PrintingProcessSpecs(models.Model):
+    PROCESS=[
+        ('offset','Offset'),
+        ('digital','Digital'),
+        ('screen','Screen'),
+        ]
+    process_specs_id=models.CharField(max_length=7,choices=PROCESS)
+    q_item_id=models.CharField(max_length=10)
+    process_id=models.CharField(max_length=10)
+    process_specs_desc=models.CharField(max_length=200,blank=True,null=True)
+    
+class PrintingProcessSpecs(models.Model):
+    LAMINATED=[
+        ('lam','Laminated'),
+        ('notlam','Not Laminated'),
+        ]
+    lamination_specs_id=models.CharField(max_length=13,choices=LAMINATED)
+    q_item_id=models.CharField(max_length=10)
+    lamination_id=models.CharField(max_length=10)
+    lamination_specs_desc=models.CharField(max_length=200,blank=True,null=True)
+    
+class DiecutSpecs(models.Model):
+    diecut_specs_id=models.CharField(max_length=5,choices=LAMINATED)
+    q_item_id=models.CharField(max_length=10)
+    diecut_id=models.CharField(max_length=10)
+    diecut_specs_desc=models.CharField(max_length=200,blank=True,null=True)
+    
+class BindingSpecs(models.Model):
+    binding_specs_id=models.CharField(max_length=5,choices=LAMINATED)
+    q_item_id=models.CharField(max_length=10)
+    binding_id=models.CharField(max_length=10)
+    binding_specs_desc=models.CharField(max_length=200,blank=True,null=True)
+ 
+class ColorProfile(models.Model):
+    colors_id=models.CharField(max_length=10)
+    colors_name=models.CharField(max_length=10)
+    colors_price_factor=models.FloatField(max_length=22,default=0.0)
+
+class Paper(models.Model):
+    ISCOLOR=[
+        ('y','Yes'),
+        ('n','No'),
+        ]
+    ISSTICKER=[
+        ('y','Yes'),
+        ('n','No'),
+        ]
+    paper_id=models.CharField(max_length=10)
+    paper_type=models.CharField(max_length=150, default="Book 60")
+    paper_category=models.CharField(max_length=15)
+    paper_height=models.CharField(max_length=10)
+    paper_width=models.CharField(max_length=10)
+    ream_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
+    leaf_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
+    is_colored=models.CharField(max_length=1,choices=ISCOLOR)
+    is_sticker=models.CharField(max_length=10,choices=ISCOLOR)
+    
+class PrintingProcess(models.Model):
+    process_id=models.CharField(max_length=10)
+    process_name=models.CharField(max_length=10)
+    process_base_factor=models.FloatField(max_length=22,default=0.0)
+    
+class Lamination(models.Model):
+    lamination_id=models.CharField(max_length=10)
+    lamination_type=models.CharField(max_length=150)
+    lamination_base_price=models.FloatField(max_length=22,default=0.0)
+
+class DieCut(models.Model):
+    diecut_id=models.CharField(max_length=10)
+    diecut_type=models.CharField(max_length=10)
+    diecut_base_price=models.FloatField(max_length=22,default=0.0)
+
+class Binding(models.Model):
+    binding_id=models.CharField(max_length=10)
+    binding_type=models.CharField(max_length=150)
+    binding_base_price=models.FloatField(max_length=22,default=0.0)
+    
+class Plate(models.Model):
+    plate_id=models.CharField(max_length=10)
+    no_impressions=models.IntegerField(default=1)
+    extra_impressions=models.IntegerField(default=0)
+    total_impressions=models.IntegerField(default=0)
+    running_costs=models.FloatField(default=0.0)
+    
+class ProductionConstants(models.Model):
+    constants_id=models.CharField(max_length=10)
+    plate_base_price=models.FloatField(default=250.0)
+    base_price_fold=models.FloatField(default=90.0)
+    lamination_factor=models.FloatField(default=0.00625)
+    min_rate_running=models.FloatField(default=400.0)
