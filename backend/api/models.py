@@ -139,7 +139,7 @@ class QuotationItem(models.Model):
     item_type=models.CharField(max_length=10,choices=ITEM)
     item_type_other=models.CharField(max_length=10) #note: not in datadict but added for ease of convenience sa choice dropdown above
     
-class ColorSpecs(models.Model):
+class ColorsSpecs(models.Model):
     COLOR=[
         ('bw','Black and White'),
         ('color','Colored'),
@@ -150,7 +150,7 @@ class ColorSpecs(models.Model):
     colors_specs_desc=models.CharField(max_length=200,blank=True,null=True)
     
 class PaperSpecs(models.Model):
-    paper_specs_id=models.CharField(max_length=5,choices=COLOR)
+    paper_specs_id=models.CharField(max_length=5)
     q_item_id=models.CharField(max_length=10)
     paper_id=models.CharField(max_length=10)
     paper_specs_desc=models.CharField(max_length=200,blank=True,null=True)
@@ -166,7 +166,7 @@ class PrintingProcessSpecs(models.Model):
     process_id=models.CharField(max_length=10)
     process_specs_desc=models.CharField(max_length=200,blank=True,null=True)
     
-class PrintingProcessSpecs(models.Model):
+class LaminationSpecs(models.Model):
     LAMINATED=[
         ('lam','Laminated'),
         ('notlam','Not Laminated'),
@@ -177,13 +177,13 @@ class PrintingProcessSpecs(models.Model):
     lamination_specs_desc=models.CharField(max_length=200,blank=True,null=True)
     
 class DiecutSpecs(models.Model):
-    diecut_specs_id=models.CharField(max_length=5,choices=LAMINATED)
+    diecut_specs_id=models.CharField(max_length=5)
     q_item_id=models.CharField(max_length=10)
     diecut_id=models.CharField(max_length=10)
     diecut_specs_desc=models.CharField(max_length=200,blank=True,null=True)
     
 class BindingSpecs(models.Model):
-    binding_specs_id=models.CharField(max_length=5,choices=LAMINATED)
+    binding_specs_id=models.CharField(max_length=5)
     q_item_id=models.CharField(max_length=10)
     binding_id=models.CharField(max_length=10)
     binding_specs_desc=models.CharField(max_length=200,blank=True,null=True)
