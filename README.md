@@ -43,8 +43,9 @@ npm install
 Now you're all set on the frontend 😊
 
 ## How to run backend Django development server
-Navigate to mysite directory using `cd backend` if you haven't already, then run the following command.
+Navigate to mysite directory using `cd backend` if you haven't already, then run the following commands.
 ```cmd
+pipenv shell
 python manage.py runserver
 ```
 Press `CTRL`+`C` to stop the development server.
