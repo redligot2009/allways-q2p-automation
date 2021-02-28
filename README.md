@@ -89,7 +89,7 @@ Below here, I've compiled some VS Code Extensions that one might consider "essen
 **Description:** Linting, Debugging (multi-threaded, remote), Intellisense, Jupyter Notebooks, code formatting, refactoring, unit tests, and more.
 **Version:** 2021.2.582707922
 **Publisher:** Microsoft
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=ms-python.python
+**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=ms-python.python
 
 **Name:** Pylance
 **Id:** ms-python.vscode-pylance
