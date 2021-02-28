@@ -34,18 +34,18 @@ class Invoice(models.Model):
         ]
     invoice_number=models.CharField(max_length=10, null=False, blank=False)
     total_price=models.FloatField(max_length=22, default=0.0, null=False, blank=False)
-    payment_status=models.CharField(max_length=6,choices=STATUS, default='paid' null=False, blank=False)
+    payment_status=models.CharField(max_length=6,choices=STATUS, default='paid', null=False, blank=False)
     invoice_email=models.CharField(max_length=20, null=False, blank=False)
     i_d_employee_number=models.CharField(max_length=7, null=False, blank=False)
     invoice_date=models.DateTimeField(null=False, blank=False)
    
- class Product(models.Model):
+class Product(models.Model):
     product_number=models.CharField(max_length=5, null=False, blank=False)
     product_name=models.CharField(max_length=20, null=False, blank=False)
     product_price=models.FloatField(max_length=22, default=0.0, null=False, blank=False)
     product_description=models.CharField(max_length=200, null=True, blank=True)
  
- class JobOrder(models.Model):
+class JobOrder(models.Model):
     STATUS=[
         ('inprogress','In-Progress'),
         ('finished','Finished),
