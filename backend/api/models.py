@@ -48,7 +48,7 @@ class Product(models.Model):
 class JobOrder(models.Model):
     STATUS=[
         ('inprogress','In-Progress'),
-        ('finished','Finished),
+        ('finished','Finished'),
         ]
     joborder_number=models.CharField(max_length=10, null=False, blank=False)
     production_status=models.CharField(max_length=11, choices=STATUS, null=False, blank=False)
