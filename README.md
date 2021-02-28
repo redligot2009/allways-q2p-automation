@@ -84,39 +84,39 @@ npm start
 
 Below here, I've compiled some VS Code Extensions that one might consider "essential" for working with Django. Hopefully it makes your life easier just as it is with me! 😃
 
-**Name:** Python
-**Id:** ms-python.python
-**Description:** Linting, Debugging (multi-threaded, remote), Intellisense, Jupyter Notebooks, code formatting, refactoring, unit tests, and more.
-**Version:** 2021.2.582707922
-**Publisher:** Microsoft
-**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=ms-python.python
+**Name:** Python  
+**Id:** ms-python.python  
+**Description:** Linting, Debugging (multi-threaded, remote), Intellisense, Jupyter Notebooks, code formatting, refactoring, unit tests, and more.  
+**Version:** 2021.2.582707922  
+**Publisher:** Microsoft  
+**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=ms-python.python  
 
-**Name:** Pylance
-**Id:** ms-python.vscode-pylance
-**Description:** A performant, feature-rich language server for Python in VS Code
-**Version:** 2021.2.4
-**Publisher:** Microsoft
-**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance
+**Name:** Pylance  
+**Id:** ms-python.vscode-pylance  
+**Description:** A performant, feature-rich language server for Python in VS Code  
+**Version:** 2021.2.4  
+**Publisher:** Microsoft  
+**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance  
 
-**Name:** Django
-**Description:** Beautiful syntax and scoped snippets for perfectionists with deadlines
-**Version:** 1.3.0
-**Publisher:** Baptiste Darthenay
-**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=batisteo.vscode-django
+**Name:** Django  
+**Description:** Beautiful syntax and scoped snippets for perfectionists with deadlines  
+**Version:** 1.3.0  
+**Publisher:** Baptiste Darthenay  
+**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=batisteo.vscode-django  
 
-**Name:** Django Template
-**Id:** bibhasdn.django-html
-**Description:** Django template language support for Visual Studio Code
-**Version:** 1.3.0
-**Publisher:** bibhasdn
-**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=bibhasdn.django-html
+**Name:** Django Template  
+**Id:** bibhasdn.django-html  
+**Description:** Django template language support for Visual Studio Code  
+**Version:** 1.3.0  
+**Publisher:** bibhasdn  
+**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=bibhasdn.django-html  
 
-**Name:** Django Snippets
-**Id:** bibhasdn.django-snippets
-**Description:** Common Django snippets for everyday use
-**Version:** 1.1.1
-**Publisher:** bibhasdn
-**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=bibhasdn.django-snippets
+**Name:** Django Snippets  
+**Id:** bibhasdn.django-snippets  
+**Description:** Common Django snippets for everyday use  
+**Version:** 1.1.1  
+**Publisher:** bibhasdn  
+**VS Marketplace Link:** https://marketplace.visualstudio.com/items?itemName=bibhasdn.django-snippets  
 
 ### How to fix "unresolved import" in VS Code
 
