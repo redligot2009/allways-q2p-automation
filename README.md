@@ -1,6 +1,6 @@
 # allways-q2p-automation
 
-## Installation instructions
+## Installation Instructions (Django Backend)
 
 First make sure that you have Python 3.9 (https://www.python.org/downloads/), pip (comes with Python by default), and pipenv (https://pypi.org/project/pipenv/) installed.
 
@@ -28,7 +28,19 @@ Once you're in the mysite directory, set up a superuser for development purposes
 ```cmd
 python manage.py createsuperuser
 ```
-Now you're all set 😊
+
+Now you're all set on the backend 😊
+
+## Installation Instructions (React Frontend)
+
+Navigate to the `frontend` folder, and run `npm install` to install the project dependencies.
+
+```cmd
+cd frontend
+npm install
+```
+
+Now you're all set on the frontend 😊
 
 ## How to run backend development server
 Navigate to mysite directory using `cd backend` if you haven't already, then run the following command.
@@ -68,9 +80,9 @@ npm start
     Read the [useful references](#useful-references) below on Git / GitHub in order to know more.
 3. **Keep open communication** with the rest of the team! Don't be embarassed to ask "stupid questions." We're all in this together 😊   
 
-# Useful Resources
+## Useful Resources
 
-## Django Resources
+### Django Resources
 
 **Official Django 3.1 Documentation**
 - https://docs.djangoproject.com/en/3.1/
@@ -82,7 +94,7 @@ npm start
 - https://www.youtube.com/watch?v=e1IyzVyrLSU
     (**NOTE:** *This is using an older version of Django 2.x, but much of it will still apply in Django 3.x.*)
 
-## Django REST Framework Resources
+### Django REST Framework Resources
 
 **Django REST Framework official documentation** 
 - https://www.django-rest-framework.org/tutorial/quickstart/
