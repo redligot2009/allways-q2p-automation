@@ -57,7 +57,10 @@ npm start
     Read the [useful references](#useful-references) below on Git / GitHub in order to know more.
 3. **Keep open communication** with the rest of the team! Don't be embarassed to ask "stupid questions." We're all in this together 😊   
 
-## Useful references
+# Useful Resources
+
+## Django Resources
+
 **Official Django 3.1 Documentation**
 - https://docs.djangoproject.com/en/3.1/
 
@@ -68,5 +71,10 @@ npm start
 - https://www.youtube.com/watch?v=e1IyzVyrLSU
     (**NOTE:** *This is using an older version of Django 2.x, but much of it will still apply in Django 3.x.*)
 
-Official GitHub Tutorial
+## Django REST Framework Resources
+
+**Django REST Framework official documentation** 
+- https://www.django-rest-framework.org/tutorial/quickstart/
+
+**Official GitHub Tutorial**
 - https://guides.github.com/activities/hello-world/
