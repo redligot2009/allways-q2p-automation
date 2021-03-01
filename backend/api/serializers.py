@@ -23,7 +23,7 @@ from .models import Lamination
 from .models import DieCut
 from .models import Binding
 from .models import Plate
-from .models import ProductionConstant
+from .models import ProductionConstants
 
 class AccountsSerializer(serializers.ModelSerializer):
     class Meta:
