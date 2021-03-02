@@ -32,14 +32,17 @@ admin.site.register(Product)
 
 # QUOTATION MODEL ADMIN + INLINES
 
-class QuotationItemInline(admin.StackedInline):
-    model=QuotationItem
-
-class PlateInline(admin.TabularInline):
+class PlateInline(nested_admin.NestedTabularInline):
     model=Plate
     
+class QuotationItemInline(nested_admin.NestedStackedInline):
+    model=QuotationItem
+    inlines=[
+        PlateInline
+    ]
+    
 @admin.register(Quotation)
-class QuotationAdmin(admin.ModelAdmin):
+class QuotationAdmin(nested_admin.NestedModelAdmin):
     fieldsets=(
         ("Project Settings", {
             'fields' : ('approval_status', 
@@ -85,9 +88,9 @@ class QuotationAdmin(admin.ModelAdmin):
         QuotationItemInline
     ]
     pass
-
+    
 @admin.register(QuotationItem)
-class QuotationItemAdmin(admin.ModelAdmin):
+class QuotationItemAdmin(nested_admin.NestedModelAdmin):
     inlines=[
         PlateInline,
     ]
