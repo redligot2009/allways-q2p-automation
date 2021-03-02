@@ -118,12 +118,12 @@ class Paper(models.Model):
         ('n','No'),
         ]
     
-    # PRIMARY KEY
-    #paper_id=models.CharField(max_length=10,primary_key=True)
-    
     # PAPER INFORMATION
     paper_type=models.CharField(max_length=150, default="Book 60")
     paper_category=models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.paper_type
     
     # PAPER DIMENSIONS
     paper_height=models.CharField(max_length=10)
@@ -143,19 +143,25 @@ class PrintingProcess(models.Model):
     process_base_factor=models.FloatField(max_length=22,default=0.0)
     
 class Lamination(models.Model):
-    #lamination_id=models.CharField(max_length=10, primary_key=True)
     lamination_type=models.CharField(max_length=150, blank=True)
     lamination_base_price=models.FloatField(max_length=22,default=0.0)
+    
+    def __str__(self):
+        return self.lamination_type
 
 class DieCut(models.Model):
-    #diecut_id=models.CharField(max_length=10, primary_key=True)
     diecut_type=models.CharField(max_length=10, blank=True)
     diecut_base_price=models.FloatField(max_length=22,default=0.0)
+    
+    def __str__(self):
+        return self.diecut_type
 
 class Binding(models.Model):
-    #binding_id=models.CharField(max_length=10, primary_key=True)
     binding_type=models.CharField(max_length=150, blank=True)
     binding_base_price=models.FloatField(max_length=22,default=0.0)
+    
+    def __str__(self):
+        return self.binding_type
     
 class Product(models.Model):
     #product_number=models.CharField(max_length=5,primary_key=True)
@@ -163,17 +169,9 @@ class Product(models.Model):
     product_price=models.FloatField(max_length=22, default=0.0)
     product_description=models.CharField(max_length=200, blank=True)
 
-class Plate(models.Model):
-    # PRIMARY KEY + FOREIGN KEY to QUOTATION ITEM
-    #plate_id=models.CharField(max_length=10,primary_key=True)
-        
-    # IMPRESSIONS
-    no_impressions=models.IntegerField(default=1)
-    extra_impressions=models.IntegerField(default=0)
-    total_impressions=models.IntegerField(default=0)
+    def __str__(self):
+        return self.product_name
     
-    # COMPUTED RUNNING COSTS
-    running_costs=models.FloatField(default=0.0)
 
 class Quotation(models.Model):
     
@@ -181,9 +179,6 @@ class Quotation(models.Model):
     
     # WHICH ACCOUNT MANAGERS ARE REVIEWING THIS QUOTATION?
     q_am_employee=models.ForeignKey(to=AccountManager,null=True,on_delete=models.SET_NULL, blank=True)
-    
-    # QUOTATION ITEMS UNDER THIS PARTICULAR QUOTATION
-    #quotation_items = models.ForeignKey(to=QuotationItem, null=True, related_name="quotations", on_delete=models.CASCADE)
     
     # Choices for approval status
     STATUS=[
@@ -200,6 +195,7 @@ class Quotation(models.Model):
         ('digital','Digital'),
         ('screen','Screen'),
         ]
+    
     # WHAT KIND OF PRINTING PROCESS USED FOR THIS PROJECT?
     printing_process=models.CharField(max_length=20,default="offset",choices=PROCESS)
     
@@ -263,13 +259,12 @@ class Quotation(models.Model):
 
 class QuotationItem(models.Model):
     
-    # PRIMARY KEY + FOREIGN KEY to QUOTATION
-    #q_item_id=models.CharField(max_length=10,primary_key=True)
+    # QUOTATION THAT THE ITEM IS ASSOCIATED WITH
     quotation=models.ForeignKey(to=Quotation, null=True, related_name="items", on_delete=models.CASCADE)
     
-    # PLATES OBJECTS UNDER QUOTATION ITEM
+    # NO. OF PLATES OBJECTS UNDER QUOTATION ITEM
     no_plates=models.IntegerField(default=1,null=False)
-    plates = models.ForeignKey(to=Plate, null=True, blank=True, related_name="quotation_item", on_delete=models.CASCADE)
+    #plates = models.ForeignKey(to=Plate, null=True, blank=True, related_name="quotation_item", on_delete=models.CASCADE)
     
     # Choices for quotation item type
     ITEM_TYPE=[
@@ -289,6 +284,18 @@ class QuotationItem(models.Model):
     
     # BINDING TYPE
     binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
+    
+class Plate(models.Model):
+    # QUOTATION ITEM THAT PLATE IS ASSOCIATED WITH
+    quotation_item = models.ForeignKey(to=QuotationItem, null=True, related_name="plates", on_delete=models.CASCADE)
+        
+    # IMPRESSIONS
+    no_impressions=models.IntegerField(default=1)
+    extra_impressions=models.IntegerField(default=0)
+    total_impressions=models.IntegerField(default=0)
+    
+    # COMPUTED RUNNING COSTS
+    running_costs=models.FloatField(default=0.0)
     
 # class ColorsSpecs(models.Model):
 #     COLOR=[

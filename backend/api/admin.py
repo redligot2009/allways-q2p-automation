@@ -5,6 +5,7 @@ from .models import PrintingProcess
 from .models import ProductionConstants
 from .models import Paper, Lamination, DieCut, Binding
 from .models import Product, Quotation, QuotationItem, Plate
+import nested_admin
 # from .models import ColorsSpecs
 # from .models import PaperSpecs
 # from .models import PrintingProcessSpecs
@@ -34,6 +35,9 @@ admin.site.register(Product)
 class QuotationItemInline(admin.StackedInline):
     model=QuotationItem
 
+class PlateInline(admin.TabularInline):
+    model=Plate
+    
 @admin.register(Quotation)
 class QuotationAdmin(admin.ModelAdmin):
     fieldsets=(
@@ -75,13 +79,20 @@ class QuotationAdmin(admin.ModelAdmin):
             'fields': ('raw_total_costs',
                        'final_unit_costs',
                        'final_total_costs',)
-        })
+        }),
     )
     inlines=[
-        QuotationItemInline,
+        QuotationItemInline
     ]
     pass
-#admin.site.register(QuotationItem)
+
+@admin.register(QuotationItem)
+class QuotationItemAdmin(admin.ModelAdmin):
+    inlines=[
+        PlateInline,
+    ]
+    pass
+
 admin.site.register(Paper)
 admin.site.register(PrintingProcess)
 admin.site.register(Lamination)
