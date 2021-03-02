@@ -36,7 +36,7 @@ class AccountInline(admin.StackedInline):
             'fields': ('account_manager_key',)
             }),
         ("Production Staff Information",{
-            'fields': ('production_employee_position',)
+            'fields': ('production_staff_position',)
             }),
         ("Delivery Man Information",{
             'fields': ('plate_number',

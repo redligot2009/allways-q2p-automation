@@ -19,15 +19,26 @@ will replace all of these hardcoded test data with proper Django fixtures.
 """
 === DESCRIPTION ===
 The code below creates the following test data:
-1. A Group object for employees
-2. Group objects for each of the four employee types: 
+1. A Group object for clients
+2. A Group object for employees
+3. Group objects for each of the four employee types: 
     (Owners, Account Managers, Deliverymen, Production Staff)
 
 What are Django groups anyway? Think of it as a way to associate users
 into groups, with a particular set of permissions that restrict what they 
 can do on the system. It will be useful eventually once we develop the 
 different API endpoints which can only be used by certain kinds of users. :)
+
+TODO:
+- Set up permissions for each group (what can they create, retrieve, update, delete)
+
 """
+
+try:
+    client_group = Group.objects.get(name="Clients")
+except Group.DoesNotExist:
+    Group.objects.create(name="Clients").save()
+
 try:
     employee_group = Group.objects.get(name="Employees")
 except Group.DoesNotExist:
@@ -44,9 +55,9 @@ except Group.DoesNotExist:
     Group.objects.create(name="Account Managers").save()
     
 try:
-    delivery_man_group = Group.objects.get(name="Deliverymen")
+    delivery_man_group = Group.objects.get(name="Delivery Men")
 except Group.DoesNotExist:
-    Group.objects.create(name="Deliverymen").save()
+    Group.objects.create(name="Delivery Men").save()
 
 try:
     delivery_man_group = Group.objects.get(name="Production Staff")
@@ -66,7 +77,7 @@ class Account(models.Model):
     @property
     def full_name(self):
         return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
-    shipping_address=models.CharField(default="",max_length=20, blank=True)
+    shipping_address=models.CharField(default="",max_length=150, blank=True)
     mobile_number=models.CharField(default="",max_length=20,blank=True)
     
     # Employee Specific Fields
@@ -89,7 +100,7 @@ class Account(models.Model):
     account_manager_key=models.CharField(null=True,blank=True,max_length=20)
     
     # Production Staff Specific Fields
-    production_employee_position=models.CharField(null=True,blank=True,max_length=20)
+    production_staff_position=models.CharField(null=True,blank=True,max_length=20)
     
     def __str__(self):
         return self.user.username
