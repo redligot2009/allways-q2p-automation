@@ -329,13 +329,21 @@ class Quotation(models.Model):
     markup_percentage=models.FloatField(max_length=10, default=0.45)
     
     ### PLATES / RUNNING COSTS ###
+    # Number of pages that can fit on a single one-sided plate
     pages_can_fit=models.CharField(default=1,max_length=4)
+    # Number of plates in the entire project
+    total_no_plates=models.IntegerField(default=1,null=False)
+    # Total costs for all plates in the entire project
     total_plate_costs=models.FloatField(default=0.0)
+    # Total costs for running all plates in the entire project
+    total_running_costs=models.FloatField(default=0.0)
     
     ### PAPER COSTS ###
+    # Total costs for all paper in the entire project
     total_paper_costs=models.FloatField(default=0.0)
     
     ### FINISHING COSTS ###
+    # Total costs for lamination for the entire project
     total_lamination_costs=models.FloatField(default=0.0)
     
     ### BINDING / FOLDING / GATHERING COSTS ###
@@ -358,11 +366,7 @@ class QuotationItem(models.Model):
     
     # QUOTATION THAT THE ITEM IS ASSOCIATED WITH
     quotation=models.ForeignKey(to=Quotation, null=True, related_name="items", on_delete=models.CASCADE)
-    
-    # NO. OF PLATES OBJECTS UNDER QUOTATION ITEM
-    no_plates=models.IntegerField(default=1,null=False)
-    #plates = models.ForeignKey(to=Plate, null=True, blank=True, related_name="quotation_item", on_delete=models.CASCADE)
-    
+        
     # Choices for quotation item type
     ITEM_TYPE=[
         ('inner','Inner Pages'),

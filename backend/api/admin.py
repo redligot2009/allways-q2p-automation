@@ -129,6 +129,12 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
             'fields': ('project_dimensions_length',
                        'project_dimensions_width',)
         }),
+        ("Plates / Running Costs",{
+            'fields':('pages_can_fit',
+                      'total_no_plates',
+                      'total_plate_costs',
+                      'total_running_costs',)
+        }),
         ("Paper Costs", {
             'fields': ('total_paper_costs',)
         }),
