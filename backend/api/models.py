@@ -163,15 +163,27 @@ class Product(models.Model):
     product_price=models.FloatField(max_length=22, default=0.0)
     product_description=models.CharField(max_length=200, blank=True)
 
+class Plate(models.Model):
+    # PRIMARY KEY + FOREIGN KEY to QUOTATION ITEM
+    #plate_id=models.CharField(max_length=10,primary_key=True)
+        
+    # IMPRESSIONS
+    no_impressions=models.IntegerField(default=1)
+    extra_impressions=models.IntegerField(default=0)
+    total_impressions=models.IntegerField(default=0)
+    
+    # COMPUTED RUNNING COSTS
+    running_costs=models.FloatField(default=0.0)
+
 class Quotation(models.Model):
     
     ### PROJECT-WIDE SETTINGS ###
     
-    # PRIMARY KEY
-    #q_number=models.CharField(max_length=10,primary_key=True)
+    # WHICH ACCOUNT MANAGERS ARE REVIEWING THIS QUOTATION?
+    q_am_employee=models.ForeignKey(to=AccountManager,null=True,on_delete=models.SET_NULL, blank=True)
     
-    # WHICH ACCOUNT MANAGER IS ASSIGNED TO REVIEW THIS QUOTATION?
-    q_am_employee=models.ForeignKey(to=AccountManager,null=True,on_delete=models.SET_NULL)
+    # QUOTATION ITEMS UNDER THIS PARTICULAR QUOTATION
+    #quotation_items = models.ForeignKey(to=QuotationItem, null=True, related_name="quotations", on_delete=models.CASCADE)
     
     # Choices for approval status
     STATUS=[
@@ -180,7 +192,7 @@ class Quotation(models.Model):
         ('approved', 'Approved'),
         ]
     # IS QUOTATION APPROVED OR NOT?
-    approval_status=models.CharField(default='not_approved',max_length=12, choices=STATUS)
+    approval_status=models.CharField(default='in_progress',max_length=12, choices=STATUS)
     
     # Choices for printing process
     PROCESS=[
@@ -192,7 +204,7 @@ class Quotation(models.Model):
     printing_process=models.CharField(max_length=20,default="offset",choices=PROCESS)
     
     # WHAT TYPE OF PRODUCT IS IT? (EXAMPLE: BOOK)
-    product_type=models.ForeignKey(to=Product,on_delete=models.SET_NULL, null=True)
+    product_type=models.ForeignKey(to=Product,on_delete=models.SET_NULL, null=True, blank=True)
     
     # HOW MANY COPIES WERE ORDERED BY CLIENT?
     quantity=models.IntegerField(default=1,null=False)
@@ -224,7 +236,6 @@ class Quotation(models.Model):
     markup_percentage=models.FloatField(max_length=10, default=0.45)
     
     ### PLATES / RUNNING COSTS ###
-    no_plates=models.IntegerField(default=1,null=False)
     pages_can_fit=models.CharField(default=1,max_length=4)
     total_plate_costs=models.FloatField(default=0.0)
     
@@ -249,12 +260,16 @@ class Quotation(models.Model):
     raw_total_costs=models.FloatField(default=0.0)
     final_unit_costs=models.FloatField(default=0.0)
     final_total_costs=models.FloatField(default=0.0)
-    
+
 class QuotationItem(models.Model):
     
     # PRIMARY KEY + FOREIGN KEY to QUOTATION
     #q_item_id=models.CharField(max_length=10,primary_key=True)
     quotation=models.ForeignKey(to=Quotation, null=True, related_name="items", on_delete=models.CASCADE)
+    
+    # PLATES OBJECTS UNDER QUOTATION ITEM
+    no_plates=models.IntegerField(default=1,null=False)
+    plates = models.ForeignKey(to=Plate, null=True, blank=True, related_name="quotation_item", on_delete=models.CASCADE)
     
     # Choices for quotation item type
     ITEM_TYPE=[
@@ -270,23 +285,10 @@ class QuotationItem(models.Model):
     paper=models.ForeignKey(to=Paper, null=True, on_delete=models.SET_NULL)
     
     # LAMINATION TYPE
-    lamination=models.ForeignKey(to=Lamination, null=True, on_delete=models.SET_NULL)
+    lamination=models.ForeignKey(to=Lamination, null=True, on_delete=models.SET_NULL, blank=True)
     
     # BINDING TYPE
-    binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL)
-
-class Plate(models.Model):
-    # PRIMARY KEY + FOREIGN KEY to QUOTATION ITEM
-    #plate_id=models.CharField(max_length=10,primary_key=True)
-    quotation_item = models.ForeignKey(to=QuotationItem, null=True, related_name="plates", on_delete=models.CASCADE)
-    
-    # IMPRESSIONS
-    no_impressions=models.IntegerField(default=1)
-    extra_impressions=models.IntegerField(default=0)
-    total_impressions=models.IntegerField(default=0)
-    
-    # COMPUTED RUNNING COSTS
-    running_costs=models.FloatField(default=0.0)
+    binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
     
 # class ColorsSpecs(models.Model):
 #     COLOR=[
