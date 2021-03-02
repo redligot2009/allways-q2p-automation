@@ -4,10 +4,30 @@ from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-#######################################################
-#### (HARDCODED) PREPOPULATE USER AND GROUP MODELS ####
-#######################################################
+"""
+===========================================================
+==== 0 - (HARDCODED) PREPOPULATE USER AND GROUP MODELS ====
+===========================================================
 
+=== OVERALL DESCRIPTION ===
+These are basically test data that ideally would be moved elsewhere as we
+develop the project. Don't pay much attention to this, as eventually we 
+will replace all of these hardcoded test data with proper Django fixtures.
+
+"""
+
+"""
+=== DESCRIPTION ===
+The code below creates the following test data:
+1. A Group object for employees
+2. Group objects for each of the four employee types: 
+    (Owners, Account Managers, Deliverymen, Production Staff)
+
+What are Django groups anyway? Think of it as a way to associate users
+into groups, with a particular set of permissions that restrict what they 
+can do on the system. It will be useful eventually once we develop the 
+different API endpoints which can only be used by certain kinds of users. :)
+"""
 try:
     employee_group = Group.objects.get(name="Employees")
 except Group.DoesNotExist:
@@ -33,19 +53,46 @@ try:
 except Group.DoesNotExist:
     Group.objects.create(name="Production Staff").save()
 
-################################
-#### ACCOUNT RELATED MODELS ####
-################################
+"""
+===========================================
+==== 1 - SET UP ACCOUNT RELATED MODELS ====
+===========================================
+"""
 
 class Account(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True)
-    middle_name=models.CharField(default="",max_length=20)
+    user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
+    middle_name=models.CharField(null=True,blank=True,max_length=20)
     
     @property
     def full_name(self):
         return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
     shipping_address=models.CharField(default="",max_length=20, blank=True)
-    mobile_number=models.CharField(default="",max_length=20)
+    mobile_number=models.CharField(default="",max_length=20,blank=True)
+    
+    # Employee Specific Fields
+    EMPLOYEE_TYPE=[
+        ('O', 'Owner'),
+        ('AM', 'Account Manager'),
+        ('D', 'Deliveryman'),
+        ('P', 'Production Employee'),
+        ]
+    job_position=models.CharField(null=True,blank=True,max_length=2, choices=EMPLOYEE_TYPE)
+    
+    # Delivery Man Specific Fields
+    plate_number=models.CharField(null=True,blank=True,max_length=20)
+    license_number=models.CharField(null=True,blank=True,max_length=20)
+    
+    # Owner Specific Fields
+    owner_key=models.CharField(null=True,blank=True,max_length=20)
+    
+    # Account Manager Specific Fields
+    account_manager_key=models.CharField(null=True,blank=True,max_length=20)
+    
+    # Production Staff Specific Fields
+    production_employee_position=models.CharField(null=True,blank=True,max_length=20)
+    
+    def __str__(self):
+        return self.user.username
 
 @receiver(post_save,sender=User)
 def create_user_account(sender,instance,created,**kwargs):
@@ -56,37 +103,20 @@ def create_user_account(sender,instance,created,**kwargs):
 def save_user_account(sender,instance,created,**kwargs):
     instance.account.save()
 
-class Employee(Account):
-    EMPLOYEE_TYPE=[
-        ('O', 'Owner'),
-        ('AM', 'Account Manager'),
-        ('D', 'Deliveryman'),
-        ('P', 'Production Employee'),
-        ]
-    employee_number=models.CharField(blank=True,max_length=7,primary_key=True)
-    # employee_name=models.CharField(max_length=20)
-    job_position=models.CharField(default='O',max_length=2, choices=EMPLOYEE_TYPE)
+"""
+=======================================================
+==== 2 - SET UP INVOICE / JOB ORDER RELATED MODELS ====
+=======================================================
 
-class DeliveryMan(Account):
-    # d_employee_number=models.CharField(max_length=7)
-    plate_number=models.CharField(default="",max_length=20)
-    license_number=models.CharField(default="",max_length=20)
-    
-class Owner(Account):
-    # o_employee_number=models.CharField(max_length=7)
-    o_key=models.CharField(default="",max_length=20)
-    
-class AccountManager(Account):
-    # am_employee_number=models.CharField(max_length=7)
-    am_key=models.CharField(default="",max_length=20)
+=== OVERALL DESCRIPTION == 
+This is where all the invoice and job order stuff will *eventually*
+get set up. Right now that's not yet done since we don't need it yet
+for Deliverable #1.
 
-class Production(Account):
-    # p_employee_number=models.CharField(max_length=7)
-    p_position=models.CharField(default="",max_length=20)
+TODO:
+Actually make this thing work.
 
-############################################
-#### INVOICE / JOB ORDER RELATED MODELS ####
-############################################
+"""
 
 class Invoice(models.Model):
     STATUS=[
@@ -109,19 +139,50 @@ class JobOrder(models.Model):
     production_status=models.CharField(max_length=11, choices=STATUS)
     joborder_quotation_number=models.CharField(max_length=10)
     joborder_number=models.DateTimeField(null=False, blank=False)
-    
-##################################
-#### QUOTATION RELATED MODELS ####
-##################################
+
+"""    
+=============================================
+==== 3 - SET UP QUOTATION RELATED MODELS ====
+=============================================
+
+=== Overall Description ===
+This is where all the quotation related models are set up.
+This includes the likes of:
+- Product Types
+- Quotations
+- Quotation Items
+- Plates
+
+...as well as
+
+- Paper Types
+- Binding Types
+- Lamination Types
+
+... and finally ...
+- Production Constants
+
+TODO
+- Implement the actual computation logic
+"""
 
 class ProductionConstants(models.Model):
-    constants_id=models.CharField(max_length=10)
     plate_base_price=models.FloatField(default=250.0)
     base_price_fold=models.FloatField(default=90.0)
     lamination_factor=models.FloatField(default=0.00625)
     min_rate_running=models.FloatField(default=400.0)
+    
+    def __str__(self):
+        return "Production Constants"
+    
+    class Meta:
+        verbose_name_plural="Production Constants"
 
 class Paper(models.Model):
+    
+    class Meta:
+        verbose_name_plural="Paper Types"
+        
     ISCOLOR=[
         ('y','Yes'),
         ('n','No'),
@@ -155,12 +216,18 @@ class PrintingProcess(models.Model):
     process_name=models.CharField(max_length=10, blank=True)
     process_base_factor=models.FloatField(max_length=22,default=0.0)
     
+    class Meta:
+        verbose_name_plural="Printing Processes"
+        
 class Lamination(models.Model):
     lamination_type=models.CharField(max_length=150, blank=True)
     lamination_base_price=models.FloatField(max_length=22,default=0.0)
     
     def __str__(self):
         return self.lamination_type
+    
+    class Meta:
+        verbose_name_plural="Lamination Types"
 
 class DieCut(models.Model):
     diecut_type=models.CharField(max_length=10, blank=True)
@@ -168,6 +235,9 @@ class DieCut(models.Model):
     
     def __str__(self):
         return self.diecut_type
+    
+    class Meta:
+        verbose_name_plural="Diecut Types"
 
 class Binding(models.Model):
     binding_type=models.CharField(max_length=150, blank=True)
@@ -175,6 +245,9 @@ class Binding(models.Model):
     
     def __str__(self):
         return self.binding_type
+    
+    class Meta:
+        verbose_name_plural="Binding Types"
     
 class Product(models.Model):
     #product_number=models.CharField(max_length=5,primary_key=True)
@@ -185,14 +258,14 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
     
+    class Meta:
+        verbose_name_plural="Product Types"
+    
 
 class Quotation(models.Model):
     
     ### PROJECT-WIDE SETTINGS ###
-    
-    # WHICH ACCOUNT MANAGERS ARE REVIEWING THIS QUOTATION?
-    q_am_employee=models.ForeignKey(to=AccountManager,null=True,on_delete=models.SET_NULL, blank=True)
-    
+        
     # Choices for approval status
     STATUS=[
         ('not_approved','Not Approved'),
