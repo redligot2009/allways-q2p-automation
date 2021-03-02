@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
+
 from .models import Account, Employee, DeliveryMan, Owner, AccountManager, Production
 from .models import Invoice, JobOrder
 from .models import PrintingProcess
@@ -6,17 +9,28 @@ from .models import ProductionConstants
 from .models import Paper, Lamination, DieCut, Binding
 from .models import Product, Quotation, QuotationItem, Plate
 import nested_admin
-# from .models import ColorsSpecs
-# from .models import PaperSpecs
-# from .models import PrintingProcessSpecs
-# from .models import LaminationSpecs
-# from .models import DiecutSpecs
-# from .models import BindingSpecs
-# from .models import ColorProfile
 
-# Register your models here.
+### ACCOUNT RELATED ADMIN ###
 
-admin.site.register(Account)
+# Setup custom UserAdmin view
+class AccountInline(admin.StackedInline):
+    model=Account
+    can_delete=False
+    verbose_name_plural='Account'
+    fk_name='user'
+
+class CustomUserAdmin(UserAdmin):
+    inlines=[
+        AccountInline,
+    ]
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super(CustomUserAdmin, self).get_inline_instances(request, obj)
+
+admin.site.unregister(User)
+admin.site.register(User,CustomUserAdmin)
+
 admin.site.register(Employee)
 admin.site.register(DeliveryMan)
 admin.site.register(Owner)
@@ -30,7 +44,7 @@ admin.site.register(JobOrder)
 ### QUOTATION RELATED ADMIN ###
 admin.site.register(Product)
 
-# QUOTATION MODEL ADMIN + INLINES
+# Plate, Quotation Item, and Quotation Model Admin's / Inlines
 
 class PlateInline(nested_admin.NestedTabularInline):
     model=Plate
@@ -90,19 +104,17 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         QuotationItemInline
     ]
     pass
-    
-# @admin.register(QuotationItem)
-# class QuotationItemAdmin(nested_admin.NestedModelAdmin):
-#     inlines=[
-#         PlateInline,
-#     ]
-#     pass
 
-# admin.site.register(Plate)
+### PRODUCTION CONSTANTS ADMIN ###
+admin.site.register(ProductionConstants)
 
+## PROJECT SPECIFICATIONS ADMIN ###
+
+# Paper database admin
 admin.site.register(Paper)
+
+
 admin.site.register(PrintingProcess)
 admin.site.register(Lamination)
 admin.site.register(DieCut)
 admin.site.register(Binding)
-admin.site.register(ProductionConstants)

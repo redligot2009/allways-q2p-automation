@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User, Group
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
-###########################################
-#### PREPOPULATE USER AND GROUP MODELS ####
-###########################################
+#######################################################
+#### (HARDCODED) PREPOPULATE USER AND GROUP MODELS ####
+#######################################################
 
 try:
     employee_group = Group.objects.get(name="Employees")
@@ -37,11 +39,22 @@ except Group.DoesNotExist:
 
 class Account(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True)
-    first_name=models.CharField(default="",max_length=20)
     middle_name=models.CharField(default="",max_length=20)
-    surname=models.CharField(default="",max_length=20)
-    shipping_address=models.CharField(default="",max_length=20)
+    
+    @property
+    def full_name(self):
+        return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
+    shipping_address=models.CharField(default="",max_length=20, blank=True)
     mobile_number=models.CharField(default="",max_length=20)
+
+@receiver(post_save,sender=User)
+def create_user_account(sender,instance,created,**kwargs):
+    if created:
+        Account.objects.create(user=instance)
+
+@receiver(post_save,sender=User)
+def save_user_account(sender,instance,created,**kwargs):
+    instance.account.save()
 
 class Employee(Account):
     EMPLOYEE_TYPE=[
@@ -296,60 +309,4 @@ class Plate(models.Model):
     
     # COMPUTED RUNNING COSTS
     running_costs=models.FloatField(default=0.0)
-    
-# class ColorsSpecs(models.Model):
-#     COLOR=[
-#         ('bw','Black and White'),
-#         ('color','Colored'),
-#         ]
-#     color_specs_id=models.CharField(max_length=15,choices=COLOR)
-#     q_item_id=models.CharField(max_length=10)
-#     colors_id=models.CharField(max_length=10)
-#     colors_specs_desc=models.CharField(max_length=200,blank=True,null=True)
-    
-# class PaperSpecs(models.Model):
-#     paper_specs_id=models.CharField(max_length=5)
-#     q_item_id=models.CharField(max_length=10)
-#     paper_id=models.CharField(max_length=10)
-#     paper_specs_desc=models.CharField(max_length=200,blank=True,null=True)
-
-# class PrintingProcessSpecs(models.Model):
-#     PROCESS=[
-#         ('offset','Offset'),
-#         ('digital','Digital'),
-#         ('screen','Screen'),
-#         ]
-#     process_specs_id=models.CharField(max_length=7,choices=PROCESS)
-#     q_item_id=models.CharField(max_length=10)
-#     process_id=models.CharField(max_length=10)
-#     process_specs_desc=models.CharField(max_length=200,blank=True,null=True)
-    
-# class LaminationSpecs(models.Model):
-#     LAMINATED=[
-#         ('lam','Laminated'),
-#         ('notlam','Not Laminated'),
-#         ]
-#     lamination_specs_id=models.CharField(max_length=13,choices=LAMINATED)
-#     q_item_id=models.CharField(max_length=10)
-#     lamination_id=models.CharField(max_length=10)
-#     lamination_specs_desc=models.CharField(max_length=200,blank=True,null=True)
-    
-# class DiecutSpecs(models.Model):
-#     diecut_specs_id=models.CharField(max_length=5)
-#     q_item_id=models.CharField(max_length=10)
-#     diecut_id=models.CharField(max_length=10)
-#     diecut_specs_desc=models.CharField(max_length=200,blank=True,null=True)
-    
-# class BindingSpecs(models.Model):
-#     binding_specs_id=models.CharField(max_length=5)
-#     q_item_id=models.CharField(max_length=10)
-#     binding_id=models.CharField(max_length=10)
-#     binding_specs_desc=models.CharField(max_length=200,blank=True,null=True)
- 
-# class ColorProfile(models.Model):
-#     colors_id=models.CharField(max_length=10)
-#     colors_name=models.CharField(max_length=10)
-#     colors_price_factor=models.FloatField(max_length=22,default=0.0)
-
-
     
