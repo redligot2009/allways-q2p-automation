@@ -34,12 +34,14 @@ admin.site.register(Product)
 
 class PlateInline(nested_admin.NestedTabularInline):
     model=Plate
+    extra=0
     
 class QuotationItemInline(nested_admin.NestedStackedInline):
     model=QuotationItem
     inlines=[
         PlateInline
     ]
+    extra=0
     
 @admin.register(Quotation)
 class QuotationAdmin(nested_admin.NestedModelAdmin):
