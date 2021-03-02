@@ -91,17 +91,18 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
     ]
     pass
     
-@admin.register(QuotationItem)
-class QuotationItemAdmin(nested_admin.NestedModelAdmin):
-    inlines=[
-        PlateInline,
-    ]
-    pass
+# @admin.register(QuotationItem)
+# class QuotationItemAdmin(nested_admin.NestedModelAdmin):
+#     inlines=[
+#         PlateInline,
+#     ]
+#     pass
+
+# admin.site.register(Plate)
 
 admin.site.register(Paper)
 admin.site.register(PrintingProcess)
 admin.site.register(Lamination)
 admin.site.register(DieCut)
 admin.site.register(Binding)
-admin.site.register(Plate)
 admin.site.register(ProductionConstants)
