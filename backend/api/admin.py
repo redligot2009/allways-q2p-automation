@@ -105,6 +105,12 @@ https://github.com/theatlantic/django-nested-admin
 class PlateInline(nested_admin.NestedTabularInline):
     model=Plate
     extra=0
+    readonly_fields=(
+        'extra_impressions',
+        'total_impressions',
+        'running_costs',
+    )
+    
     
 class QuotationItemInline(nested_admin.NestedStackedInline):
     model=QuotationItem
