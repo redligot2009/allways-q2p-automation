@@ -284,7 +284,7 @@ class Quotation(models.Model):
     ### PROJECT-WIDE SETTINGS ###
     
     # Which client created this quotation?
-    client = ForeignKey(to=Account,null=True,on_delete=models.SET_NULL)
+    client = ForeignKey(to=Account,null=True,blank=True,on_delete=models.SET_NULL)
     
     # Choices for approval status
     STATUS=[
