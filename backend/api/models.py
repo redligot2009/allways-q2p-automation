@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields.related import ForeignKey
 from django.utils import timezone
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
@@ -77,8 +78,13 @@ class Account(models.Model):
     @property
     def full_name(self):
         return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
-    shipping_address=models.CharField(default="",max_length=150, blank=True)
+    
     mobile_number=models.CharField(default="",max_length=20,blank=True)
+    
+    # Client Specific Fields
+    shipping_address=models.CharField(default="",max_length=150, blank=True)
+    # Name of organization (Ex: ADHD Society of the Philippines)
+    organization_name=models.CharField(default="",max_length=255,blank=True,null=True)
     
     # Employee Specific Fields
     EMPLOYEE_TYPE=[
@@ -276,7 +282,10 @@ class Product(models.Model):
 class Quotation(models.Model):
     
     ### PROJECT-WIDE SETTINGS ###
-        
+    
+    # Which client created this quotation?
+    client = ForeignKey(to=Account,null=True,on_delete=models.SET_NULL)
+    
     # Choices for approval status
     STATUS=[
         ('not_approved','Not Approved'),
@@ -285,6 +294,8 @@ class Quotation(models.Model):
         ]
     # IS QUOTATION APPROVED OR NOT?
     approval_status=models.CharField(default='in_progress',max_length=12, choices=STATUS)
+    # DATE OF APPROVAL
+    approval_date=models.DateTimeField(null=True,blank=True)
     
     # Choices for printing process
     PROCESS=[
@@ -302,15 +313,8 @@ class Quotation(models.Model):
     # HOW MANY COPIES WERE ORDERED BY CLIENT?
     quantity=models.IntegerField(default=1,null=False)
     
-    # Choices for number of colors
-    COLORS=[
-        (1,'One Color (Black and White'),
-        (2,'Two Colors (CMYK)'),
-        (3,'Three Colors (CMYK)'),
-        (4,'Full Color (CMYK)')
-    ]
-    # HOW MANY COLORS DOES THE PROJECT HAVE?
-    no_colors=models.IntegerField(default=4,choices=COLORS)
+    # HOW MANY PAGES DOES A SINGLE COPY HAVE?
+    total_pages=models.IntegerField(default=1,null=False)
     
     # WHEN WAS THE QUOTATION CREATED?
     created_date=models.DateTimeField(auto_now_add=True)
@@ -377,6 +381,16 @@ class QuotationItem(models.Model):
     # WHAT TYPE OF QUOTATION ITEM IS IT? Example: books have inner pages and covers
     item_type=models.CharField(default="inner",max_length=10,choices=ITEM_TYPE)
     
+    # Choices for number of colors
+    COLORS=[
+        (1,'One Color (Black and White'),
+        (2,'Two Colors (CMYK)'),
+        (3,'Three Colors (CMYK)'),
+        (4,'Full Color (CMYK)')
+    ]
+    # HOW MANY COLORS DOES THE PROJECT HAVE?
+    no_colors=models.IntegerField(default=4,choices=COLORS)
+    
     # PAPER TYPE
     paper=models.ForeignKey(to=Paper, null=True, on_delete=models.SET_NULL)
     
@@ -385,6 +399,9 @@ class QuotationItem(models.Model):
     
     # BINDING TYPE
     binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
+    
+    # Running costs for all plates of a particular quotation item
+    quotation_running_costs=models.FloatField(default=0.0,null=True,blank=True)
     
 class Plate(models.Model):
     # QUOTATION ITEM THAT PLATE IS ASSOCIATED WITH
