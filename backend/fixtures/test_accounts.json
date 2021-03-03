@@ -78,13 +78,94 @@
     }
 },
 {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$EzwPt7CXU0H3$m8Z0dXxYTJZI/ptVpshWXJKBF1F4UmtDcrcRyH32Pz0=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "piedpiper",
+        "first_name": "Piper",
+        "last_name": "Field",
+        "email": "flute@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-03T17:22:23Z",
+        "groups": [
+            4
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$tSGBsjGqDt20$N7jk1sLZy/H/QElHCKUJUnXFIzRrjc246Xh5bUwPjUo=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "grilledcheese",
+        "first_name": "Harold",
+        "last_name": "Lanes",
+        "email": "grilledchees@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-03T17:29:18Z",
+        "groups": [
+            5
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$rNZvbh7DYsB5$EkH6z2vB2rdXVVyCmlZXaR3LohNsMDIeNmbqE3uVjFw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "pupper",
+        "first_name": "Blue",
+        "last_name": "Green",
+        "email": "retriever@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-03T17:33:40Z",
+        "groups": [
+            2,
+            6
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$aHytSAQZ9bb8$ZBbkJSkMSXc+E7wQk1YNtpQExmDAnIVKsW1GlhkZm1w=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "eggs",
+        "first_name": "Benedict",
+        "last_name": "Miller",
+        "email": "bread@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-03T17:37:18Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
     "model": "api.account",
     "pk": 1,
     "fields": {
         "user": 2,
         "middle_name": null,
         "mobile_number": "09000000000",
-        "shipping_address": "123 Data St.",
+        "shipping_address": "123 Data St., Computer City",
         "organization_name": "",
         "job_position": null,
         "plate_number": null,
@@ -101,7 +182,7 @@
         "user": 3,
         "middle_name": null,
         "mobile_number": "09000000000",
-        "shipping_address": "asdf",
+        "shipping_address": "00, Asdf St., Alphabet City",
         "organization_name": "",
         "job_position": null,
         "plate_number": null,
@@ -117,13 +198,81 @@
     "fields": {
         "user": 4,
         "middle_name": "M",
-        "mobile_number": "09000000000",
-        "shipping_address": "1234",
+        "mobile_number": "09120000000",
+        "shipping_address": "2345 Moon St., Star City",
         "organization_name": "",
         "job_position": null,
         "plate_number": null,
         "license_number": null,
         "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 4,
+    "fields": {
+        "user": 5,
+        "middle_name": "Marlene",
+        "mobile_number": "09000000000",
+        "shipping_address": "1234 Sunshine St., Moon City",
+        "organization_name": "",
+        "job_position": "AM",
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": "1234567",
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 5,
+    "fields": {
+        "user": 6,
+        "middle_name": "Chez",
+        "mobile_number": "09130000000",
+        "shipping_address": "23 Gouda St., Milk City",
+        "organization_name": "",
+        "job_position": "D",
+        "plate_number": null,
+        "license_number": "30006724567",
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 6,
+    "fields": {
+        "user": 7,
+        "middle_name": "Goldie",
+        "mobile_number": "09670000000",
+        "shipping_address": "45 Fur St., Dander City",
+        "organization_name": "",
+        "job_position": "P",
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": "9074738"
+    }
+},
+{
+    "model": "api.account",
+    "pk": 7,
+    "fields": {
+        "user": 8,
+        "middle_name": "Eggs",
+        "mobile_number": "09799999999",
+        "shipping_address": "",
+        "organization_name": "",
+        "job_position": "O",
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": "4567896",
         "account_manager_key": null,
         "production_staff_position": null
     }
