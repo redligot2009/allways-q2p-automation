@@ -20,6 +20,9 @@ class Account(models.Model):
     def full_name(self):
         return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
     
+    def __str__(self):
+        return "%s" % (self.full_name)
+    
     mobile_number=models.CharField(default="",max_length=20,blank=True)
     
     # Client Specific Fields
@@ -228,7 +231,17 @@ class Quotation(models.Model):
     ### PROJECT-WIDE SETTINGS ###
     
     # Which client created this quotation?
-    client = ForeignKey(to=Account,null=True,blank=True,on_delete=models.SET_NULL)
+    client = models.ForeignKey(to=Account,null=True,blank=True,on_delete=models.SET_NULL)
+    
+    # What is this project anyway? (example: Software Engineering 12th Edition, 1st run)
+    project_name = models.CharField(default="Unnamed Project",max_length=255,null=False)
+    
+    # When was the request for quotation created by client?
+    created_date = models.DateTimeField(auto_now_add=True,null=False)
+    
+    # String representation of a quotation
+    def __str__(self):
+        return "%s" % self.project_name
     
     # Choices for approval status
     STATUS=[
@@ -261,7 +274,7 @@ class Quotation(models.Model):
     total_pages=models.IntegerField(default=1,null=False)
     
     # WHEN WAS THE QUOTATION CREATED?
-    created_date=models.DateTimeField(auto_now_add=True)
+    created_date=models.DateTimeField(default=timezone.now(),null=False)
     
     # PATH TO WHERE CLIENT'S UPLOADED FILES ARE
     project_file_path=models.CharField(max_length=255, blank=True)

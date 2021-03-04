@@ -124,7 +124,10 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
     fieldsets=(
         ("Project Settings", {
             'fields' : ('client',
-                        'approval_status', 
+                        'project_name',
+                        'created_date',
+                        'approval_status',
+                        'approval_date', 
                         'printing_process',
                         'product_type',
                         'total_pages',
@@ -173,6 +176,14 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
                        'final_unit_costs',
                        'final_total_costs',)
         }),
+    )
+    list_display=(
+        'project_name',
+        'client',
+        'created_date',
+        'approval_status',
+        'approval_date',
+        'product_type',
     )
     inlines=[
         QuotationItemInline
