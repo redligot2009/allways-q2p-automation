@@ -375,8 +375,17 @@ class Quotation(models.Model):
     
     ### BINDING / FOLDING / GATHERING COSTS ###
     total_binding_costs = models.FloatField(default=0.0)
+    
+    # How many folds does this project have?
     total_folds=models.IntegerField(default=1,null=False)
-    total_folding_costs=models.FloatField(default=0.0)
+    
+    # Get total folding costs
+    def get_total_folding_costs(self):
+        total_signatures = 2 * self.exact_no_sheets
+        return (self.total_folds * production_constants.base_price_fold * total_signatures)
+    total_folding_costs=property(get_total_folding_costs)
+    
+    # Get total gathering costs
     total_gathering_costs=models.FloatField(default=0.0)
     
     ### EXTRA COSTS ###
