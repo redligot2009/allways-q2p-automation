@@ -278,7 +278,7 @@ class Quotation(models.Model):
     
     ### PLATES / RUNNING COSTS ###
     # Number of pages that can fit on a single one-sided plate
-    pages_can_fit=models.CharField(default=1,max_length=4)
+    pages_can_fit=models.IntegerField(default=1,blank=False)
     
     # Number of plates in the entire project
     def get_total_no_plates(self):
@@ -299,6 +299,21 @@ class Quotation(models.Model):
     total_running_costs=models.FloatField(default=0.0)
     
     ### PAPER COSTS ###
+    # Get exact number of sheets
+    def get_exact_no_sheets(self):
+        return int(self.total_pages/self.pages_can_fit)
+    exact_no_sheets=property(get_exact_no_sheets)
+    
+    # Get extra sheets ordered
+    def get_extra_sheets(self):
+        return int(self.margin_of_error * self.exact_no_sheets)
+    extra_sheets = property(get_extra_sheets)
+    
+    # Get total number of sheets
+    def get_total_no_sheets(self):
+        return self.quantity * (self.exact_no_sheets + self.extra_sheets)
+    total_no_sheets=property(get_total_no_sheets)
+    
     # Total costs for all paper in the entire project
     total_paper_costs=models.FloatField(default=0.0)
     
