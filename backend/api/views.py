@@ -7,9 +7,9 @@ from .models import Lamination, DieCut, Binding, Paper, ProductionConstants
 from .models import Quotation, QuotationItem, Plate, Product
 from .serializers import AccountSerializer, InvoiceSerializer, ProductSerializer
 from .serializers import JobOrderSerializer, PaperSerializer, PrintingProcessSerializer
-from .serializers import LaminationSeriazlier, DieCutSerializer, BindingSerializer
+from .serializers import LaminationSerializer, DieCutSerializer, BindingSerializer
 from .serializers import ProductionConstantsSerializer, PlateSerializer, QuotationItemSerializer
-from .serializers import QuotationSeriazlier
+from .serializers import QuotationSerializer
 # Create your views here.
 
 class AccountViewSet(viewsets.ModelViewset):
