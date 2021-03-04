@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import logging
 
 """
 ===========================================
@@ -277,8 +278,15 @@ class Quotation(models.Model):
     ### PLATES / RUNNING COSTS ###
     # Number of pages that can fit on a single one-sided plate
     pages_can_fit=models.CharField(default=1,max_length=4)
+    
     # Number of plates in the entire project
-    total_no_plates=models.IntegerField(default=1,null=False)
+    def get_total_no_plates(self):
+        total_plates = 0
+        for item in self.items.all():
+            total_plates += item.plates.all().count() * item.no_colors
+        return total_plates
+    total_no_plates=property(get_total_no_plates)
+    
     # Total costs for all plates in the entire project
     total_plate_costs=models.FloatField(default=0.0)
     # Total costs for running all plates in the entire project

@@ -172,6 +172,9 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
     inlines=[
         QuotationItemInline
     ]
+    readonly_fields=(
+        'total_no_plates',
+    )
     pass
 
 
