@@ -53,12 +53,14 @@ class Account(models.Model):
 
 @receiver(post_save,sender=User)
 def create_user_account(sender,instance,created,**kwargs):
-    if created:
-        Account.objects.create(user=instance)
+    if (kwargs.get('created', True) and not kwargs.get('raw', False)):
+        if created:
+            Account.objects.create(user=instance)
 
 @receiver(post_save,sender=User)
 def save_user_account(sender,instance,created,**kwargs):
-    instance.account.save()
+    if (kwargs.get('created', True) and not kwargs.get('raw', False)):
+        instance.account.save()
 
 """
 =======================================================
