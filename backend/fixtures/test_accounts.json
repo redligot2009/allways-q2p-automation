@@ -1,27 +1,693 @@
 [
 {
-    "model": "auth.user",
+    "model": "auth.permission",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$216000$MlGpVsxo9Ao2$2rTk6SztCsArKKLvEdDF2zebgo4WWz3twvGBqzkh9VI=",
-        "last_login": "2021-02-28T12:18:14.758Z",
-        "is_superuser": true,
-        "username": "choco",
-        "first_name": "",
-        "last_name": "",
-        "email": "bianca.guerra@obf.ateneo.edu",
-        "is_staff": true,
-        "is_active": true,
-        "date_joined": "2021-02-28T12:12:19.541Z",
-        "groups": [],
-        "user_permissions": []
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add account",
+        "content_type": 7,
+        "codename": "add_account"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change account",
+        "content_type": 7,
+        "codename": "change_account"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete account",
+        "content_type": 7,
+        "codename": "delete_account"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view account",
+        "content_type": 7,
+        "codename": "view_account"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add invoice",
+        "content_type": 8,
+        "codename": "add_invoice"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change invoice",
+        "content_type": 8,
+        "codename": "change_invoice"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete invoice",
+        "content_type": 8,
+        "codename": "delete_invoice"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view invoice",
+        "content_type": 8,
+        "codename": "view_invoice"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add job order",
+        "content_type": 9,
+        "codename": "add_joborder"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change job order",
+        "content_type": 9,
+        "codename": "change_joborder"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete job order",
+        "content_type": 9,
+        "codename": "delete_joborder"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view job order",
+        "content_type": 9,
+        "codename": "view_joborder"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add production constants",
+        "content_type": 10,
+        "codename": "add_productionconstants"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change production constants",
+        "content_type": 10,
+        "codename": "change_productionconstants"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete production constants",
+        "content_type": 10,
+        "codename": "delete_productionconstants"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view production constants",
+        "content_type": 10,
+        "codename": "view_productionconstants"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add paper",
+        "content_type": 11,
+        "codename": "add_paper"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change paper",
+        "content_type": 11,
+        "codename": "change_paper"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete paper",
+        "content_type": 11,
+        "codename": "delete_paper"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view paper",
+        "content_type": 11,
+        "codename": "view_paper"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add printing process",
+        "content_type": 12,
+        "codename": "add_printingprocess"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change printing process",
+        "content_type": 12,
+        "codename": "change_printingprocess"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete printing process",
+        "content_type": 12,
+        "codename": "delete_printingprocess"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view printing process",
+        "content_type": 12,
+        "codename": "view_printingprocess"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+        "name": "Can add lamination",
+        "content_type": 13,
+        "codename": "add_lamination"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+        "name": "Can change lamination",
+        "content_type": 13,
+        "codename": "change_lamination"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+        "name": "Can delete lamination",
+        "content_type": 13,
+        "codename": "delete_lamination"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+        "name": "Can view lamination",
+        "content_type": 13,
+        "codename": "view_lamination"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+        "name": "Can add die cut",
+        "content_type": 14,
+        "codename": "add_diecut"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+        "name": "Can change die cut",
+        "content_type": 14,
+        "codename": "change_diecut"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+        "name": "Can delete die cut",
+        "content_type": 14,
+        "codename": "delete_diecut"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+        "name": "Can view die cut",
+        "content_type": 14,
+        "codename": "view_diecut"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+        "name": "Can add binding",
+        "content_type": 15,
+        "codename": "add_binding"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+        "name": "Can change binding",
+        "content_type": 15,
+        "codename": "change_binding"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+        "name": "Can delete binding",
+        "content_type": 15,
+        "codename": "delete_binding"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+        "name": "Can view binding",
+        "content_type": 15,
+        "codename": "view_binding"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+        "name": "Can add product",
+        "content_type": 16,
+        "codename": "add_product"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+        "name": "Can change product",
+        "content_type": 16,
+        "codename": "change_product"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+        "name": "Can delete product",
+        "content_type": 16,
+        "codename": "delete_product"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+        "name": "Can view product",
+        "content_type": 16,
+        "codename": "view_product"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 65,
+    "fields": {
+        "name": "Can add quotation",
+        "content_type": 17,
+        "codename": "add_quotation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 66,
+    "fields": {
+        "name": "Can change quotation",
+        "content_type": 17,
+        "codename": "change_quotation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 67,
+    "fields": {
+        "name": "Can delete quotation",
+        "content_type": 17,
+        "codename": "delete_quotation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 68,
+    "fields": {
+        "name": "Can view quotation",
+        "content_type": 17,
+        "codename": "view_quotation"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+        "name": "Can add quotation item",
+        "content_type": 18,
+        "codename": "add_quotationitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+        "name": "Can change quotation item",
+        "content_type": 18,
+        "codename": "change_quotationitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+        "name": "Can delete quotation item",
+        "content_type": 18,
+        "codename": "delete_quotationitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+        "name": "Can view quotation item",
+        "content_type": 18,
+        "codename": "view_quotationitem"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 73,
+    "fields": {
+        "name": "Can add plate",
+        "content_type": 19,
+        "codename": "add_plate"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 74,
+    "fields": {
+        "name": "Can change plate",
+        "content_type": 19,
+        "codename": "change_plate"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 75,
+    "fields": {
+        "name": "Can delete plate",
+        "content_type": 19,
+        "codename": "delete_plate"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 76,
+    "fields": {
+        "name": "Can view plate",
+        "content_type": 19,
+        "codename": "view_plate"
     }
 },
 {
     "model": "auth.user",
     "pk": 2,
     "fields": {
-        "password": "pbkdf2_sha256$216000$wdAkJbQc1Ykl$Gs7MqHMX1+yxKZjQ7O1CEraMKpg5cEFXEqWO+Ce8zwk=",
+        "password": "pbkdf2_sha256$216000$NoUbxEUnnNCR$qDuAkljKKPwApIwiXzxkY09ojolUGXaHKq97J7D/1+I=",
         "last_login": null,
         "is_superuser": false,
         "username": "clayusa",
@@ -30,10 +696,8 @@
         "email": "clayusatest@email.com",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2021-03-03T13:05:46Z",
-        "groups": [
-            1
-        ],
+        "date_joined": "2021-03-04T10:19:29Z",
+        "groups": [],
         "user_permissions": []
     }
 },
@@ -41,27 +705,7 @@
     "model": "auth.user",
     "pk": 3,
     "fields": {
-        "password": "pbkdf2_sha256$216000$l4bZe4iolHq0$CHpMje9zwKUnZmwl1usxDJKx5uiIuQlGaAn73XSN9N0=",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "asiancollege",
-        "first_name": "Asian College",
-        "last_name": "",
-        "email": "",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2021-03-03T13:38:30Z",
-        "groups": [
-            1
-        ],
-        "user_permissions": []
-    }
-},
-{
-    "model": "auth.user",
-    "pk": 4,
-    "fields": {
-        "password": "pbkdf2_sha256$216000$TmCLtCzvM5Yf$0cGZyo8+DtFV4AAdA6FGFRJWoYbEt16x+mEUZwKouuw=",
+        "password": "pbkdf2_sha256$216000$av9AuLA4rCDN$ZQ2jn2h9fI1WWRDNBoPu9IpzUgkue+xxqqZpkHCgr/g=",
         "last_login": null,
         "is_superuser": false,
         "username": "dosabel",
@@ -70,10 +714,26 @@
         "email": "dosabel@email.com",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2021-03-03T13:39:37Z",
-        "groups": [
-            1
-        ],
+        "date_joined": "2021-03-04T10:32:15Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$XTp5fcxLFw0p$VGYh0G3xx3RJz0iJABEWhhquBFW1AWA0CgVAviKTCQk=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "asiancollege",
+        "first_name": "Asian College",
+        "last_name": "",
+        "email": "asiancollege@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-04T10:32:53Z",
+        "groups": [],
         "user_permissions": []
     }
 },
@@ -81,19 +741,17 @@
     "model": "auth.user",
     "pk": 5,
     "fields": {
-        "password": "pbkdf2_sha256$216000$EzwPt7CXU0H3$m8Z0dXxYTJZI/ptVpshWXJKBF1F4UmtDcrcRyH32Pz0=",
+        "password": "pbkdf2_sha256$216000$b2jlRVYs6lwD$sc6ewHekkn0rqT33VxCd0UogM4KlG9W8CRtBNSr7ASM=",
         "last_login": null,
         "is_superuser": false,
-        "username": "piedpiper",
-        "first_name": "Piper",
-        "last_name": "Field",
-        "email": "flute@email.com",
+        "username": "grilledcheese",
+        "first_name": "Blue",
+        "last_name": "Green",
+        "email": "bread@email.com",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2021-03-03T17:22:23Z",
-        "groups": [
-            4
-        ],
+        "date_joined": "2021-03-04T10:33:47Z",
+        "groups": [],
         "user_permissions": []
     }
 },
@@ -101,19 +759,17 @@
     "model": "auth.user",
     "pk": 6,
     "fields": {
-        "password": "pbkdf2_sha256$216000$tSGBsjGqDt20$N7jk1sLZy/H/QElHCKUJUnXFIzRrjc246Xh5bUwPjUo=",
+        "password": "pbkdf2_sha256$216000$nQNbKmNPqilh$E8Lxvid2DU7nhjiyi3dpauZt49Wh40/DZJ2PLdLRk3E=",
         "last_login": null,
         "is_superuser": false,
-        "username": "grilledcheese",
-        "first_name": "Harold",
-        "last_name": "Lanes",
-        "email": "grilledchees@email.com",
+        "username": "piedpiper",
+        "first_name": "Piper",
+        "last_name": "Miller",
+        "email": "flute@email.com",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2021-03-03T17:29:18Z",
-        "groups": [
-            5
-        ],
+        "date_joined": "2021-03-04T10:35:10Z",
+        "groups": [],
         "user_permissions": []
     }
 },
@@ -121,20 +777,17 @@
     "model": "auth.user",
     "pk": 7,
     "fields": {
-        "password": "pbkdf2_sha256$216000$rNZvbh7DYsB5$EkH6z2vB2rdXVVyCmlZXaR3LohNsMDIeNmbqE3uVjFw=",
+        "password": "pbkdf2_sha256$216000$yvrf7PQNP9j5$v3soiGYnAqFs3+mt+GHHDXTweZkP17uE2VsktgKmyp4=",
         "last_login": null,
         "is_superuser": false,
         "username": "pupper",
-        "first_name": "Blue",
-        "last_name": "Green",
+        "first_name": "Harold",
+        "last_name": "Lanes",
         "email": "retriever@email.com",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2021-03-03T17:33:40Z",
-        "groups": [
-            2,
-            6
-        ],
+        "date_joined": "2021-03-04T10:35:51Z",
+        "groups": [],
         "user_permissions": []
     }
 },
@@ -142,19 +795,17 @@
     "model": "auth.user",
     "pk": 8,
     "fields": {
-        "password": "pbkdf2_sha256$216000$aHytSAQZ9bb8$ZBbkJSkMSXc+E7wQk1YNtpQExmDAnIVKsW1GlhkZm1w=",
+        "password": "pbkdf2_sha256$216000$EHPWYPfwG9Ij$w0BvrUehAmn1JlLNRdvJXGd78VqOvJ7R+xtm+g0N+/M=",
         "last_login": null,
         "is_superuser": false,
         "username": "eggs",
         "first_name": "Benedict",
-        "last_name": "Miller",
-        "email": "bread@email.com",
+        "last_name": "Bread",
+        "email": "toast@email.com",
         "is_staff": false,
         "is_active": true,
-        "date_joined": "2021-03-03T17:37:18Z",
-        "groups": [
-            3
-        ],
+        "date_joined": "2021-03-04T10:36:49Z",
+        "groups": [],
         "user_permissions": []
     }
 },
@@ -162,10 +813,10 @@
     "model": "api.account",
     "pk": 1,
     "fields": {
-        "user": 2,
+        "user": 1,
         "middle_name": null,
-        "mobile_number": "09000000000",
-        "shipping_address": "123 Data St., Computer City",
+        "mobile_number": "",
+        "shipping_address": "",
         "organization_name": "",
         "job_position": null,
         "plate_number": null,
@@ -179,7 +830,7 @@
     "model": "api.account",
     "pk": 2,
     "fields": {
-        "user": 3,
+        "user": 2,
         "middle_name": null,
         "mobile_number": "09000000000",
         "shipping_address": "00, Asdf St., Alphabet City",
@@ -196,10 +847,10 @@
     "model": "api.account",
     "pk": 3,
     "fields": {
-        "user": 4,
+        "user": 3,
         "middle_name": "M",
         "mobile_number": "09120000000",
-        "shipping_address": "2345 Moon St., Star City",
+        "shipping_address": "123 Data St., Computer City",
         "organization_name": "",
         "job_position": null,
         "plate_number": null,
@@ -213,10 +864,44 @@
     "model": "api.account",
     "pk": 4,
     "fields": {
+        "user": 4,
+        "middle_name": null,
+        "mobile_number": "09130000000",
+        "shipping_address": "2345 Moon St., Star City",
+        "organization_name": "",
+        "job_position": null,
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 5,
+    "fields": {
         "user": 5,
-        "middle_name": "Marlene",
-        "mobile_number": "09000000000",
-        "shipping_address": "1234 Sunshine St., Moon City",
+        "middle_name": "Chez",
+        "mobile_number": "09799999999",
+        "shipping_address": "",
+        "organization_name": "",
+        "job_position": "D",
+        "plate_number": null,
+        "license_number": "12340976865",
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 6,
+    "fields": {
+        "user": 6,
+        "middle_name": null,
+        "mobile_number": "",
+        "shipping_address": "",
         "organization_name": "",
         "job_position": "AM",
         "plate_number": null,
@@ -228,45 +913,28 @@
 },
 {
     "model": "api.account",
-    "pk": 5,
-    "fields": {
-        "user": 6,
-        "middle_name": "Chez",
-        "mobile_number": "09130000000",
-        "shipping_address": "23 Gouda St., Milk City",
-        "organization_name": "",
-        "job_position": "D",
-        "plate_number": null,
-        "license_number": "30006724567",
-        "owner_key": null,
-        "account_manager_key": null,
-        "production_staff_position": null
-    }
-},
-{
-    "model": "api.account",
-    "pk": 6,
+    "pk": 7,
     "fields": {
         "user": 7,
-        "middle_name": "Goldie",
-        "mobile_number": "09670000000",
-        "shipping_address": "45 Fur St., Dander City",
+        "middle_name": null,
+        "mobile_number": "",
+        "shipping_address": "",
         "organization_name": "",
         "job_position": "P",
         "plate_number": null,
         "license_number": null,
         "owner_key": null,
         "account_manager_key": null,
-        "production_staff_position": "9074738"
+        "production_staff_position": "Staff"
     }
 },
 {
     "model": "api.account",
-    "pk": 7,
+    "pk": 8,
     "fields": {
         "user": 8,
         "middle_name": "Eggs",
-        "mobile_number": "09799999999",
+        "mobile_number": "",
         "shipping_address": "",
         "organization_name": "",
         "job_position": "O",
