@@ -195,6 +195,7 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         'extra_sheets',
         'total_no_sheets',
         'total_paper_costs',
+        'total_running_costs'
     )
     pass
 

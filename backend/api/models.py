@@ -237,7 +237,7 @@ class Quotation(models.Model):
     project_name = models.CharField(default="Unnamed Project",max_length=255,null=False)
     
     # When was the request for quotation created by client?
-    created_date = models.DateTimeField(auto_now_add=True,null=False)
+    created_date = models.DateTimeField(default=timezone.now(),null=False)
     
     # String representation of a quotation
     def __str__(self):
@@ -309,7 +309,12 @@ class Quotation(models.Model):
     total_plate_costs=property(get_total_plate_costs)
     
     # Total costs for running all plates in the entire project
-    total_running_costs=models.FloatField(default=0.0)
+    def get_total_running_costs(self):
+        total = 0.0
+        for item in self.items.all():
+            total += item.quotation_running_costs
+        return total
+    total_running_costs=property(get_total_running_costs)
     
     ### PAPER COSTS ###
     # Get exact number of sheets
