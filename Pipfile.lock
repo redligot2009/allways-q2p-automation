@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2ef55e083966a7db0475c5a64f503770a9fd61693417af6f0bfa687814e19525"
+            "sha256": "8d8e359e36a4817c1449c071d8e55b725b4391458767240aa695e3dad747b4b2"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -39,6 +39,14 @@
             ],
             "index": "pypi",
             "version": "==3.7.0"
+        },
+        "django-fixture-magic": {
+            "hashes": [
+                "sha256:c50f3de4a46a5844e2c1e2a9ff88b29db0830da8383e43d5ef6a66f1c4bfd8af",
+                "sha256:d82a4d4f6ade078e942927b5157f0536d0cd0232adfeb943dced0858128dd734"
+            ],
+            "index": "pypi",
+            "version": "==0.1.5"
         },
         "django-nested-admin": {
             "hashes": [
