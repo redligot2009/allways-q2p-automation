@@ -198,7 +198,10 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         'total_signatures',
         'total_folding_costs',
         'total_gathering_costs',
+        'total_lamination_costs',
         'raw_total_costs',
+        'final_unit_costs',
+        'final_total_costs',
     )
     pass
 

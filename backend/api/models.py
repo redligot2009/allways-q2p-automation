@@ -370,8 +370,14 @@ class Quotation(models.Model):
     total_paper_costs = property(get_total_paper_costs)
     
     ### FINISHING COSTS ###
+    
     # Total costs for lamination for the entire project
-    total_lamination_costs=models.FloatField(default=0.0)
+    def get_total_lamination_costs(self):
+        total = 0
+        for item in self.items.all():
+            total += item.lamination_costs
+        return total
+    total_lamination_costs=property(get_total_lamination_costs)
     
     ### BINDING / FOLDING / GATHERING COSTS ###
     total_binding_costs = models.FloatField(default=0.0)
@@ -410,8 +416,20 @@ class Quotation(models.Model):
                 )
     raw_total_costs=property(get_raw_total_costs)
     
-    final_unit_costs=models.FloatField(default=0.0)
-    final_total_costs=models.FloatField(default=0.0)
+    # Get markup costs to add to raw total costs for profit
+    def get_markup_costs(self):
+	    return self.markup_percentage * self.raw_total_costs
+    markup_costs=property(get_markup_costs)
+    
+    # Get final total costs for the entire project w/ markup
+    def get_final_total_costs(self):
+	    return self.raw_total_costs + self.markup_costs
+    final_total_costs=property(get_final_total_costs)
+    
+    # Get final unit costs for a single copy in the project
+    def get_final_unit_costs(self):
+	    return float(self.final_total_costs / self.quantity)
+    final_unit_costs=property(get_final_unit_costs)
 
 class QuotationItem(models.Model):
     
@@ -444,11 +462,15 @@ class QuotationItem(models.Model):
     # LAMINATION TYPE
     lamination=models.ForeignKey(to=Lamination, null=True, on_delete=models.SET_NULL, blank=True)
     
+    # Lamination costs for a single quotation item 
+    lamination_costs=models.FloatField(default=0.0,null=True,blank=True)
+    
     # BINDING TYPE
     binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
     
     # Running costs for all plates of a particular quotation item
     quotation_running_costs=models.FloatField(default=0.0,null=True,blank=True)
+    
     
 class Plate(models.Model):
     # QUOTATION ITEM THAT PLATE IS ASSOCIATED WITH
