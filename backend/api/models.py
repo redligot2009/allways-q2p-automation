@@ -6,66 +6,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 """
-===========================================================
-==== 0 - (HARDCODED) PREPOPULATE USER AND GROUP MODELS ====
-===========================================================
-
-=== OVERALL DESCRIPTION ===
-These are basically test data that ideally would be moved elsewhere as we
-develop the project. Don't pay much attention to this, as eventually we 
-will replace all of these hardcoded test data with proper Django fixtures.
-
-"""
-
-"""
-=== DESCRIPTION ===
-The code below creates the following test data:
-1. A Group object for clients
-2. A Group object for employees
-3. Group objects for each of the four employee types: 
-    (Owners, Account Managers, Deliverymen, Production Staff)
-
-What are Django groups anyway? Think of it as a way to associate users
-into groups, with a particular set of permissions that restrict what they 
-can do on the system. It will be useful eventually once we develop the 
-different API endpoints which can only be used by certain kinds of users. :)
-
-TODO:
-- Set up permissions for each group (what can they create, retrieve, update, delete)
-
-"""
-
-try:
-    client_group = Group.objects.get(name="Clients")
-except Group.DoesNotExist:
-    Group.objects.create(name="Clients").save()
-
-try:
-    employee_group = Group.objects.get(name="Employees")
-except Group.DoesNotExist:
-    Group.objects.create(name="Employees").save()
-
-try:
-    owner_group = Group.objects.get(name="Owners")
-except Group.DoesNotExist:
-    Group.objects.create(name="Owners").save()
-
-try:
-    owner_group = Group.objects.get(name="Account Managers")
-except Group.DoesNotExist:
-    Group.objects.create(name="Account Managers").save()
-    
-try:
-    delivery_man_group = Group.objects.get(name="Delivery Men")
-except Group.DoesNotExist:
-    Group.objects.create(name="Delivery Men").save()
-
-try:
-    delivery_man_group = Group.objects.get(name="Production Staff")
-except Group.DoesNotExist:
-    Group.objects.create(name="Production Staff").save()
-
-"""
 ===========================================
 ==== 1 - SET UP ACCOUNT RELATED MODELS ====
 ===========================================
@@ -113,12 +53,14 @@ class Account(models.Model):
 
 @receiver(post_save,sender=User)
 def create_user_account(sender,instance,created,**kwargs):
-    if created:
-        Account.objects.create(user=instance)
+    if (kwargs.get('created', True) and not kwargs.get('raw', False)):
+        if created:
+            Account.objects.create(user=instance)
 
 @receiver(post_save,sender=User)
 def save_user_account(sender,instance,created,**kwargs):
-    instance.account.save()
+    if (kwargs.get('created', True) and not kwargs.get('raw', False)):
+        instance.account.save()
 
 """
 =======================================================
@@ -284,7 +226,7 @@ class Quotation(models.Model):
     ### PROJECT-WIDE SETTINGS ###
     
     # Which client created this quotation?
-    client = ForeignKey(to=Account,null=True,on_delete=models.SET_NULL)
+    client = ForeignKey(to=Account,null=True,blank=True,on_delete=models.SET_NULL)
     
     # Choices for approval status
     STATUS=[

@@ -123,7 +123,8 @@ class QuotationItemInline(nested_admin.NestedStackedInline):
 class QuotationAdmin(nested_admin.NestedModelAdmin):
     fieldsets=(
         ("Project Settings", {
-            'fields' : ('approval_status', 
+            'fields' : ('client',
+                        'approval_status', 
                         'printing_process',
                         'product_type',)
         }),
