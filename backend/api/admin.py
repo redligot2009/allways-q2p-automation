@@ -127,7 +127,8 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
                         'approval_status', 
                         'printing_process',
                         'product_type',
-                        'total_pages')
+                        'total_pages',
+                        'quantity')
         }),
         ("Cost-related Settings", {
             'fields': ('markup_percentage',
@@ -144,10 +145,10 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
                       'total_running_costs',)
         }),
         ("Paper Costs", {
-            'fields': ('total_paper_costs',
-                       'exact_no_sheets',
+            'fields': ('exact_no_sheets',
                        'extra_sheets',
-                       'total_no_sheets',)
+                       'total_no_sheets',
+                       'total_paper_costs',)
         }),
         ("Finishing Costs", {
             'fields': ('total_lamination_costs',)
@@ -182,6 +183,7 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         'exact_no_sheets',
         'extra_sheets',
         'total_no_sheets',
+        'total_paper_costs',
     )
     pass
 

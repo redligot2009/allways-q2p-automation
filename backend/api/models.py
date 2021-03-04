@@ -315,7 +315,41 @@ class Quotation(models.Model):
     total_no_sheets=property(get_total_no_sheets)
     
     # Total costs for all paper in the entire project
-    total_paper_costs=models.FloatField(default=0.0)
+    # total_paper_costs=models.FloatField(default=0.0)
+    # TODO: Refactor so it is not an unmaintainable piece of shit.
+    def get_total_paper_costs(self):
+        # Running sum of paper costs
+        paper_costs = 0
+        for item in self.items.all():
+            # "Extract" how many sheets of paper for a particular item is needed
+            item_exact_no_sheets = 1
+            item_extra_no_sheets = 0
+            item_total_no_sheets = 1
+            # Cover only has 2 pages at most, therefore it takes only 1 sheet to print a single copy's cover
+            if item.item_type == 'cover':
+                item_exact_no_sheets = 1
+                item_extra_no_sheets = item_exact_no_sheets * self.margin_of_error
+                item_total_no_sheets = (self.quantity*item_exact_no_sheets) + item_extra_no_sheets
+            else:
+                # Default case, either inner pages or "other." If there is a cover, it might be possible that you need an extra sheet
+                item_exact_no_sheets = self.exact_no_sheets + (1 if item.item_type == 'inner' else 0)
+                item_extra_no_sheets = item_exact_no_sheets * self.margin_of_error
+                item_total_no_sheets = (self.quantity*item_exact_no_sheets)+item_extra_no_sheets
+            # Some papers have a ream_cost, some only have leaf_cost
+            if item.paper.ream_cost != 0.0:
+                # 500 sheets = 1 ream. The code below just gets the cost of all reams, and the cost of the extra leaves you need afterwards 
+                no_reams = int(item_total_no_sheets / 500)
+                total_reams_cost = no_reams * item.paper.ream_cost 
+                extra_leaves_cost = item.paper.leaf_cost * (item_total_no_sheets-(no_reams*500))
+                # Adds to running sum of paper costs so far
+                paper_costs += total_reams_cost + extra_leaves_cost
+            else:
+                # If there is no ream cost, then number of leaves = number of sheets.
+                # Therefore, you just multiply the item_total_no_sheets by the leaf cost to get total paper costs
+                paper_costs += item_total_no_sheets * item.paper.leaf_cost
+        # Return the result of the algorithm above^
+        return paper_costs
+    total_paper_costs = property(get_total_paper_costs)
     
     ### FINISHING COSTS ###
     # Total costs for lamination for the entire project
