@@ -159,12 +159,11 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         ("Binding Costs", {
             'fields': ('total_binding_costs',)
         }),
-        ("Folding Costs", {
+        ("Folding + Gathering Costs", {
             'fields': ('total_folds',
-                       'total_folding_costs',)
-        }),
-        ("Gathering Costs", {
-            'fields': ('total_gathering_costs',)
+                       'total_signatures',
+                       'total_folding_costs',
+                       'total_gathering_costs',)
         }),
         ("Extra Costs", {
             'fields': ('cutting_costs',
@@ -196,7 +195,9 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         'total_no_sheets',
         'total_paper_costs',
         'total_running_costs',
+        'total_signatures',
         'total_folding_costs',
+        'total_gathering_costs',
     )
     pass
 

@@ -379,14 +379,20 @@ class Quotation(models.Model):
     # How many folds does this project have?
     total_folds=models.IntegerField(default=1,null=False)
     
+    # How many signatures (one-sided pages) are in this project?
+    def get_total_signatures(self):
+        return 2 * self.exact_no_sheets
+    total_signatures = property(get_total_signatures)
+    
     # Get total folding costs
     def get_total_folding_costs(self):
-        total_signatures = 2 * self.exact_no_sheets
-        return (self.total_folds * production_constants.base_price_fold * total_signatures)
+        return (self.total_folds * production_constants.base_price_fold * self.total_signatures)
     total_folding_costs=property(get_total_folding_costs)
     
     # Get total gathering costs
-    total_gathering_costs=models.FloatField(default=0.0)
+    def get_gathering_costs(self):
+        return production_constants.base_price_fold * self.total_signatures
+    total_gathering_costs = property(get_gathering_costs)
     
     ### EXTRA COSTS ###
     cutting_costs = models.FloatField(default=0.0)
