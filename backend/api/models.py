@@ -400,7 +400,16 @@ class Quotation(models.Model):
     transport_costs = models.FloatField(default=0.0)
     
     ### SUMMARY COSTS ###
-    raw_total_costs=models.FloatField(default=0.0)
+    # Get raw total costs of entire project w/o markup
+    def get_raw_total_costs (self):
+        return (self.total_plate_costs + self.total_running_costs + 
+                    self.total_paper_costs + 
+                    (self.total_folding_costs + self.total_gathering_costs + self.total_binding_costs) +  
+                    self.total_lamination_costs + 
+                    self.packaging_costs + self.transport_costs
+                )
+    raw_total_costs=property(get_raw_total_costs)
+    
     final_unit_costs=models.FloatField(default=0.0)
     final_total_costs=models.FloatField(default=0.0)
 
