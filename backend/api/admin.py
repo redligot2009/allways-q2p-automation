@@ -174,6 +174,7 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
     ]
     readonly_fields=(
         'total_no_plates',
+        'total_plate_costs',
     )
     pass
 

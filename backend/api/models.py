@@ -221,6 +221,7 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural="Product Types"
     
+production_constants = ProductionConstants.objects.all().first()
 
 class Quotation(models.Model):
     
@@ -288,7 +289,12 @@ class Quotation(models.Model):
     total_no_plates=property(get_total_no_plates)
     
     # Total costs for all plates in the entire project
-    total_plate_costs=models.FloatField(default=0.0)
+    # total_plate_costs=models.FloatField(default=0.0)
+    def get_total_plate_costs(self):
+        # logging.log(level=100,msg=production_constants.plate_base_price)
+        return self.total_no_plates * production_constants.plate_base_price
+    total_plate_costs=property(get_total_plate_costs)
+    
     # Total costs for running all plates in the entire project
     total_running_costs=models.FloatField(default=0.0)
     
