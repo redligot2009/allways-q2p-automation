@@ -18,13 +18,22 @@ Run virtual environment in terminal
 pipenv shell
 ```
 
-Make migrations to enable Django admin site.
+Make migrations to enable Django admin site and all our app's models.
 ```cmd
 cd backend
 python manage.py migrate
 ```
 
-Once you're in the mysite directory, set up a superuser for development purposes.
+**DISCLAIMER:**
+
+If you're getting migration errors, it's probably because the database schema of the `db.sqlite3` file is not in sync with the migrations. Try the following to do a "reset" of your local database to keep it up to date with the present state of the migrations:
+```cmd
+python manage.py flush
+python manage.py migrate api 0001
+python manage.py migrate
+```
+
+Once you're in the backend directory, set up a superuser for development purposes.
 ```cmd
 python manage.py createsuperuser
 ```
