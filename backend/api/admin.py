@@ -124,9 +124,14 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
     fieldsets=(
         ("Project Settings", {
             'fields' : ('client',
-                        'approval_status', 
+                        'project_name',
+                        'created_date',
+                        'approval_status',
+                        'approval_date', 
                         'printing_process',
-                        'product_type',)
+                        'product_type',
+                        'total_pages',
+                        'quantity')
         }),
         ("Cost-related Settings", {
             'fields': ('markup_percentage',
@@ -143,7 +148,10 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
                       'total_running_costs',)
         }),
         ("Paper Costs", {
-            'fields': ('total_paper_costs',)
+            'fields': ('exact_no_sheets',
+                       'extra_sheets',
+                       'total_no_sheets',
+                       'total_paper_costs',)
         }),
         ("Finishing Costs", {
             'fields': ('total_lamination_costs',)
@@ -151,12 +159,11 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         ("Binding Costs", {
             'fields': ('total_binding_costs',)
         }),
-        ("Folding Costs", {
+        ("Folding + Gathering Costs", {
             'fields': ('total_folds',
-                       'total_folding_costs',)
-        }),
-        ("Gathering Costs", {
-            'fields': ('total_gathering_costs',)
+                       'total_signatures',
+                       'total_folding_costs',
+                       'total_gathering_costs',)
         }),
         ("Extra Costs", {
             'fields': ('cutting_costs',
@@ -169,9 +176,33 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
                        'final_total_costs',)
         }),
     )
+    list_display=(
+        'project_name',
+        'client',
+        'created_date',
+        'approval_status',
+        'approval_date',
+        'product_type',
+    )
     inlines=[
         QuotationItemInline
     ]
+    readonly_fields=(
+        'total_no_plates',
+        'total_plate_costs',
+        'exact_no_sheets',
+        'extra_sheets',
+        'total_no_sheets',
+        'total_paper_costs',
+        'total_running_costs',
+        'total_signatures',
+        'total_folding_costs',
+        'total_gathering_costs',
+        'total_lamination_costs',
+        'raw_total_costs',
+        'final_unit_costs',
+        'final_total_costs',
+    )
     pass
 
 

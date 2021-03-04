@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import logging
 
 """
 ===========================================
@@ -18,6 +19,9 @@ class Account(models.Model):
     @property
     def full_name(self):
         return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
+    
+    def __str__(self):
+        return "%s" % (self.full_name)
     
     mobile_number=models.CharField(default="",max_length=20,blank=True)
     
@@ -220,13 +224,24 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural="Product Types"
     
+production_constants = ProductionConstants.objects.all().first()
 
 class Quotation(models.Model):
     
     ### PROJECT-WIDE SETTINGS ###
     
     # Which client created this quotation?
-    client = ForeignKey(to=Account,null=True,blank=True,on_delete=models.SET_NULL)
+    client = models.ForeignKey(to=Account,null=True,blank=True,on_delete=models.SET_NULL)
+    
+    # What is this project anyway? (example: Software Engineering 12th Edition, 1st run)
+    project_name = models.CharField(default="Unnamed Project",max_length=255,null=False)
+    
+    # When was the request for quotation created by client?
+    created_date = models.DateTimeField(default=timezone.now(),null=False)
+    
+    # String representation of a quotation
+    def __str__(self):
+        return "%s" % self.project_name
     
     # Choices for approval status
     STATUS=[
@@ -259,7 +274,7 @@ class Quotation(models.Model):
     total_pages=models.IntegerField(default=1,null=False)
     
     # WHEN WAS THE QUOTATION CREATED?
-    created_date=models.DateTimeField(auto_now_add=True)
+    created_date=models.DateTimeField(default=timezone.now(),null=False)
     
     # PATH TO WHERE CLIENT'S UPLOADED FILES ARE
     project_file_path=models.CharField(max_length=255, blank=True)
@@ -276,27 +291,114 @@ class Quotation(models.Model):
     
     ### PLATES / RUNNING COSTS ###
     # Number of pages that can fit on a single one-sided plate
-    pages_can_fit=models.CharField(default=1,max_length=4)
+    pages_can_fit=models.IntegerField(default=1,blank=False)
+    
     # Number of plates in the entire project
-    total_no_plates=models.IntegerField(default=1,null=False)
+    def get_total_no_plates(self):
+        total_plates = 0
+        for item in self.items.all():
+            total_plates += item.plates.all().count() * item.no_colors
+        return total_plates
+    total_no_plates=property(get_total_no_plates)
+    
     # Total costs for all plates in the entire project
-    total_plate_costs=models.FloatField(default=0.0)
+    # total_plate_costs=models.FloatField(default=0.0)
+    def get_total_plate_costs(self):
+        # logging.log(level=100,msg=production_constants.plate_base_price)
+        return self.total_no_plates * production_constants.plate_base_price
+    total_plate_costs=property(get_total_plate_costs)
+    
     # Total costs for running all plates in the entire project
-    total_running_costs=models.FloatField(default=0.0)
+    def get_total_running_costs(self):
+        total = 0.0
+        for item in self.items.all():
+            total += item.quotation_running_costs
+        return total
+    total_running_costs=property(get_total_running_costs)
     
     ### PAPER COSTS ###
+    # Get exact number of sheets
+    def get_exact_no_sheets(self):
+        return int(self.total_pages/self.pages_can_fit)
+    exact_no_sheets=property(get_exact_no_sheets)
+    
+    # Get extra sheets ordered
+    def get_extra_sheets(self):
+        return int(self.margin_of_error * self.exact_no_sheets)
+    extra_sheets = property(get_extra_sheets)
+    
+    # Get total number of sheets
+    def get_total_no_sheets(self):
+        return self.quantity * (self.exact_no_sheets + self.extra_sheets)
+    total_no_sheets=property(get_total_no_sheets)
+    
     # Total costs for all paper in the entire project
-    total_paper_costs=models.FloatField(default=0.0)
+    # total_paper_costs=models.FloatField(default=0.0)
+    # TODO: Refactor so it is not an unmaintainable piece of shit.
+    def get_total_paper_costs(self):
+        # Running sum of paper costs
+        paper_costs = 0
+        for item in self.items.all():
+            # "Extract" how many sheets of paper for a particular item is needed
+            item_exact_no_sheets = 1
+            item_extra_no_sheets = 0
+            item_total_no_sheets = 1
+            # Cover only has 2 pages at most, therefore it takes only 1 sheet to print a single copy's cover
+            if item.item_type == 'cover':
+                item_exact_no_sheets = 1
+                item_extra_no_sheets = item_exact_no_sheets * self.margin_of_error
+                item_total_no_sheets = (self.quantity*item_exact_no_sheets) + item_extra_no_sheets
+            else:
+                # Default case, either inner pages or "other." If there is a cover, it might be possible that you need an extra sheet
+                item_exact_no_sheets = self.exact_no_sheets + (1 if item.item_type == 'inner' else 0)
+                item_extra_no_sheets = item_exact_no_sheets * self.margin_of_error
+                item_total_no_sheets = (self.quantity*item_exact_no_sheets)+item_extra_no_sheets
+            # Some papers have a ream_cost, some only have leaf_cost
+            if item.paper.ream_cost != 0.0:
+                # 500 sheets = 1 ream. The code below just gets the cost of all reams, and the cost of the extra leaves you need afterwards 
+                no_reams = int(item_total_no_sheets / 500)
+                total_reams_cost = no_reams * item.paper.ream_cost 
+                extra_leaves_cost = item.paper.leaf_cost * (item_total_no_sheets-(no_reams*500))
+                # Adds to running sum of paper costs so far
+                paper_costs += total_reams_cost + extra_leaves_cost
+            else:
+                # If there is no ream cost, then number of leaves = number of sheets.
+                # Therefore, you just multiply the item_total_no_sheets by the leaf cost to get total paper costs
+                paper_costs += item_total_no_sheets * item.paper.leaf_cost
+        # Return the result of the algorithm above^
+        return paper_costs
+    total_paper_costs = property(get_total_paper_costs)
     
     ### FINISHING COSTS ###
+    
     # Total costs for lamination for the entire project
-    total_lamination_costs=models.FloatField(default=0.0)
+    def get_total_lamination_costs(self):
+        total = 0
+        for item in self.items.all():
+            total += item.lamination_costs
+        return total
+    total_lamination_costs=property(get_total_lamination_costs)
     
     ### BINDING / FOLDING / GATHERING COSTS ###
     total_binding_costs = models.FloatField(default=0.0)
+    
+    # How many folds does this project have?
     total_folds=models.IntegerField(default=1,null=False)
-    total_folding_costs=models.FloatField(default=0.0)
-    total_gathering_costs=models.FloatField(default=0.0)
+    
+    # How many signatures (one-sided pages) are in this project?
+    def get_total_signatures(self):
+        return 2 * self.exact_no_sheets
+    total_signatures = property(get_total_signatures)
+    
+    # Get total folding costs
+    def get_total_folding_costs(self):
+        return (self.total_folds * production_constants.base_price_fold * self.total_signatures)
+    total_folding_costs=property(get_total_folding_costs)
+    
+    # Get total gathering costs
+    def get_gathering_costs(self):
+        return production_constants.base_price_fold * self.total_signatures
+    total_gathering_costs = property(get_gathering_costs)
     
     ### EXTRA COSTS ###
     cutting_costs = models.FloatField(default=0.0)
@@ -304,9 +406,30 @@ class Quotation(models.Model):
     transport_costs = models.FloatField(default=0.0)
     
     ### SUMMARY COSTS ###
-    raw_total_costs=models.FloatField(default=0.0)
-    final_unit_costs=models.FloatField(default=0.0)
-    final_total_costs=models.FloatField(default=0.0)
+    # Get raw total costs of entire project w/o markup
+    def get_raw_total_costs (self):
+        return (self.total_plate_costs + self.total_running_costs + 
+                    self.total_paper_costs + 
+                    (self.total_folding_costs + self.total_gathering_costs + self.total_binding_costs) +  
+                    self.total_lamination_costs + 
+                    self.packaging_costs + self.transport_costs
+                )
+    raw_total_costs=property(get_raw_total_costs)
+    
+    # Get markup costs to add to raw total costs for profit
+    def get_markup_costs(self):
+	    return self.markup_percentage * self.raw_total_costs
+    markup_costs=property(get_markup_costs)
+    
+    # Get final total costs for the entire project w/ markup
+    def get_final_total_costs(self):
+	    return self.raw_total_costs + self.markup_costs
+    final_total_costs=property(get_final_total_costs)
+    
+    # Get final unit costs for a single copy in the project
+    def get_final_unit_costs(self):
+	    return float(self.final_total_costs / self.quantity)
+    final_unit_costs=property(get_final_unit_costs)
 
 class QuotationItem(models.Model):
     
@@ -339,11 +462,15 @@ class QuotationItem(models.Model):
     # LAMINATION TYPE
     lamination=models.ForeignKey(to=Lamination, null=True, on_delete=models.SET_NULL, blank=True)
     
+    # Lamination costs for a single quotation item 
+    lamination_costs=models.FloatField(default=0.0,null=True,blank=True)
+    
     # BINDING TYPE
     binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
     
     # Running costs for all plates of a particular quotation item
     quotation_running_costs=models.FloatField(default=0.0,null=True,blank=True)
+    
     
 class Plate(models.Model):
     # QUOTATION ITEM THAT PLATE IS ASSOCIATED WITH
