@@ -307,14 +307,18 @@ class Quotation(models.Model):
     # total_plate_costs=models.FloatField(default=0.0)
     def get_total_plate_costs(self):
         # logging.log(level=100,msg=production_constants.plate_base_price)
-        return self.total_no_plates * production_constants.plate_base_price
+        try:
+            return self.total_no_plates * production_constants.plate_base_price
+        except:
+            return 0.0
     total_plate_costs=property(get_total_plate_costs)
     
     # Total costs for running all plates in the entire project
     def get_total_running_costs(self):
         total = 0.0
         for item in self.items.all():
-            total += item.quotation_running_costs
+            for plate in item.plates.all():
+                total += plate.running_costs
         return total
     total_running_costs=property(get_total_running_costs)
     
@@ -394,12 +398,18 @@ class Quotation(models.Model):
     
     # Get total folding costs
     def get_total_folding_costs(self):
-        return (self.total_folds * production_constants.base_price_fold * self.total_signatures)
+        try:
+            return (self.total_folds * production_constants.base_price_fold * self.total_signatures)
+        except:
+            return 0.0
     total_folding_costs=property(get_total_folding_costs)
     
     # Get total gathering costs
     def get_gathering_costs(self):
-        return production_constants.base_price_fold * self.total_signatures
+        try:
+            return production_constants.base_price_fold * self.total_signatures
+        except:
+            return 0.0
     total_gathering_costs = property(get_gathering_costs)
     
     ### EXTRA COSTS ###
@@ -488,33 +498,36 @@ class QuotationItem(models.Model):
     quotation_margin_of_error = property(get_quotation_margin_of_error)
 
 
-    def get_quotation_item_running_costs(self,plates):
+    def get_quotation_item_running_costs(self):
         total = 0.0
-        for plate in quotation_item_plates:
-            total += plates.running_costs
+        for plate in self.plates:
+            total += plate.running_costs
         return total
     quotation_item_running_costs = property(get_quotation_item_running_costs)
 
     def get_lamination_costs(self):
-        # Check if quotation item does have lamination
-        if (self.lamination != None):
-            # To get lamination costs, first:
-            # Figure out total pages to be laminated for the particular item.
-            # Then: get area of the paper's spread size
-            # Then: figure out extra_paper needed to be laminated in case something goes wrong
-            # Then: return the (area_of_paper) *
-                # constant lamination factor (0.00625 pesos per sqinch) *
-                # (total_pages_to_laminate + extra_paper)
-            no_pages = Quotation.total_pages
-            if (self.item_type == "cover"):
-                no_pages = 1
-            area_of_paper = item_paper.values('paper_height') * item_paper.values('paper_width')
-            total_pages_to_laminate = no_pages * quotation_quantity
-            extra_paper = total_pages_to_laminate * quotation_margin_of_error
-            return area_of_paper * production_constants.lamination_factor * (total_pages_to_laminate + extra_paper)
-        else:
-            # If item has no lamination specified, the costs are zero
-            return 0.0
+        try:
+            # Check if quotation item does have lamination
+            if (self.lamination != None):
+                # To get lamination costs, first:
+                # Figure out total pages to be laminated for the particular item.
+                # Then: get area of the paper's spread size
+                # Then: figure out extra_paper needed to be laminated in case something goes wrong
+                # Then: return the (area_of_paper) *
+                    # constant lamination factor (0.00625 pesos per sqinch) *
+                    # (total_pages_to_laminate + extra_paper)
+                no_pages = Quotation.total_pages
+                if (self.item_type == "cover"):
+                    no_pages = 1
+                area_of_paper = self.quotation_item.paper.paper_height * self.quotation_item.paper.paper_width
+                total_pages_to_laminate = no_pages * self.quotation.quantity
+                extra_paper = total_pages_to_laminate * self.quotation.margin_of_error
+                return area_of_paper * production_constants.lamination_factor * (total_pages_to_laminate + extra_paper)
+            else:
+                # If item has no lamination specified, the costs are zero
+                return 0.0
+        except:
+            return 0
     quotation_item_lamination_costs = property(get_lamination_costs)
     
     
@@ -534,20 +547,24 @@ class Plate(models.Model):
     no_impressions=models.IntegerField(default=1)
     #extra_impressions=models.IntegerField(default=0)
     def get_extra_impressions(self):
-        return self.no_impressions * quotation_item_margin_of_error
+        return self.no_impressions * self.quotation_item.quotation.margin_of_error
     extra_impressions = property(get_extra_impressions)
 
     #total_impressions=models.IntegerField(default=0)
     def get_total_impressions(self):
-        return self.no_impressions + extra_impressions
+        return self.no_impressions + self.extra_impressions
     total_impressions = property(get_total_impressions)
     
     # COMPUTED RUNNING COSTS
     #running_costs=models.FloatField(default=0.0)
-    def get_running_costs(self, production_constants):
+    def get_running_costs(self):
         # For first 1000 impressions, the cost of running is 200 pesos per color for a single plate
         # For each succedding 1000 impressions, you add 200 more pesos.
         # Multiply this by the number of colors a particular item has.
         # That's what the code below does:
-        remaining_impressions = min(total_impressions - 1000.0)
-        return plates_no_colors * (production_constants.min_rate_running + (200 * int(remaining_impressions / 1000)))
+        try:
+            remaining_impressions = min(self.total_impressions - 1000.0,0)
+            return self.quotation_item.no_colors * (production_constants.min_rate_running + (200 * int(remaining_impressions / 1000)))
+        except:
+            return 0.0
+    running_costs = property(get_running_costs)
