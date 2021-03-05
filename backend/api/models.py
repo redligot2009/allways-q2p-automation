@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.utils import timezone
 from django.contrib.auth.models import User, Group
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_migrate
 from django.dispatch import receiver
 import logging
 
@@ -223,8 +223,11 @@ class Product(models.Model):
     
     class Meta:
         verbose_name_plural="Product Types"
-    
-production_constants = ProductionConstants.objects.all().first()
+
+@receiver(post_save,sender=User)
+def get_first_production_constants(sender,instance,created,**kwargs):
+    global production_constants
+    production_constants = ProductionConstants.objects.all().first()
 
 class Quotation(models.Model):
     
@@ -304,8 +307,11 @@ class Quotation(models.Model):
     # Total costs for all plates in the entire project
     # total_plate_costs=models.FloatField(default=0.0)
     def get_total_plate_costs(self):
-        # logging.log(level=100,msg=production_constants.plate_base_price)
-        return self.total_no_plates * production_constants.plate_base_price
+        try:
+            # logging.log(level=100,msg=production_constants.plate_base_price)
+            return self.total_no_plates * production_constants.plate_base_price
+        except:
+            return 0
     total_plate_costs=property(get_total_plate_costs)
     
     # Total costs for running all plates in the entire project
@@ -392,12 +398,18 @@ class Quotation(models.Model):
     
     # Get total folding costs
     def get_total_folding_costs(self):
-        return (self.total_folds * production_constants.base_price_fold * self.total_signatures)
+        try:
+            return (self.total_folds * production_constants.base_price_fold * self.total_signatures)
+        except:
+            return 0
     total_folding_costs=property(get_total_folding_costs)
     
     # Get total gathering costs
     def get_gathering_costs(self):
-        return production_constants.base_price_fold * self.total_signatures
+        try:
+            return production_constants.base_price_fold * self.total_signatures
+        except:
+            return 0
     total_gathering_costs = property(get_gathering_costs)
     
     ### EXTRA COSTS ###
