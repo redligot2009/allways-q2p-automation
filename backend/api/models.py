@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.utils import timezone
 from django.contrib.auth.models import User, Group
-from django.db.models.signals import post_save, post_migrate
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 import logging
 
@@ -130,6 +130,7 @@ TODO
 """
 
 class ProductionConstants(models.Model):
+
     plate_base_price=models.FloatField(default=250.0)
     base_price_fold=models.FloatField(default=90.0)
     lamination_factor=models.FloatField(default=0.00625)
@@ -142,6 +143,7 @@ class ProductionConstants(models.Model):
         verbose_name_plural="Production Constants"
 
 class Paper(models.Model):
+
     
     class Meta:
         verbose_name_plural="Paper Types"
@@ -223,11 +225,8 @@ class Product(models.Model):
     
     class Meta:
         verbose_name_plural="Product Types"
-
-@receiver(post_save,sender=User)
-def get_first_production_constants(sender,instance,created,**kwargs):
-    global production_constants
-    production_constants = ProductionConstants.objects.all().first()
+    
+production_constants = ProductionConstants.objects.all().first()
 
 class Quotation(models.Model):
     
@@ -307,18 +306,19 @@ class Quotation(models.Model):
     # Total costs for all plates in the entire project
     # total_plate_costs=models.FloatField(default=0.0)
     def get_total_plate_costs(self):
+        # logging.log(level=100,msg=production_constants.plate_base_price)
         try:
-            # logging.log(level=100,msg=production_constants.plate_base_price)
             return self.total_no_plates * production_constants.plate_base_price
         except:
-            return 0
+            return 0.0
     total_plate_costs=property(get_total_plate_costs)
     
     # Total costs for running all plates in the entire project
     def get_total_running_costs(self):
         total = 0.0
         for item in self.items.all():
-            total += item.quotation_running_costs
+            for plate in item.plates.all():
+                total += plate.running_costs
         return total
     total_running_costs=property(get_total_running_costs)
     
@@ -401,7 +401,7 @@ class Quotation(models.Model):
         try:
             return (self.total_folds * production_constants.base_price_fold * self.total_signatures)
         except:
-            return 0
+            return 0.0
     total_folding_costs=property(get_total_folding_costs)
     
     # Get total gathering costs
@@ -409,7 +409,7 @@ class Quotation(models.Model):
         try:
             return production_constants.base_price_fold * self.total_signatures
         except:
-            return 0
+            return 0.0
     total_gathering_costs = property(get_gathering_costs)
     
     ### EXTRA COSTS ###
@@ -443,11 +443,12 @@ class Quotation(models.Model):
 	    return float(self.final_total_costs / self.quantity)
     final_unit_costs=property(get_final_unit_costs)
 
+item_paper = Paper.objects.all().first()
 class QuotationItem(models.Model):
     
     # QUOTATION THAT THE ITEM IS ASSOCIATED WITH
     quotation=models.ForeignKey(to=Quotation, null=True, related_name="items", on_delete=models.CASCADE)
-        
+    
     # Choices for quotation item type
     ITEM_TYPE=[
         ('inner','Inner Pages'),
@@ -481,18 +482,89 @@ class QuotationItem(models.Model):
     binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
     
     # Running costs for all plates of a particular quotation item
-    quotation_running_costs=models.FloatField(default=0.0,null=True,blank=True)
+    #quotation_running_costs=models.FloatField(default=0.0,null=True,blank=True)
+
+    def get_plates(self):
+        return self.plates.objects.all()
+    quotation_item_plates = property(get_plates)
+
+
+    def get_quotation_quantity(self):
+        return self.items.values('quantity')
+    quotation_quantity = property(get_quotation_quantity)
+
+    def get_quotation_margin_of_error(self):
+        return self.items.values('margin_of_error')
+    quotation_margin_of_error = property(get_quotation_margin_of_error)
+
+
+    def get_quotation_item_running_costs(self):
+        total = 0.0
+        for plate in self.plates:
+            total += plate.running_costs
+        return total
+    quotation_item_running_costs = property(get_quotation_item_running_costs)
+
+    def get_lamination_costs(self):
+        try:
+            # Check if quotation item does have lamination
+            if (self.lamination != None):
+                # To get lamination costs, first:
+                # Figure out total pages to be laminated for the particular item.
+                # Then: get area of the paper's spread size
+                # Then: figure out extra_paper needed to be laminated in case something goes wrong
+                # Then: return the (area_of_paper) *
+                    # constant lamination factor (0.00625 pesos per sqinch) *
+                    # (total_pages_to_laminate + extra_paper)
+                no_pages = Quotation.total_pages
+                if (self.item_type == "cover"):
+                    no_pages = 1
+                area_of_paper = self.quotation_item.paper.paper_height * self.quotation_item.paper.paper_width
+                total_pages_to_laminate = no_pages * self.quotation.quantity
+                extra_paper = total_pages_to_laminate * self.quotation.margin_of_error
+                return area_of_paper * production_constants.lamination_factor * (total_pages_to_laminate + extra_paper)
+            else:
+                # If item has no lamination specified, the costs are zero
+                return 0.0
+        except:
+            return 0
+    quotation_item_lamination_costs = property(get_lamination_costs)
     
     
 class Plate(models.Model):
     # QUOTATION ITEM THAT PLATE IS ASSOCIATED WITH
     quotation_item = models.ForeignKey(to=QuotationItem, null=True, related_name="plates", on_delete=models.CASCADE)
-        
+
+    def get_quotation_item_margin_of_error(self):
+        return self.quotation_item.quotation.margin_of_error
+    quotation_item_margin_of_error = property(get_quotation_item_margin_of_error)
+
+    def get_plates_no_colors(self):
+        return self.plates.values('no_colors')
+    plates_no_colors = property(get_plates_no_colors)
+
     # IMPRESSIONS
     no_impressions=models.IntegerField(default=1)
-    extra_impressions=models.IntegerField(default=0)
-    total_impressions=models.IntegerField(default=0)
+    #extra_impressions=models.IntegerField(default=0)
+    def get_extra_impressions(self):
+        return self.no_impressions * self.quotation_item.quotation.margin_of_error
+    extra_impressions = property(get_extra_impressions)
+
+    #total_impressions=models.IntegerField(default=0)
+    def get_total_impressions(self):
+        return self.no_impressions + self.extra_impressions
+    total_impressions = property(get_total_impressions)
     
     # COMPUTED RUNNING COSTS
-    running_costs=models.FloatField(default=0.0)
-    
+    #running_costs=models.FloatField(default=0.0)
+    def get_running_costs(self):
+        # For first 1000 impressions, the cost of running is 200 pesos per color for a single plate
+        # For each succedding 1000 impressions, you add 200 more pesos.
+        # Multiply this by the number of colors a particular item has.
+        # That's what the code below does:
+        try:
+            remaining_impressions = min(self.total_impressions - 1000.0,0)
+            return self.quotation_item.no_colors * (production_constants.min_rate_running + (200 * int(remaining_impressions / 1000)))
+        except:
+            return 0.0
+    running_costs = property(get_running_costs)
