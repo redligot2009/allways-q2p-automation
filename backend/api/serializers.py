@@ -79,14 +79,17 @@ class ProductionConstantsSerializer(serializers.ModelSerializer):
         # fields = ('constants_id','plate_base_price','base_price_fold','lamination_factor','min_rate_running')
 
 class PlateSerializer(serializers.ModelSerializer):
-    
+    no_impressions = serializers.ReadOnlyField()
+    extra_impressions = serializers.ReadOnlyField()
+    total_impressions = serializers.ReadOnlyField()
+    running_costs = serializers.ReadOnlyField()
     class Meta:
         model = Plate
         fields=('__all__')
         # fields = ('plate_id','no_impressions','extra_impressions', 'total_impressions','running_costs')
 
 class QuotationItemSerializer(serializers.ModelSerializer):
-    
+    lamination_costs = serializers.ReadOnlyField()
     class Meta:
         model = QuotationItem
         fields=('__all__')
