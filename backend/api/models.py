@@ -165,8 +165,8 @@ class Paper(models.Model):
         return self.paper_type
     
     # PAPER DIMENSIONS
-    paper_height=models.CharField(max_length=10)
-    paper_width=models.CharField(max_length=10)
+    paper_height=models.FloatField(default=0.0,blank=True,null=True)
+    paper_width=models.FloatField(default=0.0,blank=True,null=True)
     
     # PAPER COSTS (LEAF AND REAM)
     ream_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
@@ -479,7 +479,7 @@ class QuotationItem(models.Model):
     def get_lamination_costs(self):
         try:
             # Check if quotation item does have lamination
-            if (self.lamination != None):
+            if (not self.lamination is None):
                 # To get lamination costs, first:
                 # Figure out total pages to be laminated for the particular item.
                 # Then: get area of the paper's spread size
@@ -489,10 +489,18 @@ class QuotationItem(models.Model):
                     # (total_pages_to_laminate + extra_paper)
                 no_pages = Quotation.total_pages
                 if (self.item_type == "cover"):
-                    no_pages = 1
-                area_of_paper = self.quotation_item.paper.paper_height * self.quotation_item.paper.paper_width
+                    no_pages = 2
+                elif (self.item_type == "inner"):
+                    no_pages = max(self.quotation.total_pages-2,0)
+                area_of_paper = self.paper.paper_height * self.paper.paper_width
                 total_pages_to_laminate = no_pages * self.quotation.quantity
                 extra_paper = total_pages_to_laminate * self.quotation.margin_of_error
+                # logging.log(100,str("\nlamination factor: " + str(production_constants.lamination_factor) + '\n' +
+                #                     "paper dimensions:" + str(self.paper.paper_height) + " x " + str(self.paper.paper_width) + "\n" +
+                #                     "area_of_paper" + str(area_of_paper) + "\n" +
+                #                     "no_pages: " + str(no_pages) + "\n" +
+                #                     "total_pages_to_laminate: " + str(total_pages_to_laminate) + "\n" +
+                #                     "extra_paper: " + str(extra_paper) + "\n"))
                 return area_of_paper * production_constants.lamination_factor * (total_pages_to_laminate + extra_paper)
             else:
                 # If item has no lamination specified, the costs are zero
