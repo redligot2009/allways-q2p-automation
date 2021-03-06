@@ -226,7 +226,10 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural="Product Types"
     
-production_constants = ProductionConstants.objects.all().first()
+@receiver(post_save,sender=ProductionConstants)
+def create_user_account(sender,instance,created,**kwargs):
+    global production_constants
+    production_constants = ProductionConstants.objects.all().first()
 
 class Quotation(models.Model):
     
@@ -443,7 +446,6 @@ class Quotation(models.Model):
 	    return float(self.final_total_costs / self.quantity)
     final_unit_costs=property(get_final_unit_costs)
 
-item_paper = Paper.objects.all().first()
 class QuotationItem(models.Model):
     
     # QUOTATION THAT THE ITEM IS ASSOCIATED WITH
