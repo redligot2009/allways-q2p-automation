@@ -14,6 +14,7 @@ import logging
 
 class Account(models.Model):
     user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
+    
     middle_name=models.CharField(null=True,blank=True,max_length=20)
     
     @property
@@ -64,7 +65,8 @@ def create_user_account(sender,instance,created,**kwargs):
 @receiver(post_save,sender=User)
 def save_user_account(sender,instance,created,**kwargs):
     if (kwargs.get('created', True) and not kwargs.get('raw', False)):
-        instance.account.save()
+        if created and not instance.is_superuser:
+            instance.account.save()
 
 """
 =======================================================
