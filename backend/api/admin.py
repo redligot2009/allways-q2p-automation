@@ -106,6 +106,7 @@ class PlateInline(nested_admin.NestedTabularInline):
     model=Plate
     extra=0
     readonly_fields=(
+        'no_impressions',
         'extra_impressions',
         'total_impressions',
         'running_costs',
@@ -118,6 +119,10 @@ class QuotationItemInline(nested_admin.NestedStackedInline):
         PlateInline
     ]
     extra=0
+    readonly_fields=(
+        'lamination_costs',
+        
+    )
     
 @admin.register(Quotation)
 class QuotationAdmin(nested_admin.NestedModelAdmin):

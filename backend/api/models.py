@@ -476,20 +476,6 @@ class QuotationItem(models.Model):
     lamination=models.ForeignKey(to=Lamination, null=True, on_delete=models.SET_NULL, blank=True)
     
     # Lamination costs for a single quotation item 
-    lamination_costs=models.FloatField(default=0.0,null=True,blank=True)
-    
-    # BINDING TYPE
-    binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
-    
-    # Running costs for all plates of a particular quotation item
-
-    def get_quotation_item_running_costs(self):
-        total = 0.0
-        for plate in self.plates:
-            total += plate.running_costs
-        return total
-    quotation_item_running_costs = property(get_quotation_item_running_costs)
-
     def get_lamination_costs(self):
         try:
             # Check if quotation item does have lamination
@@ -513,7 +499,10 @@ class QuotationItem(models.Model):
                 return 0.0
         except:
             return 0
-    quotation_item_lamination_costs = property(get_lamination_costs)
+    lamination_costs = property(get_lamination_costs)
+    
+    # BINDING TYPE
+    binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
     
     
 class Plate(models.Model):
@@ -522,18 +511,16 @@ class Plate(models.Model):
 
     # IMPRESSIONS
     no_impressions=models.IntegerField(default=1)
-    #extra_impressions=models.IntegerField(default=0)
     def get_extra_impressions(self):
         return self.no_impressions * self.quotation_item.quotation.margin_of_error
     extra_impressions = property(get_extra_impressions)
 
-    #total_impressions=models.IntegerField(default=0)
+    # Get total_impressions for a single Plate
     def get_total_impressions(self):
         return self.no_impressions + self.extra_impressions
     total_impressions = property(get_total_impressions)
     
     # COMPUTED RUNNING COSTS
-    #running_costs=models.FloatField(default=0.0)
     def get_running_costs(self):
         # For first 1000 impressions, the cost of running is 200 pesos per color for a single plate
         # For each succedding 1000 impressions, you add 200 more pesos.
