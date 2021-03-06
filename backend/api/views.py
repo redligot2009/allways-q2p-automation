@@ -12,54 +12,55 @@ from .serializers import ProductionConstantsSerializer, PlateSerializer, Quotati
 from .serializers import QuotationSerializer
 # Create your views here.
 
-class AccountViewSet(viewsets.ModelViewset):
+class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
-class InvoiceViewSet(viewsets.ModelViewset):
+class InvoiceViewSet(viewsets.ModelViewSet):
     queryset = Invoice.objects.all()
     serializer_class = InvoiceSerializer
 
-class ProductViewSet(viewsets.ModelViewset):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-class JobOrderViewSet(viewsets.ModelViewset):
+class JobOrderViewSet(viewsets.ModelViewSet):
     queryset = JobOrder.objects.all()
     serializer_class = JobOrderSerializer
 
-class PaperViewSet(viewsets.ModelViewset):
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    
+class PaperViewSet(viewsets.ModelViewSet):
     queryset = Paper.objects.all()
     serializer_class = PaperSerializer
 
-class PrintingProcessViewSet(viewsets.ModelViewset):
+class PrintingProcessViewSet(viewsets.ModelViewSet):
     queryset = PrintingProcess.objects.all()
     serializer_class = PrintingProcessSerializer
 
-class LaminationViewSet(viewsets.ModelViewset):
+class LaminationViewSet(viewsets.ModelViewSet):
     queryset = Lamination.objects.all()
     serializer_class = LaminationSerializer
 
-class DieCutViewSet(viewsets.ModelViewset):
+class DieCutViewSet(viewsets.ModelViewSet):
     queryset = Paper.objects.all()
     serializer_class = DieCutSerializer
 
-class BindingViewSet(viewsets.ModelViewset):
+class BindingViewSet(viewsets.ModelViewSet):
     queryset = Binding.objects.all()
     serializer_class = BindingSerializer
 
-class ProductionConstantsViewSet(viewsets.ModelViewset):
+class ProductionConstantsViewSet(viewsets.ModelViewSet):
     queryset = ProductionConstants.objects.all()
     serializer_class = ProductionConstantsSerializer
 
-class PlateViewSet(viewsets.ModelViewset):
+class PlateViewSet(viewsets.ModelViewSet):
     queryset = Plate.objects.all()
     serializer_class = PlateSerializer
 
-class QuotationItemViewSet(viewsets.ModelViewset):
+class QuotationItemViewSet(viewsets.ModelViewSet):
     queryset = QuotationItem.objects.all()
     serializer_class = QuotationItemSerializer
 
-class QuotationViewSet(viewsets.ModelViewset):
+class QuotationViewSet(viewsets.ModelViewSet):
     queryset = Quotation.objects.all()
     serializer_class = QuotationSerializer

@@ -165,8 +165,8 @@ class Paper(models.Model):
         return self.paper_type
     
     # PAPER DIMENSIONS
-    paper_height=models.CharField(max_length=10)
-    paper_width=models.CharField(max_length=10)
+    paper_height=models.FloatField(default=0.0,blank=True,null=True)
+    paper_width=models.FloatField(default=0.0,blank=True,null=True)
     
     # PAPER COSTS (LEAF AND REAM)
     ream_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
@@ -476,39 +476,10 @@ class QuotationItem(models.Model):
     lamination=models.ForeignKey(to=Lamination, null=True, on_delete=models.SET_NULL, blank=True)
     
     # Lamination costs for a single quotation item 
-    lamination_costs=models.FloatField(default=0.0,null=True,blank=True)
-    
-    # BINDING TYPE
-    binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
-    
-    # Running costs for all plates of a particular quotation item
-    #quotation_running_costs=models.FloatField(default=0.0,null=True,blank=True)
-
-    def get_plates(self):
-        return self.plates.objects.all()
-    quotation_item_plates = property(get_plates)
-
-
-    def get_quotation_quantity(self):
-        return self.items.values('quantity')
-    quotation_quantity = property(get_quotation_quantity)
-
-    def get_quotation_margin_of_error(self):
-        return self.items.values('margin_of_error')
-    quotation_margin_of_error = property(get_quotation_margin_of_error)
-
-
-    def get_quotation_item_running_costs(self):
-        total = 0.0
-        for plate in self.plates:
-            total += plate.running_costs
-        return total
-    quotation_item_running_costs = property(get_quotation_item_running_costs)
-
     def get_lamination_costs(self):
         try:
             # Check if quotation item does have lamination
-            if (self.lamination != None):
+            if (not self.lamination is None):
                 # To get lamination costs, first:
                 # Figure out total pages to be laminated for the particular item.
                 # Then: get area of the paper's spread size
@@ -518,45 +489,46 @@ class QuotationItem(models.Model):
                     # (total_pages_to_laminate + extra_paper)
                 no_pages = Quotation.total_pages
                 if (self.item_type == "cover"):
-                    no_pages = 1
-                area_of_paper = self.quotation_item.paper.paper_height * self.quotation_item.paper.paper_width
+                    no_pages = 2
+                elif (self.item_type == "inner"):
+                    no_pages = max(self.quotation.total_pages-2,0)
+                area_of_paper = self.paper.paper_height * self.paper.paper_width
                 total_pages_to_laminate = no_pages * self.quotation.quantity
                 extra_paper = total_pages_to_laminate * self.quotation.margin_of_error
+                # logging.log(100,str("\nlamination factor: " + str(production_constants.lamination_factor) + '\n' +
+                #                     "paper dimensions:" + str(self.paper.paper_height) + " x " + str(self.paper.paper_width) + "\n" +
+                #                     "area_of_paper" + str(area_of_paper) + "\n" +
+                #                     "no_pages: " + str(no_pages) + "\n" +
+                #                     "total_pages_to_laminate: " + str(total_pages_to_laminate) + "\n" +
+                #                     "extra_paper: " + str(extra_paper) + "\n"))
                 return area_of_paper * production_constants.lamination_factor * (total_pages_to_laminate + extra_paper)
             else:
                 # If item has no lamination specified, the costs are zero
                 return 0.0
         except:
             return 0
-    quotation_item_lamination_costs = property(get_lamination_costs)
+    lamination_costs = property(get_lamination_costs)
+    
+    # BINDING TYPE
+    binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
     
     
 class Plate(models.Model):
     # QUOTATION ITEM THAT PLATE IS ASSOCIATED WITH
     quotation_item = models.ForeignKey(to=QuotationItem, null=True, related_name="plates", on_delete=models.CASCADE)
 
-    def get_quotation_item_margin_of_error(self):
-        return self.quotation_item.quotation.margin_of_error
-    quotation_item_margin_of_error = property(get_quotation_item_margin_of_error)
-
-    def get_plates_no_colors(self):
-        return self.plates.values('no_colors')
-    plates_no_colors = property(get_plates_no_colors)
-
     # IMPRESSIONS
     no_impressions=models.IntegerField(default=1)
-    #extra_impressions=models.IntegerField(default=0)
     def get_extra_impressions(self):
         return self.no_impressions * self.quotation_item.quotation.margin_of_error
     extra_impressions = property(get_extra_impressions)
 
-    #total_impressions=models.IntegerField(default=0)
+    # Get total_impressions for a single Plate
     def get_total_impressions(self):
         return self.no_impressions + self.extra_impressions
     total_impressions = property(get_total_impressions)
     
     # COMPUTED RUNNING COSTS
-    #running_costs=models.FloatField(default=0.0)
     def get_running_costs(self):
         # For first 1000 impressions, the cost of running is 200 pesos per color for a single plate
         # For each succedding 1000 impressions, you add 200 more pesos.
