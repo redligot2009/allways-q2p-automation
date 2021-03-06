@@ -482,21 +482,6 @@ class QuotationItem(models.Model):
     binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
     
     # Running costs for all plates of a particular quotation item
-    #quotation_running_costs=models.FloatField(default=0.0,null=True,blank=True)
-
-    def get_plates(self):
-        return self.plates.objects.all()
-    quotation_item_plates = property(get_plates)
-
-
-    def get_quotation_quantity(self):
-        return self.items.values('quantity')
-    quotation_quantity = property(get_quotation_quantity)
-
-    def get_quotation_margin_of_error(self):
-        return self.items.values('margin_of_error')
-    quotation_margin_of_error = property(get_quotation_margin_of_error)
-
 
     def get_quotation_item_running_costs(self):
         total = 0.0
@@ -534,14 +519,6 @@ class QuotationItem(models.Model):
 class Plate(models.Model):
     # QUOTATION ITEM THAT PLATE IS ASSOCIATED WITH
     quotation_item = models.ForeignKey(to=QuotationItem, null=True, related_name="plates", on_delete=models.CASCADE)
-
-    def get_quotation_item_margin_of_error(self):
-        return self.quotation_item.quotation.margin_of_error
-    quotation_item_margin_of_error = property(get_quotation_item_margin_of_error)
-
-    def get_plates_no_colors(self):
-        return self.plates.values('no_colors')
-    plates_no_colors = property(get_plates_no_colors)
 
     # IMPRESSIONS
     no_impressions=models.IntegerField(default=1)
