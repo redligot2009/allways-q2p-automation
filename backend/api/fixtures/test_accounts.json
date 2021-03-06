@@ -811,23 +811,6 @@
 },
 {
     "model": "api.account",
-    "pk": 1,
-    "fields": {
-        "user": 1,
-        "middle_name": null,
-        "mobile_number": "",
-        "shipping_address": "",
-        "organization_name": "",
-        "job_position": null,
-        "plate_number": null,
-        "license_number": null,
-        "owner_key": null,
-        "account_manager_key": null,
-        "production_staff_position": null
-    }
-},
-{
-    "model": "api.account",
     "pk": 2,
     "fields": {
         "user": 2,
