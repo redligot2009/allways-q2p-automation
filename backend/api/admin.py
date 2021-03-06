@@ -106,7 +106,6 @@ class PlateInline(nested_admin.NestedTabularInline):
     model=Plate
     extra=0
     readonly_fields=(
-        'no_impressions',
         'extra_impressions',
         'total_impressions',
         'running_costs',
