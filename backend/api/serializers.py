@@ -25,11 +25,6 @@ class InvoiceSerializer(serializers.ModelSerializer):
         #           'invoice_email',
         #           'i_d_employee_number',
         #           'invoice_date')
-    
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        # fields = ('product_number','product_name', 'product_price','product_description')
 
 class JobOrderSerializer(serializers.ModelSerializer):
     class Meta:
@@ -78,6 +73,12 @@ class ProductionConstantsSerializer(serializers.ModelSerializer):
         fields=('__all__')
         # fields = ('constants_id','plate_base_price','base_price_fold','lamination_factor','min_rate_running')
 
+    
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields=('__all__')
+        
 class PlateSerializer(serializers.ModelSerializer):
     no_impressions = serializers.ReadOnlyField()
     extra_impressions = serializers.ReadOnlyField()
@@ -89,12 +90,25 @@ class PlateSerializer(serializers.ModelSerializer):
         # fields = ('plate_id','no_impressions','extra_impressions', 'total_impressions','running_costs')
 
 class QuotationItemSerializer(serializers.ModelSerializer):
+    
+    # Related Objects
+    plates=PlateSerializer(many=True)
+    
+    # Read only fields (AKA properties)
     lamination_costs = serializers.ReadOnlyField()
+    
+    # Meta options
     class Meta:
         model = QuotationItem
         fields=('__all__')
 
 class QuotationSerializer(serializers.ModelSerializer):
+    
+    # Related Objects
+    items=QuotationItemSerializer(many=True)
+    product_type=ProductSerializer()
+    
+    # Read only fields (AKA properties)
     total_no_plates = serializers.ReadOnlyField()
     total_plate_costs = serializers.ReadOnlyField()
     exact_no_sheets = serializers.ReadOnlyField()
@@ -109,6 +123,8 @@ class QuotationSerializer(serializers.ModelSerializer):
     raw_total_costs = serializers.ReadOnlyField()
     final_unit_costs = serializers.ReadOnlyField()
     final_total_costs = serializers.ReadOnlyField()
+    
+    # Meta options
     class Meta:
         model = Quotation
         fields=('__all__')
