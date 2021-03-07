@@ -191,7 +191,8 @@ class PrintingProcess(models.Model):
         
 class Lamination(models.Model):
     lamination_type=models.CharField(max_length=150)
-    lamination_base_price=models.FloatField(max_length=22,default=0.0, null=True, blank=True)
+    base_price=models.FloatField(max_length=22,default=0.0, null=True, blank=True)
+    min_rate=models.FloatField(max_length=22,default=0.0, null=True, blank=True)
     
     def __str__(self):
         return self.lamination_type
@@ -293,8 +294,11 @@ class Quotation(models.Model):
     project_file_path=models.CharField(max_length=255, blank=True)
     
     # PROJECT DIMENSIONS
-    project_dimensions_length=models.FloatField(default=11)
-    project_dimensions_width=models.FloatField(default=8.5)
+    page_length=models.FloatField(default=11)
+    page_width=models.FloatField(default=8.5)
+    
+    spread_length=models.FloatField(default=11)
+    spread_width=models.FloatField(default=17)
     
     # MARGIN OF ERROR TO COMPUTE EXTRA SUPPLIES NEEDED
     margin_of_error=models.FloatField(max_length=10, default=0.10)
@@ -310,12 +314,12 @@ class Quotation(models.Model):
     def get_total_no_plates(self):
         total_plates = 0
         for item in self.items.all():
-            total_plates += item.plates.all().count() * item.no_colors
+            total_plates += (item.no_plates_per_copy + item.extra_plates.all().count()) * item.no_colors
         return total_plates
     total_no_plates=property(get_total_no_plates)
     
     # Total costs for all plates in the entire project
-    # total_plate_costs=models.FloatField(default=0.0)
+    
     def get_total_plate_costs(self):
         # logging.log(level=100,msg=production_constants.plate_base_price)
         try:
@@ -328,62 +332,23 @@ class Quotation(models.Model):
     def get_total_running_costs(self):
         total = 0.0
         for item in self.items.all():
-            for plate in item.plates.all():
+            total += item.running_costs
+            for plate in item.extra_plates.all():
                 total += plate.running_costs
         return total
     total_running_costs=property(get_total_running_costs)
     
     ### PAPER COSTS ###
-    # Get exact number of sheets
-    def get_exact_no_sheets(self):
-        return int(self.total_pages/self.pages_can_fit)
-    exact_no_sheets=property(get_exact_no_sheets)
-    
-    # Get extra sheets ordered
-    def get_extra_sheets(self):
-        return int(self.margin_of_error * self.exact_no_sheets)
-    extra_sheets = property(get_extra_sheets)
-    
-    # Get total number of sheets
-    def get_total_no_sheets(self):
-        return self.quantity * (self.exact_no_sheets + self.extra_sheets)
-    total_no_sheets=property(get_total_no_sheets)
+    no_sheets_in_running_machine = models.FloatField(default=1.0)
     
     # Total costs for all paper in the entire project
-    # total_paper_costs=models.FloatField(default=0.0)
-    # TODO: Refactor so it is not an unmaintainable piece of shit.
+    
     def get_total_paper_costs(self):
         # Running sum of paper costs
-        paper_costs = 0
+        total = 0
         for item in self.items.all():
-            # "Extract" how many sheets of paper for a particular item is needed
-            item_exact_no_sheets = 1
-            item_extra_no_sheets = 0
-            item_total_no_sheets = 1
-            # Cover only has 2 pages at most, therefore it takes only 1 sheet to print a single copy's cover
-            if item.item_type == 'cover':
-                item_exact_no_sheets = 1
-                item_extra_no_sheets = item_exact_no_sheets * self.margin_of_error
-                item_total_no_sheets = (self.quantity*item_exact_no_sheets) + item_extra_no_sheets
-            else:
-                # Default case, either inner pages or "other." If there is a cover, it might be possible that you need an extra sheet
-                item_exact_no_sheets = self.exact_no_sheets + (1 if item.item_type == 'inner' else 0)
-                item_extra_no_sheets = item_exact_no_sheets * self.margin_of_error
-                item_total_no_sheets = (self.quantity*item_exact_no_sheets)+item_extra_no_sheets
-            # Some papers have a ream_cost, some only have leaf_cost
-            if item.paper.ream_cost != 0.0:
-                # 500 sheets = 1 ream. The code below just gets the cost of all reams, and the cost of the extra leaves you need afterwards 
-                no_reams = int(item_total_no_sheets / 500)
-                total_reams_cost = no_reams * item.paper.ream_cost 
-                extra_leaves_cost = item.paper.leaf_cost * (item_total_no_sheets-(no_reams*500))
-                # Adds to running sum of paper costs so far
-                paper_costs += total_reams_cost + extra_leaves_cost
-            else:
-                # If there is no ream cost, then number of leaves = number of sheets.
-                # Therefore, you just multiply the item_total_no_sheets by the leaf cost to get total paper costs
-                paper_costs += item_total_no_sheets * item.paper.leaf_cost
-        # Return the result of the algorithm above^
-        return paper_costs
+            total += item.paper_costs
+        return total
     total_paper_costs = property(get_total_paper_costs)
     
     ### FINISHING COSTS ###
@@ -404,7 +369,7 @@ class Quotation(models.Model):
     
     # How many signatures (one-sided pages) are in this project?
     def get_total_signatures(self):
-        return 2 * self.exact_no_sheets
+        return 2 * self.no_sheets_in_running_machine
     total_signatures = property(get_total_signatures)
     
     # Get total folding costs
@@ -484,42 +449,67 @@ class QuotationItem(models.Model):
         (3,'Three Colors (CMYK)'),
         (4,'Full Color (CMYK)')
     ]
-    # HOW MANY COLORS DOES THE PROJECT HAVE?
+    # HOW MANY COLORS DOES THE ITEM HAVE?
     no_colors=models.IntegerField(default=4,choices=COLORS)
+    
+    # PLATE RUNNING COSTS
+    # How many plates are there for a single copy for this item?
+    no_plates_per_copy=models.IntegerField(default=1)
+    
+    ### NOTE: Put impressions + running costs in quotation item.
+    
+    # IMPRESSIONS per plate
+    no_impressions_per_plate=models.IntegerField(default=1)
+    
+    # Extra Impressions per plate
+    def get_extra_impressions(self):
+        return self.no_impressions_per_plate * self.quotation.margin_of_error
+    extra_impressions = property(get_extra_impressions)
+
+    # Get total_impressions for a single copy, for a single Item
+    def get_total_impressions(self):
+        return (self.no_plates_per_copy * self.no_impressions_per_plate) + self.extra_impressions
+    total_impressions = property(get_total_impressions)
+    
+    # COMPUTED RUNNING COSTS
+    def get_running_costs(self):
+        # For first 1000 impressions, the cost of running is 200 pesos per color for a single plate
+        # For each succedding 1000 impressions, you add 200 more pesos.
+        # Multiply this by the number of colors a particular item has.
+        # That's what the code below does:
+        try:
+            remaining_impressions = min(self.total_impressions - 1000.0,0)
+            return self.no_colors * (self.production_constants.min_rate_running + (200 * int(remaining_impressions / 1000)))
+        except:
+            return 0.0
+    running_costs = property(get_running_costs)
     
     # PAPER TYPE
     paper=models.ForeignKey(to=Paper, null=True, on_delete=models.SET_NULL)
+    
+    # Number of sheets ordered from paper supplier of this particular paper type
+    no_sheets_ordered_for_copy = models.FloatField(default=1)
+    
+    # Paper costs for particular quotation item
+    def get_paper_costs(self):
+        if(self.paper.ream_cost != 0):
+            no_reams = (self.quotation.quantity * self.no_sheets_ordered_for_copy)/500
+            return (no_reams * self.paper.ream_cost)
+        else:
+            return ((self.quotation.quantity * self.no_sheets_ordered_for_copy) * self.paper.sheet_cost)
+    paper_costs = property(get_paper_costs)
     
     # LAMINATION TYPE
     lamination=models.ForeignKey(to=Lamination, null=True, on_delete=models.SET_NULL, blank=True)
     
     # Lamination costs for a single quotation item 
     def get_lamination_costs(self):
+        # Laminate only on spread size of cover
         try:
             # Check if quotation item does have lamination
             if (not self.lamination is None):
-                # To get lamination costs, first:
-                # Figure out total pages to be laminated for the particular item.
-                # Then: get area of the paper's spread size
-                # Then: figure out extra_paper needed to be laminated in case something goes wrong
-                # Then: return the (area_of_paper) *
-                    # constant lamination factor (0.00625 pesos per sqinch) *
-                    # (total_pages_to_laminate + extra_paper)
-                no_pages = Quotation.total_pages
-                if (self.item_type == "cover"):
-                    no_pages = 2
-                elif (self.item_type == "inner"):
-                    no_pages = max(self.quotation.total_pages-2,0)
-                area_of_paper = self.paper.paper_height * self.paper.paper_width
-                total_pages_to_laminate = no_pages * self.quotation.quantity
-                extra_paper = total_pages_to_laminate * self.quotation.margin_of_error
-                # logging.log(100,str("\nlamination factor: " + str(production_constants.lamination_factor) + '\n' +
-                #                     "paper dimensions:" + str(self.paper.paper_height) + " x " + str(self.paper.paper_width) + "\n" +
-                #                     "area_of_paper" + str(area_of_paper) + "\n" +
-                #                     "no_pages: " + str(no_pages) + "\n" +
-                #                     "total_pages_to_laminate: " + str(total_pages_to_laminate) + "\n" +
-                #                     "extra_paper: " + str(extra_paper) + "\n"))
-                return area_of_paper * self.production_constants.lamination_factor * (total_pages_to_laminate + extra_paper)
+                area_of_paper = self.quotation.spread_length * self.quotation.spread_width
+                return max(self.lamination.min_rate, self.quotation.quantity * area_of_paper * self.lamination.base_price)
             else:
                 # If item has no lamination specified, the costs are zero
                 return 0.0
@@ -531,12 +521,17 @@ class QuotationItem(models.Model):
     binding=models.ForeignKey(to=Binding, null=True, on_delete=models.SET_NULL, blank=True)
     
     
-class Plate(models.Model):
+class ExtraPlate(models.Model):
     # QUOTATION ITEM THAT PLATE IS ASSOCIATED WITH
-    quotation_item = models.ForeignKey(to=QuotationItem, null=True, related_name="plates", on_delete=models.CASCADE)
+    quotation_item = models.ForeignKey(to=QuotationItem, null=True, related_name="extra_plates", on_delete=models.CASCADE)
+
+    # Name of extra plate
+    extra_plate_name = models.CharField(default="Extra Plate",max_length=150,blank=False)
 
     # Reference to production_constants
     production_constants = ProductionConstants.objects.all().first()
+    
+    ### NOTE: Put impressions + running costs in quotation item.
     
     # IMPRESSIONS
     no_impressions=models.IntegerField(default=1)

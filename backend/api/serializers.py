@@ -3,7 +3,7 @@ from .models import Account
 from .models import Invoice, JobOrder
 from .models import PrintingProcess
 from .models import Lamination, DieCut, Binding, Paper, ProductionConstants
-from .models import Quotation, QuotationItem, Plate, Product
+from .models import Quotation, QuotationItem, ExtraPlate, Product
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -79,20 +79,20 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields=('__all__')
         
-class PlateSerializer(serializers.ModelSerializer):
+class ExtraPlateSerializer(serializers.ModelSerializer):
     no_impressions = serializers.ReadOnlyField()
     extra_impressions = serializers.ReadOnlyField()
     total_impressions = serializers.ReadOnlyField()
     running_costs = serializers.ReadOnlyField()
     class Meta:
-        model = Plate
+        model = ExtraPlate
         fields=('__all__')
         # fields = ('plate_id','no_impressions','extra_impressions', 'total_impressions','running_costs')
 
 class QuotationItemSerializer(serializers.ModelSerializer):
     
     # Related Objects
-    plates=PlateSerializer(many=True)
+    plates=ExtraPlateSerializer(many=True)
     
     # Read only fields (AKA properties)
     lamination_costs = serializers.ReadOnlyField()

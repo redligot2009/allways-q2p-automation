@@ -7,7 +7,7 @@ from .models import Invoice, JobOrder
 from .models import PrintingProcess
 from .models import ProductionConstants
 from .models import Paper, Lamination, DieCut, Binding
-from .models import Product, Quotation, QuotationItem, Plate
+from .models import Product, Quotation, QuotationItem, ExtraPlate
 import nested_admin
 
 """ 
@@ -102,8 +102,8 @@ More info on the library below:
 https://github.com/theatlantic/django-nested-admin
 """
 
-class PlateInline(nested_admin.NestedTabularInline):
-    model=Plate
+class ExtraPlateInline(nested_admin.NestedTabularInline):
+    model=ExtraPlate
     extra=0
     readonly_fields=(
         'extra_impressions',
@@ -115,12 +115,14 @@ class PlateInline(nested_admin.NestedTabularInline):
 class QuotationItemInline(nested_admin.NestedStackedInline):
     model=QuotationItem
     inlines=[
-        PlateInline
+        ExtraPlateInline
     ]
     extra=0
     readonly_fields=(
+        'total_impressions',
+        'running_costs',
         'lamination_costs',
-        
+        'paper_costs',
     )
     
 @admin.register(Quotation)
@@ -142,8 +144,10 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
                        'margin_of_error',)
         }),
         ("Project Dimensions",{
-            'fields': ('project_dimensions_length',
-                       'project_dimensions_width',)
+            'fields': ('page_length',
+                       'page_width',
+                       'spread_length',
+                       'spread_width')
         }),
         ("Plates / Running Costs",{
             'fields':('pages_can_fit',
@@ -152,10 +156,7 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
                       'total_running_costs',)
         }),
         ("Paper Costs", {
-            'fields': ('exact_no_sheets',
-                       'extra_sheets',
-                       'total_no_sheets',
-                       'total_paper_costs',)
+            'fields': ('total_paper_costs',)
         }),
         ("Finishing Costs", {
             'fields': ('total_lamination_costs',)
@@ -164,7 +165,8 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
             'fields': ('total_binding_costs',)
         }),
         ("Folding + Gathering Costs", {
-            'fields': ('total_folds',
+            'fields': ('no_sheets_in_running_machine',
+                       'total_folds',
                        'total_signatures',
                        'total_folding_costs',
                        'total_gathering_costs',)
@@ -195,9 +197,6 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
     readonly_fields=(
         'total_no_plates',
         'total_plate_costs',
-        'exact_no_sheets',
-        'extra_sheets',
-        'total_no_sheets',
         'total_paper_costs',
         'total_running_costs',
         'total_signatures',
@@ -267,7 +266,8 @@ admin.site.register(PrintingProcess)
 class LaminationAdmin(admin.ModelAdmin):
     list_display=(
         'lamination_type',
-        'lamination_base_price',
+        'base_price',
+        'min_rate',
     )
     save_as = True
 

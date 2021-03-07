@@ -4,11 +4,11 @@ from .models import Account
 from .models import Invoice, JobOrder
 from .models import PrintingProcess
 from .models import Lamination, DieCut, Binding, Paper, ProductionConstants
-from .models import Quotation, QuotationItem, Plate, Product
+from .models import Quotation, QuotationItem, ExtraPlate, Product
 from .serializers import AccountSerializer, InvoiceSerializer, ProductSerializer
 from .serializers import JobOrderSerializer, PaperSerializer, PrintingProcessSerializer
 from .serializers import LaminationSerializer, DieCutSerializer, BindingSerializer
-from .serializers import ProductionConstantsSerializer, PlateSerializer, QuotationItemSerializer
+from .serializers import ProductionConstantsSerializer, ExtraPlateSerializer, QuotationItemSerializer
 from .serializers import QuotationSerializer
 # Create your views here.
 
@@ -54,8 +54,8 @@ class ProductionConstantsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductionConstantsSerializer
 
 class PlateViewSet(viewsets.ModelViewSet):
-    queryset = Plate.objects.all()
-    serializer_class = PlateSerializer
+    queryset = ExtraPlate.objects.all()
+    serializer_class = ExtraPlateSerializer
 
 class QuotationItemViewSet(viewsets.ModelViewSet):
     queryset = QuotationItem.objects.all()
