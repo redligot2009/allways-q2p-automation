@@ -176,6 +176,7 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         }),
         ("Summary Costs", {
             'fields': ('raw_total_costs',
+                       'raw_unit_costs',
                        'final_unit_costs',
                        'final_total_costs',)
         }),
@@ -204,6 +205,7 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         'total_gathering_costs',
         'total_lamination_costs',
         'raw_total_costs',
+        'raw_unit_costs',
         'final_unit_costs',
         'final_total_costs',
     )
@@ -220,16 +222,64 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
 admin.site.register(ProductionConstants)
 
 # Paper types admin page
-admin.site.register(Paper)
+# admin.site.register(Paper)
+@admin.register(Paper)
+class PaperAdmin(admin.ModelAdmin):
+    list_display=(
+        'paper_type',
+        'paper_dimensions',
+        'is_colored',
+        'is_sticker',
+        'paper_category',
+        'ream_cost',
+        'leaf_cost',
+    )
+    
+    actions=['make_sticker', 'make_non_sticker',
+             'make_colored', 'make_non_colored']
+    
+    ordering=('paper_category','paper_type','paper_width','paper_height','ream_cost','leaf_cost',)
+    
+    save_as = True
+    
+    def make_sticker(self,request,queryset):
+        queryset.update(is_sticker='y')
+    make_sticker.short_description='Change to sticker'
+    
+    def make_non_sticker(self,request,queryset):
+        queryset.update(is_sticker='n')
+    make_non_sticker.short_description='Change to non-sticker'
+    
+    def make_colored(self,request,queryset):
+        queryset.update(is_colored='y')
+    make_colored.short_description='Change to colored'
+    
+    def make_non_colored(self,request,queryset):
+        queryset.update(is_colored='n')
+    make_non_colored.short_description='Change to non-colored'
+    
 
 # Printing processes admin page
 admin.site.register(PrintingProcess)
 
 # Lamination types admin page
-admin.site.register(Lamination)
+@admin.register(Lamination)
+class LaminationAdmin(admin.ModelAdmin):
+    list_display=(
+        'lamination_type',
+        'lamination_base_price',
+    )
+    save_as = True
 
 # Diecut types admin page
 admin.site.register(DieCut)
 
 # Binding types admin page
-admin.site.register(Binding)
+@admin.register(Binding)
+class BindingAdmin(admin.ModelAdmin):
+    list_display=(
+        'binding_type',
+        'binding_base_price',
+    )
+    save_as = True
+

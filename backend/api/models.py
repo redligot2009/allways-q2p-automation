@@ -145,22 +145,21 @@ class ProductionConstants(models.Model):
         verbose_name_plural="Production Constants"
 
 class Paper(models.Model):
-
     
     class Meta:
         verbose_name_plural="Paper Types"
         
-    ISCOLOR=[
+    IS_COLOR=[
         ('y','Yes'),
         ('n','No'),
         ]
-    ISSTICKER=[
+    IS_STICKER=[
         ('y','Yes'),
         ('n','No'),
         ]
     
     # PAPER INFORMATION
-    paper_type=models.CharField(max_length=150, default="Book 60")
+    paper_type=models.CharField(max_length=150)
     paper_category=models.CharField(max_length=100)
     
     def __str__(self):
@@ -170,13 +169,17 @@ class Paper(models.Model):
     paper_height=models.FloatField(default=25.0)
     paper_width=models.FloatField(default=38.0)
     
+    def get_dimensions(self):
+        return "{}\" x {}\"".format(self.paper_height, self.paper_width)
+    paper_dimensions = property(get_dimensions)
+    
     # PAPER COSTS (LEAF AND REAM)
     ream_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
     leaf_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
     
     # IS PAPER COLORED OR A STICKER TYPE OF PAPER?
-    is_colored=models.CharField(max_length=1,choices=ISCOLOR)
-    is_sticker=models.CharField(max_length=10,choices=ISCOLOR)
+    is_colored=models.CharField(default="n",max_length=1,choices=IS_COLOR)
+    is_sticker=models.CharField(default="n",max_length=10,choices=IS_STICKER)
     
 class PrintingProcess(models.Model):
     #process_id=models.CharField(max_length=10, primary_key=True)
@@ -187,8 +190,8 @@ class PrintingProcess(models.Model):
         verbose_name_plural="Printing Processes"
         
 class Lamination(models.Model):
-    lamination_type=models.CharField(max_length=150, blank=True)
-    lamination_base_price=models.FloatField(max_length=22,default=0.0)
+    lamination_type=models.CharField(max_length=150)
+    lamination_base_price=models.FloatField(max_length=22,default=0.0, null=True, blank=True)
     
     def __str__(self):
         return self.lamination_type
@@ -197,8 +200,8 @@ class Lamination(models.Model):
         verbose_name_plural="Lamination Types"
 
 class DieCut(models.Model):
-    diecut_type=models.CharField(max_length=10, blank=True)
-    diecut_base_price=models.FloatField(max_length=22,default=0.0)
+    diecut_type=models.CharField(max_length=10)
+    diecut_base_price=models.FloatField(max_length=22,default=0.0, null=True, blank=True)
     
     def __str__(self):
         return self.diecut_type
@@ -207,8 +210,8 @@ class DieCut(models.Model):
         verbose_name_plural="Diecut Types"
 
 class Binding(models.Model):
-    binding_type=models.CharField(max_length=150, blank=True)
-    binding_base_price=models.FloatField(max_length=22,default=0.0)
+    binding_type=models.CharField(max_length=150)
+    binding_base_price=models.FloatField(max_length=22, null=True, blank=True)
     
     def __str__(self):
         return self.binding_type
@@ -218,9 +221,9 @@ class Binding(models.Model):
     
 class Product(models.Model):
     #product_number=models.CharField(max_length=5,primary_key=True)
-    product_name=models.CharField(max_length=20, blank=True)
-    product_price=models.FloatField(max_length=22, default=0.0)
-    product_description=models.CharField(max_length=200, blank=True)
+    product_name=models.CharField(max_length=20)
+    product_price=models.FloatField(max_length=22, default=0.0, null=True, blank=True)
+    product_description=models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.product_name
@@ -236,6 +239,9 @@ def create_user_account(sender,instance,created,**kwargs):
 class Quotation(models.Model):
     
     ### PROJECT-WIDE SETTINGS ###
+    
+    # Reference to production_constants
+    production_constants = ProductionConstants.objects.all().first()
     
     # Which client created this quotation?
     client = models.ForeignKey(to=Account,null=True,blank=True,on_delete=models.SET_NULL)
@@ -313,7 +319,7 @@ class Quotation(models.Model):
     def get_total_plate_costs(self):
         # logging.log(level=100,msg=production_constants.plate_base_price)
         try:
-            return self.total_no_plates * production_constants.plate_base_price
+            return self.total_no_plates * self.production_constants.plate_base_price
         except:
             return 0.0
     total_plate_costs=property(get_total_plate_costs)
@@ -404,7 +410,7 @@ class Quotation(models.Model):
     # Get total folding costs
     def get_total_folding_costs(self):
         try:
-            return (self.total_folds * production_constants.base_price_fold * self.total_signatures)
+            return (self.total_folds * self.production_constants.base_price_fold * self.total_signatures)
         except:
             return 0.0
     total_folding_costs=property(get_total_folding_costs)
@@ -412,7 +418,7 @@ class Quotation(models.Model):
     # Get total gathering costs
     def get_gathering_costs(self):
         try:
-            return production_constants.base_price_fold * self.total_signatures
+            return self.production_constants.base_price_fold * self.total_signatures
         except:
             return 0.0
     total_gathering_costs = property(get_gathering_costs)
@@ -433,6 +439,11 @@ class Quotation(models.Model):
                 )
     raw_total_costs=property(get_raw_total_costs)
     
+    # Get raw unit costs of a single copy w/o markup
+    def get_raw_unit_costs (self):
+        return float(self.raw_total_costs/self.quantity)
+    raw_unit_costs=property(get_raw_unit_costs)
+    
     # Get markup costs to add to raw total costs for profit
     def get_markup_costs(self):
 	    return self.markup_percentage * self.raw_total_costs
@@ -452,6 +463,9 @@ class QuotationItem(models.Model):
     
     # QUOTATION THAT THE ITEM IS ASSOCIATED WITH
     quotation=models.ForeignKey(to=Quotation, null=True, related_name="items", on_delete=models.CASCADE)
+    
+    # Reference to production_constants
+    production_constants = ProductionConstants.objects.all().first()
     
     # Choices for quotation item type
     ITEM_TYPE=[
@@ -505,7 +519,7 @@ class QuotationItem(models.Model):
                 #                     "no_pages: " + str(no_pages) + "\n" +
                 #                     "total_pages_to_laminate: " + str(total_pages_to_laminate) + "\n" +
                 #                     "extra_paper: " + str(extra_paper) + "\n"))
-                return area_of_paper * production_constants.lamination_factor * (total_pages_to_laminate + extra_paper)
+                return area_of_paper * self.production_constants.lamination_factor * (total_pages_to_laminate + extra_paper)
             else:
                 # If item has no lamination specified, the costs are zero
                 return 0.0
@@ -521,6 +535,9 @@ class Plate(models.Model):
     # QUOTATION ITEM THAT PLATE IS ASSOCIATED WITH
     quotation_item = models.ForeignKey(to=QuotationItem, null=True, related_name="plates", on_delete=models.CASCADE)
 
+    # Reference to production_constants
+    production_constants = ProductionConstants.objects.all().first()
+    
     # IMPRESSIONS
     no_impressions=models.IntegerField(default=1)
     def get_extra_impressions(self):
@@ -540,7 +557,8 @@ class Plate(models.Model):
         # That's what the code below does:
         try:
             remaining_impressions = min(self.total_impressions - 1000.0,0)
-            return self.quotation_item.no_colors * (production_constants.min_rate_running + (200 * int(remaining_impressions / 1000)))
+            return self.quotation_item.no_colors * (self.production_constants.min_rate_running + (200 * int(remaining_impressions / 1000)))
         except:
+            logging.log(100,"What the fuck?")
             return 0.0
     running_costs = property(get_running_costs)
