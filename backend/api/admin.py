@@ -165,7 +165,7 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
             'fields': ('total_binding_costs',)
         }),
         ("Folding + Gathering Costs", {
-            'fields': ('no_sheets_in_running_machine',
+            'fields': ('total_no_sheets',
                        'total_folds',
                        'total_signatures',
                        'total_folding_costs',
@@ -197,6 +197,7 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
     readonly_fields=(
         'total_no_plates',
         'total_plate_costs',
+        'total_no_sheets',
         'total_paper_costs',
         'total_running_costs',
         'total_signatures',

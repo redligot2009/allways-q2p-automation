@@ -339,7 +339,14 @@ class Quotation(models.Model):
     total_running_costs=property(get_total_running_costs)
     
     ### PAPER COSTS ###
-    no_sheets_in_running_machine = models.FloatField(default=1.0)
+    def get_total_no_sheets(self):
+        total = 0
+        for item in self.items.all():
+            total += item.no_sheets_ordered_for_copy
+        return total
+    total_no_sheets=property(get_total_no_sheets)
+    
+    #no_sheets_in_running_machine = models.FloatField(default=1.0)
     
     # Total costs for all paper in the entire project
     
@@ -369,7 +376,7 @@ class Quotation(models.Model):
     
     # How many signatures (one-sided pages) are in this project?
     def get_total_signatures(self):
-        return 2 * self.no_sheets_in_running_machine
+        return 2 * self.total_no_sheets
     total_signatures = property(get_total_signatures)
     
     # Get total folding costs
@@ -478,7 +485,7 @@ class QuotationItem(models.Model):
         # Multiply this by the number of colors a particular item has.
         # That's what the code below does:
         try:
-            remaining_impressions = min(self.total_impressions - 1000.0,0)
+            remaining_impressions = max(self.total_impressions - 1000.0,0)
             return self.no_colors * (self.production_constants.min_rate_running + (200 * int(remaining_impressions / 1000)))
         except:
             return 0.0
