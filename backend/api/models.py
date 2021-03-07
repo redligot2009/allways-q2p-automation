@@ -561,6 +561,5 @@ class ExtraPlate(models.Model):
             remaining_impressions = min(self.total_impressions - 1000.0,0)
             return self.quotation_item.no_colors * (self.production_constants.min_rate_running + (200 * int(remaining_impressions / 1000)))
         except:
-            logging.log(100,"What the fuck?")
             return 0.0
     running_costs = property(get_running_costs)
