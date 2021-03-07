@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
@@ -26,30 +25,30 @@ import NavItem from './NavItem';
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  jobTitle: 'Account Manager',
+  name: 'Mr. Ligot'
 };
 
 const items = [
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
-    title: 'Dashboard'
+    title: 'Home'
   },
   {
-    href: '/app/customers',
+    href: '/app/review',
     icon: UsersIcon,
-    title: 'Customers'
+    title: 'Quote Review'
   },
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Products'
+    title: 'Order Tracking'
   },
   {
     href: '/app/account',
     icon: UserIcon,
-    title: 'Account'
+    title: 'Manage Employees'
   },
   {
     href: '/app/settings',
@@ -109,7 +108,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Box
         alignItems="center"
         display="flex"
-        flexDirection="column"
+        flexDirection="row"
+        justifyContent="space-around"
         p={2}
       >
         <Avatar
@@ -118,6 +118,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           src={user.avatar}
           to="/app/account"
         />
+        <Box>
         <Typography
           className={classes.name}
           color="textPrimary"
@@ -131,6 +132,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         >
           {user.jobTitle}
         </Typography>
+        </Box>
       </Box>
       <Divider />
       <Box p={2}>
@@ -144,40 +146,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             />
           ))}
         </List>
-      </Box>
-      <Box flexGrow={1} />
-      <Box
-        p={2}
-        m={2}
-        bgcolor="background.dark"
-      >
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          Need more?
-        </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          display="flex"
-          justifyContent="center"
-          mt={2}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
       </Box>
     </Box>
   );

@@ -38,7 +38,7 @@ const ProductList = () => {
           color="textPrimary"
           variant="h2"
         >
-          Order Tracking
+          Order Review
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
@@ -48,7 +48,7 @@ const ProductList = () => {
               color="textSecondary"
               variant="h5"
             >
-              In Production
+              Awaiting Computation for Job Order
             </Typography>
               <Box mt={2}>
                 {products.map((product) => (
@@ -75,7 +75,7 @@ const ProductList = () => {
                 color="textSecondary"
                 variant="h5"
               >
-                Out for Delivery
+                Recently Approved Job Orders
               </Typography>
                 <Box mt={2}>
                   {products.map((product) => (
