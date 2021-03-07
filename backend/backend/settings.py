@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'nested_admin',
     'fixture_magic',
+    'django_extensions',
     'api',
 ]
 

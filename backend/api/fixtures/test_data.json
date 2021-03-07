@@ -1,0 +1,1193 @@
+[
+    {
+        "fields": {
+            "codename": "add_logentry",
+            "content_type": 1,
+            "name": "Can add log entry"
+        },
+        "model": "auth.permission",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "codename": "change_logentry",
+            "content_type": 1,
+            "name": "Can change log entry"
+        },
+        "model": "auth.permission",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "codename": "delete_logentry",
+            "content_type": 1,
+            "name": "Can delete log entry"
+        },
+        "model": "auth.permission",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "codename": "view_logentry",
+            "content_type": 1,
+            "name": "Can view log entry"
+        },
+        "model": "auth.permission",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "codename": "add_permission",
+            "content_type": 2,
+            "name": "Can add permission"
+        },
+        "model": "auth.permission",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "codename": "change_permission",
+            "content_type": 2,
+            "name": "Can change permission"
+        },
+        "model": "auth.permission",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "codename": "delete_permission",
+            "content_type": 2,
+            "name": "Can delete permission"
+        },
+        "model": "auth.permission",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "codename": "view_permission",
+            "content_type": 2,
+            "name": "Can view permission"
+        },
+        "model": "auth.permission",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "codename": "add_group",
+            "content_type": 3,
+            "name": "Can add group"
+        },
+        "model": "auth.permission",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "codename": "change_group",
+            "content_type": 3,
+            "name": "Can change group"
+        },
+        "model": "auth.permission",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "codename": "delete_group",
+            "content_type": 3,
+            "name": "Can delete group"
+        },
+        "model": "auth.permission",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "codename": "view_group",
+            "content_type": 3,
+            "name": "Can view group"
+        },
+        "model": "auth.permission",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "codename": "add_user",
+            "content_type": 4,
+            "name": "Can add user"
+        },
+        "model": "auth.permission",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "codename": "change_user",
+            "content_type": 4,
+            "name": "Can change user"
+        },
+        "model": "auth.permission",
+        "pk": 14
+    },
+    {
+        "fields": {
+            "codename": "delete_user",
+            "content_type": 4,
+            "name": "Can delete user"
+        },
+        "model": "auth.permission",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "codename": "view_user",
+            "content_type": 4,
+            "name": "Can view user"
+        },
+        "model": "auth.permission",
+        "pk": 16
+    },
+    {
+        "fields": {
+            "codename": "add_contenttype",
+            "content_type": 5,
+            "name": "Can add content type"
+        },
+        "model": "auth.permission",
+        "pk": 17
+    },
+    {
+        "fields": {
+            "codename": "change_contenttype",
+            "content_type": 5,
+            "name": "Can change content type"
+        },
+        "model": "auth.permission",
+        "pk": 18
+    },
+    {
+        "fields": {
+            "codename": "delete_contenttype",
+            "content_type": 5,
+            "name": "Can delete content type"
+        },
+        "model": "auth.permission",
+        "pk": 19
+    },
+    {
+        "fields": {
+            "codename": "view_contenttype",
+            "content_type": 5,
+            "name": "Can view content type"
+        },
+        "model": "auth.permission",
+        "pk": 20
+    },
+    {
+        "fields": {
+            "codename": "add_session",
+            "content_type": 6,
+            "name": "Can add session"
+        },
+        "model": "auth.permission",
+        "pk": 21
+    },
+    {
+        "fields": {
+            "codename": "change_session",
+            "content_type": 6,
+            "name": "Can change session"
+        },
+        "model": "auth.permission",
+        "pk": 22
+    },
+    {
+        "fields": {
+            "codename": "delete_session",
+            "content_type": 6,
+            "name": "Can delete session"
+        },
+        "model": "auth.permission",
+        "pk": 23
+    },
+    {
+        "fields": {
+            "codename": "view_session",
+            "content_type": 6,
+            "name": "Can view session"
+        },
+        "model": "auth.permission",
+        "pk": 24
+    },
+    {
+        "fields": {
+            "codename": "add_account",
+            "content_type": 7,
+            "name": "Can add account"
+        },
+        "model": "auth.permission",
+        "pk": 25
+    },
+    {
+        "fields": {
+            "codename": "change_account",
+            "content_type": 7,
+            "name": "Can change account"
+        },
+        "model": "auth.permission",
+        "pk": 26
+    },
+    {
+        "fields": {
+            "codename": "delete_account",
+            "content_type": 7,
+            "name": "Can delete account"
+        },
+        "model": "auth.permission",
+        "pk": 27
+    },
+    {
+        "fields": {
+            "codename": "view_account",
+            "content_type": 7,
+            "name": "Can view account"
+        },
+        "model": "auth.permission",
+        "pk": 28
+    },
+    {
+        "fields": {
+            "codename": "add_invoice",
+            "content_type": 8,
+            "name": "Can add invoice"
+        },
+        "model": "auth.permission",
+        "pk": 29
+    },
+    {
+        "fields": {
+            "codename": "change_invoice",
+            "content_type": 8,
+            "name": "Can change invoice"
+        },
+        "model": "auth.permission",
+        "pk": 30
+    },
+    {
+        "fields": {
+            "codename": "delete_invoice",
+            "content_type": 8,
+            "name": "Can delete invoice"
+        },
+        "model": "auth.permission",
+        "pk": 31
+    },
+    {
+        "fields": {
+            "codename": "view_invoice",
+            "content_type": 8,
+            "name": "Can view invoice"
+        },
+        "model": "auth.permission",
+        "pk": 32
+    },
+    {
+        "fields": {
+            "codename": "add_joborder",
+            "content_type": 9,
+            "name": "Can add job order"
+        },
+        "model": "auth.permission",
+        "pk": 33
+    },
+    {
+        "fields": {
+            "codename": "change_joborder",
+            "content_type": 9,
+            "name": "Can change job order"
+        },
+        "model": "auth.permission",
+        "pk": 34
+    },
+    {
+        "fields": {
+            "codename": "delete_joborder",
+            "content_type": 9,
+            "name": "Can delete job order"
+        },
+        "model": "auth.permission",
+        "pk": 35
+    },
+    {
+        "fields": {
+            "codename": "view_joborder",
+            "content_type": 9,
+            "name": "Can view job order"
+        },
+        "model": "auth.permission",
+        "pk": 36
+    },
+    {
+        "fields": {
+            "codename": "add_productionconstants",
+            "content_type": 10,
+            "name": "Can add production constants"
+        },
+        "model": "auth.permission",
+        "pk": 37
+    },
+    {
+        "fields": {
+            "codename": "change_productionconstants",
+            "content_type": 10,
+            "name": "Can change production constants"
+        },
+        "model": "auth.permission",
+        "pk": 38
+    },
+    {
+        "fields": {
+            "codename": "delete_productionconstants",
+            "content_type": 10,
+            "name": "Can delete production constants"
+        },
+        "model": "auth.permission",
+        "pk": 39
+    },
+    {
+        "fields": {
+            "codename": "view_productionconstants",
+            "content_type": 10,
+            "name": "Can view production constants"
+        },
+        "model": "auth.permission",
+        "pk": 40
+    },
+    {
+        "fields": {
+            "codename": "add_paper",
+            "content_type": 11,
+            "name": "Can add paper"
+        },
+        "model": "auth.permission",
+        "pk": 41
+    },
+    {
+        "fields": {
+            "codename": "change_paper",
+            "content_type": 11,
+            "name": "Can change paper"
+        },
+        "model": "auth.permission",
+        "pk": 42
+    },
+    {
+        "fields": {
+            "codename": "delete_paper",
+            "content_type": 11,
+            "name": "Can delete paper"
+        },
+        "model": "auth.permission",
+        "pk": 43
+    },
+    {
+        "fields": {
+            "codename": "view_paper",
+            "content_type": 11,
+            "name": "Can view paper"
+        },
+        "model": "auth.permission",
+        "pk": 44
+    },
+    {
+        "fields": {
+            "codename": "add_printingprocess",
+            "content_type": 12,
+            "name": "Can add printing process"
+        },
+        "model": "auth.permission",
+        "pk": 45
+    },
+    {
+        "fields": {
+            "codename": "change_printingprocess",
+            "content_type": 12,
+            "name": "Can change printing process"
+        },
+        "model": "auth.permission",
+        "pk": 46
+    },
+    {
+        "fields": {
+            "codename": "delete_printingprocess",
+            "content_type": 12,
+            "name": "Can delete printing process"
+        },
+        "model": "auth.permission",
+        "pk": 47
+    },
+    {
+        "fields": {
+            "codename": "view_printingprocess",
+            "content_type": 12,
+            "name": "Can view printing process"
+        },
+        "model": "auth.permission",
+        "pk": 48
+    },
+    {
+        "fields": {
+            "codename": "add_lamination",
+            "content_type": 13,
+            "name": "Can add lamination"
+        },
+        "model": "auth.permission",
+        "pk": 49
+    },
+    {
+        "fields": {
+            "codename": "change_lamination",
+            "content_type": 13,
+            "name": "Can change lamination"
+        },
+        "model": "auth.permission",
+        "pk": 50
+    },
+    {
+        "fields": {
+            "codename": "delete_lamination",
+            "content_type": 13,
+            "name": "Can delete lamination"
+        },
+        "model": "auth.permission",
+        "pk": 51
+    },
+    {
+        "fields": {
+            "codename": "view_lamination",
+            "content_type": 13,
+            "name": "Can view lamination"
+        },
+        "model": "auth.permission",
+        "pk": 52
+    },
+    {
+        "fields": {
+            "codename": "add_diecut",
+            "content_type": 14,
+            "name": "Can add die cut"
+        },
+        "model": "auth.permission",
+        "pk": 53
+    },
+    {
+        "fields": {
+            "codename": "change_diecut",
+            "content_type": 14,
+            "name": "Can change die cut"
+        },
+        "model": "auth.permission",
+        "pk": 54
+    },
+    {
+        "fields": {
+            "codename": "delete_diecut",
+            "content_type": 14,
+            "name": "Can delete die cut"
+        },
+        "model": "auth.permission",
+        "pk": 55
+    },
+    {
+        "fields": {
+            "codename": "view_diecut",
+            "content_type": 14,
+            "name": "Can view die cut"
+        },
+        "model": "auth.permission",
+        "pk": 56
+    },
+    {
+        "fields": {
+            "codename": "add_binding",
+            "content_type": 15,
+            "name": "Can add binding"
+        },
+        "model": "auth.permission",
+        "pk": 57
+    },
+    {
+        "fields": {
+            "codename": "change_binding",
+            "content_type": 15,
+            "name": "Can change binding"
+        },
+        "model": "auth.permission",
+        "pk": 58
+    },
+    {
+        "fields": {
+            "codename": "delete_binding",
+            "content_type": 15,
+            "name": "Can delete binding"
+        },
+        "model": "auth.permission",
+        "pk": 59
+    },
+    {
+        "fields": {
+            "codename": "view_binding",
+            "content_type": 15,
+            "name": "Can view binding"
+        },
+        "model": "auth.permission",
+        "pk": 60
+    },
+    {
+        "fields": {
+            "codename": "add_product",
+            "content_type": 16,
+            "name": "Can add product"
+        },
+        "model": "auth.permission",
+        "pk": 61
+    },
+    {
+        "fields": {
+            "codename": "change_product",
+            "content_type": 16,
+            "name": "Can change product"
+        },
+        "model": "auth.permission",
+        "pk": 62
+    },
+    {
+        "fields": {
+            "codename": "delete_product",
+            "content_type": 16,
+            "name": "Can delete product"
+        },
+        "model": "auth.permission",
+        "pk": 63
+    },
+    {
+        "fields": {
+            "codename": "view_product",
+            "content_type": 16,
+            "name": "Can view product"
+        },
+        "model": "auth.permission",
+        "pk": 64
+    },
+    {
+        "fields": {
+            "codename": "add_quotation",
+            "content_type": 17,
+            "name": "Can add quotation"
+        },
+        "model": "auth.permission",
+        "pk": 65
+    },
+    {
+        "fields": {
+            "codename": "change_quotation",
+            "content_type": 17,
+            "name": "Can change quotation"
+        },
+        "model": "auth.permission",
+        "pk": 66
+    },
+    {
+        "fields": {
+            "codename": "delete_quotation",
+            "content_type": 17,
+            "name": "Can delete quotation"
+        },
+        "model": "auth.permission",
+        "pk": 67
+    },
+    {
+        "fields": {
+            "codename": "view_quotation",
+            "content_type": 17,
+            "name": "Can view quotation"
+        },
+        "model": "auth.permission",
+        "pk": 68
+    },
+    {
+        "fields": {
+            "codename": "add_quotationitem",
+            "content_type": 18,
+            "name": "Can add quotation item"
+        },
+        "model": "auth.permission",
+        "pk": 69
+    },
+    {
+        "fields": {
+            "codename": "change_quotationitem",
+            "content_type": 18,
+            "name": "Can change quotation item"
+        },
+        "model": "auth.permission",
+        "pk": 70
+    },
+    {
+        "fields": {
+            "codename": "delete_quotationitem",
+            "content_type": 18,
+            "name": "Can delete quotation item"
+        },
+        "model": "auth.permission",
+        "pk": 71
+    },
+    {
+        "fields": {
+            "codename": "view_quotationitem",
+            "content_type": 18,
+            "name": "Can view quotation item"
+        },
+        "model": "auth.permission",
+        "pk": 72
+    },
+    {
+        "fields": {
+            "codename": "add_plate",
+            "content_type": 19,
+            "name": "Can add plate"
+        },
+        "model": "auth.permission",
+        "pk": 73
+    },
+    {
+        "fields": {
+            "codename": "change_plate",
+            "content_type": 19,
+            "name": "Can change plate"
+        },
+        "model": "auth.permission",
+        "pk": 74
+    },
+    {
+        "fields": {
+            "codename": "delete_plate",
+            "content_type": 19,
+            "name": "Can delete plate"
+        },
+        "model": "auth.permission",
+        "pk": 75
+    },
+    {
+        "fields": {
+            "codename": "view_plate",
+            "content_type": 19,
+            "name": "Can view plate"
+        },
+        "model": "auth.permission",
+        "pk": 76
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:19:29Z",
+            "email": "clayusatest@email.com",
+            "first_name": "Cynthia",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Layusa",
+            "password": "pbkdf2_sha256$216000$NoUbxEUnnNCR$qDuAkljKKPwApIwiXzxkY09ojolUGXaHKq97J7D/1+I=",
+            "user_permissions": [],
+            "username": "clayusa"
+        },
+        "model": "auth.user",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:32:15Z",
+            "email": "dosabel@email.com",
+            "first_name": "Diogenes",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Osabel",
+            "password": "pbkdf2_sha256$216000$av9AuLA4rCDN$ZQ2jn2h9fI1WWRDNBoPu9IpzUgkue+xxqqZpkHCgr/g=",
+            "user_permissions": [],
+            "username": "dosabel"
+        },
+        "model": "auth.user",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:32:53Z",
+            "email": "asiancollege@email.com",
+            "first_name": "Asian College",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "",
+            "password": "pbkdf2_sha256$216000$XTp5fcxLFw0p$VGYh0G3xx3RJz0iJABEWhhquBFW1AWA0CgVAviKTCQk=",
+            "user_permissions": [],
+            "username": "asiancollege"
+        },
+        "model": "auth.user",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:33:47Z",
+            "email": "bread@email.com",
+            "first_name": "Blue",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Green",
+            "password": "pbkdf2_sha256$216000$b2jlRVYs6lwD$sc6ewHekkn0rqT33VxCd0UogM4KlG9W8CRtBNSr7ASM=",
+            "user_permissions": [],
+            "username": "grilledcheese"
+        },
+        "model": "auth.user",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:35:10Z",
+            "email": "flute@email.com",
+            "first_name": "Piper",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Miller",
+            "password": "pbkdf2_sha256$216000$nQNbKmNPqilh$E8Lxvid2DU7nhjiyi3dpauZt49Wh40/DZJ2PLdLRk3E=",
+            "user_permissions": [],
+            "username": "piedpiper"
+        },
+        "model": "auth.user",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:35:51Z",
+            "email": "retriever@email.com",
+            "first_name": "Harold",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Lanes",
+            "password": "pbkdf2_sha256$216000$yvrf7PQNP9j5$v3soiGYnAqFs3+mt+GHHDXTweZkP17uE2VsktgKmyp4=",
+            "user_permissions": [],
+            "username": "pupper"
+        },
+        "model": "auth.user",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:36:49Z",
+            "email": "toast@email.com",
+            "first_name": "Benedict",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Bread",
+            "password": "pbkdf2_sha256$216000$EHPWYPfwG9Ij$w0BvrUehAmn1JlLNRdvJXGd78VqOvJ7R+xtm+g0N+/M=",
+            "user_permissions": [],
+            "username": "eggs"
+        },
+        "model": "auth.user",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": null,
+            "license_number": null,
+            "middle_name": null,
+            "mobile_number": "09000000000",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "00, Asdf St., Alphabet City",
+            "user": 2
+        },
+        "model": "api.account",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": null,
+            "license_number": null,
+            "middle_name": "M",
+            "mobile_number": "09120000000",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "123 Data St., Computer City",
+            "user": 3
+        },
+        "model": "api.account",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": null,
+            "license_number": null,
+            "middle_name": null,
+            "mobile_number": "09130000000",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "2345 Moon St., Star City",
+            "user": 4
+        },
+        "model": "api.account",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "D",
+            "license_number": "12340976865",
+            "middle_name": "Chez",
+            "mobile_number": "09799999999",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 5
+        },
+        "model": "api.account",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "account_manager_key": "1234567",
+            "job_position": "AM",
+            "license_number": null,
+            "middle_name": null,
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 6
+        },
+        "model": "api.account",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "P",
+            "license_number": null,
+            "middle_name": null,
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": "Staff",
+            "shipping_address": "",
+            "user": 7
+        },
+        "model": "api.account",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "O",
+            "license_number": null,
+            "middle_name": "Eggs",
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": "4567896",
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 8
+        },
+        "model": "api.account",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "base_price_fold": 90.0,
+            "lamination_factor": 0.00625,
+            "min_rate_running": 400.0,
+            "plate_base_price": 250.0
+        },
+        "model": "api.productionconstants",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "is_colored": "y",
+            "is_sticker": "n",
+            "leaf_cost": 0.5,
+            "paper_category": "this is a random paper",
+            "paper_height": 17.0,
+            "paper_type": "Book 60",
+            "paper_width": 8.5,
+            "ream_cost": 500.0
+        },
+        "model": "api.paper",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "lamination_base_price": 50.0,
+            "lamination_type": "Normal"
+        },
+        "model": "api.lamination",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "binding_base_price": 600.0,
+            "binding_type": "Normal"
+        },
+        "model": "api.binding",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "product_description": "This test product is a book",
+            "product_name": "Book",
+            "product_price": 4000.0
+        },
+        "model": "api.product",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "product_description": "This test product is a magazine",
+            "product_name": "Magazine",
+            "product_price": 5000.0
+        },
+        "model": "api.product",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "product_description": "This test product is a tarp",
+            "product_name": "Tarpaulin",
+            "product_price": 2000.0
+        },
+        "model": "api.product",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "product_description": "This test product is a flyer",
+            "product_name": "Flyer",
+            "product_price": 2000.0
+        },
+        "model": "api.product",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "approval_date": null,
+            "approval_status": "in_progress",
+            "client": 3,
+            "created_date": "2021-03-08T09:44:35Z",
+            "cutting_costs": 670.0,
+            "margin_of_error": 0.1,
+            "markup_percentage": 0.45,
+            "packaging_costs": 90.0,
+            "pages_can_fit": 4,
+            "printing_process": "digital",
+            "product_type": 1,
+            "project_dimensions_length": 11.0,
+            "project_dimensions_width": 8.5,
+            "project_file_path": "",
+            "project_name": "TestProject1",
+            "quantity": 56,
+            "total_binding_costs": 500.0,
+            "total_folds": 25,
+            "total_pages": 1000,
+            "transport_costs": 1000.0
+        },
+        "model": "api.quotation",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "approval_date": "2021-03-23T04:00:00Z",
+            "approval_status": "approved",
+            "client": 2,
+            "created_date": "2021-03-13T09:44:35Z",
+            "cutting_costs": 700.0,
+            "margin_of_error": 0.1,
+            "markup_percentage": 0.45,
+            "packaging_costs": 500.0,
+            "pages_can_fit": 4,
+            "printing_process": "digital",
+            "product_type": 1,
+            "project_dimensions_length": 11.0,
+            "project_dimensions_width": 8.5,
+            "project_file_path": "",
+            "project_name": "TestProject2",
+            "quantity": 100,
+            "total_binding_costs": 600.0,
+            "total_folds": 60,
+            "total_pages": 2000,
+            "transport_costs": 2000.0
+        },
+        "model": "api.quotation",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "approval_date": "2021-04-28T11:11:08Z",
+            "approval_status": "approved",
+            "client": 4,
+            "created_date": "2021-04-23T09:44:35Z",
+            "cutting_costs": 100.0,
+            "margin_of_error": 0.1,
+            "markup_percentage": 0.45,
+            "packaging_costs": 700.0,
+            "pages_can_fit": 4,
+            "printing_process": "digital",
+            "product_type": 1,
+            "project_dimensions_length": 11.0,
+            "project_dimensions_width": 8.5,
+            "project_file_path": "",
+            "project_name": "TestProject3",
+            "quantity": 60,
+            "total_binding_costs": 500.0,
+            "total_folds": 4,
+            "total_pages": 600,
+            "transport_costs": 900.0
+        },
+        "model": "api.quotation",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "binding": 1,
+            "item_type": "inner",
+            "lamination": 1,
+            "no_colors": 4,
+            "paper": 1,
+            "quotation": 1
+        },
+        "model": "api.quotationitem",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "binding": 1,
+            "item_type": "inner",
+            "lamination": 1,
+            "no_colors": 4,
+            "paper": 1,
+            "quotation": 2
+        },
+        "model": "api.quotationitem",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "binding": 1,
+            "item_type": "inner",
+            "lamination": 1,
+            "no_colors": 4,
+            "paper": 1,
+            "quotation": 3
+        },
+        "model": "api.quotationitem",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "no_impressions": 1000,
+            "quotation_item": 1
+        },
+        "model": "api.plate",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "no_impressions": 1000,
+            "quotation_item": 1
+        },
+        "model": "api.plate",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "no_impressions": 1000,
+            "quotation_item": 1
+        },
+        "model": "api.plate",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "no_impressions": 1000,
+            "quotation_item": 2
+        },
+        "model": "api.plate",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "no_impressions": 1000,
+            "quotation_item": 2
+        },
+        "model": "api.plate",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "no_impressions": 1000,
+            "quotation_item": 2
+        },
+        "model": "api.plate",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "no_impressions": 1000,
+            "quotation_item": 3
+        },
+        "model": "api.plate",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "no_impressions": 1000,
+            "quotation_item": 3
+        },
+        "model": "api.plate",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "no_impressions": 1000,
+            "quotation_item": 3
+        },
+        "model": "api.plate",
+        "pk": 9
+    }
+]

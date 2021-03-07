@@ -59,7 +59,7 @@ class Account(models.Model):
 @receiver(post_save,sender=User)
 def create_user_account(sender,instance,created,**kwargs):
     if (kwargs.get('created', True) and not kwargs.get('raw', False)):
-        if created:
+        if created and not instance.is_superuser:
             Account.objects.create(user=instance)
 
 @receiver(post_save,sender=User)
@@ -167,8 +167,8 @@ class Paper(models.Model):
         return self.paper_type
     
     # PAPER DIMENSIONS
-    paper_height=models.FloatField(default=0.0,blank=True,null=True)
-    paper_width=models.FloatField(default=0.0,blank=True,null=True)
+    paper_height=models.FloatField(default=25.0)
+    paper_width=models.FloatField(default=38.0)
     
     # PAPER COSTS (LEAF AND REAM)
     ream_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)

@@ -9,6 +9,7 @@ djangorestframework = "*"
 django-cors-headers = "*"
 django-nested-admin = "*"
 django-fixture-magic = "*"
+django-extensions = "*"
 
 [dev-packages]
 
