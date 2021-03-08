@@ -232,17 +232,20 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural="Product Types"
     
-@receiver(post_save,sender=ProductionConstants)
-def create_user_account(sender,instance,created,**kwargs):
-    global production_constants
-    production_constants = ProductionConstants.objects.all().first()
+# @receiver(post_save,sender=ProductionConstants)
+# def create_user_account(sender,instance,created,**kwargs):
+#     global production_constants
+#     production_constants = ProductionConstants.objects.all().first()
 
 class Quotation(models.Model):
     
     ### PROJECT-WIDE SETTINGS ###
     
     # Reference to production_constants
-    production_constants = ProductionConstants.objects.all().first()
+    try:
+        production_constants = ProductionConstants.objects.all().first()
+    except:
+        pass
     
     # Which client created this quotation?
     client = models.ForeignKey(to=Account,null=True,blank=True,on_delete=models.SET_NULL)
@@ -437,7 +440,10 @@ class QuotationItem(models.Model):
     quotation=models.ForeignKey(to=Quotation, null=True, related_name="items", on_delete=models.CASCADE)
     
     # Reference to production_constants
-    production_constants = ProductionConstants.objects.all().first()
+    try:
+        production_constants = ProductionConstants.objects.all().first()
+    except:
+        pass
     
     # Choices for quotation item type
     ITEM_TYPE=[
@@ -536,7 +542,10 @@ class ExtraPlate(models.Model):
     extra_plate_name = models.CharField(default="Extra Plate",max_length=150,blank=False)
 
     # Reference to production_constants
-    production_constants = ProductionConstants.objects.all().first()
+    try:
+        production_constants = ProductionConstants.objects.all().first()
+    except:
+        pass
     
     ### NOTE: Put impressions + running costs in quotation item.
     
