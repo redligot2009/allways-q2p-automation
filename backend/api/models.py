@@ -7,6 +7,27 @@ from django.dispatch import receiver
 import logging
 
 """
+==== 0 - ABSTRACT MODELS ====
+=============================
+"""
+
+"""
+Singleton Model Abstract Class
+"""
+class SingletonModel(models.Model):
+    class Meta:
+        abstract = True
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super(SingletonModel, self).save(*args, **kwargs)
+    def delete(self, *args, **kwargs):
+        pass
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+"""
 ===========================================
 ==== 1 - SET UP ACCOUNT RELATED MODELS ====
 ===========================================
@@ -131,7 +152,7 @@ TODO
 - Implement the actual computation logic
 """
 
-class ProductionConstants(models.Model):
+class ProductionConstants(SingletonModel):
 
     plate_base_price=models.FloatField(default=250.0)
     base_price_fold=models.FloatField(default=90.0)
@@ -231,21 +252,13 @@ class Product(models.Model):
     
     class Meta:
         verbose_name_plural="Product Types"
-    
-# @receiver(post_save,sender=ProductionConstants)
-# def create_user_account(sender,instance,created,**kwargs):
-#     global production_constants
-#     production_constants = ProductionConstants.objects.all().first()
 
 class Quotation(models.Model):
     
     ### PROJECT-WIDE SETTINGS ###
     
     # Reference to production_constants
-    try:
-        production_constants = ProductionConstants.objects.all().first()
-    except:
-        pass
+    production_constants = ProductionConstants.load()
     
     # Which client created this quotation?
     client = models.ForeignKey(to=Account,null=True,blank=True,on_delete=models.SET_NULL)
@@ -440,10 +453,7 @@ class QuotationItem(models.Model):
     quotation=models.ForeignKey(to=Quotation, null=True, related_name="items", on_delete=models.CASCADE)
     
     # Reference to production_constants
-    try:
-        production_constants = ProductionConstants.objects.all().first()
-    except:
-        pass
+    production_constants = ProductionConstants.load()
     
     # Choices for quotation item type
     ITEM_TYPE=[
@@ -542,10 +552,7 @@ class ExtraPlate(models.Model):
     extra_plate_name = models.CharField(default="Extra Plate",max_length=150,blank=False)
 
     # Reference to production_constants
-    try:
-        production_constants = ProductionConstants.objects.all().first()
-    except:
-        pass
+    production_constants = ProductionConstants.load()
     
     ### NOTE: Put impressions + running costs in quotation item.
     
