@@ -144,7 +144,7 @@ npm start
 
 ## IMPORTANT NOTES:
 
-1. **DO NOT** do `git push origin master` unless you're Red (this is for our collective sanity).
+1. **DO NOT** do `git push origin master` unless you're Red or Camille (this is for our collective sanity).
 
 2. **Create your own branch** if you're working on a particular feature of the project, and keep us updated via Discord or Facebook Messenger.
    
