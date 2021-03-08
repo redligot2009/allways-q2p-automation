@@ -92,7 +92,7 @@ class ExtraPlateSerializer(serializers.ModelSerializer):
 class QuotationItemSerializer(serializers.ModelSerializer):
     
     # Related Objects
-    plates=ExtraPlateSerializer(many=True)
+    extra_plates=ExtraPlateSerializer(many=True)
     
     # Read only fields (AKA properties)
     lamination_costs = serializers.ReadOnlyField()

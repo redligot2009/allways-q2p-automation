@@ -11,8 +11,6 @@ import {
   Button,
   makeStyles
 } from '@material-ui/core';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import { AddBoxOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -122,7 +120,7 @@ const ProductCard = ({ className, product, ...rest }) => {
           </Typography>
         </Box>
         <Box>
-          <Button variant="contained" color="primary" md={3}>CONTACT PRODUCTION TEAM</Button>
+          <Button variant="contained" color="error" md={3}>CANCEL JOB ORDER</Button>
           <Button variant="outlined" color="primary">REVIEW PRODUCT SPECS</Button>
         </Box>
       </CardContent>

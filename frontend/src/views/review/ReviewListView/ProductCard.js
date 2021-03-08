@@ -40,28 +40,24 @@ const ProductCard = ({ className, product, ...rest }) => {
         <Box
           display="flex"
           flexDirection="column"
-          mb={3}
+          mb={1}
         >
-          <Grid
-          container
-          justify="space-between"
+          <Typography
+          align="left"
+          color="textPrimary"
+          gutterBottom
+          variant="h4"
           >
-            <Typography
-            align="left"
-            color="textPrimary"
-            gutterBottom
-            variant="h4"
-            >
-              {product.orderID}
-            </Typography>
-            <Typography
-              color="textSecondary"
-              variant="subtitle2"
-              align="bottom"
-            >
-              STATUS: {product.status}
-            </Typography>
-          </Grid>
+            {product.name}
+          </Typography>
+          <Typography
+          align="left"
+          color="textSecondary"
+          gutterBottom
+          variant="h5"
+          >
+            {product.productType}
+          </Typography>
         </Box>
         <Box
           display="flex"
@@ -70,59 +66,71 @@ const ProductCard = ({ className, product, ...rest }) => {
         >
           <Grid
           container
-          justify="space-between"
-          spacing={2}
+          spacing={1}
           >
             <Grid
             item
-            justify="space-between"
-            spacing={2}
+            xs={5}
             >
               <Typography
               align="left"
-              color="textPrimary"
+              color="textSecondary"
               variant="body1"
               >
-                Final Total Costs (w/ Markup)
-              </Typography>
-              <Typography
-              align="left"
-              color="textPrimary"
-              variant="body1"
-              >
-                Final Unit Costs (w/ Markup)
+                Quantity: {product.quantity}
               </Typography>
             </Grid>
             <Grid
             item
-            justify="space-between"
-            spacing={2}
+            xs={7}
             >
-              <Typography
-                color="textSecondary"
-                variant="subtitle2"
+              <Grid
+                container
               >
-                {product.orderPrice}
+              <Typography
+              align="left"
+              color="textSecondary"
+              variant="body1"
+              >
+                Length: {product.length}
               </Typography>
               <Typography
-                color="textSecondary"
-                variant="subtitle2"
+              align="left"
+              color="textSecondary"
+              variant="body1"
               >
-                {product.unitCost}
+                Width: {product.width}
+              </Typography>
+              </Grid>
+            </Grid>
+            <Grid
+            item
+            xs={5}
+            >
+              <Typography
+              align="left"
+              color="textSecondary"
+              variant="body1"
+              >
+                Total Pages: {product.totalPages}
+              </Typography>
+            </Grid>
+            <Grid
+            item
+            xs={7}
+            >
+              <Typography
+              align="left"
+              color="textSecondary"
+              variant="body1"
+              >
+                Number of Colors: {product.numberColors}
               </Typography>
             </Grid>
           </Grid>
-          <Divider />
-          <Typography
-            color="textSecondary"
-            variant="subtitle2"
-            align="right"
-          >
-            Total: {product.totalPrice}
-          </Typography>
         </Box>
         <Box>
-          <Button variant="contained" color="primary" md={3}>CONTACT PRODUCTION TEAM</Button>
+          <Button variant="contained" color="primary" md={3}>COMPUTE QUOTATION</Button>
           <Button variant="outlined" color="primary">REVIEW PRODUCT SPECS</Button>
         </Box>
       </CardContent>
