@@ -165,16 +165,16 @@
         "project_file_path": "",
         "page_length": 6.0,
         "page_width": 9.0,
-        "spread_length": 11.0,
-        "spread_width": 17.0,
+        "spread_length": 12.0,
+        "spread_width": 18.0,
         "margin_of_error": 0.1,
-        "markup_percentage": 0.45,
+        "markup_percentage": 0.1,
         "pages_can_fit": 8,
-        "total_binding_costs": 100.0,
-        "total_folds": 10,
-        "cutting_costs": 50.0,
-        "packaging_costs": 50.0,
-        "transport_costs": 50.0
+        "total_binding_costs": 10000.0,
+        "total_folds": 125,
+        "cutting_costs": 1000.0,
+        "packaging_costs": 1000.0,
+        "transport_costs": 1000.0
     }
 },
 {
