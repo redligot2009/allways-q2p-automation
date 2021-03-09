@@ -14,7 +14,7 @@ class AccountListSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
     class Meta:
         model = Account
-        fields=('id,full_name','organization_name')
+        fields=('id','full_name','organization_name')
 
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -103,7 +103,7 @@ class QuotationListSerializer(serializers.ModelSerializer):
     
     # Related Objects
     product_type=ProductSerializer()
-    client = AccountListSerializer().read_only=True
+    client = AccountListSerializer()
     
     # Read only fields (AKA properties)
     raw_total_costs = serializers.ReadOnlyField()
