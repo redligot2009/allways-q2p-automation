@@ -1,10 +1,19 @@
+import django
+from django.utils import timezone
 from django.utils.functional import empty
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework.utils import serializer_helpers
 from .models import Account
 from .models import Invoice, JobOrder
 from .models import PrintingProcess
 from .models import Lamination, DieCut, Binding, Paper, ProductionConstants
 from .models import Quotation, QuotationItem, ExtraPlate, Product
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=get_user_model()
+        fields=('id','username','email')
 
 class AccountDetailSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,9 +24,11 @@ class AccountListSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
     first_name = serializers.CharField(write_only=True)
     last_name = serializers.CharField(write_only=True)
+    user = UserSerializer()
     class Meta:
         model = Account
-        fields=('id','full_name','first_name','last_name', 'organization_name')
+        fields=('id','user','full_name','first_name','last_name', 'organization_name')
+        depth=1
 
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,7 +60,7 @@ class PaperSerializer(serializers.ModelSerializer):
 class PaperListSerializer(serializers.ModelSerializer):
     class Meta:
         model=Paper
-        fields=('id','paper_type',)
+        fields=('id','paper_type','paper_category')
 
 class PrintingProcessSerializer(serializers.ModelSerializer):
     class Meta:
@@ -128,7 +139,20 @@ class QuotationItemSerializer(serializers.ModelSerializer):
     # Meta options
     class Meta:
         model = QuotationItem
-        exclude=('quotation','id')
+        fields=('__all__')
+
+class QuotationItemUpdateSerializer(serializers.ModelSerializer):
+
+    # Related Objects
+    lamination=serializers.PrimaryKeyRelatedField(queryset=Lamination.objects.all(), required=False, allow_null=True, default=None)
+    binding=serializers.PrimaryKeyRelatedField(queryset=Binding.objects.all(), required=False, allow_null=True, default=None)
+    paper=serializers.PrimaryKeyRelatedField(queryset=Paper.objects.all())
+    extra_plates=ExtraPlateSerializer(many=True, required=False, allow_null=True, default=None)
+    
+    # Meta options
+    class Meta:
+        model = QuotationItem
+        fields=('__all__')
 
 class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
     
@@ -199,6 +223,59 @@ class QuotationDetailSerializer(serializers.ModelSerializer):
         model = Quotation
         fields=('__all__')
 
+class QuotationUpdateSerializer(serializers.ModelSerializer):
+    
+    # Related Objects
+    items = QuotationItemUpdateSerializer(many=True)
+    product_type = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
+    
+    # Override update action
+    # TODO: REFACTOR THIS SHIT! What the fuck? There has to be an easier way to update nested objects...
+    def update(self, instance, validated_data):
+        items_data = validated_data.pop('items')
+        items = list((instance.items).all())
+        instance.project_name = validated_data.get('project_name',instance.project_name)
+        instance.product_type = validated_data.get('product_type',instance.product_type)
+        instance.approval_status = validated_data.get('approval_status',instance.approval_status)
+        
+        if (instance.approval_status=="approved"):
+            instance.approval_date = timezone.now()
+            pass
+        else:
+            instance.approval_date = None
+        
+        instance.save()
+        
+        for item_data in items_data:
+            item = items.pop(0)
+            item.item_type = item_data.get('item_type',item.item_type)
+            item.paper = item_data.get('paper',item.paper)
+            item.lamination = item_data.get('lamination',item.lamination)
+            item.binding = item_data.get('binding',item.binding)
+            item.no_impressions_per_plate = item_data.get('no_impressions_per_plate',item.no_impressions_per_plate)
+            item.no_plates_per_copy = item_data.get('no_plates_per_copy',item.no_plates_per_copy)
+            item.no_sheets_ordered_for_copy = item_data.get('no_sheets_ordered_for_copy',item.no_sheets_ordered_for_copy)
+            # Handle extra plates
+            extra_plates_data = item_data.pop('extra_plates')
+            extra_plates = list(item.extra_plates.all())
+            for extra_plate_data in extra_plates_data:
+                extra_plate = extra_plates.pop(0)
+                extra_plate.extra_plate_name = extra_plate_data.get('extra_plate_name',extra_plate.extra_plate_name)
+                extra_plate.no_impressions = extra_plate_data.get('no_impressions',extra_plate.no_impressions)
+            item.save()
+        
+        return instance
+    
+    # Meta options
+    class Meta:
+        model = Quotation
+        fields=('project_name',
+                'product_type',
+                'approval_status',
+                'printing_process',
+                'quantity',
+                'items')
+
 class QuotationSerializer(serializers.ModelSerializer):
     
     # Related Objects
@@ -206,8 +283,7 @@ class QuotationSerializer(serializers.ModelSerializer):
     product_type = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
     client = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
     
-    # Read only fields (AKA properties)
-    
+    # Override create action
     def create(self, validated_data):
         items_data = validated_data.pop('items')
         new_quotation = Quotation.objects.create(**validated_data)

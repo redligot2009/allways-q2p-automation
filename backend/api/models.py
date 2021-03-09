@@ -562,6 +562,7 @@ class ExtraPlate(models.Model):
     
     # IMPRESSIONS
     no_impressions=models.IntegerField(default=1)
+    
     def get_extra_impressions(self):
         return self.no_impressions * self.quotation_item.quotation.margin_of_error
     extra_impressions = property(get_extra_impressions)
