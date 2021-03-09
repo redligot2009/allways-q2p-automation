@@ -24,11 +24,12 @@ class AccountListSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
     first_name = serializers.CharField(write_only=True)
     last_name = serializers.CharField(write_only=True)
-    user = UserSerializer()
+    # user = UserSerializer()
+    username = serializers.CharField(max_length=255,source='user.username')
+    email = serializers.CharField(max_length=255,source='user.email')
     class Meta:
         model = Account
-        fields=('id','user','full_name','first_name','last_name', 'organization_name')
-        depth=1
+        fields=('id','username','email','full_name','first_name','last_name', 'organization_name')
 
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -290,6 +291,11 @@ class QuotationSerializer(serializers.ModelSerializer):
         for item_data in items_data:
             QuotationItem.objects.create(quotation=new_quotation,**item_data)
         return new_quotation
+    
+    # Read-only fields
+    approval_date = serializers.ReadOnlyField()
+    
+    # Set default values for fields
     
     # Meta options
     class Meta:
