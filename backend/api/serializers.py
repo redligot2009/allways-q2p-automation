@@ -46,6 +46,11 @@ class PaperSerializer(serializers.ModelSerializer):
         model = Paper
         fields=('__all__')
 
+class PaperListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Paper
+        fields=('id','paper_type',)
+
 class PrintingProcessSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrintingProcess
@@ -78,23 +83,23 @@ class ProductionConstantsSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields=('product_name','product_description')
+        fields=('id','product_name','product_description')
         
 class ExtraPlateSerializer(serializers.ModelSerializer):
-    no_impressions = serializers.ReadOnlyField()
     extra_impressions = serializers.ReadOnlyField()
     total_impressions = serializers.ReadOnlyField()
     running_costs = serializers.ReadOnlyField()
     class Meta:
         model = ExtraPlate
         fields=('__all__')
+        exclude=('quotation_item','id')
 
-class QuotationItemSerializer(serializers.ModelSerializer):
-    
+class QuotationItemListSerializer(serializers.ModelSerializer):
+
     # Related Objects
-    lamination=LaminationSerializer()
-    paper=PaperSerializer()
-    binding=BindingSerializer()
+    lamination=serializers.StringRelatedField()
+    binding=serializers.StringRelatedField()
+    paper=serializers.StringRelatedField()
     extra_plates=ExtraPlateSerializer(many=True)
     
     # Read only fields (AKA properties)
@@ -105,7 +110,25 @@ class QuotationItemSerializer(serializers.ModelSerializer):
     # Meta options
     class Meta:
         model = QuotationItem
-        fields=('__all__')
+        exclude=('quotation','id')
+        
+class QuotationItemSerializer(serializers.ModelSerializer):
+
+    # Related Objects
+    lamination=serializers.PrimaryKeyRelatedField(queryset=Lamination.objects.all(), required=False, allow_null=True, default=None)
+    binding=serializers.PrimaryKeyRelatedField(queryset=Binding.objects.all(), required=False, allow_null=True, default=None)
+    paper=serializers.PrimaryKeyRelatedField(queryset=Paper.objects.all())
+    extra_plates=ExtraPlateSerializer(many=True, required=False, allow_null=True, default=None)
+    
+    # Read only fields (AKA properties)
+    lamination_costs = serializers.ReadOnlyField()
+    running_costs = serializers.ReadOnlyField()
+    paper_costs = serializers.ReadOnlyField()
+    
+    # Meta options
+    class Meta:
+        model = QuotationItem
+        exclude=('quotation','id')
 
 class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
     
@@ -113,8 +136,8 @@ class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='quotations-detail')
     
     # Related Objects
-    product_type=ProductSerializer()
-    client = AccountListSerializer()
+    product_type=ProductSerializer(read_only=True)
+    client = AccountListSerializer(read_only=True)
     
     # Read only fields (AKA properties)
     raw_total_costs = serializers.ReadOnlyField()
@@ -140,12 +163,12 @@ class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
                 'final_total_costs',
                 'final_unit_costs')
 
-class QuotationSerializer(serializers.ModelSerializer):
+class QuotationDetailSerializer(serializers.ModelSerializer):
     
     # Related Objects
-    items=QuotationItemSerializer(many=True)
-    product_type=ProductSerializer()
-    client = AccountListSerializer()
+    items=QuotationItemListSerializer(many=True, read_only=True)
+    product_type=ProductSerializer(read_only=True)
+    client = AccountListSerializer(read_only=True)
     
     # Read only fields (AKA properties)
     total_no_plates = serializers.ReadOnlyField()
@@ -175,4 +198,33 @@ class QuotationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quotation
         fields=('__all__')
+
+class QuotationSerializer(serializers.ModelSerializer):
+    
+    # Related Objects
+    items = QuotationItemSerializer(many=True)
+    product_type = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
+    client = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
+    
+    # Read only fields (AKA properties)
+    
+    def create(self, validated_data):
+        items_data = validated_data.pop('items')
+        new_quotation = Quotation.objects.create(**validated_data)
+        for item_data in items_data:
+            QuotationItem.objects.create(quotation=new_quotation,**item_data)
+        return new_quotation
+    
+    # Meta options
+    class Meta:
+        model = Quotation
+        fields=('project_name',
+                'product_type',
+                'created_date',
+                'client',
+                'approval_status',
+                'approval_date',
+                'printing_process',
+                'quantity',
+                'items')
 

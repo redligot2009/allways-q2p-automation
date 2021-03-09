@@ -10,7 +10,7 @@ from .serializers import InvoiceSerializer, ProductSerializer
 from .serializers import JobOrderSerializer, PaperSerializer, PrintingProcessSerializer
 from .serializers import LaminationSerializer, DieCutSerializer, BindingSerializer
 from .serializers import ProductionConstantsSerializer, ExtraPlateSerializer, QuotationItemSerializer
-from .serializers import QuotationListSerializer,QuotationSerializer
+from .serializers import QuotationListSerializer, QuotationDetailSerializer, QuotationSerializer
 import logging
 # Create your views here.
 
@@ -74,5 +74,7 @@ class QuotationViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if(self.action=='list'):
             return QuotationListSerializer
+        elif(self.action=='retrieve'):
+            return QuotationDetailSerializer
         else:
             return QuotationSerializer

@@ -466,6 +466,9 @@ class QuotationItem(models.Model):
     # WHAT TYPE OF QUOTATION ITEM IS IT? Example: books have inner pages and covers
     item_type=models.CharField(default="inner",max_length=10,choices=ITEM_TYPE)
     
+    def __str__(self):
+        return self.item_type
+    
     # Choices for number of colors
     COLORS=[
         (1,'One Color (Black and White'),
