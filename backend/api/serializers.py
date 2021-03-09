@@ -1,3 +1,4 @@
+from django.utils.functional import empty
 from rest_framework import serializers
 from .models import Account
 from .models import Invoice, JobOrder
@@ -12,9 +13,11 @@ class AccountDetailSerializer(serializers.ModelSerializer):
 
 class AccountListSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
+    first_name = serializers.CharField(write_only=True)
+    last_name = serializers.CharField(write_only=True)
     class Meta:
         model = Account
-        fields=('id','full_name','organization_name')
+        fields=('id','full_name','first_name','last_name', 'organization_name')
 
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -93,6 +96,8 @@ class QuotationItemSerializer(serializers.ModelSerializer):
     
     # Read only fields (AKA properties)
     lamination_costs = serializers.ReadOnlyField()
+    running_costs = serializers.ReadOnlyField()
+    paper_costs = serializers.ReadOnlyField()
     
     # Meta options
     class Meta:
@@ -128,7 +133,7 @@ class QuotationListSerializer(serializers.ModelSerializer):
                 'final_total_costs',
                 'final_unit_costs')
 
-class QuotationDetailSerializer(serializers.ModelSerializer):
+class QuotationSerializer(serializers.ModelSerializer):
     
     # Related Objects
     items=QuotationItemSerializer(many=True)
