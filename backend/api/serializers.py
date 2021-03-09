@@ -44,7 +44,7 @@ class JobOrderSerializer(serializers.ModelSerializer):
 class PaperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paper
-        # fields = ('paper_id','paper_type','paper_category','paper_height','paper_width','ream_cost','leaf_cost','is_colored','is_sticker')
+        fields=('__all__')
 
 class PrintingProcessSerializer(serializers.ModelSerializer):
     class Meta:
@@ -92,6 +92,8 @@ class ExtraPlateSerializer(serializers.ModelSerializer):
 class QuotationItemSerializer(serializers.ModelSerializer):
     
     # Related Objects
+    lamination=LaminationSerializer()
+    paper=PaperSerializer()
     extra_plates=ExtraPlateSerializer(many=True)
     
     # Read only fields (AKA properties)
