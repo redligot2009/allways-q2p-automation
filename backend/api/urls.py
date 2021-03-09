@@ -4,7 +4,7 @@ from rest_framework import routers
 from .views import QuotationViewSet
 
 router = routers.DefaultRouter()
-router.register('quotations',QuotationViewSet,basename='Quotation')
+router.register(r'quotations',QuotationViewSet,basename='quotations')
 
 urlpatterns = [
     path('api/',include(router.urls)),

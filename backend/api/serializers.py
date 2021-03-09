@@ -94,6 +94,7 @@ class QuotationItemSerializer(serializers.ModelSerializer):
     # Related Objects
     lamination=LaminationSerializer()
     paper=PaperSerializer()
+    binding=BindingSerializer()
     extra_plates=ExtraPlateSerializer(many=True)
     
     # Read only fields (AKA properties)
@@ -106,7 +107,10 @@ class QuotationItemSerializer(serializers.ModelSerializer):
         model = QuotationItem
         fields=('__all__')
 
-class QuotationListSerializer(serializers.ModelSerializer):
+class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
+    
+    # URL
+    url = serializers.HyperlinkedIdentityField(view_name='quotations-detail')
     
     # Related Objects
     product_type=ProductSerializer()
@@ -121,7 +125,8 @@ class QuotationListSerializer(serializers.ModelSerializer):
     # Meta options
     class Meta:
         model = Quotation
-        fields=('id',
+        fields=('url',
+                'id',
                 'project_name',
                 'product_type',
                 'created_date',
@@ -158,6 +163,13 @@ class QuotationSerializer(serializers.ModelSerializer):
     raw_unit_costs = serializers.ReadOnlyField()
     final_unit_costs = serializers.ReadOnlyField()
     final_total_costs = serializers.ReadOnlyField()
+    
+    def create(self, validated_data):
+        items_data = validated_data.pop('items')
+        new_quotation = Quotation.objects.create(**validated_data)
+        for item_data in items_data:
+            QuotationItem.objects.create(quotation=new_quotation,**item_data)
+        return new_quotation
     
     # Meta options
     class Meta:
