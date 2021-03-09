@@ -14,7 +14,7 @@ class AccountListSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
     class Meta:
         model = Account
-        fields=('full_name','organization_name')
+        fields=('id,full_name','organization_name')
 
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,8 +46,7 @@ class PaperSerializer(serializers.ModelSerializer):
 class PrintingProcessSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrintingProcess
-        fields=('__all__')
-        # fields = ('process_id','process_name','process_base_factor')
+        fields=('process_name')
 
 class LaminationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -104,7 +103,7 @@ class QuotationListSerializer(serializers.ModelSerializer):
     
     # Related Objects
     product_type=ProductSerializer()
-    client = AccountListSerializer()
+    client = AccountListSerializer().read_only=True
     
     # Read only fields (AKA properties)
     raw_total_costs = serializers.ReadOnlyField()

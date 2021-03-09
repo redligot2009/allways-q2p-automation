@@ -206,7 +206,6 @@ class Paper(models.Model):
     is_sticker=models.CharField(default="n",max_length=10,choices=IS_STICKER)
     
 class PrintingProcess(models.Model):
-    #process_id=models.CharField(max_length=10, primary_key=True)
     process_name=models.CharField(max_length=10, blank=True)
     process_base_factor=models.FloatField(max_length=22,default=0.0)
     
@@ -245,7 +244,6 @@ class Binding(models.Model):
         verbose_name_plural="Binding Types"
     
 class Product(models.Model):
-    #product_number=models.CharField(max_length=5,primary_key=True)
     product_name=models.CharField(max_length=20)
     product_price=models.FloatField(max_length=22, default=0.0, null=True, blank=True)
     product_description=models.CharField(max_length=200, null=True, blank=True)
