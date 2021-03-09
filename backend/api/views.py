@@ -5,16 +5,22 @@ from .models import Invoice, JobOrder
 from .models import PrintingProcess
 from .models import Lamination, DieCut, Binding, Paper, ProductionConstants
 from .models import Quotation, QuotationItem, ExtraPlate, Product
-from .serializers import AccountSerializer, InvoiceSerializer, ProductSerializer
+from .serializers import AccountListSerializer,AccountDetailSerializer
+from .serializers import InvoiceSerializer, ProductSerializer
 from .serializers import JobOrderSerializer, PaperSerializer, PrintingProcessSerializer
 from .serializers import LaminationSerializer, DieCutSerializer, BindingSerializer
 from .serializers import ProductionConstantsSerializer, ExtraPlateSerializer, QuotationItemSerializer
-from .serializers import QuotationSerializer
+from .serializers import QuotationListSerializer,QuotationDetailSerializer
 # Create your views here.
 
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
-    serializer_class = AccountSerializer
+    
+    def get_serializer_class(self):
+        if(self.action=='retrieve'):
+            return AccountDetailSerializer
+        else:
+            return AccountListSerializer
 
 class InvoiceViewSet(viewsets.ModelViewSet):
     queryset = Invoice.objects.all()
@@ -63,4 +69,9 @@ class QuotationItemViewSet(viewsets.ModelViewSet):
 
 class QuotationViewSet(viewsets.ModelViewSet):
     queryset = Quotation.objects.all()
-    serializer_class = QuotationSerializer
+    
+    def get_serializer_class(self):
+        if(self.action=='retrieve'):
+            return QuotationDetailSerializer
+        else:
+            return QuotationListSerializer

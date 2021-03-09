@@ -40,7 +40,10 @@ class Account(models.Model):
     
     @property
     def full_name(self):
-        return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
+        if(self.middle_name != None):
+            return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
+        else:
+            return "%s %s" % (self.user.first_name, self.user.last_name)
     
     def __str__(self):
         return "%s" % (self.full_name)

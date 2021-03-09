@@ -5,16 +5,16 @@ from .models import PrintingProcess
 from .models import Lamination, DieCut, Binding, Paper, ProductionConstants
 from .models import Quotation, QuotationItem, ExtraPlate, Product
 
-class AccountSerializer(serializers.ModelSerializer):
+class AccountDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        # fields = ('email',
-        #           'first_name',
-        #           'middle_name', 
-        #           'last_name',
-        #           'username',
-        #           'shipping_address', 
-        #           'mobile_number')
+        fields=('__all__')
+
+class AccountListSerializer(serializers.ModelSerializer):
+    full_name = serializers.ReadOnlyField()
+    class Meta:
+        model = Account
+        fields=('full_name','organization_name')
 
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -71,13 +71,12 @@ class ProductionConstantsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductionConstants
         fields=('__all__')
-        # fields = ('constants_id','plate_base_price','base_price_fold','lamination_factor','min_rate_running')
 
     
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields=('__all__')
+        fields=('product_name','product_description')
         
 class ExtraPlateSerializer(serializers.ModelSerializer):
     no_impressions = serializers.ReadOnlyField()
@@ -87,7 +86,6 @@ class ExtraPlateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExtraPlate
         fields=('__all__')
-        # fields = ('plate_id','no_impressions','extra_impressions', 'total_impressions','running_costs')
 
 class QuotationItemSerializer(serializers.ModelSerializer):
     
@@ -102,11 +100,41 @@ class QuotationItemSerializer(serializers.ModelSerializer):
         model = QuotationItem
         fields=('__all__')
 
-class QuotationSerializer(serializers.ModelSerializer):
+class QuotationListSerializer(serializers.ModelSerializer):
+    
+    # Related Objects
+    product_type=ProductSerializer()
+    client = AccountListSerializer()
+    
+    # Read only fields (AKA properties)
+    raw_total_costs = serializers.ReadOnlyField()
+    raw_unit_costs = serializers.ReadOnlyField()
+    final_total_costs = serializers.ReadOnlyField()
+    final_unit_costs = serializers.ReadOnlyField()
+    
+    # Meta options
+    class Meta:
+        model = Quotation
+        fields=('id',
+                'project_name',
+                'product_type',
+                'created_date',
+                'client',
+                'approval_status',
+                'approval_date',
+                'printing_process',
+                'quantity',
+                'raw_total_costs',
+                'raw_unit_costs',
+                'final_total_costs',
+                'final_unit_costs')
+
+class QuotationDetailSerializer(serializers.ModelSerializer):
     
     # Related Objects
     items=QuotationItemSerializer(many=True)
     product_type=ProductSerializer()
+    client = AccountListSerializer()
     
     # Read only fields (AKA properties)
     total_no_plates = serializers.ReadOnlyField()
@@ -121,6 +149,7 @@ class QuotationSerializer(serializers.ModelSerializer):
     total_gathering_costs = serializers.ReadOnlyField()
     total_lamination_costs = serializers.ReadOnlyField()
     raw_total_costs = serializers.ReadOnlyField()
+    raw_unit_costs = serializers.ReadOnlyField()
     final_unit_costs = serializers.ReadOnlyField()
     final_total_costs = serializers.ReadOnlyField()
     
