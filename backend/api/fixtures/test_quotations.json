@@ -119,10 +119,10 @@
     "fields": {
         "paper_type": "C2S 220",
         "paper_category": "Coated & Matte Paper",
-        "paper_height": 25.0,
+        "paper_length": 25.0,
         "paper_width": 38.0,
-        "ream_cost": 3000.0,
-        "leaf_cost": 15.0,
+        "ream_cost": 0.0,
+        "sheet_cost": 15.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -137,14 +137,14 @@
 },
 {
     "model": "api.paper",
-    "pk": 8,
+    "pk": 31,
     "fields": {
         "paper_type": "Book 60",
         "paper_category": "Book Paper",
-        "paper_height": 22.0,
+        "paper_length": 28.0,
         "paper_width": 34.0,
-        "ream_cost": 1680.0,
-        "leaf_cost": 4.7,
+        "ream_cost": 2135.0,
+        "sheet_cost": 4.7,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -200,10 +200,10 @@
     "fields": {
         "paper_type": "C2S 100",
         "paper_category": "Coated & Matte Paper",
-        "paper_height": 25.0,
+        "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 2400.0,
-        "leaf_cost": 6.6,
+        "sheet_cost": 6.6,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -250,10 +250,10 @@
     "fields": {
         "paper_type": "C2S 80",
         "paper_category": "Coated & Matte Paper",
-        "paper_height": 25.0,
+        "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 2400.0,
-        "leaf_cost": 5.3,
+        "sheet_cost": 5.3,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -340,7 +340,7 @@
         "no_colors": 1,
         "no_plates_per_copy": 62,
         "no_impressions_per_plate": 6000,
-        "paper": 8,
+        "paper": 31,
         "no_sheets_ordered_for_copy": 15.625,
         "lamination": null,
         "binding": 2

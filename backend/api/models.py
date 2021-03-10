@@ -40,7 +40,10 @@ class Account(models.Model):
     
     @property
     def full_name(self):
-        return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
+        if(self.middle_name != None):
+            return "%s %s %s" % (self.user.first_name, self.middle_name, self.user.last_name)
+        else:
+            return "%s %s" % (self.user.first_name, self.user.last_name)
     
     def __str__(self):
         return "%s" % (self.full_name)
@@ -187,23 +190,22 @@ class Paper(models.Model):
         return self.paper_type
     
     # PAPER DIMENSIONS
-    paper_height=models.FloatField(default=25.0)
+    paper_length=models.FloatField(default=25.0)
     paper_width=models.FloatField(default=38.0)
     
     def get_dimensions(self):
-        return "{}\" x {}\"".format(self.paper_height, self.paper_width)
+        return "{}\" x {}\"".format(self.paper_length, self.paper_width)
     paper_dimensions = property(get_dimensions)
     
     # PAPER COSTS (LEAF AND REAM)
     ream_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
-    leaf_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
+    sheet_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
     
     # IS PAPER COLORED OR A STICKER TYPE OF PAPER?
     is_colored=models.CharField(default="n",max_length=1,choices=IS_COLOR)
     is_sticker=models.CharField(default="n",max_length=10,choices=IS_STICKER)
     
 class PrintingProcess(models.Model):
-    #process_id=models.CharField(max_length=10, primary_key=True)
     process_name=models.CharField(max_length=10, blank=True)
     process_base_factor=models.FloatField(max_length=22,default=0.0)
     
@@ -242,7 +244,6 @@ class Binding(models.Model):
         verbose_name_plural="Binding Types"
     
 class Product(models.Model):
-    #product_number=models.CharField(max_length=5,primary_key=True)
     product_name=models.CharField(max_length=20)
     product_price=models.FloatField(max_length=22, default=0.0, null=True, blank=True)
     product_description=models.CharField(max_length=200, null=True, blank=True)
@@ -465,6 +466,9 @@ class QuotationItem(models.Model):
     # WHAT TYPE OF QUOTATION ITEM IS IT? Example: books have inner pages and covers
     item_type=models.CharField(default="inner",max_length=10,choices=ITEM_TYPE)
     
+    def __str__(self):
+        return self.item_type
+    
     # Choices for number of colors
     COLORS=[
         (1,'One Color (Black and White'),
@@ -558,6 +562,7 @@ class ExtraPlate(models.Model):
     
     # IMPRESSIONS
     no_impressions=models.IntegerField(default=1)
+    
     def get_extra_impressions(self):
         return self.no_impressions * self.quotation_item.quotation.margin_of_error
     extra_impressions = property(get_extra_impressions)
