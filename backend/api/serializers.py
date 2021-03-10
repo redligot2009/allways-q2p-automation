@@ -61,7 +61,7 @@ class PaperSerializer(serializers.ModelSerializer):
 class PaperListSerializer(serializers.ModelSerializer):
     class Meta:
         model=Paper
-        fields=('id','paper_type','paper_category')
+        fields=('id','paper_type','paper_category','paper_length','paper_width')
 
 class PrintingProcessSerializer(serializers.ModelSerializer):
     class Meta:

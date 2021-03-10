@@ -190,11 +190,11 @@ class Paper(models.Model):
         return self.paper_type
     
     # PAPER DIMENSIONS
-    paper_height=models.FloatField(default=25.0)
+    paper_length=models.FloatField(default=25.0)
     paper_width=models.FloatField(default=38.0)
     
     def get_dimensions(self):
-        return "{}\" x {}\"".format(self.paper_height, self.paper_width)
+        return "{}\" x {}\"".format(self.paper_length, self.paper_width)
     paper_dimensions = property(get_dimensions)
     
     # PAPER COSTS (LEAF AND REAM)

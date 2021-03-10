@@ -238,7 +238,7 @@ class PaperAdmin(admin.ModelAdmin):
     actions=['make_sticker', 'make_non_sticker',
              'make_colored', 'make_non_colored']
     
-    ordering=('paper_category','paper_type','paper_width','paper_height','ream_cost','leaf_cost',)
+    ordering=('paper_category','paper_type','paper_width','paper_length','ream_cost','leaf_cost',)
     
     save_as = True
     
