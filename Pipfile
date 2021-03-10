@@ -10,6 +10,7 @@ django-cors-headers = "*"
 django-nested-admin = "*"
 django-fixture-magic = "*"
 django-extensions = "*"
+drf-nested-routers = "*"
 
 [dev-packages]
 
