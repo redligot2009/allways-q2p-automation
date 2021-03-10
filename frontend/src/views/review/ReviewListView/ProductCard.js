@@ -51,216 +51,62 @@ const ProductCard = ({ className, quotation, ...rest }) => {
       {...rest}
     >
       <CardContent>
-        <Box
-          display="flex"
-          flexDirection="column"
-          mb={1}
-        >
-          <Typography
-            align="left"
-            color="textPrimary"
-            gutterBottom
-            variant="h4"
-          >
+        <Box display="flex" flexDirection="column" mb={1}>
+          <Typography align="left" color="textPrimary" gutterBottom variant="h4">
             {quotation.project_name}
           </Typography>
-          <Typography
-            align="left"
-            color="textSecondary"
-            gutterBottom
-            variant="h5"
-          >
+          <Typography align="left" color="textSecondary" gutterBottom variant="h5">
             Created: {new Date(Date.parse(quotation.created_date)).toLocaleDateString()}
           </Typography>
-          <Typography
-            align="left"
-            color="textSecondary"
-            gutterBottom
-            variant="h5"
-          >
+          <Typography align="left" color="textSecondary" gutterBottom variant="h5">
             Approval Status: { getApprovalStatus() }
           </Typography>
-          <Typography
-            align="left"
-            color="textSecondary"
-            gutterBottom
-            variant="h5"
-          >
+          <Typography align="left" color="textSecondary" gutterBottom variant="h5">
             Client: {quotation.client.full_name}
           </Typography>
-          <Typography
-            align="left"
-            color="textSecondary"
-            gutterBottom
-            variant="h5"
-          >
+          <Typography align="left" color="textSecondary" gutterBottom variant="h5">
             Product Type: {quotation.product_type.product_name}
           </Typography>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="column"
-          mb={3}
-        >
-          <Grid
-            container
-            spacing={1}
-          >
-            <Grid
-              item
-              xs={6}
-            >
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="h5"
-              >
+        <Box display="flex" flexDirection="column" mb={3}>
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <Typography align="left" color="textSecondary" variant="h5">
                 Raw Total Costs:
               </Typography>
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="body1"
-              >
+              <Typography align="left" color="textSecondary" variant="body1">
                 {"₱ " + (Number)(quotation.raw_total_costs).toFixed(2)}
               </Typography>
             </Grid>
 
-            <Grid
-              item
-              xs={6}
-            >
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="h5"
-              >
+            <Grid item xs={6}>
+              <Typography align="left" color="textSecondary" variant="h5">
                 Raw Unit Costs:
               </Typography>
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="body1"
-              >
+              <Typography align="left" color="textSecondary" variant="body1">
                 {"₱ " + (Number)(quotation.raw_unit_costs).toFixed(2)}
               </Typography>
             </Grid>
           </Grid>
-          <Grid
-            container
-            spacing={1}
-          >
-            <Grid
-              item
-              xs={6}
-            >
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="h5"
-              >
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <Typography align="left" color="textSecondary" variant="h5">
                 Final Total Costs: 
               </Typography>
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="body1"
-              >
+              <Typography align="left" color="textSecondary" variant="body1">
                 {"₱ " + (Number)(quotation.final_total_costs).toFixed(2)}
               </Typography>
             </Grid>
-
-            <Grid
-              item
-              xs={6}
-            >
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="h5"
-              >
+            <Grid item xs={6}>
+              <Typography align="left" color="textSecondary" variant="h5">
                 Final Unit Costs:
               </Typography>
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="body1"
-              >
+              <Typography align="left" color="textSecondary" variant="body1">
                 {"₱ " + (Number)(quotation.final_unit_costs).toFixed(2)}
               </Typography>
             </Grid>
           </Grid>
         </Box>
-        {/* <Box
-          display="flex"
-          flexDirection="column"
-          mb={3}
-        >
-          <Grid
-            container
-            spacing={1}
-          >
-            <Grid
-              item
-              xs={5}
-            >
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="body1"
-              >
-                Quantity: {quotation.quantity}
-              </Typography>
-            </Grid>
-            <Grid
-            item
-            xs={7}
-            >
-              <Grid
-                container
-              >
-              <Typography
-              align="left"
-              color="textSecondary"
-              variant="body1"
-              >
-                Length: {quotation.length}
-              </Typography>
-              <Typography
-                align="left"
-                color="textSecondary"
-                variant="body1"
-              >
-                Width: {quotation.width}
-              </Typography>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={5}
-            >
-              <Typography
-              align="left"
-              color="textSecondary"
-              variant="body1"
-              >
-                Total Pages: {quotation.totalPages}
-              </Typography>
-            </Grid>
-            <Grid
-            item
-            xs={7}
-            >
-              <Typography
-              align="left"
-              color="textSecondary"
-              variant="body1"
-              >
-                Number of Colors: {quotation.numberColors}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Box> */}
         <Box>
           <Button variant="contained" color="primary" md={3}>COMPUTE QUOTATION</Button>
           <Button variant="outlined" color="primary">REVIEW PRODUCT SPECS</Button>
