@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Container,
@@ -9,7 +9,8 @@ import {
 import Page from 'src/components/Page';
 import ProductCard from './ProductCard';
 import ProductCardDelivery from './ProductCardDelivery';
-import data from './data';
+// import data from './data';
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,8 +26,16 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductList = () => {
   const classes = useStyles();
-  const [products] = useState(data);
-
+  const [data, setData] = useState({quotations:[]});
+  useEffect(() => {
+    async function fetchData(){
+      const result = await axios.get('api/quotations/');
+      console.log(result.data);
+      setData({ quotations: result.data });
+    }
+    fetchData();
+  }, [])
+  // console.log(products);
   return (
     <Page
       className={classes.root}
@@ -51,10 +60,10 @@ const ProductList = () => {
               Awaiting Computation for Job Order
             </Typography>
               <Box mt={2}>
-                {products.map((product) => (
+                {data.quotations.map((quotation) => (
                   <Grid
                     item
-                    key={product.id}
+                    key={quotation.id}
                     lg={12}
                     md={6}
                     xs={12}
@@ -62,7 +71,7 @@ const ProductList = () => {
                     <Box mt={2}>
                     <ProductCard
                       className={classes.productCard}
-                      product={product}
+                      product={quotation}
                     />
                     </Box>
                   </Grid>
@@ -78,10 +87,10 @@ const ProductList = () => {
                 Recently Approved Job Orders
               </Typography>
                 <Box mt={2}>
-                  {products.map((product) => (
+                  {data.quotations.map((quotation) => (
                     <Grid
                       item
-                      key={product.id}
+                      key={quotation.id}
                       lg={12}
                       md={6}
                       xs={12}
@@ -89,7 +98,7 @@ const ProductList = () => {
                       <Box mt={2}>
                       <ProductCardDelivery
                         className={classes.productCard}
-                        product={product}
+                        product={quotation}
                       />
                       </Box>
                     </Grid>

@@ -48,7 +48,7 @@ const ProductCard = ({ className, product, ...rest }) => {
           gutterBottom
           variant="h4"
           >
-            {product.name}
+            {product.project_name}
           </Typography>
           <Typography
           align="left"
@@ -56,7 +56,7 @@ const ProductCard = ({ className, product, ...rest }) => {
           gutterBottom
           variant="h5"
           >
-            {product.productType}
+            {product.product_type.product_name}
           </Typography>
         </Box>
         <Box
