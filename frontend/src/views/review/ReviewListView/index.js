@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ProductList = () => {
+const QuotationReviewList = () => {
   const classes = useStyles();
   const [data, setData] = useState({quotations:[]});
   
@@ -89,4 +89,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default QuotationReviewList;
