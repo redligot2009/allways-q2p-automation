@@ -71,7 +71,7 @@ const ProductList = () => {
                     <Box mt={2}>
                     <ProductCard
                       className={classes.productCard}
-                      product={quotation}
+                      quotation={quotation}
                     />
                     </Box>
                   </Grid>
