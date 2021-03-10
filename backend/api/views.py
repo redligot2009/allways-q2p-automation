@@ -10,7 +10,7 @@ from .serializers import InvoiceSerializer, ProductSerializer
 from .serializers import JobOrderSerializer, PaperSerializer, PrintingProcessSerializer
 from .serializers import LaminationSerializer, DieCutSerializer, BindingSerializer
 from .serializers import ProductionConstantsSerializer, ExtraPlateSerializer
-from .serializers import QuotationItemSerializer, QuotationItemListSerializer
+from .serializers import QuotationItemSerializer, QuotationItemListSerializer, QuotationItemUpdateSerializer
 from .serializers import QuotationListSerializer, QuotationDetailSerializer, QuotationUpdateSerializer, QuotationSerializer
 
 import logging
@@ -67,8 +67,19 @@ class PlateViewSet(viewsets.ModelViewSet):
     serializer_class = ExtraPlateSerializer
 
 class QuotationItemViewSet(viewsets.ModelViewSet):
-    queryset = QuotationItem.objects.all()
-    serializer_class = QuotationItemSerializer
+    # queryset = QuotationItem.objects.all()
+    # serializer_class = QuotationItemSerializer
+    
+    def get_queryset(self):
+        return QuotationItem.objects.filter(quotation=self.kwargs['quotation_pk'])
+    
+    def get_serializer_class(self):
+        if(self.action=='create' or self.action=='update'):
+            return QuotationItemUpdateSerializer
+        elif(self.action=='list'):
+            return QuotationItemListSerializer
+        else:
+            return QuotationItemSerializer
 
 class QuotationViewSet(viewsets.ModelViewSet):
     queryset = Quotation.objects.all()
