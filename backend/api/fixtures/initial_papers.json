@@ -1,0 +1,926 @@
+[
+{
+    "model": "api.paper",
+    "pk": 89,
+    "fields": {
+        "paper_type": "Parchment",
+        "paper_category": "Board",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 12.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 88,
+    "fields": {
+        "paper_type": "US Tag Board",
+        "paper_category": "Board",
+        "paper_length": 37.0,
+        "paper_width": 45.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 34.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 87,
+    "fields": {
+        "paper_type": "Vellum 120",
+        "paper_category": "Board",
+        "paper_length": 22.5,
+        "paper_width": 28.5,
+        "ream_cost": 0.0,
+        "leaf_cost": 9.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 86,
+    "fields": {
+        "paper_type": "Vellum 100",
+        "paper_category": "Board",
+        "paper_length": 22.5,
+        "paper_width": 28.5,
+        "ream_cost": 0.0,
+        "leaf_cost": 8.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 85,
+    "fields": {
+        "paper_type": "Red Bristol",
+        "paper_category": "Board",
+        "paper_length": 22.5,
+        "paper_width": 28.5,
+        "ream_cost": 0.0,
+        "leaf_cost": 8.0,
+        "is_colored": "y",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 84,
+    "fields": {
+        "paper_type": "Colored Bristol Imported",
+        "paper_category": "Board",
+        "paper_length": 22.5,
+        "paper_width": 28.5,
+        "ream_cost": 0.0,
+        "leaf_cost": 12.0,
+        "is_colored": "y",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 83,
+    "fields": {
+        "paper_type": "Colored Bristol",
+        "paper_category": "Board",
+        "paper_length": 22.5,
+        "paper_width": 28.5,
+        "ream_cost": 0.0,
+        "leaf_cost": 6.0,
+        "is_colored": "y",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 82,
+    "fields": {
+        "paper_type": "White Bristol /74",
+        "paper_category": "Board",
+        "paper_length": 22.5,
+        "paper_width": 28.5,
+        "ream_cost": 0.0,
+        "leaf_cost": 5.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 81,
+    "fields": {
+        "paper_type": "Transparent",
+        "paper_category": "Sticker",
+        "paper_length": 24.0,
+        "paper_width": 36.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 40.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 80,
+    "fields": {
+        "paper_type": "Vinyl",
+        "paper_category": "Sticker",
+        "paper_length": 24.0,
+        "paper_width": 36.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 40.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 79,
+    "fields": {
+        "paper_type": "Book Paper",
+        "paper_category": "Sticker",
+        "paper_length": 24.0,
+        "paper_width": 36.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 15.5,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 78,
+    "fields": {
+        "paper_type": "Hi-gloss",
+        "paper_category": "Sticker",
+        "paper_length": 24.0,
+        "paper_width": 36.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 15.5,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 77,
+    "fields": {
+        "paper_type": "Satin",
+        "paper_category": "Sticker",
+        "paper_length": 24.0,
+        "paper_width": 36.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 14.5,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 76,
+    "fields": {
+        "paper_type": "Newsprint",
+        "paper_category": "Newsprint",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 1030.0,
+        "leaf_cost": 2.3,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 75,
+    "fields": {
+        "paper_type": "Newsprint",
+        "paper_category": "Newsprint",
+        "paper_length": 24.0,
+        "paper_width": 36.0,
+        "ream_cost": 920.0,
+        "leaf_cost": 2.1,
+        "is_colored": "y",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 74,
+    "fields": {
+        "paper_type": "Newsprint",
+        "paper_category": "Newsprint",
+        "paper_length": 24.0,
+        "paper_width": 36.0,
+        "ream_cost": 920.0,
+        "leaf_cost": 2.1,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 73,
+    "fields": {
+        "paper_type": "Newsprint",
+        "paper_category": "Newsprint",
+        "paper_length": 22.0,
+        "paper_width": 34.0,
+        "ream_cost": 810.0,
+        "leaf_cost": 1.6,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 72,
+    "fields": {
+        "paper_type": "Newsprint",
+        "paper_category": "Newsprint",
+        "paper_length": 22.0,
+        "paper_width": 29.0,
+        "ream_cost": 700.0,
+        "leaf_cost": 1.6,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 71,
+    "fields": {
+        "paper_type": "Kromekote 189",
+        "paper_category": "Kromekote",
+        "paper_length": 26.0,
+        "paper_width": 40.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 18.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 70,
+    "fields": {
+        "paper_type": "Kromekote 130",
+        "paper_category": "Kromekote",
+        "paper_length": 26.0,
+        "paper_width": 40.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 12.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 69,
+    "fields": {
+        "paper_type": "Kromekote 60",
+        "paper_category": "Kromekote",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 3000.0,
+        "leaf_cost": 6.5,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 68,
+    "fields": {
+        "paper_type": "Carrier",
+        "paper_category": "Board",
+        "paper_length": 31.0,
+        "paper_width": 43.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 23.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 67,
+    "fields": {
+        "paper_type": "Claycoated 18",
+        "paper_category": "Claycoated",
+        "paper_length": 31.0,
+        "paper_width": 43.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 15.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 66,
+    "fields": {
+        "paper_type": "Claycoated 15",
+        "paper_category": "Claycoated",
+        "paper_length": 31.0,
+        "paper_width": 43.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 13.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 65,
+    "fields": {
+        "paper_type": "Claycoated 12",
+        "paper_category": "Claycoated",
+        "paper_length": 31.0,
+        "paper_width": 43.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 12.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 64,
+    "fields": {
+        "paper_type": "Foldcote 15",
+        "paper_category": "Foldcote",
+        "paper_length": 31.0,
+        "paper_width": 43.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 20.5,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 63,
+    "fields": {
+        "paper_type": "Foldcote 12",
+        "paper_category": "Foldcote",
+        "paper_length": 31.0,
+        "paper_width": 43.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 18.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 62,
+    "fields": {
+        "paper_type": "Foldcote 10",
+        "paper_category": "Foldcote",
+        "paper_length": 31.0,
+        "paper_width": 43.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 15.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 61,
+    "fields": {
+        "paper_type": "CB Bottom",
+        "paper_category": "Carbonless",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 2250.0,
+        "leaf_cost": 5.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 60,
+    "fields": {
+        "paper_type": "CB Bottom",
+        "paper_category": "Carbonless",
+        "paper_length": 8.5,
+        "paper_width": 14.0,
+        "ream_cost": 290.0,
+        "leaf_cost": 5.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 59,
+    "fields": {
+        "paper_type": "CB Bottom",
+        "paper_category": "Carbonless",
+        "paper_length": 8.5,
+        "paper_width": 11.0,
+        "ream_cost": 230.0,
+        "leaf_cost": 5.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 58,
+    "fields": {
+        "paper_type": "CB Middle",
+        "paper_category": "Carbonless",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 2700.0,
+        "leaf_cost": 6.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 57,
+    "fields": {
+        "paper_type": "CB Middle",
+        "paper_category": "Carbonless",
+        "paper_length": 8.5,
+        "paper_width": 14.0,
+        "ream_cost": 360.0,
+        "leaf_cost": 6.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 56,
+    "fields": {
+        "paper_type": "CB Middle",
+        "paper_category": "Carbonless",
+        "paper_length": 8.5,
+        "paper_width": 11.0,
+        "ream_cost": 290.0,
+        "leaf_cost": 6.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 55,
+    "fields": {
+        "paper_type": "CB Top",
+        "paper_category": "Carbonless",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 2350.0,
+        "leaf_cost": 5.2,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 54,
+    "fields": {
+        "paper_type": "CB Top",
+        "paper_category": "Carbonless",
+        "paper_length": 8.5,
+        "paper_width": 14.0,
+        "ream_cost": 320.0,
+        "leaf_cost": 5.2,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 53,
+    "fields": {
+        "paper_type": "CB Top",
+        "paper_category": "Carbonless",
+        "paper_length": 8.5,
+        "paper_width": 11.0,
+        "ream_cost": 260.0,
+        "leaf_cost": 5.2,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 52,
+    "fields": {
+        "paper_type": "Onion Skin",
+        "paper_category": "Onion Skin",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 1070.0,
+        "leaf_cost": 2.3,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 51,
+    "fields": {
+        "paper_type": "Bond",
+        "paper_category": "Bond Paper",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 1640.0,
+        "leaf_cost": 3.6,
+        "is_colored": "y",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 50,
+    "fields": {
+        "paper_type": "Bond",
+        "paper_category": "Bond Paper",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 1230.0,
+        "leaf_cost": 2.7,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 49,
+    "fields": {
+        "paper_type": "Bond",
+        "paper_category": "Bond Paper",
+        "paper_length": 22.0,
+        "paper_width": 34.0,
+        "ream_cost": 960.0,
+        "leaf_cost": 2.1,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 48,
+    "fields": {
+        "paper_type": "C2S 180",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": null,
+        "leaf_cost": 13.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 47,
+    "fields": {
+        "paper_type": "C2S 160",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": null,
+        "leaf_cost": 12.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 46,
+    "fields": {
+        "paper_type": "C2S 140",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": null,
+        "leaf_cost": 11.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 45,
+    "fields": {
+        "paper_type": "C2S 120",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": null,
+        "leaf_cost": 10.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 44,
+    "fields": {
+        "paper_type": "C2S 70",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 2100.0,
+        "leaf_cost": 4.6,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 43,
+    "fields": {
+        "paper_type": "C1S 60",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 1800.0,
+        "leaf_cost": 4.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 42,
+    "fields": {
+        "paper_type": "C2S 60",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 1800.0,
+        "leaf_cost": 4.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 41,
+    "fields": {
+        "paper_type": "Book 80",
+        "paper_category": "Book Paper",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 2835.0,
+        "leaf_cost": 6.2,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 40,
+    "fields": {
+        "paper_type": "Book 80",
+        "paper_category": "Book Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 2800.0,
+        "leaf_cost": 6.2,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 39,
+    "fields": {
+        "paper_type": "Book 80",
+        "paper_category": "Book Paper",
+        "paper_length": 22.0,
+        "paper_width": 34.0,
+        "ream_cost": 2240.0,
+        "leaf_cost": 6.2,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 38,
+    "fields": {
+        "paper_type": "Book 70",
+        "paper_category": "Book Paper",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 2485.0,
+        "leaf_cost": 5.4,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 37,
+    "fields": {
+        "paper_type": "Book 70",
+        "paper_category": "Book Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 2450.0,
+        "leaf_cost": 5.4,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 36,
+    "fields": {
+        "paper_type": "Book 70",
+        "paper_category": "Book Paper",
+        "paper_length": 22.0,
+        "paper_width": 34.0,
+        "ream_cost": 1960.0,
+        "leaf_cost": 5.4,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 35,
+    "fields": {
+        "paper_type": "Book 50",
+        "paper_category": "Book Paper",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 1785.0,
+        "leaf_cost": 3.9,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 34,
+    "fields": {
+        "paper_type": "Book 50",
+        "paper_category": "Book Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 1750.0,
+        "leaf_cost": 3.9,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 33,
+    "fields": {
+        "paper_type": "Book 50",
+        "paper_category": "Book Paper",
+        "paper_length": 22.0,
+        "paper_width": 34.0,
+        "ream_cost": 1400.0,
+        "leaf_cost": 3.9,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 32,
+    "fields": {
+        "paper_type": "Book 60",
+        "paper_category": "Book Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 2100.0,
+        "leaf_cost": 4.7,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 31,
+    "fields": {
+        "paper_type": "Book 60",
+        "paper_category": "Book Paper",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 2135.0,
+        "leaf_cost": 4.7,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 30,
+    "fields": {
+        "paper_type": "Book 40",
+        "paper_category": "Book Paper",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 1435.0,
+        "leaf_cost": 3.15,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 29,
+    "fields": {
+        "paper_type": "Book 40",
+        "paper_category": "Book Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 1400.0,
+        "leaf_cost": 3.15,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 28,
+    "fields": {
+        "paper_type": "Book 40",
+        "paper_category": "Book Paper",
+        "paper_length": 22.0,
+        "paper_width": 34.0,
+        "ream_cost": 1120.0,
+        "leaf_cost": 3.15,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 27,
+    "fields": {
+        "paper_type": "C2S 220",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 0.0,
+        "leaf_cost": 15.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 22,
+    "fields": {
+        "paper_type": "C2S 100",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 2400.0,
+        "leaf_cost": 6.6,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 19,
+    "fields": {
+        "paper_type": "C2S 80",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 2400.0,
+        "leaf_cost": 5.3,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 8,
+    "fields": {
+        "paper_type": "Book 60",
+        "paper_category": "Book Paper",
+        "paper_length": 22.0,
+        "paper_width": 34.0,
+        "ream_cost": 1680.0,
+        "leaf_cost": 4.7,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+}
+]
