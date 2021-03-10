@@ -144,7 +144,7 @@ const ProductCard = ({ className, quotation, ...rest }) => {
 
 ProductCard.propTypes = {
   className: PropTypes.string,
-  product: PropTypes.object.isRequired
+  quotation: PropTypes.object.isRequired
 };
 
 export default ProductCard;
