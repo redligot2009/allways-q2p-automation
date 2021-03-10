@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Container,
@@ -7,9 +7,10 @@ import {
   Typography
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import ProductCard from './ProductCard';
-import ProductCardDelivery from './ProductCardDelivery';
-import data from './data';
+import QuotationCard from './QuotationCard';
+import QuotationCardComputed from './QuotationCardComputed';
+// import data from './data';
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,79 +19,64 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
   },
-  productCard: {
+  quotationCard: {
     height: '100%'
   }
 }));
 
-const ProductList = () => {
+const QuotationReviewList = () => {
   const classes = useStyles();
-  const [products] = useState(data);
+  const [data, setData] = useState({quotations:[]});
+  
+  useEffect(() => {
+    async function fetchData(){
+      const result = await axios.get('api/quotations/');
+      console.log(result.data);
+      setData({ quotations: result.data });
+    }
+    fetchData();
+  }, [])
 
   return (
     <Page
       className={classes.root}
-      title="Order Tracking"
+      title="Quote Review"
     >
       <Container maxWidth={false}>
-        <Typography
-          className={classes.name}
-          color="textPrimary"
-          variant="h2"
-        >
-          Order Review
+        <Typography className={classes.name} color="textPrimary" variant="h2">
+          Quote Review
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
           <Grid item xs>
-            <Typography
-              className={classes.name}
-              color="textSecondary"
-              variant="h5"
-            >
-              Awaiting Computation for Job Order
+            <Typography className={classes.name} color="textSecondary" variant="h5">
+              Awaiting Computation
             </Typography>
               <Box mt={2}>
-                {products.map((product) => (
-                  <Grid
-                    item
-                    key={product.id}
-                    lg={12}
-                    md={6}
-                    xs={12}
-                  >
+                {data.quotations.map((quotation) => (
+                  <Grid item key={quotation.id} lg={12} md={6} xs={12}>
                     <Box mt={2}>
-                    <ProductCard
-                      className={classes.productCard}
-                      product={product}
-                    />
+                      <QuotationCard 
+                        className={classes.quotationCard} 
+                        quotation={quotation}
+                      />
                     </Box>
                   </Grid>
                 ))}
               </Box>
             </Grid>
             <Grid item xs>
-              <Typography
-                className={classes.name}
-                color="textSecondary"
-                variant="h5"
-              >
-                Recently Approved Job Orders
+              <Typography className={classes.name} color="textSecondary" variant="h5">
+                Recently Computed
               </Typography>
                 <Box mt={2}>
-                  {products.map((product) => (
-                    <Grid
-                      item
-                      key={product.id}
-                      lg={12}
-                      md={6}
-                      xs={12}
-                    >
+                  {data.quotations.map((quotation) => (
+                    <Grid item key={quotation.id} lg={12} md={6} xs={12}>
                       <Box mt={2}>
-                      <ProductCardDelivery
-                        className={classes.productCard}
-                        product={product}
-                      />
+                        <QuotationCardComputed
+                          className={classes.quotationCard}
+                          quotation={quotation}
+                        />
                       </Box>
                     </Grid>
                   ))}
@@ -103,4 +89,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default QuotationReviewList;
