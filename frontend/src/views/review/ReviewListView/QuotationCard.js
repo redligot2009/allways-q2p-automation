@@ -75,7 +75,7 @@ const ProductCard = ({ className, quotation, ...rest }) => {
                 Raw Total Costs:
               </Typography>
               <Typography align="left" color="textSecondary" variant="body1">
-                {"₱ " + (Number)(quotation.raw_total_costs).toFixed(2)}
+                {(Number)(quotation.raw_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
               </Typography>
             </Grid>
 
@@ -84,7 +84,7 @@ const ProductCard = ({ className, quotation, ...rest }) => {
                 Raw Unit Costs:
               </Typography>
               <Typography align="left" color="textSecondary" variant="body1">
-                {"₱ " + (Number)(quotation.raw_unit_costs).toFixed(2)}
+                {(Number)(quotation.raw_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
               </Typography>
             </Grid>
           </Grid>
@@ -94,7 +94,7 @@ const ProductCard = ({ className, quotation, ...rest }) => {
                 Final Total Costs: 
               </Typography>
               <Typography align="left" color="textSecondary" variant="body1">
-                {"₱ " + (Number)(quotation.final_total_costs).toFixed(2)}
+                {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -102,7 +102,7 @@ const ProductCard = ({ className, quotation, ...rest }) => {
                 Final Unit Costs:
               </Typography>
               <Typography align="left" color="textSecondary" variant="body1">
-                {"₱ " + (Number)(quotation.final_unit_costs).toFixed(2)}
+                {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
               </Typography>
             </Grid>
           </Grid>

@@ -7,7 +7,7 @@ import {
   Typography
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import ProductCard from './ProductCard';
+import QuotationCard from './QuotationCard';
 import ProductCardDelivery from './ProductCardDelivery';
 // import data from './data';
 import axios from 'axios'
@@ -39,7 +39,7 @@ const ProductList = () => {
   return (
     <Page
       className={classes.root}
-      title="Order Tracking"
+      title="Quote Review"
     >
       <Container maxWidth={false}>
         <Typography
@@ -47,7 +47,7 @@ const ProductList = () => {
           color="textPrimary"
           variant="h2"
         >
-          Order Review
+          Quote Review
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
@@ -57,7 +57,7 @@ const ProductList = () => {
               color="textSecondary"
               variant="h5"
             >
-              Awaiting Computation for Job Order
+              Awaiting Computation for Quotation
             </Typography>
               <Box mt={2}>
                 {data.quotations.map((quotation) => (
@@ -69,7 +69,7 @@ const ProductList = () => {
                     xs={12}
                   >
                     <Box mt={2}>
-                    <ProductCard
+                    <QuotationCard
                       className={classes.productCard}
                       quotation={quotation}
                     />
@@ -84,7 +84,7 @@ const ProductList = () => {
                 color="textSecondary"
                 variant="h5"
               >
-                Recently Approved Job Orders
+                Recently Computed Quotations
               </Typography>
                 <Box mt={2}>
                   {data.quotations.map((quotation) => (
