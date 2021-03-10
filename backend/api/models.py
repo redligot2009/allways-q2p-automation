@@ -199,7 +199,7 @@ class Paper(models.Model):
     
     # PAPER COSTS (LEAF AND REAM)
     ream_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
-    leaf_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
+    sheet_cost=models.FloatField(max_length=22,default=0.0,blank=True,null=True)
     
     # IS PAPER COLORED OR A STICKER TYPE OF PAPER?
     is_colored=models.CharField(default="n",max_length=1,choices=IS_COLOR)

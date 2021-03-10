@@ -8,7 +8,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 0.0,
-        "leaf_cost": 12.0,
+        "sheet_cost": 12.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -22,7 +22,7 @@
         "paper_length": 37.0,
         "paper_width": 45.0,
         "ream_cost": 0.0,
-        "leaf_cost": 34.0,
+        "sheet_cost": 34.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -36,7 +36,7 @@
         "paper_length": 22.5,
         "paper_width": 28.5,
         "ream_cost": 0.0,
-        "leaf_cost": 9.0,
+        "sheet_cost": 9.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -50,7 +50,7 @@
         "paper_length": 22.5,
         "paper_width": 28.5,
         "ream_cost": 0.0,
-        "leaf_cost": 8.0,
+        "sheet_cost": 8.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -64,7 +64,7 @@
         "paper_length": 22.5,
         "paper_width": 28.5,
         "ream_cost": 0.0,
-        "leaf_cost": 8.0,
+        "sheet_cost": 8.0,
         "is_colored": "y",
         "is_sticker": "n"
     }
@@ -78,7 +78,7 @@
         "paper_length": 22.5,
         "paper_width": 28.5,
         "ream_cost": 0.0,
-        "leaf_cost": 12.0,
+        "sheet_cost": 12.0,
         "is_colored": "y",
         "is_sticker": "n"
     }
@@ -92,7 +92,7 @@
         "paper_length": 22.5,
         "paper_width": 28.5,
         "ream_cost": 0.0,
-        "leaf_cost": 6.0,
+        "sheet_cost": 6.0,
         "is_colored": "y",
         "is_sticker": "n"
     }
@@ -106,7 +106,7 @@
         "paper_length": 22.5,
         "paper_width": 28.5,
         "ream_cost": 0.0,
-        "leaf_cost": 5.0,
+        "sheet_cost": 5.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -120,7 +120,7 @@
         "paper_length": 24.0,
         "paper_width": 36.0,
         "ream_cost": 0.0,
-        "leaf_cost": 40.0,
+        "sheet_cost": 40.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -134,7 +134,7 @@
         "paper_length": 24.0,
         "paper_width": 36.0,
         "ream_cost": 0.0,
-        "leaf_cost": 40.0,
+        "sheet_cost": 40.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -148,7 +148,7 @@
         "paper_length": 24.0,
         "paper_width": 36.0,
         "ream_cost": 0.0,
-        "leaf_cost": 15.5,
+        "sheet_cost": 15.5,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -162,7 +162,7 @@
         "paper_length": 24.0,
         "paper_width": 36.0,
         "ream_cost": 0.0,
-        "leaf_cost": 15.5,
+        "sheet_cost": 15.5,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -176,7 +176,7 @@
         "paper_length": 24.0,
         "paper_width": 36.0,
         "ream_cost": 0.0,
-        "leaf_cost": 14.5,
+        "sheet_cost": 14.5,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -190,7 +190,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 1030.0,
-        "leaf_cost": 2.3,
+        "sheet_cost": 2.3,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -204,7 +204,7 @@
         "paper_length": 24.0,
         "paper_width": 36.0,
         "ream_cost": 920.0,
-        "leaf_cost": 2.1,
+        "sheet_cost": 2.1,
         "is_colored": "y",
         "is_sticker": "n"
     }
@@ -218,7 +218,7 @@
         "paper_length": 24.0,
         "paper_width": 36.0,
         "ream_cost": 920.0,
-        "leaf_cost": 2.1,
+        "sheet_cost": 2.1,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -232,7 +232,7 @@
         "paper_length": 22.0,
         "paper_width": 34.0,
         "ream_cost": 810.0,
-        "leaf_cost": 1.6,
+        "sheet_cost": 1.6,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -246,7 +246,7 @@
         "paper_length": 22.0,
         "paper_width": 29.0,
         "ream_cost": 700.0,
-        "leaf_cost": 1.6,
+        "sheet_cost": 1.6,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -260,7 +260,7 @@
         "paper_length": 26.0,
         "paper_width": 40.0,
         "ream_cost": 0.0,
-        "leaf_cost": 18.0,
+        "sheet_cost": 18.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -274,7 +274,7 @@
         "paper_length": 26.0,
         "paper_width": 40.0,
         "ream_cost": 0.0,
-        "leaf_cost": 12.0,
+        "sheet_cost": 12.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -288,7 +288,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 3000.0,
-        "leaf_cost": 6.5,
+        "sheet_cost": 6.5,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -302,7 +302,7 @@
         "paper_length": 31.0,
         "paper_width": 43.0,
         "ream_cost": 0.0,
-        "leaf_cost": 23.0,
+        "sheet_cost": 23.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -316,7 +316,7 @@
         "paper_length": 31.0,
         "paper_width": 43.0,
         "ream_cost": 0.0,
-        "leaf_cost": 15.0,
+        "sheet_cost": 15.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -330,7 +330,7 @@
         "paper_length": 31.0,
         "paper_width": 43.0,
         "ream_cost": 0.0,
-        "leaf_cost": 13.0,
+        "sheet_cost": 13.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -344,7 +344,7 @@
         "paper_length": 31.0,
         "paper_width": 43.0,
         "ream_cost": 0.0,
-        "leaf_cost": 12.0,
+        "sheet_cost": 12.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -358,7 +358,7 @@
         "paper_length": 31.0,
         "paper_width": 43.0,
         "ream_cost": 0.0,
-        "leaf_cost": 20.5,
+        "sheet_cost": 20.5,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -372,7 +372,7 @@
         "paper_length": 31.0,
         "paper_width": 43.0,
         "ream_cost": 0.0,
-        "leaf_cost": 18.0,
+        "sheet_cost": 18.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -386,7 +386,7 @@
         "paper_length": 31.0,
         "paper_width": 43.0,
         "ream_cost": 0.0,
-        "leaf_cost": 15.0,
+        "sheet_cost": 15.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -400,7 +400,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 2250.0,
-        "leaf_cost": 5.0,
+        "sheet_cost": 5.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -414,7 +414,7 @@
         "paper_length": 8.5,
         "paper_width": 14.0,
         "ream_cost": 290.0,
-        "leaf_cost": 5.0,
+        "sheet_cost": 5.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -428,7 +428,7 @@
         "paper_length": 8.5,
         "paper_width": 11.0,
         "ream_cost": 230.0,
-        "leaf_cost": 5.0,
+        "sheet_cost": 5.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -442,7 +442,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 2700.0,
-        "leaf_cost": 6.0,
+        "sheet_cost": 6.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -456,7 +456,7 @@
         "paper_length": 8.5,
         "paper_width": 14.0,
         "ream_cost": 360.0,
-        "leaf_cost": 6.0,
+        "sheet_cost": 6.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -470,7 +470,7 @@
         "paper_length": 8.5,
         "paper_width": 11.0,
         "ream_cost": 290.0,
-        "leaf_cost": 6.0,
+        "sheet_cost": 6.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -484,7 +484,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 2350.0,
-        "leaf_cost": 5.2,
+        "sheet_cost": 5.2,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -498,7 +498,7 @@
         "paper_length": 8.5,
         "paper_width": 14.0,
         "ream_cost": 320.0,
-        "leaf_cost": 5.2,
+        "sheet_cost": 5.2,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -512,7 +512,7 @@
         "paper_length": 8.5,
         "paper_width": 11.0,
         "ream_cost": 260.0,
-        "leaf_cost": 5.2,
+        "sheet_cost": 5.2,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -526,7 +526,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 1070.0,
-        "leaf_cost": 2.3,
+        "sheet_cost": 2.3,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -540,7 +540,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 1640.0,
-        "leaf_cost": 3.6,
+        "sheet_cost": 3.6,
         "is_colored": "y",
         "is_sticker": "n"
     }
@@ -554,7 +554,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 1230.0,
-        "leaf_cost": 2.7,
+        "sheet_cost": 2.7,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -568,7 +568,7 @@
         "paper_length": 22.0,
         "paper_width": 34.0,
         "ream_cost": 960.0,
-        "leaf_cost": 2.1,
+        "sheet_cost": 2.1,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -582,7 +582,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": null,
-        "leaf_cost": 13.0,
+        "sheet_cost": 13.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -596,7 +596,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": null,
-        "leaf_cost": 12.0,
+        "sheet_cost": 12.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -610,7 +610,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": null,
-        "leaf_cost": 11.0,
+        "sheet_cost": 11.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -624,7 +624,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": null,
-        "leaf_cost": 10.0,
+        "sheet_cost": 10.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -638,7 +638,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 2100.0,
-        "leaf_cost": 4.6,
+        "sheet_cost": 4.6,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -652,7 +652,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 1800.0,
-        "leaf_cost": 4.0,
+        "sheet_cost": 4.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -666,7 +666,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 1800.0,
-        "leaf_cost": 4.0,
+        "sheet_cost": 4.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -680,7 +680,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 2835.0,
-        "leaf_cost": 6.2,
+        "sheet_cost": 6.2,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -694,7 +694,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 2800.0,
-        "leaf_cost": 6.2,
+        "sheet_cost": 6.2,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -708,7 +708,7 @@
         "paper_length": 22.0,
         "paper_width": 34.0,
         "ream_cost": 2240.0,
-        "leaf_cost": 6.2,
+        "sheet_cost": 6.2,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -722,7 +722,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 2485.0,
-        "leaf_cost": 5.4,
+        "sheet_cost": 5.4,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -736,7 +736,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 2450.0,
-        "leaf_cost": 5.4,
+        "sheet_cost": 5.4,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -750,7 +750,7 @@
         "paper_length": 22.0,
         "paper_width": 34.0,
         "ream_cost": 1960.0,
-        "leaf_cost": 5.4,
+        "sheet_cost": 5.4,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -764,7 +764,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 1785.0,
-        "leaf_cost": 3.9,
+        "sheet_cost": 3.9,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -778,7 +778,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 1750.0,
-        "leaf_cost": 3.9,
+        "sheet_cost": 3.9,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -792,7 +792,7 @@
         "paper_length": 22.0,
         "paper_width": 34.0,
         "ream_cost": 1400.0,
-        "leaf_cost": 3.9,
+        "sheet_cost": 3.9,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -806,7 +806,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 2100.0,
-        "leaf_cost": 4.7,
+        "sheet_cost": 4.7,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -820,7 +820,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 2135.0,
-        "leaf_cost": 4.7,
+        "sheet_cost": 4.7,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -834,7 +834,7 @@
         "paper_length": 28.0,
         "paper_width": 34.0,
         "ream_cost": 1435.0,
-        "leaf_cost": 3.15,
+        "sheet_cost": 3.15,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -848,7 +848,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 1400.0,
-        "leaf_cost": 3.15,
+        "sheet_cost": 3.15,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -862,7 +862,7 @@
         "paper_length": 22.0,
         "paper_width": 34.0,
         "ream_cost": 1120.0,
-        "leaf_cost": 3.15,
+        "sheet_cost": 3.15,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -876,7 +876,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 0.0,
-        "leaf_cost": 15.0,
+        "sheet_cost": 15.0,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -890,7 +890,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 2400.0,
-        "leaf_cost": 6.6,
+        "sheet_cost": 6.6,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -904,7 +904,7 @@
         "paper_length": 25.0,
         "paper_width": 38.0,
         "ream_cost": 2400.0,
-        "leaf_cost": 5.3,
+        "sheet_cost": 5.3,
         "is_colored": "n",
         "is_sticker": "n"
     }
@@ -918,7 +918,7 @@
         "paper_length": 22.0,
         "paper_width": 34.0,
         "ream_cost": 1680.0,
-        "leaf_cost": 4.7,
+        "sheet_cost": 4.7,
         "is_colored": "n",
         "is_sticker": "n"
     }
