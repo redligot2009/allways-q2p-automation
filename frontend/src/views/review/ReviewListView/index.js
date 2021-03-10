@@ -57,7 +57,7 @@ const ProductList = () => {
               color="textSecondary"
               variant="h5"
             >
-              Awaiting Computation for Quotation
+              Awaiting Computation
             </Typography>
               <Box mt={2}>
                 {data.quotations.map((quotation) => (
@@ -84,7 +84,7 @@ const ProductList = () => {
                 color="textSecondary"
                 variant="h5"
               >
-                Recently Computed Quotations
+                Recently Computed
               </Typography>
                 <Box mt={2}>
                   {data.quotations.map((quotation) => (
