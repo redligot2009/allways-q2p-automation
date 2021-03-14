@@ -187,31 +187,73 @@ const ProductCard = ({ className, quotation, ...rest }) => {
               </Typography>
             </Grid>
 
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
                 Paper Types:
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
                 {quotation.paper_types}
                 {/* {(Number)(quotation.raw_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
           </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
+          <Grid 
+            container 
+            spacing={1}
+          >
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
                 Lamination Types: 
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
                 {quotation.lamination_types}
                 {/* {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
                 Binding Types:
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
                 {quotation.binding_types}
                 {/* {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
@@ -219,8 +261,19 @@ const ProductCard = ({ className, quotation, ...rest }) => {
           </Grid>
         </Box>
         <Box>
-          <Button variant="contained" color="primary" md={3}>COMPUTE QUOTATION</Button>
-          <Button variant="outlined" color="primary">REVIEW PRODUCT SPECS</Button>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            md={3}
+          >
+            COMPUTE QUOTATION
+          </Button>
+          <Button 
+            variant="outlined" 
+            color="primary"
+          >
+            REVIEW PRODUCT SPECS
+          </Button>
         </Box>
       </CardContent>
     </Card>

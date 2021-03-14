@@ -167,7 +167,6 @@ class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
     
     # Read only fields (AKA properties)
     raw_total_costs = serializers.ReadOnlyField()
-    raw_unit_costs = serializers.ReadOnlyField()
     final_total_costs = serializers.ReadOnlyField()
     final_unit_costs = serializers.ReadOnlyField()
     
@@ -192,7 +191,7 @@ class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
                 'lamination_types',
                 'binding_types',
                 'raw_total_costs',
-                'raw_unit_costs',
+                'markup_costs',
                 'final_total_costs',
                 'final_unit_costs')
 
