@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from django_filters import rest_framework as filters
+
 from .models import Account
 from .models import Invoice, JobOrder
 from .models import PrintingProcess
@@ -83,6 +85,8 @@ class QuotationItemViewSet(viewsets.ModelViewSet):
 
 class QuotationViewSet(viewsets.ModelViewSet):
     queryset = Quotation.objects.all()
+    filterset_fields=('approval_status',
+                      'client',)
     
     def get_serializer_class(self):
         if(self.action=='list'):

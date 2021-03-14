@@ -51,91 +51,229 @@ const ProductCard = ({ className, quotation, ...rest }) => {
       {...rest}
     >
       <CardContent>
-        <Box display="flex" flexDirection="column" mb={1}>
-          <Typography align="left" color="textPrimary" gutterBottom variant="h4">
+        <Box 
+          display="flex" 
+          flexDirection="column" 
+          mb={1}
+        >
+          <Typography 
+            align="left" 
+            color="textPrimary" 
+            gutterBottom 
+            variant="h4"
+          >
             {quotation.project_name}
           </Typography>
           
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
+          <Grid 
+            container 
+            spacing={1}
+          >
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
                 Client: 
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
                 {quotation.client.full_name}
               </Typography>
             </Grid>
 
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
                 Product Type:
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
                 {quotation.product_type.product_name}
               </Typography>
             </Grid>
 
             <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
                 Created:
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
                 {new Date(quotation.created_date).toLocaleDateString()}
               </Typography>
             </Grid>
             
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
                 Approval Status: 
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
                 { getApprovalStatus() }
               </Typography>
             </Grid>
           </Grid>
         </Box>
-        <Box display="flex" flexDirection="column" mb={3}>
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
-                Raw Total Costs:
+        <Box 
+          display="flex" 
+          flexDirection="column" 
+          mb={3}
+        >
+          <Grid 
+            container 
+            spacing={1}
+          >
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
+                Page Dimensions (Length x Width):
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
-                {(Number)(quotation.raw_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
+                {(Number)(quotation.page_length).toFixed(2)}" x {(Number)(quotation.page_width).toFixed(2)}"
+                {/* {(Number)(quotation.raw_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
 
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
-                Raw Unit Costs:
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
+                Paper Types:
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
-                {(Number)(quotation.raw_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
+                {quotation.paper_types}
+                {/* {(Number)(quotation.raw_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
           </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
-                Final Total Costs: 
+          <Grid 
+            container 
+            spacing={1}
+          >
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
+                Lamination Types: 
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
-                {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
+                {quotation.lamination_types}
+                {/* {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
-            <Grid item xs={6}>
-              <Typography align="left" color="textSecondary" gutterBottom variant="h5">
-                Final Unit Costs:
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
+                Binding Types:
               </Typography>
-              <Typography align="left" color="textSecondary" gutterBottom variant="body1">
-                {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
+                {quotation.binding_types}
+                {/* {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
           </Grid>
         </Box>
         <Box>
-          <Button variant="contained" color="primary" md={3}>COMPUTE QUOTATION</Button>
-          <Button variant="outlined" color="primary">REVIEW PRODUCT SPECS</Button>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            md={3}
+          >
+            COMPUTE QUOTATION
+          </Button>
+          <Button 
+            variant="outlined" 
+            color="primary"
+          >
+            REVIEW PRODUCT SPECS
+          </Button>
         </Box>
       </CardContent>
     </Card>

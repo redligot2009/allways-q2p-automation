@@ -38,6 +38,8 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
         return "Approved";
       case "not_approved":
         return "Not Approved";
+      case "computed":
+        return "Computed";
       default:
         return "Unknown";
     }
@@ -48,12 +50,32 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
       <CardContent>
         <Box display="flex" flexDirection="column" mb={3}>
           <Grid container justify="space-between">
-            <Typography align="left" color="textPrimary" gutterBottom variant="h4">
-              {quotation.project_name}
-            </Typography>
-            <Typography color="textSecondary" variant="subtitle2" align="bottom">
-              STATUS: { getApprovalStatus() }
-            </Typography>
+            <Grid
+              item
+              xs={8}
+            >
+              <Typography 
+                align="left" 
+                color="textPrimary" 
+                gutterBottom 
+                variant="h4"
+              >
+                {quotation.project_name}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={4}
+            >
+              <Typography 
+                color="textSecondary" 
+                variant="subtitle2" 
+                align="right"
+                xs={4}
+              >
+                STATUS: { getApprovalStatus() }
+              </Typography>
+            </Grid>
           </Grid>
         </Box>
         <Box
@@ -68,18 +90,18 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
           >
             <Grid item justify="space-between" spacing={2}>
               <Typography align="left" color="textPrimary" variant="body1">
-                Final Total Costs (w/ Markup)
+                Raw Total Costs (w/o Markup)
               </Typography>
               <Typography align="left" color="textPrimary" variant="body1">
-                Final Unit Costs (w/ Markup)
+                Markup Costs
               </Typography>
             </Grid>
             <Grid item justify="space-between" spacing={2}>
               <Typography color="textSecondary" variant="subtitle2" align="right">
-                {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
+                {(Number)(quotation.raw_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
               </Typography>
               <Typography color="textSecondary" variant="subtitle2" align="right">
-                {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
+                {(Number)(quotation.markup_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
               </Typography>
             </Grid>
           </Grid>
@@ -89,12 +111,30 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
             variant="subtitle2"
             align="right"
           >
-            Total: {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
+            Total Costs: {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="subtitle2"
+            align="right"
+          >
+            (Unit Costs: {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})})
           </Typography>
         </Box>
         <Box>
-          <Button variant="contained" color="error" md={3}>CANCEL JOB ORDER</Button>
-          <Button variant="outlined" color="primary">REVIEW PRODUCT SPECS</Button>
+          <Button 
+            variant="contained" 
+            color="error" 
+            md={3}
+          >
+            CANCEL JOB ORDER
+          </Button>
+          <Button 
+            variant="outlined" 
+            color="primary"
+          >
+            REVIEW PRODUCT SPECS
+          </Button>
         </Box>
       </CardContent>
     </Card>

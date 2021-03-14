@@ -26,13 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
 const QuotationReviewList = () => {
   const classes = useStyles();
-  const [data, setData] = useState({quotations:[]});
+  const [data, setData] = useState({in_progress:[],computed:[]});
   
   useEffect(() => {
     async function fetchData(){
-      const result = await axios.get('api/quotations/');
-      console.log(result.data);
-      setData({ quotations: result.data });
+      const in_progress = await axios.get('api/quotations/?approval_status=in_progress');
+      const computed = await axios.get('api/quotations/?approval_status=computed');
+      console.log(in_progress.data);
+      console.log(computed.data);
+      setData({ in_progress: in_progress.data, computed: computed.data});
     }
     fetchData();
   }, [])
@@ -53,7 +55,7 @@ const QuotationReviewList = () => {
               Awaiting Computation
             </Typography>
               <Box mt={2}>
-                {data.quotations.map((quotation) => (
+                {data.in_progress.map((quotation) => (
                   <Grid item key={quotation.id} lg={12} md={6} xs={12}>
                     <Box mt={2}>
                       <QuotationCard 
@@ -67,10 +69,10 @@ const QuotationReviewList = () => {
             </Grid>
             <Grid item xs>
               <Typography className={classes.name} color="textSecondary" variant="h5">
-                Recently Computed
+                Awaiting Approval
               </Typography>
                 <Box mt={2}>
-                  {data.quotations.map((quotation) => (
+                  {data.computed.map((quotation) => (
                     <Grid item key={quotation.id} lg={12} md={6} xs={12}>
                       <Box mt={2}>
                         <QuotationCardComputed

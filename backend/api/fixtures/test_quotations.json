@@ -214,8 +214,8 @@
     "fields": {
         "client": 4,
         "project_name": "Yearbook",
-        "approval_status": "approved",
-        "approval_date": "2021-03-23T04:00:00Z",
+        "approval_status": "computed",
+        "approval_date": null,
         "printing_process": "offset",
         "product_type": 1,
         "quantity": 400,

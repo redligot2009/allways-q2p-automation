@@ -46,7 +46,7 @@ class Account(models.Model):
             return "%s %s" % (self.user.first_name, self.user.last_name)
     
     def __str__(self):
-        return "%s" % (self.full_name)
+        return self.user.username
     
     mobile_number=models.CharField(default="",max_length=20,blank=True)
     
@@ -276,6 +276,7 @@ class Quotation(models.Model):
     
     # Choices for approval status
     STATUS=[
+        ('computed','Computed'),
         ('not_approved','Not Approved'),
         ('in_progress', 'In Progress'),
         ('approved', 'Approved'),
@@ -363,7 +364,16 @@ class Quotation(models.Model):
         return total
     total_no_sheets=property(get_total_no_sheets)
     
-    #no_sheets_in_running_machine = models.FloatField(default=1.0)
+    # Get all paper types
+    def get_paper_types(self):
+        result = ""
+        for i in range(0,len(self.items.all())):
+            item = self.items.all()[i]
+            result += str(item.paper) + " (" + item.item_type + ")"
+            if(i < len(self.items.all())-1):
+                result += ', '
+        return result
+    paper_types = property(get_paper_types)
     
     # Total costs for all paper in the entire project
     
@@ -377,6 +387,17 @@ class Quotation(models.Model):
     
     ### FINISHING COSTS ###
     
+    # Get all paper types
+    def get_lamination_types(self):
+        result = ""
+        for i in range(0,len(self.items.all())):
+            item = self.items.all()[i]
+            result += str(item.lamination) + " (" + item.item_type + ")"
+            if(i < len(self.items.all())-1):
+                result += ', '
+        return result
+    lamination_types = property(get_lamination_types)
+    
     # Total costs for lamination for the entire project
     def get_total_lamination_costs(self):
         total = 0
@@ -386,6 +407,19 @@ class Quotation(models.Model):
     total_lamination_costs=property(get_total_lamination_costs)
     
     ### BINDING / FOLDING / GATHERING COSTS ###
+    
+    # Get all paper types
+    def get_binding_types(self):
+        result = ""
+        for i in range(0,len(self.items.all())):
+            item = self.items.all()[i]
+            result += str(item.binding) + " (" + item.item_type + ")"
+            if(i < len(self.items.all())-1):
+                result += ', '
+        return result
+    binding_types = property(get_binding_types)
+    
+    # Total binding costs for a quotation (entered by manager)
     total_binding_costs = models.FloatField(default=0.0)
     
     # How many folds does this project have?

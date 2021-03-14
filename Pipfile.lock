@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b0d5575798029bf6f62663ab555a36934b425965c77f72b588c7a7a825624e32"
+            "sha256": "caa1f66288a8f5b8924ab07ad0668d18769fb97dd7bb5430fad179cb5174b607"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -48,6 +48,14 @@
             "index": "pypi",
             "version": "==3.1.1"
         },
+        "django-filter": {
+            "hashes": [
+                "sha256:84e9d5bb93f237e451db814ed422a3a625751cbc9968b484ecc74964a8696b06",
+                "sha256:e00d32cebdb3d54273c48f4f878f898dced8d5dfaad009438fe61ebdf535ace1"
+            ],
+            "index": "pypi",
+            "version": "==2.4.0"
+        },
         "django-fixture-magic": {
             "hashes": [
                 "sha256:c50f3de4a46a5844e2c1e2a9ff88b29db0830da8383e43d5ef6a66f1c4bfd8af",
@@ -74,11 +82,11 @@
         },
         "drf-nested-routers": {
             "hashes": [
-                "sha256:995b831be036911e330a86b7129dc6589de62f2a53d72067e7ce2b4a90f28c35",
-                "sha256:9d6a326333e9b16549e63b893c27075d98bbc217cd05fb10bbfa770d728d3f66"
+                "sha256:5bbb394ce382d8392cb7eb1e24eb8ad169bf095b22b8275b8f0f1e6697000434",
+                "sha256:84e946cd486e9ec1fea12a6ca114adc0c68389ccc66e55f6c0c23ce31362485d"
             ],
             "index": "pypi",
-            "version": "==0.92.5"
+            "version": "==0.93.3"
         },
         "python-monkey-business": {
             "hashes": [
