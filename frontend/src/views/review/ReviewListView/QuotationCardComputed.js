@@ -38,6 +38,8 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
         return "Approved";
       case "not_approved":
         return "Not Approved";
+      case "computed":
+        return "Computed";
       default:
         return "Unknown";
     }

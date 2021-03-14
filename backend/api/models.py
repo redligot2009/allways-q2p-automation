@@ -46,7 +46,7 @@ class Account(models.Model):
             return "%s %s" % (self.user.first_name, self.user.last_name)
     
     def __str__(self):
-        return "%s" % (self.full_name)
+        return self.user.username
     
     mobile_number=models.CharField(default="",max_length=20,blank=True)
     
@@ -276,6 +276,7 @@ class Quotation(models.Model):
     
     # Choices for approval status
     STATUS=[
+        ('computed','Computed'),
         ('not_approved','Not Approved'),
         ('in_progress', 'In Progress'),
         ('approved', 'Approved'),
