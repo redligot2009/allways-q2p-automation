@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'nested_admin',
     'fixture_magic',
     'django_extensions',
+    'django_filters',
     'api',
 ]
 
@@ -127,3 +128,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000"
 ]
+
+# REST FRAMEWORK RELATED SETTINGS
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
