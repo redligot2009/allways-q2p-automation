@@ -25,7 +25,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     
     def get_serializer_class(self):
-        if(self.action=='retrieve'):
+        if(self.action=='retrieve' or self.action=='update'):
             return AccountDetailSerializer
         else:
             return AccountListSerializer

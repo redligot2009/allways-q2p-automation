@@ -48,10 +48,10 @@ class Account(models.Model):
     def __str__(self):
         return self.user.username
     
-    mobile_number=models.CharField(default="",max_length=20,blank=True)
+    mobile_number=models.CharField(default="",max_length=20,blank=True,null=True)
     
     # Client Specific Fields
-    shipping_address=models.CharField(default="",max_length=150, blank=True)
+    shipping_address=models.CharField(default="",max_length=150, blank=True,null=True)
     # Name of organization (Ex: ADHD Society of the Philippines)
     organization_name=models.CharField(default="",max_length=255,blank=True,null=True)
     
