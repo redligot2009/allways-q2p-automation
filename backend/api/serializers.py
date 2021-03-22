@@ -16,6 +16,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields=('id','username','email')
 
 class AccountDetailSerializer(serializers.ModelSerializer):
+    full_name = serializers.ReadOnlyField()
+    first_name = serializers.CharField(write_only=True)
+    middle_name = serializers.CharField(write_only=True)
+    last_name = serializers.CharField(write_only=True)
+    user = serializers.StringRelatedField(read_only=True)
+    email = serializers.CharField(max_length=255,source='user.email', read_only=True)
     class Meta:
         model = Account
         fields=('__all__')
@@ -23,13 +29,13 @@ class AccountDetailSerializer(serializers.ModelSerializer):
 class AccountListSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
     first_name = serializers.CharField(write_only=True)
+    middle_name = serializers.CharField(write_only=True)
     last_name = serializers.CharField(write_only=True)
-    # user = UserSerializer()
-    username = serializers.CharField(max_length=255,source='user.username')
-    email = serializers.CharField(max_length=255,source='user.email')
+    user = serializers.StringRelatedField(read_only=True)
+    email = serializers.CharField(max_length=255,source='user.email', read_only=True)
     class Meta:
         model = Account
-        fields=('id','username','email','full_name','first_name','last_name', 'organization_name')
+        fields=('id','user','email','full_name','first_name','middle_name','last_name', 'organization_name')
 
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:

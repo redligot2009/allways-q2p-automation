@@ -16,16 +16,23 @@ from .serializers import QuotationItemSerializer, QuotationItemListSerializer, Q
 from .serializers import QuotationListSerializer, QuotationDetailSerializer, QuotationUpdateSerializer, QuotationSerializer
 
 import logging
-# Create your views here.
+
+#######################################
+### USER / ACCOUNT RELATED VIEWSETS ###
+#######################################
 
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     
     def get_serializer_class(self):
-        if(self.action=='retrieve'):
+        if(self.action=='retrieve' or self.action=='update'):
             return AccountDetailSerializer
         else:
             return AccountListSerializer
+
+###########################################
+### INVOICE AND JOB ORDER RELATED VIEWS ###
+###########################################
 
 class InvoiceViewSet(viewsets.ModelViewSet):
     queryset = Invoice.objects.all()
@@ -35,6 +42,9 @@ class JobOrderViewSet(viewsets.ModelViewSet):
     queryset = JobOrder.objects.all()
     serializer_class = JobOrderSerializer
 
+##################################
+### QUOTATION RELATED VIEWSETS ###
+##################################
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
