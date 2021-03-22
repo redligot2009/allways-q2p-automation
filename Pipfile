@@ -12,6 +12,9 @@ django-fixture-magic = "*"
 django-extensions = "*"
 drf-nested-routers = "*"
 django-filter = "*"
+markdown = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
