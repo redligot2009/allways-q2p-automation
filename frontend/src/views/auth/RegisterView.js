@@ -15,8 +15,6 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 
-import registerNewUser from './registerActions';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -66,7 +64,6 @@ const RegisterView = () => {
               })
             }
             onSubmit={(values) => {
-              registerNewUser(values);
               navigate('/app/dashboard', { replace: true });
             }}
           >
