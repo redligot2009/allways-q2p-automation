@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -16,6 +16,9 @@ import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
 
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../_actions/auth";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -25,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const LoginView = () => {
+const LoginView = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -43,11 +46,11 @@ const LoginView = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              username: '',
+              password: ''
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+              username: Yup.string().max(255).required('Username is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={() => {
@@ -59,7 +62,7 @@ const LoginView = () => {
               handleBlur,
               handleChange,
               handleSubmit,
-              isSubmitting,
+              // isSubmitting,
               touched,
               values
             }) => (
@@ -76,68 +79,20 @@ const LoginView = () => {
                     gutterBottom
                     variant="body2"
                   >
-                    Sign in on the internal platform
-                  </Typography>
-                </Box>
-                <Grid
-                  container
-                  spacing={3}
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      color="primary"
-                      fullWidth
-                      startIcon={<FacebookIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Login with Facebook
-                    </Button>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      fullWidth
-                      startIcon={<GoogleIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Login with Google
-                    </Button>
-                  </Grid>
-                </Grid>
-                <Box
-                  mt={3}
-                  mb={1}
-                >
-                  <Typography
-                    align="center"
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    or login with email address
+                    Sign in with your account to access the dashboard
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(touched.username && errors.username)}
                   fullWidth
-                  helperText={touched.email && errors.email}
-                  label="Email Address"
+                  helperText={touched.username && errors.username}
+                  label="Username"
                   margin="normal"
-                  name="email"
+                  name="username"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  type="email"
-                  value={values.email}
+                  type="text"
+                  value={values.username}
                   variant="outlined"
                 />
                 <TextField
@@ -156,7 +111,7 @@ const LoginView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    // disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
