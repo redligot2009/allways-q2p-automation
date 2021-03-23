@@ -12,8 +12,8 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import FacebookIcon from 'src/icons/Facebook';
-import GoogleIcon from 'src/icons/Google';
+// import FacebookIcon from 'src/icons/Facebook';
+// import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
 
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector(state => state.auth);
 
   return (
     <Page
@@ -53,8 +55,14 @@ const LoginView = (props) => {
               username: Yup.string().max(255).required('Username is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values, actions) => {
+              dispatch(login(values.username,values.password))
+                .then(()=>{
+                  navigate('/app/dashboard', { replace: true });
+                })
+                .catch((error)=>{
+                  actions.setSubmitting(false);
+                })
             }}
           >
             {({
@@ -62,7 +70,7 @@ const LoginView = (props) => {
               handleBlur,
               handleChange,
               handleSubmit,
-              // isSubmitting,
+              isSubmitting,
               touched,
               values
             }) => (
@@ -111,7 +119,7 @@ const LoginView = (props) => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    // disabled={isSubmitting}
+                    disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
