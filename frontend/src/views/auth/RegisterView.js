@@ -70,8 +70,13 @@ const RegisterView = () => {
             }
             onSubmit={(values) => {
               console.log("YO BOY!");
-              dispatch(register(values.username,values.email,values.password));
-              navigate('/app/dashboard', { replace: true });
+              dispatch(register(values.username,values.email,values.password))
+                .then(()=>{
+                  navigate('/app/dashboard', { replace: true });
+                })
+                .catch((error)=>{
+                  console.log("NOPE! " + error);
+                });
             }}
           >
             {({
@@ -79,7 +84,7 @@ const RegisterView = () => {
               handleBlur,
               handleChange,
               handleSubmit,
-              isSubmitting,
+              // isSubmitting,
               touched,
               values
             }) => (
@@ -210,7 +215,7 @@ const RegisterView = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    // disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
