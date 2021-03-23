@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 import axios from 'axios';
+import "react-toastify/dist/ReactToastify.css";
 
 // axios configuration
 axios.defaults.baseURL = "http://127.0.0.1:8000/";

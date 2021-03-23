@@ -1,4 +1,5 @@
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import { ToastContainer } from "react-toastify";
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
@@ -14,6 +15,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       {routing}
+      <ToastContainer hideProgressBar={true} newestOnTop={true} />
     </ThemeProvider>
   );
 };
