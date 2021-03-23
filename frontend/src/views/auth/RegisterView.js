@@ -15,6 +15,9 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../_actions/auth";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -27,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 const RegisterView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { message } = useSelector(state => state.message);
+  const dispatch = useDispatch();
 
   return (
     <Page
@@ -56,14 +61,16 @@ const RegisterView = () => {
               Yup.object().shape({
                 username: Yup.string().required('Username is required'),
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                first_name: Yup.string().max(255).required('First name is required'),
+                first_name: Yup.string().max(255),
                 middle_name: Yup.string().max(255),
-                last_name: Yup.string().max(255).required('Last name is required'),
+                last_name: Yup.string().max(255),
                 password: Yup.string().max(255).required('Password is required'),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
             onSubmit={(values) => {
+              console.log("YO BOY!");
+              dispatch(register(values.username,values.email,values.password));
               navigate('/app/dashboard', { replace: true });
             }}
           >
@@ -112,10 +119,10 @@ const RegisterView = () => {
                   helperText={touched.first_name && errors.first_name}
                   label="First name"
                   margin="normal"
-                  name="firstName"
+                  name="first_name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
+                  value={values.first_name}
                   variant="outlined"
                 />
                 <TextField
@@ -124,10 +131,10 @@ const RegisterView = () => {
                   helperText={touched.middle_name && errors.middle_name}
                   label="Middle name"
                   margin="normal"
-                  name="middleName"
+                  name="middle_name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
+                  value={values.middle_name}
                   variant="outlined"
                 />
                 <TextField
@@ -136,10 +143,10 @@ const RegisterView = () => {
                   helperText={touched.last_name && errors.last_name}
                   label="Last name"
                   margin="normal"
-                  name="lastName"
+                  name="last_name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.lastName}
+                  value={values.last_name}
                   variant="outlined"
                 />
                 <TextField
