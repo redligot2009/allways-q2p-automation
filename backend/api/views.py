@@ -23,6 +23,7 @@ import logging
 
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
+    lookup_field = 'user__username'
     
     def get_serializer_class(self):
         if(self.action=='retrieve' or self.action=='update'):
