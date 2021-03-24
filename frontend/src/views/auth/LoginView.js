@@ -17,7 +17,7 @@ import {
 import Page from 'src/components/Page';
 
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../_actions/auth";
+import { login, profile } from "../../_actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +58,11 @@ const LoginView = (props) => {
             onSubmit={(values, actions) => {
               dispatch(login(values.username,values.password))
                 .then(()=>{
-                  navigate('/app/dashboard', { replace: true });
+                  dispatch(profile())
+                  .then(()=>{
+                    navigate('/app/dashboard', { replace: true });
+                  })
+                  .catch(error=>error)
                 })
                 .catch((error)=>{
                   actions.setSubmitting(false);

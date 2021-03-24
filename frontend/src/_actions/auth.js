@@ -5,6 +5,8 @@ import {
     LOGIN_FAIL,
     LOGOUT,
     SET_MESSAGE,
+    PROFILE_FOUND,
+    PROFILE_NOT_FOUND,
   } from "./types";
   
 import AuthService from "../_services/auth.service";
@@ -41,8 +43,7 @@ export const register = (username, email, password) => (dispatch) => {
     );
 };
   
-export const login = (username, password) => {
-  return (dispatch) => {
+export const login = (username, password) => (dispatch) => {
     return AuthService.login(username, password).then(
       (data) => {
         dispatch({
@@ -68,14 +69,30 @@ export const login = (username, password) => {
         return Promise.reject();
       }
     );
-  };
+}
+
+export const profile = () => (dispatch) => {
+  return AuthService.profile()
+    .then(
+      (data)=>{
+        dispatch({
+          type: PROFILE_FOUND,
+          payload: { profile: data },
+        });
+        return Promise.resolve()
+      },
+      (error) => {
+        dispatch({
+          type: PROFILE_NOT_FOUND,
+        });
+        return Promise.reject()
+      }
+    );
 }
   
-export const logout = () => {
-  return (dispatch) => {
-    AuthService.logout();
-    dispatch({
-      type: LOGOUT,
-    });
-  };
+export const logout = () => (dispatch) => {
+  AuthService.logout();
+  dispatch({
+    type: LOGOUT,
+  });
 }

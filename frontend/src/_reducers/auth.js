@@ -4,13 +4,15 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
+    PROFILE_FOUND,
+    PROFILE_NOT_FOUND,
 } from "../_actions/types";
   
 const user = JSON.parse(localStorage.getItem("user"));
   
 const initialState = user
-    ? { isLoggedIn: true, user }
-    : { isLoggedIn: false, user: null };
+    ? { isLoggedIn: true, user, profile: null }
+    : { isLoggedIn: false, user: null, profile: null };
 
 // eslint-disable-next-line 
 export default function (state = initialState, action) {
@@ -28,7 +30,6 @@ export default function (state = initialState, action) {
                 isLoggedIn: false,
             };
         case LOGIN_SUCCESS:
-            console.log(payload.user);
             return {
                 ...state,
                 isLoggedIn: true,
@@ -46,6 +47,16 @@ export default function (state = initialState, action) {
                 isLoggedIn: false,
                 user: null,
             };
+        case PROFILE_FOUND:
+            return {
+                ...state,
+                profile: payload.profile,
+            }
+        case PROFILE_NOT_FOUND:
+            return {
+                ...state,
+                profile: null,
+            }
         default:
             return state;
     }

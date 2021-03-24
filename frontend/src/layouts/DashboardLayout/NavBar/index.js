@@ -23,13 +23,8 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
-import { useSelector } from "react-redux";
-
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Account Manager',
-  name: 'Mr. Ligot'
-};
+import { useSelector, useDispatch } from "react-redux";
+import { profile } from "../../../_actions/auth";
 
 const items = [
   {
@@ -91,6 +86,28 @@ const useStyles = makeStyles(() => ({
 }));
 
 const NavBar = ({ onMobileClose, openMobile }) => {
+
+  const dispatch = useDispatch()
+  
+  useEffect(()=>{
+    async function fetchProfile () {
+      await dispatch(profile());
+    }
+    fetchProfile();
+  },[]);
+  
+  const { profile: currentUserProfile } = useSelector((state) => state.auth) 
+  const { user: currentUser } = useSelector((state) => state.auth);
+
+
+  console.log("YO! ", currentUser, currentUserProfile);
+
+  const user = {
+    avatar: '/static/images/avatars/avatar_6.png',
+    jobTitle: 'Account Manager',
+    name: 'Mr. Ligot'
+  };
+
   const classes = useStyles();
   const location = useLocation();
 

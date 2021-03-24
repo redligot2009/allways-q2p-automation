@@ -18,7 +18,7 @@ const login = (username, password) => {
     .then((response) => {
       if (response.data.access) {
         localStorage.setItem("user", JSON.stringify(response.data));
-        console.log(response.data);
+        // console.log(response.data);
       }
 
       return response.data;
@@ -27,19 +27,25 @@ const login = (username, password) => {
 
 const profile = () => {
   return axios
-    .get("auth/users/me/",
-      { 
-        headers: authHeader() 
-      })
+    .get("auth/users/me/", { headers: authHeader() })
     .then((response) => {
       
-      //let result = axios.get().then()
-      let result = { ...response.data, 
-      };
-
+      const result = axios
+        .get(`api/accounts/${response.data.username}/`, { headers: authHeader() })
+        .then((response)=>{
+          // console.log(response.data);
+          return response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          return error;
+        })
+      
       return result;
+      // return response.data;
     })
-    .catch((error)=>{
+    .catch((error) => {
+      // console.log(error, authHeader());
       return error;
     })
 }
