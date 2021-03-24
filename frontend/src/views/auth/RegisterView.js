@@ -76,7 +76,7 @@ const RegisterView = () => {
                 })
                 .catch((error)=>{
                   actions.setSubmitting(false);
-                  console.log("NOPE! " + error);
+                  console.log("NOPE! " + message);
                 });
             }}
           >
