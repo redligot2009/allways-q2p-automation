@@ -1,4 +1,4 @@
-export function authHeader() {
+const authHeader = () => {
     // return authorization header with jwt token
     let user = JSON.parse(localStorage.getItem('user'));
 
@@ -8,3 +8,5 @@ export function authHeader() {
         return {};
     }
 }
+// eslint-disable-next-line
+export default { authHeader };

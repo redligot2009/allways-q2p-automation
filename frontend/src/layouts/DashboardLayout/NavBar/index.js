@@ -23,6 +23,8 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
+import { useSelector } from "react-redux";
+
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
   jobTitle: 'Account Manager',
