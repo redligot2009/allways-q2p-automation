@@ -7,7 +7,7 @@ from .models import Invoice, JobOrder
 from .models import PrintingProcess
 from .models import Lamination, DieCut, Binding, Paper, ProductionConstants
 from .models import Quotation, QuotationItem, ExtraPlate, Product
-from .serializers import AccountListSerializer,AccountDetailSerializer
+from .serializers import AccountListSerializer, AccountDetailSerializer, AccountUpdateSerializer
 from .serializers import InvoiceSerializer, ProductSerializer
 from .serializers import JobOrderSerializer, PaperSerializer, PrintingProcessSerializer
 from .serializers import LaminationSerializer, DieCutSerializer, BindingSerializer
@@ -26,8 +26,10 @@ class AccountViewSet(viewsets.ModelViewSet):
     lookup_field = 'user__username'
     
     def get_serializer_class(self):
-        if(self.action=='retrieve' or self.action=='update'):
+        if(self.action=='retrieve'):
             return AccountDetailSerializer
+        elif(self.action=='update'):
+            return AccountUpdateSerializer
         else:
             return AccountListSerializer
 

@@ -17,25 +17,41 @@ class UserSerializer(serializers.ModelSerializer):
 
 class AccountDetailSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
-    first_name = serializers.CharField(write_only=True)
-    middle_name = serializers.CharField(write_only=True)
-    last_name = serializers.CharField(write_only=True)
+    # first_name = serializers.CharField(max_length=255,source='user.first_name',write_only=True)
+    # middle_name = serializers.CharField(max_length=255,write_only=True)
+    # last_name = serializers.CharField(max_length=255,source='user.last_name',write_only=True)
     user = serializers.StringRelatedField(read_only=True)
     email = serializers.CharField(max_length=255,source='user.email', read_only=True)
     class Meta:
         model = Account
         fields=('__all__')
 
+class AccountUpdateSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(max_length=255,source='user.first_name')
+    middle_name = serializers.CharField(max_length=255)
+    last_name = serializers.CharField(max_length=255,source='user.last_name')
+    email = serializers.CharField(max_length=255,source='user.email')
+    
+    def update(self, instance, validated_data):
+        instance.middle_name = validated_data.get('middle_name',instance.middle_name)
+        instance.save()
+        return instance
+        pass
+    
+    class Meta:
+        model = Account
+        fields=('first_name','middle_name','last_name','email')
+
 class AccountListSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
-    first_name = serializers.CharField(write_only=True)
-    middle_name = serializers.CharField(write_only=True)
-    last_name = serializers.CharField(write_only=True)
+    # first_name = serializers.CharField(write_only=True)
+    # middle_name = serializers.CharField(write_only=True)
+    # last_name = serializers.CharField(write_only=True)
     user = serializers.StringRelatedField(read_only=True)
     email = serializers.CharField(max_length=255,source='user.email', read_only=True)
     class Meta:
         model = Account
-        fields=('id','user','email','full_name','first_name','middle_name','last_name', 'organization_name')
+        fields=('id','user','email','full_name', 'organization_name')
 
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
