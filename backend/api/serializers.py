@@ -27,20 +27,10 @@ class AccountDetailSerializer(serializers.ModelSerializer):
         fields=('__all__')
 
 class AccountUpdateSerializer(serializers.ModelSerializer):
-    first_name = serializers.CharField(max_length=255,source='user.first_name')
-    middle_name = serializers.CharField(max_length=255)
-    last_name = serializers.CharField(max_length=255,source='user.last_name')
-    email = serializers.CharField(max_length=255,source='user.email')
-    
-    def update(self, instance, validated_data):
-        instance.middle_name = validated_data.get('middle_name',instance.middle_name)
-        instance.save()
-        return instance
-        pass
     
     class Meta:
         model = Account
-        fields=('first_name','middle_name','last_name','email')
+        fields=('__all__')
 
 class AccountListSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
