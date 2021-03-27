@@ -42,6 +42,9 @@ export const login = (username, password) => (dispatch) => {
         dispatch({
           type: LOGIN_FAIL,
         });
+        dispatch({
+          type: PROFILE_NOT_FOUND,
+        });
         return Promise.reject();
       }
     );

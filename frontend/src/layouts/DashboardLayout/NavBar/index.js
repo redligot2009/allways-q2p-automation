@@ -15,6 +15,7 @@ import {
   AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
   Lock as LockIcon,
+  LogOut as LogOutIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
@@ -25,49 +26,6 @@ import NavItem from './NavItem';
 
 import { useSelector, useDispatch } from "react-redux";
 import { profile } from "../../../_actions/auth";
-
-const items = [
-  {
-    href: '/app/dashboard',
-    icon: BarChartIcon,
-    title: 'Home'
-  },
-  {
-    href: '/app/review',
-    icon: UsersIcon,
-    title: 'Quote Review'
-  },
-  {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Order Tracking'
-  },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Manage Employees'
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
-  },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
-  }
-];
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -99,14 +57,64 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const { profile: currentUserProfile } = useSelector((state) => state.auth) 
   const { user: currentUser } = useSelector((state) => state.auth);
 
-
-  console.log("YO! ", currentUser, currentUserProfile);
+  useEffect(()=>{
+    console.log("YO! ", currentUser, currentUserProfile);
+  },[]);
 
   const user = {
     avatar: '/static/images/avatars/avatar_6.png',
-    jobTitle: 'Account Manager',
-    name: 'Mr. Ligot'
+    jobTitle: 'Client',
+    name: (currentUserProfile == null ? 'Mr. Ligot' : currentUserProfile.full_name)
   };
+
+  const items = [
+    {
+      href: '/app/dashboard',
+      icon: BarChartIcon,
+      title: 'Home'
+    },
+    {
+      href: '/app/review',
+      icon: UsersIcon,
+      title: 'Quote Review'
+    },
+    {
+      href: '/app/products',
+      icon: ShoppingBagIcon,
+      title: 'Order Tracking'
+    },
+    {
+      href: '/app/account',
+      icon: UserIcon,
+      title: 'Manage Employees'
+    },
+    {
+      href: '/app/settings',
+      icon: SettingsIcon,
+      title: 'Settings'
+    },
+    {
+      href: '/login',
+      icon: LockIcon,
+      title: 'Login'
+    },
+    {
+      href:'/logout',
+      icon: LogOutIcon,
+      title:'Logout'
+    },
+    {
+      href: '/register',
+      icon: UserPlusIcon,
+      title: 'Register'
+    },
+    {
+      href: '/404',
+      icon: AlertCircleIcon,
+      title: 'Error'
+    }
+  ];
+  
 
   const classes = useStyles();
   const location = useLocation();
@@ -137,20 +145,22 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           src={user.avatar}
           to="/app/account"
         />
-        <Box>
-        <Typography
-          className={classes.name}
-          color="textPrimary"
-          variant="h5"
+        <Box
+          ml={1}
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
-        </Typography>
+          <Typography
+            className={classes.name}
+            color="textPrimary"
+            variant="h5"
+          >
+            {user.name}
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            {user.jobTitle}
+          </Typography>
         </Box>
       </Box>
       <Divider />
