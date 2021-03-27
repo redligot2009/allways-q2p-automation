@@ -69,14 +69,20 @@ const RegisterView = () => {
               })
             }
             onSubmit={(values, actions) => {
-              console.log("YO BOY!");
-              dispatch(register(values.username,values.email,values.password))
+              // console.log("YO BOY!");
+              dispatch(
+                register( values.username,
+                          values.email,
+                          values.password,
+                          values.first_name,
+                          values.middle_name,
+                          values.last_name))
                 .then(()=>{
                   navigate('/app/dashboard', { replace: true });
                 })
                 .catch((error)=>{
                   actions.setSubmitting(false);
-                  console.log("NOPE! " + message);
+                  console.log("NOPE! " + error);
                 });
             }}
           >

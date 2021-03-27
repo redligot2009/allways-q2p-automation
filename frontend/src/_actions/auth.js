@@ -4,39 +4,24 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    SET_MESSAGE,
     PROFILE_FOUND,
     PROFILE_NOT_FOUND,
   } from "./types";
   
 import AuthService from "../_services/auth.service";
   
-export const register = (username, email, password) => (dispatch) => {
-  return AuthService.register(username, email, password)
+export const register = (username, email, password, first_name="", middle_name="",last_name="") => (dispatch) => {
+  return AuthService.register(username, email, password, first_name, middle_name, last_name)
     .then(
       (response) => {
           dispatch({
               type: REGISTER_SUCCESS,
           });
-          dispatch({
-              type: SET_MESSAGE,
-              payload: response.data.message,
-          });
           return Promise.resolve();
       },
       (error) => {
-          const message =
-          (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-              error.message ||
-              error.toString();
           dispatch({
               type: REGISTER_FAIL,
-          });
-          dispatch({
-              type: SET_MESSAGE,
-              payload: message,
           });
           return Promise.reject();
       }
@@ -54,17 +39,8 @@ export const login = (username, password) => (dispatch) => {
         return Promise.resolve();
       },
       (error) => {
-        const message = (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-          error.message ||
-          error.toString();
         dispatch({
           type: LOGIN_FAIL,
-        });
-        dispatch({
-          type: SET_MESSAGE,
-          payload: message,
         });
         return Promise.reject();
       }

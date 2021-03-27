@@ -140,3 +140,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user':'api.serializers.UserSerializer',
+        'user_create': 'api.serializers.UserCreateSerializer',
+    },
+}

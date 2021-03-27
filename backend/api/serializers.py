@@ -13,7 +13,14 @@ from .models import Quotation, QuotationItem, ExtraPlate, Product
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=get_user_model()
-        fields=('id','username','email')
+        fields=('username','email','first_name','last_name')
+        
+from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
+
+class UserCreateSerializer(BaseUserRegistrationSerializer):
+    class Meta:
+        model=get_user_model()
+        fields=('username','email','password','first_name','last_name')
 
 class AccountDetailSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()

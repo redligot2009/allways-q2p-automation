@@ -1,11 +1,18 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const register = (username, email, password) => {
+const register = (username, email, password, first_name="", middle_name="", last_name="") => {
   return axios.post("auth/users/", {
     username,
     email,
     password,
+    first_name,
+    last_name,
+  })
+  .then((response) => {
+    return axios.patch(`api/accounts/${username}/`,{
+      middle_name
+    })
   });
 };
 
