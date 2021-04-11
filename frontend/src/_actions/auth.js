@@ -73,8 +73,14 @@ export const getProfile = () => (dispatch) => {
 }
   
 export const logout = () => (dispatch) => {
-  AuthService.logout();
-  dispatch({
-    type: LOGOUT,
-  });
+  return AuthService.logout()
+    .then((response)=>{
+      dispatch({
+        type: LOGOUT,
+      });
+      return Promise.resolve();
+    })
+    .catch((error)=>{
+      return Promise.reject();
+    })
 }

@@ -37,7 +37,7 @@ const Dashboard = () => {
   // const user = JSON.parse(localStorage.getItem("user"));
   
   useEffect(()=>{
-    console.log("isLoggedIn: ", isLoggedIn);
+    // console.log("isLoggedIn: ", isLoggedIn);
     // console.log(user);
     if(isLoggedIn === false)
     {

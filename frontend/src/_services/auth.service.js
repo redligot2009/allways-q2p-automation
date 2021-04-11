@@ -65,7 +65,13 @@ const getProfile = () => {
 
 const verifyLoggedIn = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  return axios.post('/auth/jwt/verify',user.access);
+  return axios.post('/auth/jwt/verify',user.access)
+      .then((response)=>{
+        return user;
+      })
+      .catch((error)=>{
+        return error;
+      });
 }
 
 const logout = () => {
