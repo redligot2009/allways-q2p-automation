@@ -50,8 +50,8 @@ export const login = (username, password) => (dispatch) => {
     );
 }
 
-export const profile = () => (dispatch) => {
-  return AuthService.profile()
+export const getProfile = () => (dispatch) => {
+  return AuthService.getProfile()
     .then(
       (data)=>{
         dispatch({

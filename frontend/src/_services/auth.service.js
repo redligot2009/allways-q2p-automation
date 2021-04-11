@@ -1,7 +1,12 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const register = (username, email, password, first_name="", middle_name="", last_name="") => {
+const register = (username, 
+                  email, 
+                  password, 
+                  first_name="", 
+                  middle_name="", 
+                  last_name="") => {
   let result = axios.post("auth/users/", {
     username,
     email,
@@ -33,7 +38,7 @@ const login = (username, password) => {
     });
 };
 
-const profile = () => {
+const getProfile = () => {
   return axios
     .get("auth/users/me/", { headers: authHeader() })
     .then((response) => {
@@ -58,6 +63,11 @@ const profile = () => {
     })
 }
 
+const verifyLoggedIn = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return axios.post('/auth/jwt/verify',user.access);
+}
+
 const logout = () => {
   localStorage.removeItem("user");
 };
@@ -67,5 +77,5 @@ export default {
   register,
   login,
   logout,
-  profile,
+  getProfile,
 };

@@ -25,7 +25,7 @@ import {
 import NavItem from './NavItem';
 
 import { useSelector, useDispatch } from "react-redux";
-import { profile } from "../../../_actions/auth";
+import { getProfile } from "../../../_actions/auth";
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -49,7 +49,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   
   useEffect(()=>{
     async function fetchProfile () {
-      await dispatch(profile());
+      await dispatch(getProfile());
     }
     fetchProfile();
   },[]);
@@ -57,9 +57,9 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const { profile: currentUserProfile } = useSelector((state) => state.auth) 
   const { user: currentUser } = useSelector((state) => state.auth);
 
-  useEffect(()=>{
-    console.log("YO! ", currentUser, currentUserProfile);
-  },[]);
+  // useEffect(()=>{
+  //   console.log("YO! ", currentUser, currentUserProfile);
+  // },[]);
 
   const user = {
     avatar: '/static/images/avatars/avatar_6.png',
