@@ -58,17 +58,12 @@ export const getProfile = () => (dispatch) => {
           type: PROFILE_FOUND,
           payload: { profile: data },
         });
-        console.log("WHAT THE FUCK",  data);
         return Promise.resolve()
       },
       (error) => {
         dispatch({
           type: PROFILE_NOT_FOUND,
         });
-        dispatch({
-          type: LOGIN_FAIL,
-        });
-        // console.log("FUCK THIS SHIT!");
         return Promise.reject()
       }
     );

@@ -51,14 +51,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     async function fetchProfile () {
       await dispatch(getProfile())
             .then((response)=>{
-              // console.log("YO SUCCESS ", response);
-              // if(!response)
-              // {
-              //   dispatch(logout())
-              // }
             })
             .catch((error)=>{
-              // console.log("YO ", error);
               dispatch(logout())
             })
     }
@@ -82,47 +76,74 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     {
       href: '/app/dashboard',
       icon: BarChartIcon,
-      title: 'Home'
+      title: 'Home',
+      handleClick: () => {
+
+      },
     },
     {
       href: '/app/review',
       icon: UsersIcon,
-      title: 'Quote Review'
+      title: 'Quote Review',
+      handleClick: () => {
+
+      },
     },
     {
       href: '/app/products',
       icon: ShoppingBagIcon,
-      title: 'Order Tracking'
+      title: 'Order Tracking',
+      handleClick: () => {
+
+      },
     },
     {
       href: '/app/account',
       icon: UserIcon,
-      title: 'Manage Employees'
+      title: 'Manage Employees',
+      handleClick: () => {
+
+      },
     },
     {
       href: '/app/settings',
       icon: SettingsIcon,
-      title: 'Settings'
+      title: 'Settings',
+      handleClick: () => {
+
+      },
     },
     {
       href: '/login',
       icon: LockIcon,
-      title: 'Login'
+      title: 'Login',
+      handleClick: () => {
+
+      },
     },
     {
       href:'/logout',
       icon: LogOutIcon,
-      title:'Logout'
+      title:'Logout',
+      handleClick: () => {
+        dispatch(logout())
+      },
     },
     {
       href: '/register',
       icon: UserPlusIcon,
-      title: 'Register'
+      title: 'Register',
+      handleClick: () => {
+
+      },
     },
     {
       href: '/404',
       icon: AlertCircleIcon,
-      title: 'Error'
+      title: 'Error',
+      handleClick: () => {
+
+      },
     }
   ];
   
@@ -183,6 +204,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               key={item.title}
               title={item.title}
               icon={item.icon}
+              onClick={item.handleClick}
             />
           ))}
         </List>
