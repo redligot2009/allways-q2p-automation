@@ -51,12 +51,14 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     async function fetchProfile () {
       await dispatch(getProfile())
             .then((response)=>{
+              // console.log("YO SUCCESS ", response);
               // if(!response)
               // {
               //   dispatch(logout())
               // }
             })
             .catch((error)=>{
+              // console.log("YO ", error);
               dispatch(logout())
             })
     }

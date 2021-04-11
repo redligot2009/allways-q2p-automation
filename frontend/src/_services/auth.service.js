@@ -57,10 +57,6 @@ const getProfile = () => {
       return result;
       // return response.data;
     })
-    .catch((error) => {
-      // console.log(error, authHeader());
-      return error;
-    })
 }
 
 const verifyLoggedIn = () => {
@@ -76,6 +72,7 @@ const verifyLoggedIn = () => {
 
 const logout = () => {
   localStorage.removeItem("user");
+  return Promise.resolve();
 };
 
 // eslint-disable-next-line
@@ -84,4 +81,5 @@ export default {
   login,
   logout,
   getProfile,
+  verifyLoggedIn,
 };
