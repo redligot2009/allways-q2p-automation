@@ -64,6 +64,9 @@ export const getProfile = () => (dispatch) => {
         dispatch({
           type: PROFILE_NOT_FOUND,
         });
+        dispatch({
+          type: LOGIN_FAIL,
+        });
         return Promise.reject()
       }
     );

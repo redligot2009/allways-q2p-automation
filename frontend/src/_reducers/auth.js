@@ -11,7 +11,7 @@ import {
 const user = JSON.parse(localStorage.getItem("user"));
   
 const initialState = user
-    ? { isLoggedIn: false, user, profile: null }
+    ? { isLoggedIn: true, user: user, profile: null }
     : { isLoggedIn: false, user: null, profile: null };
 
 // eslint-disable-next-line 
