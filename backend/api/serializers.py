@@ -10,6 +10,7 @@ from .models import PrintingProcess
 from .models import Lamination, DieCut, Binding, Paper, ProductionConstants
 from .models import Quotation, QuotationItem, ExtraPlate, Product
 
+# Serialize the default Django user model associated with an Account
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=get_user_model()
@@ -17,33 +18,31 @@ class UserSerializer(serializers.ModelSerializer):
         
 from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
 
+# Serializer for user creation, extended from djoser library's existing serializers
 class UserCreateSerializer(BaseUserRegistrationSerializer):
     class Meta:
         model=get_user_model()
         fields=('username','email','password','first_name','last_name')
 
+# Serializer for Account (user profile) details.
 class AccountDetailSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
-    # first_name = serializers.CharField(max_length=255,source='user.first_name',write_only=True)
-    # middle_name = serializers.CharField(max_length=255,write_only=True)
-    # last_name = serializers.CharField(max_length=255,source='user.last_name',write_only=True)
     user = serializers.StringRelatedField(read_only=True)
     email = serializers.CharField(max_length=255,source='user.email', read_only=True)
     class Meta:
         model = Account
         fields=('__all__')
 
+# Serializer for updating Account details.
 class AccountUpdateSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Account
         fields=('__all__')
 
+# Serializer for when Accounts are being displayed in a list (non-detail view)
 class AccountListSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
-    # first_name = serializers.CharField(write_only=True)
-    # middle_name = serializers.CharField(write_only=True)
-    # last_name = serializers.CharField(write_only=True)
     user = serializers.StringRelatedField(read_only=True)
     email = serializers.CharField(max_length=255,source='user.email', read_only=True)
     class Meta:
@@ -54,53 +53,58 @@ class AccountListSerializer(serializers.ModelSerializer):
 ========================================
 ==== PRODUCTION RELATED SERIALIZERS ====
 ========================================
+(NOTE: a bunch of these are not yet used, with the exception of the Quotation and QuotationItem models)
 """
 
-
+# Serialize Paper model with all details
 class PaperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paper
         fields=('__all__')
 
+# Serialize Paper model in a non-detail list view
 class PaperListSerializer(serializers.ModelSerializer):
     class Meta:
         model=Paper
         fields=('id','paper_type','paper_category','paper_length','paper_width')
 
+# Serialize different Printing Process models
 class PrintingProcessSerializer(serializers.ModelSerializer):
     class Meta:
         model = PrintingProcess
         fields=('process_name')
 
+# Serialize different Lamination types
 class LaminationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lamination
         fields=('__all__')
-        # fields = ('lamination_id','lamination_type','lamination_base_price')
 
+# Serialize different DieCut types 
 class DieCutSerializer(serializers.ModelSerializer):
     class Meta:
         model = DieCut
         fields=('__all__')
-        # fields = ('diecut_id','diecut_type','diecut_base_price')
 
+# Serialize different Binding types
 class BindingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Binding
         fields=('__all__')
-        # fields = ('binding_id','binding_type','binding_base_price')
 
+# Serialize the ProductionConstants singleton object if needed
 class ProductionConstantsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductionConstants
         fields=('__all__')
 
-    
+# Serialize different Product types
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields=('id','product_name','product_description')
-        
+
+# Serialize "ExtraPlate" objects
 class ExtraPlateSerializer(serializers.ModelSerializer):
     extra_impressions = serializers.ReadOnlyField()
     total_impressions = serializers.ReadOnlyField()
@@ -110,6 +114,7 @@ class ExtraPlateSerializer(serializers.ModelSerializer):
         fields=('__all__')
         exclude=('quotation_item','id')
 
+# Serialize QuotationItem objects (list view)
 class QuotationItemListSerializer(serializers.ModelSerializer):
 
     # Related Objects
@@ -127,7 +132,8 @@ class QuotationItemListSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuotationItem
         exclude=('quotation','id')
-        
+
+# Serialize QuotationItem objects (detail view)
 class QuotationItemSerializer(serializers.ModelSerializer):
 
     # Related Objects
@@ -147,6 +153,7 @@ class QuotationItemSerializer(serializers.ModelSerializer):
         model = QuotationItem
         fields=('__all__')
 
+# Serialize QuotationItem upon update
 class QuotationItemUpdateSerializer(serializers.ModelSerializer):
 
     # Related Objects
@@ -160,9 +167,10 @@ class QuotationItemUpdateSerializer(serializers.ModelSerializer):
         model = QuotationItem
         fields=('__all__')
 
+# Serialize Quotation model (list view)
 class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
     
-    # URL
+    # URL uniquely identifying a particular Quotation
     url = serializers.HyperlinkedIdentityField(view_name='quotations-detail')
     
     # Related Objects
@@ -199,6 +207,7 @@ class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
                 'final_total_costs',
                 'final_unit_costs')
 
+# Serialize Quotation model (detail view)
 class QuotationDetailSerializer(serializers.ModelSerializer):
     
     # Related Objects
@@ -235,6 +244,7 @@ class QuotationDetailSerializer(serializers.ModelSerializer):
         model = Quotation
         fields=('__all__')
 
+# Serialize Quotation upon update
 class QuotationUpdateSerializer(serializers.ModelSerializer):
     
     # Related Objects
@@ -288,6 +298,7 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
                 'quantity',
                 'items')
 
+# Main Quotation serializer (for create actions)
 class QuotationSerializer(serializers.ModelSerializer):
     
     # Related Objects
@@ -327,15 +338,11 @@ class QuotationSerializer(serializers.ModelSerializer):
 =================================================
 """
 
+# UNUSED Invoice serializer for future purposes
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invoice
-        # fields = ('invoice_number', 
-        #           'total_price',
-        #           'payment_status',
-        #           'invoice_email',
-        #           'i_d_employee_number',
-        #           'invoice_date')
+        fields=('__all__')
 
 class JobOrderSerializer(serializers.ModelSerializer):
     
