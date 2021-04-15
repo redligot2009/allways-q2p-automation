@@ -110,3 +110,19 @@ class QuotationViewSet(viewsets.ModelViewSet):
             return QuotationUpdateSerializer
         else:
             return QuotationSerializer
+
+##################################
+### JOB ORDER RELATED VIEWSETS ###
+##################################
+
+"""
+TODO:
+- Test JobOrder viewset functionality
+
+FINISHED:
+- Initial setup for JobOrder viewset
+"""
+
+class JobOrderViewSet(viewsets.ModelViewSet):
+    queryset = JobOrder.objects.all()
+    serializer_class = JobOrderSerializer
