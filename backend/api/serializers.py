@@ -344,10 +344,30 @@ class InvoiceSerializer(serializers.ModelSerializer):
         model = Invoice
         fields=('__all__')
 
+
+# WHAT IS THIS: Different serializers for JobOrder creation / retrieval / update / deletion
+
+# List view serializer
+class JobOrderListSerializer(serializers.ModelSerializer):
+    
+    quotation = QuotationListSerializer()
+    
+    class Meta:
+        model = JobOrder
+        fields = ('__all__')
+
+# Create / update / delete serializer
 class JobOrderSerializer(serializers.ModelSerializer):
+    quotation = serializers.PrimaryKeyRelatedField(queryset=Quotation.objects.all())
+    
+    class Meta:
+        model = JobOrder
+        fields = ('__all__')
+
+# Retrieve serializer
+class JobOrderDetailSerializer(serializers.ModelSerializer):
     
     quotation = QuotationSerializer()
-    client = AccountListSerializer(source='quotation.client')
     
     class Meta:
         model = JobOrder
