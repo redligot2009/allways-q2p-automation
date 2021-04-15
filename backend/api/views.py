@@ -9,7 +9,8 @@ from .models import Lamination, DieCut, Binding, Paper, ProductionConstants
 from .models import Quotation, QuotationItem, ExtraPlate, Product
 from .serializers import AccountListSerializer, AccountDetailSerializer, AccountUpdateSerializer
 from .serializers import InvoiceSerializer, ProductSerializer
-from .serializers import JobOrderSerializer, PaperSerializer, PrintingProcessSerializer
+from .serializers import PaperSerializer, PrintingProcessSerializer
+from .serializers import JobOrderSerializer, JobOrderDetailSerializer, JobOrderListSerializer
 from .serializers import LaminationSerializer, DieCutSerializer, BindingSerializer
 from .serializers import ProductionConstantsSerializer, ExtraPlateSerializer
 from .serializers import QuotationItemSerializer, QuotationItemListSerializer, QuotationItemUpdateSerializer
@@ -33,17 +34,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         else:
             return AccountListSerializer
 
-###########################################
-### INVOICE AND JOB ORDER RELATED VIEWS ###
-###########################################
 
-class InvoiceViewSet(viewsets.ModelViewSet):
-    queryset = Invoice.objects.all()
-    serializer_class = InvoiceSerializer
-
-class JobOrderViewSet(viewsets.ModelViewSet):
-    queryset = JobOrder.objects.all()
-    serializer_class = JobOrderSerializer
 
 ##################################
 ### QUOTATION RELATED VIEWSETS ###
@@ -110,3 +101,36 @@ class QuotationViewSet(viewsets.ModelViewSet):
             return QuotationUpdateSerializer
         else:
             return QuotationSerializer
+
+##################################
+### JOB ORDER RELATED VIEWSETS ###
+##################################
+
+"""
+TODO:
+- Test JobOrder viewset functionality
+
+FINISHED:
+- Initial setup for JobOrder viewset
+"""
+
+class JobOrderViewSet(viewsets.ModelViewSet):
+    queryset = JobOrder.objects.all()
+    
+    def get_serializer_class(self):
+        if(self.action=='list'):
+            return JobOrderListSerializer
+        elif(self.action=='retrieve'):
+            return JobOrderDetailSerializer
+        elif(self.action=='update'):
+            return JobOrderSerializer
+        else:
+            return JobOrderSerializer
+        
+#############################
+### INVOICE RELATED VIEWS ###
+#############################
+
+class InvoiceViewSet(viewsets.ModelViewSet):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer

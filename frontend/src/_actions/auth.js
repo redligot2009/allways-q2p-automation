@@ -42,13 +42,16 @@ export const login = (username, password) => (dispatch) => {
         dispatch({
           type: LOGIN_FAIL,
         });
+        dispatch({
+          type: PROFILE_NOT_FOUND,
+        });
         return Promise.reject();
       }
     );
 }
 
-export const profile = () => (dispatch) => {
-  return AuthService.profile()
+export const getProfile = () => (dispatch) => {
+  return AuthService.getProfile()
     .then(
       (data)=>{
         dispatch({
@@ -67,8 +70,14 @@ export const profile = () => (dispatch) => {
 }
   
 export const logout = () => (dispatch) => {
-  AuthService.logout();
-  dispatch({
-    type: LOGOUT,
-  });
+  return AuthService.logout()
+    .then((response)=>{
+      dispatch({
+        type: LOGOUT,
+      });
+      return Promise.resolve();
+    })
+    .catch((error)=>{
+      return Promise.reject();
+    })
 }

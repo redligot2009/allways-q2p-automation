@@ -17,7 +17,7 @@ import {
 import Page from 'src/components/Page';
 
 import { useDispatch, useSelector } from "react-redux";
-import { login, profile } from "../../_actions/auth";
+import { login, getProfile } from "../../_actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +58,7 @@ const LoginView = (props) => {
             onSubmit={(values, actions) => {
               dispatch(login(values.username,values.password))
                 .then(()=>{
-                  dispatch(profile())
+                  dispatch(getProfile())
                   .then(()=>{
                     navigate('/app/dashboard', { replace: true });
                   })

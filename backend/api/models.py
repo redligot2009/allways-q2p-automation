@@ -92,46 +92,10 @@ def save_user_account(sender,instance,created,**kwargs):
         if created and not instance.is_superuser:
             instance.account.save()
 
-"""
-=======================================================
-==== 2 - SET UP INVOICE / JOB ORDER RELATED MODELS ====
-=======================================================
-
-=== OVERALL DESCRIPTION == 
-This is where all the invoice and job order stuff will *eventually*
-get set up. Right now that's not yet done since we don't need it yet
-for Deliverable #1.
-
-TODO:
-Actually make this thing work.
-
-"""
-
-class Invoice(models.Model):
-    STATUS=[
-        ('paid', 'Paid'),
-        ('unpaid','Unpaid'),
-        ]
-    invoice_number=models.CharField(max_length=10,primary_key=True,unique=True)
-    total_price=models.FloatField(max_length=22, default=0.0)
-    payment_status=models.CharField(max_length=6,choices=STATUS, default='paid')
-    invoice_email=models.CharField(max_length=20)
-    i_d_employee_number=models.CharField(max_length=7)
-    invoice_date=models.DateTimeField(null=True, blank=True)
- 
-class JobOrder(models.Model):
-    STATUS=[
-        ('inprogress','In-Progress'),
-        ('finished','Finished'),
-        ]
-    joborder_number=models.CharField(max_length=10)
-    production_status=models.CharField(max_length=11, choices=STATUS)
-    joborder_quotation_number=models.CharField(max_length=10)
-    joborder_number=models.DateTimeField(null=False, blank=False)
 
 """    
 =============================================
-==== 3 - SET UP QUOTATION RELATED MODELS ====
+==== 2 - SET UP QUOTATION RELATED MODELS ====
 =============================================
 
 === Overall Description ===
@@ -627,3 +591,55 @@ class ExtraPlate(models.Model):
         except:
             return 0.0
     running_costs = property(get_running_costs)
+    
+
+"""
+=======================================================
+==== 3 - SET UP INVOICE / JOB ORDER RELATED MODELS ====
+=======================================================
+
+=== OVERALL DESCRIPTION == 
+This is where the job order model is implemented.
+
+1 quotation = 1 job order = 1 client.
+
+When a quote is approved, it is made into a job order that is sent to the production team
+who will update the status as the project moves along.
+
+TODO: 
+- Invoice Implementation (most likely not within scope of deliverable # 2)
+- Test functionality of JobOrder model.
+
+FINISHED:
+- JobOrder model initial setup.
+
+"""
+
+# Unused Invoice model for future setup
+class Invoice(models.Model):
+    STATUS=[
+        ('paid', 'Paid'),
+        ('unpaid','Unpaid'),
+        ]
+    invoice_number=models.CharField(max_length=10,primary_key=True,unique=True)
+    total_price=models.FloatField(max_length=22, default=0.0)
+    payment_status=models.CharField(max_length=6,choices=STATUS, default='paid')
+    invoice_email=models.CharField(max_length=20)
+    i_d_employee_number=models.CharField(max_length=7)
+    invoice_date=models.DateTimeField(null=True, blank=True)
+ 
+#  JobOrder model definition. 1 job order = 1 quotation = 1 client.
+class JobOrder(models.Model):
+    # Different production statuses for a "job"
+    STATUS=[
+        ('inprogress','In-Progress'),
+        ('finished','Finished'),
+        ]
+    # Which manager account is associated with this job order?
+    manager = models.OneToOneField(to=Account,null=True,on_delete=models.SET_NULL)
+    # Quotation associated with this job order
+    quotation = models.OneToOneField(to=Quotation,null=True,on_delete=models.SET_NULL)
+    # Status of the "job"
+    production_status=models.CharField(max_length=11, choices=STATUS)
+    # When was the quotation approved as a job order?
+    created_date = models.DateTimeField(null=False,blank=False)

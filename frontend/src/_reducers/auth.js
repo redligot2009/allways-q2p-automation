@@ -7,11 +7,11 @@ import {
     PROFILE_FOUND,
     PROFILE_NOT_FOUND,
 } from "../_actions/types";
-  
+
 const user = JSON.parse(localStorage.getItem("user"));
   
 const initialState = user
-    ? { isLoggedIn: true, user, profile: null }
+    ? { isLoggedIn: true, user: user, profile: null }
     : { isLoggedIn: false, user: null, profile: null };
 
 // eslint-disable-next-line 
@@ -55,6 +55,7 @@ export default function (state = initialState, action) {
         case PROFILE_NOT_FOUND:
             return {
                 ...state,
+                isLoggedIn: false,
                 profile: null,
             }
         default:

@@ -1,7 +1,12 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const register = (username, email, password, first_name="", middle_name="", last_name="") => {
+const register = (username, 
+                  email, 
+                  password, 
+                  first_name="", 
+                  middle_name="", 
+                  last_name="") => {
   let result = axios.post("auth/users/", {
     username,
     email,
@@ -33,7 +38,7 @@ const login = (username, password) => {
     });
 };
 
-const profile = () => {
+const getProfile = () => {
   return axios
     .get("auth/users/me/", { headers: authHeader() })
     .then((response) => {
@@ -52,14 +57,22 @@ const profile = () => {
       return result;
       // return response.data;
     })
-    .catch((error) => {
-      // console.log(error, authHeader());
-      return error;
-    })
+}
+
+const verifyLoggedIn = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return axios.post('/auth/jwt/verify',user.access)
+      .then((response)=>{
+        return user;
+      })
+      .catch((error)=>{
+        return error;
+      });
 }
 
 const logout = () => {
   localStorage.removeItem("user");
+  return Promise.resolve();
 };
 
 // eslint-disable-next-line
@@ -67,5 +80,6 @@ export default {
   register,
   login,
   logout,
-  profile,
+  getProfile,
+  verifyLoggedIn,
 };

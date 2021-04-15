@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { useSelector, useDispatch } from "react-redux";
+import { Link as RouterLink, useNavigate, useHistory } from 'react-router-dom';
+
 import {
   Container,
   Grid,
   makeStyles
 } from '@material-ui/core';
+
 import Page from 'src/components/Page';
 import Budget from './Budget';
 import LatestOrders from './LatestOrders';
@@ -23,8 +28,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const Dashboard = () => {
   const classes = useStyles();
+  const { isLoggedIn } = useSelector(state => state.auth);
+  const { profile } = useSelector(state => state.auth);
+  const navigate = useNavigate();
+  // const user = JSON.parse(localStorage.getItem("user"));
+  
+  useEffect(()=>{
+    // console.log("isLoggedIn: ", isLoggedIn);
+    // console.log(user);
+    if(isLoggedIn === false)
+    {
+      navigate('/login/', { replace: true });
+    }
+  },[]);
 
   return (
     <Page
