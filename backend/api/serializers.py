@@ -50,21 +50,6 @@ class AccountListSerializer(serializers.ModelSerializer):
         model = Account
         fields=('id','user','email','full_name', 'organization_name')
 
-class InvoiceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Invoice
-        # fields = ('invoice_number', 
-        #           'total_price',
-        #           'payment_status',
-        #           'invoice_email',
-        #           'i_d_employee_number',
-        #           'invoice_date')
-
-class JobOrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = JobOrder
-        # fields = ('STATUS', 'joborder_number','production_status','joborder_quotation','joborder_number')
-
 """"
 ========================================
 ==== PRODUCTION RELATED SERIALIZERS ====
@@ -336,3 +321,27 @@ class QuotationSerializer(serializers.ModelSerializer):
                 'quantity',
                 'items')
 
+""""
+=================================================
+==== JOB ORDER / INVOICE RELATED SERIALIZERS ====
+=================================================
+"""
+
+class InvoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invoice
+        # fields = ('invoice_number', 
+        #           'total_price',
+        #           'payment_status',
+        #           'invoice_email',
+        #           'i_d_employee_number',
+        #           'invoice_date')
+
+class JobOrderSerializer(serializers.ModelSerializer):
+    
+    quotation = QuotationSerializer()
+    client = AccountListSerializer(source='quotation.client')
+    
+    class Meta:
+        model = JobOrder
+        fields = ('__all__')
