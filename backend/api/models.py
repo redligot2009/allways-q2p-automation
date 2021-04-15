@@ -601,16 +601,21 @@ class ExtraPlate(models.Model):
 === OVERALL DESCRIPTION == 
 This is where the job order model is implemented.
 
-1 quotation = 1 job order.
+1 quotation = 1 job order = 1 client.
 
 When a quote is approved, it is made into a job order that is sent to the production team
 who will update the status as the project moves along.
 
 TODO: 
 - Invoice Implementation (most likely not within scope of deliverable # 2)
+- Test functionality of JobOrder model.
+
+FINISHED:
+- JobOrder model initial setup.
 
 """
 
+# Unused Invoice model for future setup
 class Invoice(models.Model):
     STATUS=[
         ('paid', 'Paid'),
@@ -623,6 +628,7 @@ class Invoice(models.Model):
     i_d_employee_number=models.CharField(max_length=7)
     invoice_date=models.DateTimeField(null=True, blank=True)
  
+#  JobOrder model definition. 1 job order = 1 quotation = 1 client.
 class JobOrder(models.Model):
     # Different production statuses for a "job"
     STATUS=[
