@@ -636,9 +636,9 @@ class JobOrder(models.Model):
         ('finished','Finished'),
         ]
     # Which manager account is associated with this job order?
-    manager = models.OneToOneField(to=Account,on_delete=models.SET_NULL)
+    manager = models.OneToOneField(to=Account,null=True,on_delete=models.SET_NULL)
     # Quotation associated with this job order
-    quotation = models.OneToOneField(to=Quotation,on_delete=models.SET_NULL)
+    quotation = models.OneToOneField(to=Quotation,null=True,on_delete=models.SET_NULL)
     # Status of the "job"
     production_status=models.CharField(max_length=11, choices=STATUS)
     # When was the quotation approved as a job order?
