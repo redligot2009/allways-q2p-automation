@@ -3,10 +3,13 @@ from rest_framework_nested import routers
 
 from .views import QuotationViewSet, QuotationItemViewSet
 from .views import AccountViewSet
+from .views import JobOrderViewSet
 
 router = routers.DefaultRouter()
 router.register(r'quotations',QuotationViewSet,basename='quotations')
 router.register(r'accounts',AccountViewSet,basename='accounts')
+router.register(r'joborders',JobOrderViewSet,basename='joborders')
+
 quotation_items_router = routers.NestedSimpleRouter(router,r'quotations',lookup='quotation')
 quotation_items_router.register(r'items',QuotationItemViewSet,basename='quotation-items')
 
