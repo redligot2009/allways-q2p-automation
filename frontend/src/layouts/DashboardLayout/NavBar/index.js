@@ -62,15 +62,43 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const { profile: currentUserProfile } = useSelector((state) => state.auth) 
   const { user: currentUser } = useSelector((state) => state.auth);
 
-  // useEffect(()=>{
-  //   console.log("YO! ", currentUser, currentUserProfile);
-  // },[]);
+  useEffect(()=>{
+    console.log("YO! ", currentUser, currentUserProfile);
+  },[]);
 
-  const user = {
+  const setUserProfile = (user) =>
+  {
+    let newUser = user
+    if(currentUserProfile !== null)
+    {
+      newUser.name = currentUserProfile.full_name
+      switch(currentUserProfile.job_position)
+      {
+        case 'O':
+          newUser.jobTitle = "Owner"
+          break
+        case 'AM':
+          newUser.jobTitle = "Account Manager"
+          break
+        case 'D':
+          newUser.jobTitle = "Deliveryman"
+          break
+        case 'P':
+          newUser.jobTitle = "Production Employee"
+          break
+        default:
+          newUser.jobTitle ="Client"
+          break
+      }
+    }
+    return newUser
+  }
+
+  const user = setUserProfile({
     avatar: '/static/images/avatars/avatar_6.png',
-    jobTitle: 'Client',
-    name: (currentUserProfile == null ? 'Mr. Ligot' : currentUserProfile.full_name)
-  };
+    jobTitle: 'None',
+    name: 'Mr. Ligot'
+  });
 
   const items = [
     {
@@ -80,6 +108,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
+      restrict_to: [],
     },
     {
       href: '/app/review',
@@ -88,6 +117,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
+      restrict_to: ['O','AM'],
     },
     {
       href: '/app/products',
@@ -96,6 +126,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
+      restrict_to: ['O','M'],
     },
     {
       href: '/app/account',
@@ -104,6 +135,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
+      restrict_to: ['O','M'],
     },
     {
       href: '/app/settings',
@@ -112,6 +144,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
+      restrict_to: [],
     },
     {
       href: '/login',
@@ -120,6 +153,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
+      restrict_to: [],
     },
     {
       href:'/logout',
@@ -128,6 +162,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
         dispatch(logout())
       },
+      restrict_to: [],
     },
     {
       href: '/register',
@@ -136,6 +171,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
+      restrict_to: [],
     },
     {
       href: '/404',
@@ -144,6 +180,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
+      restrict_to: [],
     }
   ];
   
