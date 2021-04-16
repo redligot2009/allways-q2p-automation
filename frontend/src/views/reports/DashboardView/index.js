@@ -43,7 +43,7 @@ const Dashboard = () => {
     {
       navigate('/login/', { replace: true });
     }
-  },[]);
+  },[isLoggedIn, navigate]);
 
   return (
     <Page
