@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
   const { isLoggedIn } = useSelector(state => state.auth);
-  const { profile } = useSelector(state => state.auth);
+  // const { profile } = useSelector(state => state.auth);
   const navigate = useNavigate();
   // const user = JSON.parse(localStorage.getItem("user"));
   
