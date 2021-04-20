@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Redirect } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/DashboardLayout';
 import MainLayout from 'src/layouts/MainLayout';
 import AccountView from 'src/views/account/AccountView';
@@ -12,33 +12,36 @@ import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import ReviewListView from 'src/views/review/ReviewListView';
 
-import { getProfile } from '_services';
+// import { getProfile } from '_services';
 
-const limitRouteAccess = (roles, element) =>
+const limitRouteAccess = (roles, element, currentUserProfile) =>
 {
-  const currentUserProfile = getProfile();
+  // const currentUserProfile = getProfile();
   if (!currentUserProfile) {
+    console.log("Go back to log in")
     return <Navigate to="/login"/>
   }
-  if(roles && roles.indexOf(currentUserProfile.job_position) ===-1)
+  else if(roles.length > 0 && roles.indexOf(currentUserProfile.job_position) ===-1)
   {
+    console.log("Go back to home")
     return <Navigate to="/"/>
   }
+  console.log("what is happening?")
   return element;
 }
 
-const routes = [
+const routes = (currentUserProfile) => [
   {
     path: 'app',
     element: <DashboardLayout />,
     children: [
-      { path: 'account', element: limitRouteAccess([], <AccountView />) },
-      { path: 'customers', element: limitRouteAccess(['O','AM'], <CustomerListView />) },
-      { path: 'review', element: limitRouteAccess(['O', 'AM'], <ReviewListView />)},
-      { path: 'dashboard', element: limitRouteAccess([],<DashboardView />)},
-      { path: 'products', element: limitRouteAccess([],<ProductListView />)},
-      { path: 'settings', element: limitRouteAccess([],<SettingsView />)},
-      { path: '*', element: limitRouteAccess([],<Navigate to="/404" />)}
+      { path: 'account', element: limitRouteAccess([], <AccountView />,currentUserProfile) },
+      { path: 'customers', element: limitRouteAccess(['O','AM'], <CustomerListView />,currentUserProfile) },
+      { path: 'review', element: limitRouteAccess(['O', 'AM'], <ReviewListView />,currentUserProfile)},
+      { path: 'dashboard', element: limitRouteAccess([],<DashboardView />,currentUserProfile)},
+      { path: 'products', element: limitRouteAccess([],<ProductListView />,currentUserProfile)},
+      { path: 'settings', element: limitRouteAccess([],<SettingsView />,currentUserProfile)},
+      { path: '*', element: limitRouteAccess([],<Navigate to="/404" />,currentUserProfile)}
     ]
   },
   {

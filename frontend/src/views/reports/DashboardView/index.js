@@ -36,14 +36,14 @@ const Dashboard = () => {
   const navigate = useNavigate();
   // const user = JSON.parse(localStorage.getItem("user"));
   
-  useEffect(()=>{
-    // console.log("isLoggedIn: ", isLoggedIn);
-    // console.log(user);
-    if(isLoggedIn === false)
-    {
-      navigate('/login/', { replace: true });
-    }
-  },[isLoggedIn, navigate]);
+  // useEffect(()=>{
+  //   // console.log("isLoggedIn: ", isLoggedIn);
+  //   // console.log(user);
+  //   if(isLoggedIn === false)
+  //   {
+  //     navigate('/login/', { replace: true });
+  //   }
+  // },[isLoggedIn, navigate]);
 
   return (
     <Page

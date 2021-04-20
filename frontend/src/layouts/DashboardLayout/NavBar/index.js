@@ -47,17 +47,17 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
   const dispatch = useDispatch()
   
-  useEffect(()=>{
-    async function fetchProfile () {
-      await dispatch(getProfile())
-            .then((response)=>{
-            })
-            .catch((error)=>{
-              dispatch(logout())
-            })
-    }
-    fetchProfile();
-  },[dispatch]);
+  // useEffect(()=>{
+  //   async function fetchProfile () {
+  //     await dispatch(getProfile())
+  //           .then((response)=>{
+  //           })
+  //           .catch((error)=>{
+  //             dispatch(logout())
+  //           })
+  //   }
+  //   fetchProfile();
+  // },[dispatch]);
   
   const { profile: currentUserProfile } = useSelector((state) => state.auth) 
   const { user: currentUser } = useSelector((state) => state.auth);
