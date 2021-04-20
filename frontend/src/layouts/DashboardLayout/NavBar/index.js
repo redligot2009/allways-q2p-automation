@@ -129,7 +129,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       restrict_to: ['O','M'],
     },
     {
-      href: '/app/account',
+      href: '/app/customers',
       icon: UserIcon,
       title: 'Manage Employees',
       handleClick: () => {
