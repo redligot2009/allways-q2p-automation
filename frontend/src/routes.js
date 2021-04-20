@@ -18,15 +18,15 @@ const limitRouteAccess = (roles, element, currentUserProfile) =>
 {
   // const currentUserProfile = getProfile();
   if (!currentUserProfile) {
-    console.log("Go back to log in")
+    // console.log("Go back to log in")
     return <Navigate to="/login"/>
   }
   else if(roles.length > 0 && roles.indexOf(currentUserProfile.job_position) ===-1)
   {
-    console.log("Go back to home")
+    // console.log("Go back to home")
     return <Navigate to="/"/>
   }
-  console.log("what is happening?")
+  // console.log("what is happening?")
   return element;
 }
 
