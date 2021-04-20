@@ -12,18 +12,36 @@ import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import ReviewListView from 'src/views/review/ReviewListView';
 
+import { getProfile } from '_services';
+
+const limitRouteAccess = (roles, element, mustBeLoggedIn=false) =>
+{
+  if(mustBeLoggedIn)
+  {
+    const currentUserProfile = getProfile();
+    if (!currentUserProfile) {
+      return <Navigate to="/login"/>
+    }
+    if(roles && roles.indexOf(currentUserProfile.job_position) ===-1)
+    {
+      return <Navigate to="/"/>
+    }
+  }
+  return element;
+}
+
 const routes = [
   {
     path: 'app',
     element: <DashboardLayout />,
     children: [
-      { path: 'account', element: <AccountView /> },
-      { path: 'customers', element: <CustomerListView /> },
-      { path: 'review', element: <ReviewListView /> },
-      { path: 'dashboard', element: <DashboardView /> },
-      { path: 'products', element: <ProductListView /> },
-      { path: 'settings', element: <SettingsView /> },
-      { path: '*', element: <Navigate to="/404" /> }
+      { path: 'account', element: limitRouteAccess([], <AccountView />, true) },
+      { path: 'customers', element: limitRouteAccess(['O','AM'], <CustomerListView />, true) },
+      { path: 'review', element: limitRouteAccess(['O', 'AM'], <ReviewListView /> , true)},
+      { path: 'dashboard', element: limitRouteAccess([],<DashboardView />, true)},
+      { path: 'products', element: limitRouteAccess([],<ProductListView />, true)},
+      { path: 'settings', element: limitRouteAccess([],<SettingsView />, true)},
+      { path: '*', element: limitRouteAccess([],<Navigate to="/404" />, true)}
     ]
   },
   {
