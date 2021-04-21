@@ -7,6 +7,14 @@ name = "pypi"
 django = "~=3.1"
 djangorestframework = "*"
 django-cors-headers = "*"
+django-nested-admin = "*"
+django-fixture-magic = "*"
+django-extensions = "*"
+drf-nested-routers = "*"
+django-filter = "*"
+markdown = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Redirect } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/DashboardLayout';
 import MainLayout from 'src/layouts/MainLayout';
 import AccountView from 'src/views/account/AccountView';
@@ -17,23 +17,41 @@ import ReviewListView from 'src/views/review/ReviewListView';
 import ProductView from 'src/views/product/ProductListView';
 import EmployeeView from 'src/views/employee/ProductListView';
 
-const routes = [
+// import { getProfile } from '_services';
+
+const limitRouteAccess = (roles, element, currentUserProfile) =>
+{
+  // const currentUserProfile = getProfile();
+  if (!currentUserProfile) {
+    // console.log("Go back to log in")
+    return <Navigate to="/login"/>
+  }
+  else if(roles.length > 0 && roles.indexOf(currentUserProfile.job_position) ===-1)
+  {
+    // console.log("Go back to home")
+    return <Navigate to="/"/>
+  }
+  // console.log("what is happening?")
+  return element;
+}
+
+const routes = (currentUserProfile) => [
   {
     path: 'app',
     element: <DashboardLayout />,
     children: [
-      { path: 'account', element: <AccountView /> },
-      { path: 'customers', element: <CustomerListView /> },
-      { path: 'review', element: <ReviewListView /> },
-      { path: 'dashboard', element: <DashboardView /> },
+      { path: 'account', element: limitRouteAccess([], <AccountView />,currentUserProfile) },
+      { path: 'customers', element: limitRouteAccess(['O','AM'], <CustomerListView />,currentUserProfile) },
+      { path: 'review', element: limitRouteAccess(['O', 'AM'], <ReviewListView />,currentUserProfile)},
+      { path: 'dashboard', element: limitRouteAccess([],<DashboardView />,currentUserProfile)},
+      { path: 'employees', element: <EmployeeView /> },
+      { path: 'products', element: limitRouteAccess([],<ProductListView />,currentUserProfile)},
+      { path: 'settings', element: limitRouteAccess([],<SettingsView />,currentUserProfile)},
+      { path: '*', element: limitRouteAccess([],<Navigate to="/404" />,currentUserProfile)},
       { path: 'trackingaccount', element: <TrackingAMListView /> },
       { path: 'trackingproduction', element: <TrackingPRODListView /> },
       { path: 'trackingdelivery', element: <TrackingDELListView /> },
       { path: 'trackingcustomer', element: <TrackingCUSTListView /> },
-      { path: 'employees', element: <EmployeeView /> },
-      { path: 'products', element: <ProductView /> },
-      { path: 'settings', element: <SettingsView /> },
-      { path: '*', element: <Navigate to="/404" /> }
     ]
   },
   {
@@ -41,6 +59,7 @@ const routes = [
     element: <MainLayout />,
     children: [
       { path: 'login', element: <LoginView /> },
+      { path: 'logout', element: <Navigate to="/login"/>},
       { path: 'register', element: <RegisterView /> },
       { path: '404', element: <NotFoundView /> },
       { path: '/', element: <Navigate to="/app/dashboard" /> },
