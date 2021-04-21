@@ -45,7 +45,7 @@ const routes = (currentUserProfile) => [
       { path: 'review', element: limitRouteAccess(['O', 'AM'], <ReviewListView />,currentUserProfile)},
       { path: 'dashboard', element: limitRouteAccess([],<DashboardView />,currentUserProfile)},
       { path: 'employees', element: <EmployeeView /> },
-      { path: 'products', element: limitRouteAccess([],<ProductListView />,currentUserProfile)},
+      { path: 'products', element: limitRouteAccess([],<ProductView />,currentUserProfile)},
       { path: 'settings', element: limitRouteAccess([],<SettingsView />,currentUserProfile)},
       { path: '*', element: limitRouteAccess([],<Navigate to="/404" />,currentUserProfile)},
       { path: 'trackingaccount', element: <TrackingAMListView /> },
