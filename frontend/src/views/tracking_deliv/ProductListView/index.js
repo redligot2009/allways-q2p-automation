@@ -7,7 +7,7 @@ import {
   Typography
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import ProductCards from './ProductCards';
+import ProductCardDelivery from './ProductCardDelivery';
 import data from './data';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +29,7 @@ const ProductList = () => {
   return (
     <Page
       className={classes.root}
-      title="Product List"
+      title="Order Tracking"
     >
       <Container maxWidth={false}>
         <Typography
@@ -37,11 +37,18 @@ const ProductList = () => {
           color="textPrimary"
           variant="h2"
         >
-          Product List
+          Order Tracking
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
           <Grid item xs>
+            <Typography
+              className={classes.name}
+              color="textSecondary"
+              variant="h5"
+            >
+              Out for Delivery
+            </Typography>
               <Box mt={2}>
                 {products.map((product) => (
                   <Grid
@@ -52,7 +59,7 @@ const ProductList = () => {
                     xs={12}
                   >
                     <Box mt={2}>
-                    <ProductCards
+                    <ProductCardDelivery
                       className={classes.productCard}
                       product={product}
                     />

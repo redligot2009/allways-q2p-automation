@@ -53,6 +53,24 @@ const ProductCard = ({ className, product, ...rest }) => {
               {product.orderID}
             </Typography>
           </Grid>
+          <Typography
+            align="left"
+            color="textPrimary"
+            gutterBottom
+            variant="h5"
+            color="textSecondary"
+            >
+              {product.customerName}
+            </Typography>
+            <Typography
+            align="left"
+            color="textPrimary"
+            gutterBottom
+            variant="h5"
+            color="textSecondary"
+            >
+              {product.customerAddress}
+            </Typography>
         </Box>
         <Box
           display="flex"
@@ -113,8 +131,8 @@ const ProductCard = ({ className, product, ...rest }) => {
           </Typography>
         </Box>
         <Box>
-          <Button variant="contained" color="primary" md={3}>CONTACT DRIVER</Button>
-          <Button variant="outlined" color="primary">PRINT INVOICE</Button>
+          <Button variant="contained" color="primary" style = {{backgroundColor: 'green', marginRight: 8}} md={3}>DELIVER TO CUSTOMER</Button>
+          <Button variant="outlined" color="primary">CONTACT CUSTOMER</Button>
         </Box>
       </CardContent>
     </Card>

@@ -18,11 +18,13 @@ import {
   LogOut as LogOutIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
+  Clipboard as ClipboardIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
+
 
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../../_actions/auth";
@@ -126,7 +128,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
-      restrict_to: ['O','M'],
+      restrict_to: ['O','AM'],
     },
     {
       href: '/app/customers',
@@ -135,7 +137,25 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
-      restrict_to: ['O','M'],
+      restrict_to: ['O','AM'],
+    },
+    {
+      href: '/app/employees',
+      icon: UserIcon,
+      title: 'Manage Employees',
+      handleClick: () => {
+
+      },
+      restrict_to: ['O','AM'],
+    },
+    {
+      href: '/app/trackingaccount',
+      icon: ClipboardIcon,
+      title: 'Order Tracking',
+      handleClick: () => {
+
+      },
+      restrict_to: [],
     },
     {
       href: '/app/settings',
