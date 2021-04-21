@@ -17,6 +17,7 @@ import {
   Lock as LockIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
+  Clipboard as ClipboardIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
   Users as UsersIcon
@@ -41,12 +42,17 @@ const items = [
     title: 'Quote Review'
   },
   {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
+    href: '/app/trackingaccount',
+    icon: ClipboardIcon,
     title: 'Order Tracking'
   },
   {
-    href: '/app/account',
+    href: '/app/products',
+    icon: ShoppingBagIcon,
+    title: 'Product List'
+  },
+  {
+    href: '/app/employees',
     icon: UserIcon,
     title: 'Manage Employees'
   },

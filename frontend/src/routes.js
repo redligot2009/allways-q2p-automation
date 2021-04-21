@@ -7,10 +7,15 @@ import CustomerListView from 'src/views/customer/CustomerListView';
 import DashboardView from 'src/views/reports/DashboardView';
 import LoginView from 'src/views/auth/LoginView';
 import NotFoundView from 'src/views/errors/NotFoundView';
-import ProductListView from 'src/views/product/ProductListView';
+import TrackingAMListView from 'src/views/tracking_am/ProductListView';
+import TrackingPRODListView from 'src/views/tracking_prod/ProductListView';
+import TrackingDELListView from 'src/views/tracking_deliv/ProductListView';
+import TrackingCUSTListView from 'src/views/tracking_cus/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import ReviewListView from 'src/views/review/ReviewListView';
+import ProductView from 'src/views/product/ProductListView';
+import EmployeeView from 'src/views/employee/ProductListView';
 
 const routes = [
   {
@@ -21,7 +26,12 @@ const routes = [
       { path: 'customers', element: <CustomerListView /> },
       { path: 'review', element: <ReviewListView /> },
       { path: 'dashboard', element: <DashboardView /> },
-      { path: 'products', element: <ProductListView /> },
+      { path: 'trackingaccount', element: <TrackingAMListView /> },
+      { path: 'trackingproduction', element: <TrackingPRODListView /> },
+      { path: 'trackingdelivery', element: <TrackingDELListView /> },
+      { path: 'trackingcustomer', element: <TrackingCUSTListView /> },
+      { path: 'employees', element: <EmployeeView /> },
+      { path: 'products', element: <ProductView /> },
       { path: 'settings', element: <SettingsView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
