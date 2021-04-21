@@ -1,5 +1,9 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import { Navigate, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { getProfile, logout } from "./_actions/auth";
+import { useRoutes } from 'react-router-dom';
+
 import DashboardLayout from 'src/layouts/DashboardLayout';
 import MainLayout from 'src/layouts/MainLayout';
 import AccountView from 'src/views/account/AccountView';
@@ -17,57 +21,86 @@ import ReviewListView from 'src/views/review/ReviewListView';
 import ProductView from 'src/views/product/ProductListView';
 import EmployeeView from 'src/views/employee/ProductListView';
 
-// import { getProfile } from '_services';
+function Routes() {
 
-const limitRouteAccess = (roles, element, currentUserProfile) =>
-{
-  // const currentUserProfile = getProfile();
-  if (!currentUserProfile) {
-    // console.log("Go back to log in")
-    return <Navigate to="/login"/>
-  }
-  else if(roles.length > 0 && roles.indexOf(currentUserProfile.job_position) ===-1)
+  const dispatch = useDispatch()
+
+  const fetchProfileFinished = useRef(false);
+
+  useEffect(()=>{
+    (async function fetchProfile () {
+      await dispatch(getProfile())
+            .then((response)=>{
+              fetchProfileFinished.current = true;
+            })
+            .catch((error)=>{
+              dispatch(logout())
+              fetchProfileFinished.current = true;
+            })
+    })();
+  },[]);
+
+  const { profile: currentUserProfile } = useSelector((state) => state.auth)
+  
+  console.log("Found profile, ", currentUserProfile);
+
+  const limitRouteAccess = (roles, element) =>
   {
-    // console.log("Go back to home")
-    return <Navigate to="/"/>
+    // const currentUserProfile = getProfile();
+    if(fetchProfileFinished.current)
+    {
+      if (currentUserProfile === null) {
+        // console.log("Go back to log in ", currentUserProfile)
+        return <Navigate to="/login"/>
+      }
+      else if(roles.length > 0 && roles.indexOf(currentUserProfile.job_position) ===-1)
+      {
+        // console.log("Go back to home")
+        return <Navigate to="/"/>
+      }
+    }
+    // console.log("what is happening?")
+    return element;
   }
-  // console.log("what is happening?")
-  return element;
+  
+  let routes = [
+    {
+      path: 'app',
+      element: <DashboardLayout />,
+      children: [
+        { path: 'account', element: limitRouteAccess([], <AccountView />) },
+        { path: 'customers', element: limitRouteAccess(['O','AM'], <CustomerListView />) },
+        { path: 'review', element: limitRouteAccess(['O', 'AM'], <ReviewListView />)},
+        { path: 'dashboard', element: limitRouteAccess([],<DashboardView />)},
+        { path: 'employees', element: limitRouteAccess(['O','AM'],<EmployeeView />) },
+        { path: 'products', element: limitRouteAccess([],<ProductView />)},
+        { path: 'settings', element: limitRouteAccess([],<SettingsView />)},
+        { path: '*', element: limitRouteAccess([],<Navigate to="/404" />)},
+        { path: 'tracking', children: [
+          { path: 'account_manager', element: limitRouteAccess(['O','AM',], <TrackingAMListView />) },
+          { path: 'production_employee', element: limitRouteAccess(['P'], <TrackingPRODListView />) },
+          { path: 'delivery_man', element: limitRouteAccess(['D'], <TrackingDELListView />) },
+          { path: 'customer', element: limitRouteAccess([], <TrackingCUSTListView />) },
+        ]}
+      ]
+    },
+    {
+      path: '/',
+      element: <MainLayout />,
+      children: [
+        { path: 'login', element: <LoginView /> },
+        { path: 'logout', element: <Navigate to="/login"/>},
+        { path: 'register', element: <RegisterView /> },
+        { path: '404', element: <NotFoundView /> },
+        { path: '/', element: <Navigate to="/app/dashboard" /> },
+        { path: '*', element: <Navigate to="/404" /> }
+      ]
+    }
+  ];
+
+  const routing = useRoutes(routes);
+
+  return routing;
 }
 
-const routes = (currentUserProfile) => [
-  {
-    path: 'app',
-    element: <DashboardLayout />,
-    children: [
-      { path: 'account', element: limitRouteAccess([], <AccountView />,currentUserProfile) },
-      { path: 'customers', element: limitRouteAccess(['O','AM'], <CustomerListView />,currentUserProfile) },
-      { path: 'review', element: limitRouteAccess(['O', 'AM'], <ReviewListView />,currentUserProfile)},
-      { path: 'dashboard', element: limitRouteAccess([],<DashboardView />,currentUserProfile)},
-      { path: 'employees', element: limitRouteAccess(['O','AM'],<EmployeeView />,currentUserProfile) },
-      { path: 'products', element: limitRouteAccess([],<ProductView />,currentUserProfile)},
-      { path: 'settings', element: limitRouteAccess([],<SettingsView />,currentUserProfile)},
-      { path: '*', element: limitRouteAccess([],<Navigate to="/404" />,currentUserProfile)},
-      { path: 'tracking', children: [
-        { path: 'account_manager', element: limitRouteAccess([],<TrackingAMListView />,currentUserProfile) },
-        { path: 'production_employee', element: <TrackingPRODListView /> },
-        { path: 'delivery_man', element: <TrackingDELListView /> },
-        { path: 'customer', element: <TrackingCUSTListView /> },
-      ]}
-    ]
-  },
-  {
-    path: '/',
-    element: <MainLayout />,
-    children: [
-      { path: 'login', element: <LoginView /> },
-      { path: 'logout', element: <Navigate to="/login"/>},
-      { path: 'register', element: <RegisterView /> },
-      { path: '404', element: <NotFoundView /> },
-      { path: '/', element: <Navigate to="/app/dashboard" /> },
-      { path: '*', element: <Navigate to="/404" /> }
-    ]
-  }
-];
-
-export default routes;
+export default Routes
