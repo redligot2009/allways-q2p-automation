@@ -133,7 +133,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     {
       href: '/app/customers',
       icon: UserIcon,
-      title: 'Manage Employees',
+      title: 'Manage Customers',
       handleClick: () => {
 
       },
@@ -149,7 +149,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       restrict_to: ['O','AM'],
     },
     {
-      href: '/app/trackingaccount',
+      href: '/app/tracking/account_manager',
       icon: ClipboardIcon,
       title: 'Order Tracking',
       handleClick: () => {
@@ -160,7 +160,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     {
       href: '/app/settings',
       icon: SettingsIcon,
-      title: 'Settings',
+      title: 'Account Settings',
       handleClick: () => {
 
       },
