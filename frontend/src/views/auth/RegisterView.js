@@ -61,9 +61,10 @@ const RegisterView = () => {
               Yup.object().shape({
                 username: Yup.string().required('Username is required'),
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                first_name: Yup.string().max(255),
+                first_name: Yup.string().max(255).required('First name is required'),
                 middle_name: Yup.string().max(255),
-                last_name: Yup.string().max(255),
+                last_name: Yup.string().max(255).required('Last name is required'),
+                // TODO: Mimic Django password validation behavior
                 password: Yup.string().max(255).required('Password is required'),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
