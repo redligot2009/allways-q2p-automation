@@ -255,7 +255,6 @@ const QuoteReviewDetail = () => {
                                                     value={values.quotation.project_name}
                                                     variant="outlined"
                                                 >
-
                                                 </TextField>
 
                                                 <TextField
@@ -273,19 +272,12 @@ const QuoteReviewDetail = () => {
                                                 >
                                                     
                                                 </TextField>
-                                                {/* <Typography
-                                                    color="textSecondary"
-                                                    variant="h5"
-                                                    align="left"
-                                                >
-                                                    Created Date
-                                                </Typography> */}
 
                                                 <TextField
                                                     fullWidth
-                                                    // inputProps = {
-                                                    //     { readOnly: true, }
-                                                    // }
+                                                    inputProps = {
+                                                        { readOnly: true, }
+                                                    }
                                                     type="date"
                                                     label="Created Date"
                                                     margin="normal"
@@ -293,16 +285,13 @@ const QuoteReviewDetail = () => {
                                                     onBlur={handleBlur}
                                                     onChange={handleChange}
                                                     value={values.quotation.created_date}
-                                                    defaultValue={values.quotation.created_date}
+                                                    // defaultValue={values.quotation.created_date}
                                                     variant="filled"
                                                     InputLabelProps={{ shrink: true }}
                                                 >
 
                                                 </TextField>
-                                                {/* {console.log(values.quotation.created_date)} */}
-                                                {/* <Box my={1}>
-                                                    <InputLabel id="approvalStatus">Approval Status</InputLabel>
-                                                </Box> */}
+
                                                 <TextField
                                                     select
                                                     label="Approval Status"
@@ -458,61 +447,107 @@ const QuoteReviewDetail = () => {
                                             >
                                                 Plates, Paper, and Running
                                             </Typography>
-                                            <Typography
+                                            {/* <Typography
                                                 color="textSecondary"
                                                 variant="h5"
                                                 align="left"
                                             >
                                                 Number of Plates
-                                            </Typography>
-
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
+                                            </Typography> */}
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Number of Plates"
+                                                margin="normal"
+                                                name="quotation.total_no_plates"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_no_plates}
+                                                variant="outlined"
                                             >
-                                                Total Plate Costs
-                                            </Typography>
-
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
+                                            </TextField>
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Total Plate Costs"
+                                                margin="normal"
+                                                name="quotation.total_plate_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_plate_costs}
+                                                variant="outlined"
                                             >
-                                                Total Running Costs
-                                            </Typography>
+                                            </TextField>
+
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Total Running Costs"
+                                                margin="normal"
+                                                name="quotation.total_running_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_running_costs}
+                                                variant="outlined"
+                                            >
+                                            </TextField>
+
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Total Number of Sheets"
+                                                margin="normal"
+                                                name="quotation.total_no_sheets"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_no_sheets}
+                                                variant="outlined"
+                                            >
+                                            </TextField>
+
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Number of Pages"
+                                                margin="normal"
+                                                name="quotation.total_pages"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_pages}
+                                                variant="outlined"
+                                            >
+                                            </TextField>
                                             
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Total Paper Costs"
+                                                margin="normal"
+                                                name="quotation.total_paper_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_paper_costs}
+                                                variant="outlined"
                                             >
-                                                Total Number of Impressions
-                                            </Typography>
-                                            
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
-                                            >
-                                                Total Number of Sheets
-                                            </Typography>
-
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
-                                            >
-                                                Number of Pages
-                                            </Typography>
-
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
-                                            >
-                                                Total Paper Costs
-                                            </Typography>
+                                            </TextField>
 
                                         </Grid>
                                         <Grid item xs={12}>
