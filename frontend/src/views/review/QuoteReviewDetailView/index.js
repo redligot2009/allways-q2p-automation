@@ -3,15 +3,18 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
-  Box,
-  Button,
-  Checkbox,
-  Container,
-  FormHelperText,
-  Link,
-  TextField,
-  Typography,
-  makeStyles
+    Grid,
+    Row,
+    Column,
+    Box,
+    Button,
+    Checkbox,
+    Container,
+    FormHelperText,
+    Link,
+    TextField,
+    Typography,
+    makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 
@@ -45,7 +48,7 @@ const QuoteReviewDetail = () => {
                 height="100%"
             >
                 <Container 
-                    maxWidth="sm"
+                    maxWidth={false}
                 >
                     <Formik
                         initialValues={{
@@ -56,12 +59,73 @@ const QuoteReviewDetail = () => {
 
                         }}
                     >
-                    <Typography
-                        color="textPrimary"
-                        variant="h2"
-                    >
-                        Review and compute quotation
-                    </Typography>
+                    {({
+                        errors,
+                        handleBlur,
+                        handleChange,
+                        handleSubmit,
+                        isSubmitting,
+                        touched,
+                        values
+                    }) => (
+                        <form onSubmit={handleSubmit}>
+                            <Box mb={3}>
+                                <Typography
+                                    color="textPrimary"
+                                    variant="h2"
+                                >
+                                    Quotation #1
+                                </Typography>
+                            </Box>
+                            <Grid container alignItems="center">
+                                <Grid item xs={12} sm={6}>
+                                    <Box mb={3}>
+                                        <Grid item xs={12}>
+                                            <Typography
+                                                color="textPrimary"
+                                                variant="h4"
+                                                align="center"
+                                            >
+                                                Project Settings
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <Typography
+                                                color="textPrimary"
+                                                variant="h4"
+                                                align="center"
+                                            >
+                                                Plates, Paper, and Running
+                                            </Typography>
+                                        </Grid>
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <Box mb={3}>
+                                        <Grid item xs={12}>
+                                            <Typography
+                                                color="textPrimary"
+                                                variant="h4"
+                                                align="center"
+                                            >
+                                                Finishing (Lamination, Binding)
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <Typography
+                                                color="textPrimary"
+                                                variant="h4"
+                                                align="center"
+                                            >
+                                                Cutting, Packaging, Transport
+                                            </Typography>
+                                        </Grid>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            
+                        </form>
+                    )}  
                     </Formik>
                 </Container>
             </Box>
