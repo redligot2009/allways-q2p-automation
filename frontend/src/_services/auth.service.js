@@ -75,12 +75,22 @@ const logout = () => {
   return Promise.resolve();
 };
 
+/*
+///////////////////////////////
+QUOTATION API SERVICE FUNCTIONS
+///////////////////////////////
+*/
+
 const createQuotation = (quotation) => {
   // TODO: Implement API call to create a new quotation
 }
 
-const retrieveQuotation = () => {
-  // TODO: Implement API call to retrieve quotation
+const retrieveQuotation = (id) => {
+  // TODO: Implement API call to retrieve quotation by ID
+}
+
+const retrieveQuotations = (approval_status, client) => {
+  // TODO: Implement API call to retrieve list of all quotations by approval_status and / or client
 }
 
 const updateQuotation = (quotation) =>
@@ -88,9 +98,35 @@ const updateQuotation = (quotation) =>
   // TODO: Implement API call to update quotation.
 }
 
-const deleteQuotation = (quotation) => 
+const deleteQuotation = (id) => 
 {
-  // TODO: Implement API call to delete quotation.
+  // TODO: Implement API call to delete quotation by ID.
+}
+
+/*
+///////////////////////////////
+JOB ORDER API SERVICE FUNCTIONS
+///////////////////////////////
+*/
+
+const createJobOrder = (quotation) => {
+  // TODO: Implement API call to create new job order from a given quotation.
+}
+
+const retrieveJobOrder = (id) => {
+  // TODO: Implement API call to retrieve job order details by ID
+}
+
+const retrieveJobOrders = () => {
+  // TODO: Implement API call to retrieve list of job orders
+}
+
+const updateJobOrder = (jobOrder) => {
+  // TODO: Implement API call to update a specific job order
+}
+
+const deleteJobOrder = (jobOrder) => {
+  // TODO: Implement API call to delete a specific job order
 }
 
 // eslint-disable-next-line
