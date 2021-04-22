@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-const QuoteReviewDetailView = () => {
+const QuoteReviewDetail = () => {
     const classes = useStyles();
     const navigate = useNavigate();
     // const { message } = useSelector(state => state.message);
@@ -68,4 +68,4 @@ const QuoteReviewDetailView = () => {
         </Page>);
 }
 
-export default QuoteReviewDetailView;
+export default QuoteReviewDetail;
