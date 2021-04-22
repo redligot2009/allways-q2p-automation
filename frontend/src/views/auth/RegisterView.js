@@ -111,7 +111,7 @@ const RegisterView = () => {
                     gutterBottom
                     variant="body2"
                   >
-                    Use your email to create new account
+                    Enter all required fields below to create your account.
                   </Typography>
                 </Box>
                 <TextField
