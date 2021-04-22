@@ -75,6 +75,24 @@ const logout = () => {
   return Promise.resolve();
 };
 
+const createQuotation = (quotation) => {
+  // TODO: Implement API call to create a new quotation
+}
+
+const retrieveQuotation = () => {
+  // TODO: Implement API call to retrieve quotation
+}
+
+const updateQuotation = (quotation) =>
+{
+  // TODO: Implement API call to update quotation.
+}
+
+const deleteQuotation = (quotation) => 
+{
+  // TODO: Implement API call to delete quotation.
+}
+
 // eslint-disable-next-line
 export default {
   register,
