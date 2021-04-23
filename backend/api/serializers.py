@@ -117,11 +117,11 @@ class ExtraPlateSerializer(serializers.ModelSerializer):
 # Serialize QuotationItem objects (list view)
 class QuotationItemListSerializer(serializers.ModelSerializer):
 
-    # Related Objects
-    lamination=LaminationSerializer()
-    binding=BindingSerializer()
-    paper=PaperListSerializer()
-    extra_plates=ExtraPlateSerializer(many=True)
+    # Related Objectslamination=serializers.PrimaryKeyRelatedField(queryset=Lamination.objects.all(), required=False, allow_null=True, default=None)
+    binding=serializers.PrimaryKeyRelatedField(queryset=Binding.objects.all(), required=False, allow_null=True, default=None)
+    paper=serializers.PrimaryKeyRelatedField(queryset=Paper.objects.all())
+    extra_plates=ExtraPlateSerializer(many=True, required=False, allow_null=True, default=None)
+    # extra_plates=ExtraPlateSerializer(many=True)
     
     # Read only fields (AKA properties)
     lamination_costs = serializers.ReadOnlyField()
