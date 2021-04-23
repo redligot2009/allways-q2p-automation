@@ -17,8 +17,8 @@ import TrackingDELListView from 'src/views/tracking_deliv/ProductListView';
 import TrackingCUSTListView from 'src/views/tracking_cus/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
-import QuotationReviewList from 'src/views/review/QuoteReviewListView';
-import QuotationReviewDetail from 'src/views/review/QuoteReviewDetailView';
+import QuotationReviewList from 'src/views/quotations/QuoteReviewListView';
+import QuotationReviewDetail from 'src/views/quotations/QuoteReviewDetailView';
 import ProductView from 'src/views/product/ProductListView';
 import EmployeeView from 'src/views/employee/ProductListView';
 
@@ -75,7 +75,7 @@ function Routes() {
           { path: 'review', element: limitRouteAccess(['O', 'AM'], <QuotationReviewList />)},
           { path: 'detail', element: <QuotationReviewDetail/>},
         ]},
-        { path: 'review', element: limitRouteAccess(['O', 'AM'], <QuotationReviewList />)},
+        // { path: 'review', element: limitRouteAccess(['O', 'AM'], <QuotationReviewList />)},
         { path: 'dashboard', element: limitRouteAccess([],<DashboardView />)},
         { path: 'employees', element: limitRouteAccess(['O','AM'],<EmployeeView />) },
         { path: 'products', element: limitRouteAccess([],<ProductView />)},

@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { AddBoxOutlined } from '@material-ui/icons';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard = ({ className, quotation, ...rest }) => {
   const classes = useStyles();
-
+  const navigate = useNavigate();
   const getApprovalStatus = () => {
     switch(quotation.approval_status)
     {
@@ -265,6 +266,11 @@ const ProductCard = ({ className, quotation, ...rest }) => {
             variant="contained" 
             color="primary" 
             md={3}
+            onClick={
+              ()=>{
+                navigate('/app/quote/detail')
+              }
+            }
           >
             COMPUTE QUOTATION
           </Button>

@@ -113,7 +113,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       restrict_to: [],
     },
     {
-      href: '/app/review',
+      href: '/app/quote/review',
       icon: UsersIcon,
       title: 'Quote Review',
       handleClick: () => {

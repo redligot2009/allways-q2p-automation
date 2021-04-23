@@ -76,12 +76,11 @@ FORMAT FOR POST REQUEST:
 */
 
 /*
-TODO:
-Refactor these 1000+ lines of code into separate files:
+TODO: Refactor these 1000+ lines of code into separate files:
 - index.js (here)
 - ProjectSummary.js
 - QuotationItem.js
- */
+*/
 
 const QuoteReviewDetail = () => {
     const classes = useStyles();
@@ -98,6 +97,10 @@ const QuoteReviewDetail = () => {
 
     const handleCloseDialog = () => {
         setOpenDialog(false)
+    }
+
+    const handleGoBack = () => {
+        navigate('/app/quote/review')
     }
 
     return (
@@ -123,19 +126,7 @@ const QuoteReviewDetail = () => {
                                     {
                                         lamination: null,
                                         binding: 4,
-                                        // {
-                                        //     id: 4,
-                                        //     binding_type: "Saddle-stitched",
-                                        //     binding_base_price: 5.0
-                                        // },
                                         paper: 19,
-                                        // {
-                                        //     id: 19,
-                                        //     "paper_type": "C2S 80",
-                                        //     "paper_category": "Coated & Matte Paper",
-                                        //     "paper_length": 25.0,
-                                        //     "paper_width": 38.0
-                                        // },
                                         extra_plates: [],
                                         lamination_costs: 0.0,
                                         running_costs: 2400.0,
@@ -148,26 +139,8 @@ const QuoteReviewDetail = () => {
                                     },
                                     {
                                         lamination: 1,
-                                        // {
-                                        //     id: 1,
-                                        //     lamination_type: "Plastic Matte",
-                                        //     base_price: 0.00725,
-                                        //     min_rate: 1100.0
-                                        // },
                                         binding: 4,
-                                        // {
-                                        //     id: 4,
-                                        //     binding_type: "Saddle-stitched",
-                                        //     binding_base_price: 5.0
-                                        // },
                                         paper: 27,
-                                        // {
-                                        //     id: 27,
-                                        //     paper_type: "C2S 220",
-                                        //     paper_category: "Coated & Matte Paper",
-                                        //     paper_length: 25.0,
-                                        //     paper_width: 38.0
-                                        // },
                                         extra_plates: [],
                                         lamination_costs: 1100.0,
                                         running_costs: 1600.0,
@@ -227,7 +200,7 @@ const QuoteReviewDetail = () => {
                             }
                         }}
                         onSubmit={(values, actions) => {
-
+                            navigate('/app/quote/review')
                         }}
                     >
                     {({
@@ -240,7 +213,6 @@ const QuoteReviewDetail = () => {
                         values
                     }) => (
                         <Form onSubmit={handleSubmit}>
-                            {/* {console.log(values.quotation)} */}
                             <Box mb={3}>
                                 <Typography
                                     color="textPrimary"
@@ -1056,9 +1028,7 @@ const QuoteReviewDetail = () => {
                                                     size="large"
                                                     type="button"
                                                     variant="outlined"
-                                                    // onClick={handleOpenDialog}
-                                                    // onClick={handleSubmit}
-                                                    // TODO: Open modal dialog showing project costs summary
+                                                    onClick={handleGoBack}
                                                 >
                                                     Go back
                                                 </Button>
@@ -1066,14 +1036,13 @@ const QuoteReviewDetail = () => {
                                             <Grid item xs={6}>
                                                 <Button
                                                     color="primary"
-                                                    // disabled={isSubmitting}
+                                                    disabled={isSubmitting}
                                                     fullWidth
                                                     size="large"
                                                     type="submit"
                                                     variant="contained"
                                                     // onClick={handleOpenDialog}
-                                                    // onClick={handleSubmit}
-                                                    // TODO: Open modal dialog showing project costs summary
+                                                    onClick={handleSubmit}
                                                 >
                                                     Submit Quotation
                                                 </Button>
