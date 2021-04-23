@@ -616,7 +616,6 @@ const QuoteReviewDetail = () => {
                                                             </Button>
                                                         </Container>
                                                     }}
-                                            
                                             </FieldArray>
                                         </Grid>
                                     </Box>
@@ -904,7 +903,18 @@ const QuoteReviewDetail = () => {
                                     </Box>
                                 </Grid>
                             </Grid>
-                            
+                            <Button
+                                color="primary"
+                                // disabled={isSubmitting}
+                                fullWidth
+                                size="large"
+                                type="button"
+                                variant="contained"
+                                // onClick={handleSubmit}
+                                // TODO: Open modal dialog showing project costs summary
+                            >
+                                Compute Quotation
+                            </Button>
                         </Form>
                     )}  
                     </Formik>
