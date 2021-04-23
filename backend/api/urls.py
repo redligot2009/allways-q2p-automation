@@ -4,6 +4,7 @@ from rest_framework_nested import routers
 from .views import QuotationViewSet, QuotationItemViewSet
 from .views import AccountViewSet
 from .views import JobOrderViewSet
+from .views import PaperViewSet, LaminationViewSet, BindingViewSet
 
 # Set up the default router to route all the viewsets defined in views.py
 router = routers.DefaultRouter()
@@ -13,6 +14,10 @@ router.register(r'quotations',QuotationViewSet,basename='quotations')
 router.register(r'accounts',AccountViewSet,basename='accounts')
 # Register JobOrder viewset with resulting url of 'api/joborders/...'
 router.register(r'joborders',JobOrderViewSet,basename='joborders')
+# Register project specfication related viewsets (Paper, Lamination, Binding)
+router.register(r'papers',PaperViewSet,basename='papers')
+router.register(r'laminations',LaminationViewSet,basename='laminations')
+router.register(r'bindings',BindingViewSet,basename='bindings')
 
 # Testing out nested routes for accessing / retrieving / updating / deleting Quotation Item objects.
 quotation_items_router = routers.NestedSimpleRouter(router,r'quotations',lookup='quotation')
