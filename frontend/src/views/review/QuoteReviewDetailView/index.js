@@ -75,6 +75,14 @@ FORMAT FOR POST REQUEST:
 }
 */
 
+/*
+TODO:
+Refactor these 1000+ lines of code into separate files:
+- index.js (here)
+- ProjectSummary.js
+- QuotationItem.js
+ */
+
 const QuoteReviewDetail = () => {
     const classes = useStyles();
     const navigate = useNavigate();
@@ -926,7 +934,6 @@ const QuoteReviewDetail = () => {
                                 variant="contained"
                                 onClick={handleOpenDialog}
                                 // onClick={handleSubmit}
-                                // TODO: Open modal dialog showing project costs summary
                             >
                                 Compute Quotation
                             </Button>
@@ -1062,7 +1069,7 @@ const QuoteReviewDetail = () => {
                                                     // disabled={isSubmitting}
                                                     fullWidth
                                                     size="large"
-                                                    type="button"
+                                                    type="submit"
                                                     variant="contained"
                                                     // onClick={handleOpenDialog}
                                                     // onClick={handleSubmit}
