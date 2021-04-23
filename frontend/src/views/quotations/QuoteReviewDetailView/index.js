@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik, Form, FieldArray, getIn } from 'formik';
 import {
@@ -24,6 +24,7 @@ import Page from 'src/components/Page';
 import {format} from 'date-fns';
 
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 
 // import { register } from "../../_actions/auth";
 
@@ -82,9 +83,10 @@ TODO: Refactor these 1000+ lines of code into separate files:
 - QuotationItem.js
 */
 
-const QuoteReviewDetail = () => {
+const QuoteReviewDetail = (props) => {
     const classes = useStyles();
     const navigate = useNavigate();
+    let location = useLocation();
     // const { message } = useSelector(state => state.message);
     const dispatch = useDispatch();
 
@@ -103,6 +105,25 @@ const QuoteReviewDetail = () => {
         navigate('/app/quote/review')
     }
 
+
+    const [quoteDetails, setQuoteDetails] = useState({});
+    
+    useEffect(() => {
+        async function fetchData(){
+          const result = await axios.get(`api/quotations/${location.state.id}`)
+            .then((response)=>{
+                console.log(response.data);
+                setQuoteDetails(response.data);
+            })
+            .catch((error) => {
+                handleGoBack();
+            })
+            
+            // console.log(quoteDetails);
+        }
+        fetchData();
+      }, [location, setQuoteDetails])
+    
     return (
         <Page
           className={classes.root}

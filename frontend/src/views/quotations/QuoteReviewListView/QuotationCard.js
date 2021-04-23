@@ -268,7 +268,7 @@ const ProductCard = ({ className, quotation, ...rest }) => {
             md={3}
             onClick={
               ()=>{
-                navigate('/app/quote/detail')
+                navigate('/app/quote/detail',{state: {id: quotation.id}})
               }
             }
           >
