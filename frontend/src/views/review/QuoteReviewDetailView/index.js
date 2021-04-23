@@ -223,7 +223,7 @@ const QuoteReviewDetail = () => {
                                 </Typography>
                                 
                             </Box>
-                            <Grid container alignItems="center">
+                            <Grid container alignItems="center" spacing={3}>
                                 <Grid item xs={12} sm={6}>
                                     <Box mb={3}>
                                         <Grid item xs={12}>
@@ -234,7 +234,7 @@ const QuoteReviewDetail = () => {
                                             >
                                                 Project Settings
                                             </Typography>
-                                            <Box mb={1} mr={2}>
+                                            <Box mb={1}>
                                                 <Typography
                                                     color="textSecondary"
                                                     variant="h4"
@@ -326,34 +326,66 @@ const QuoteReviewDetail = () => {
                                                 >
                                                     Project Dimensions
                                                 </Typography>
-                                                <Typography
-                                                    color="textSecondary"
-                                                    variant="h5"
-                                                    align="left"
+                                                <TextField
+                                                    fullWidth
+                                                    // inputProps = {
+                                                    //     { readOnly: true, }
+                                                    // }
+                                                    type="number"
+                                                    label="Page Length"
+                                                    margin="normal"
+                                                    name="quotation.page_length"
+                                                    onBlur={handleBlur}
+                                                    onChange={handleChange}
+                                                    value={values.quotation.page_length}
+                                                    variant="outlined"
                                                 >
-                                                    Page Length
-                                                </Typography>
-                                                <Typography
-                                                    color="textSecondary"
-                                                    variant="h5"
-                                                    align="left"
+                                                </TextField>
+                                                <TextField
+                                                    fullWidth
+                                                    // inputProps = {
+                                                    //     { readOnly: true, }
+                                                    // }
+                                                    type="number"
+                                                    label="Page Width"
+                                                    margin="normal"
+                                                    name="quotation.page_width"
+                                                    onBlur={handleBlur}
+                                                    onChange={handleChange}
+                                                    value={values.quotation.page_width}
+                                                    variant="outlined"
                                                 >
-                                                    Page Width
-                                                </Typography>
-                                                <Typography
-                                                    color="textSecondary"
-                                                    variant="h5"
-                                                    align="left"
+                                                </TextField>
+                                                <TextField
+                                                    fullWidth
+                                                    // inputProps = {
+                                                    //     { readOnly: true, }
+                                                    // }
+                                                    type="number"
+                                                    label="Spread Length"
+                                                    margin="normal"
+                                                    name="quotation.spread_length"
+                                                    onBlur={handleBlur}
+                                                    onChange={handleChange}
+                                                    value={values.quotation.spread_length}
+                                                    variant="outlined"
                                                 >
-                                                    Spread Length
-                                                </Typography>
-                                                <Typography
-                                                    color="textSecondary"
-                                                    variant="h5"
-                                                    align="left"
+                                                </TextField>
+                                                <TextField
+                                                    fullWidth
+                                                    // inputProps = {
+                                                    //     { readOnly: true, }
+                                                    // }
+                                                    type="number"
+                                                    label="Spread Width"
+                                                    margin="normal"
+                                                    name="quotation.spread_width"
+                                                    onBlur={handleBlur}
+                                                    onChange={handleChange}
+                                                    value={values.quotation.spread_width}
+                                                    variant="outlined"
                                                 >
-                                                    Spread Width
-                                                </Typography>
+                                                </TextField>
                                             </Box>
                                         </Grid>
                                         <Grid item xs={12}>
