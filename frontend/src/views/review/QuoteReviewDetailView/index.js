@@ -223,7 +223,7 @@ const QuoteReviewDetail = () => {
                                 </Typography>
                                 
                             </Box>
-                            <Grid container alignItems="center" spacing={3}>
+                            <Grid container  spacing={3}>
                                 <Grid item xs={12} sm={6}>
                                     <Box mb={3}>
                                         <Grid item xs={12}>
@@ -237,7 +237,7 @@ const QuoteReviewDetail = () => {
                                             <Box mb={1}>
                                                 <Typography
                                                     color="textSecondary"
-                                                    variant="h4"
+                                                    variant="h5"
                                                     align="left"
                                                 >
                                                     Project Information
@@ -321,7 +321,7 @@ const QuoteReviewDetail = () => {
                                             <Box mb={1}>
                                                 <Typography
                                                     color="textSecondary"
-                                                    variant="h4"
+                                                    variant="h5"
                                                     align="left"
                                                 >
                                                     Project Dimensions
@@ -589,32 +589,111 @@ const QuoteReviewDetail = () => {
                                                 variant="h3"
                                                 align="left"
                                             >
-                                                Finishing (Lamination, Binding, Folding, Gathering)
+                                                Finishing
                                             </Typography>
-                                            
                                             <Typography
                                                 color="textSecondary"
                                                 variant="h5"
                                                 align="left"
                                             >
-                                                Total Folds
+                                                Lamination
                                             </Typography>
-
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Total Lamination Costs"
+                                                margin="normal"
+                                                name="quotation.total_lamination_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_lamination_costs}
+                                                variant="outlined"
+                                            >
+                                            </TextField>
                                             <Typography
                                                 color="textSecondary"
                                                 variant="h5"
                                                 align="left"
                                             >
-                                                Total Folding Costs
+                                                Binding
                                             </Typography>
-                                            
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Total Binding Costs"
+                                                margin="normal"
+                                                name="quotation.total_binding_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_binding_costs}
+                                                variant="outlined"
+                                            >
+                                            </TextField>
                                             <Typography
                                                 color="textSecondary"
                                                 variant="h5"
                                                 align="left"
                                             >
-                                                Total Binding Costs
+                                                Folding
                                             </Typography>
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Total Folds"
+                                                margin="normal"
+                                                name="quotation.total_folds"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_folds}
+                                                variant="outlined"
+                                            >
+                                            </TextField>
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Total Folding Costs"
+                                                margin="normal"
+                                                name="quotation.total_folding_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_folding_costs}
+                                                variant="outlined"
+                                            >
+                                            </TextField>
+                                            <Typography
+                                                color="textSecondary"
+                                                variant="h5"
+                                                align="left"
+                                            >
+                                                Gathering
+                                            </Typography>
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Total Gathering Costs"
+                                                margin="normal"
+                                                name="quotation.total_gathering_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.total_gathering_costs}
+                                                variant="outlined"
+                                            >
+                                            </TextField>
                                         </Grid>
                                         <Grid item xs={12}>
                                             <Typography
