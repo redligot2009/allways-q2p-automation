@@ -111,7 +111,7 @@ const QuoteReviewDetail = (props) => {
         navigate('/app/quote/review')
     }
 
-    const [quoteDetails, setQuoteDetails] = useState({});
+    const [quoteDetails, setQuoteDetails] = useState(null);
 
     const [paperTypes, setPaperTypes] = useState([]);
     const [laminationTypes, setLaminationTypes] = useState([])
@@ -123,7 +123,7 @@ const QuoteReviewDetail = (props) => {
             {
                 const quoteResult = await axios.get(`api/quotations/${location.state.id}`)
                     .then((response)=>{
-                        console.log(response.data);
+                        // console.log(response.data);
                         setQuoteDetails(response.data);
                     })
                     .catch((error) => {
@@ -131,7 +131,7 @@ const QuoteReviewDetail = (props) => {
                     })
                 const paperResults = await axios.get('api/papers')
                     .then((response)=>{
-                        console.log(response.data)
+                        // console.log(response.data)
                         setPaperTypes(response.data)
                     })
                     .catch((error)=>{
@@ -140,7 +140,7 @@ const QuoteReviewDetail = (props) => {
 
                 const laminationResults = await axios.get('api/laminations')
                     .then((response)=>{
-                        console.log(response.data)
+                        // console.log(response.data)
                         setLaminationTypes(response.data)
                     })
                     .catch((error)=>{
@@ -149,7 +149,7 @@ const QuoteReviewDetail = (props) => {
                 
                 const bindingResults = await axios.get('api/bindings')
                     .then((response)=>{
-                        console.log(response.data)
+                        // console.log(response.data)
                         setBindingTypes(response.data)
                     })
                     .catch((error)=>{
@@ -164,7 +164,7 @@ const QuoteReviewDetail = (props) => {
         }
         fetchData();
       }, [location, setQuoteDetails])
-    
+    console.log(quoteDetails)
     return (
         <Page
           className={classes.root}
@@ -180,88 +180,16 @@ const QuoteReviewDetail = (props) => {
                     maxWidth={false}
                 >
                     <Formik
+                        enableReinitialize={true}
                         initialValues={{
-                            quotation: {
-                                id: 1,
-                                items: [
-                                    {
-                                        lamination: null,
-                                        binding: 4,
-                                        paper: 19,
-                                        extra_plates: [],
-                                        lamination_costs: 0.0,
-                                        running_costs: 2400.0,
-                                        paper_costs: 3240.0,
-                                        item_type: "inner",
-                                        no_colors: 4,
-                                        no_plates_per_copy: 9,
-                                        no_impressions_per_plate: 300,
-                                        no_sheets_ordered_for_copy: 2.25
-                                    },
-                                    {
-                                        lamination: 1,
-                                        binding: 4,
-                                        paper: 27,
-                                        extra_plates: [],
-                                        lamination_costs: 1100.0,
-                                        running_costs: 1600.0,
-                                        paper_costs: 1125.0,
-                                        item_type: "cover",
-                                        no_colors: 4,
-                                        no_plates_per_copy: 1,
-                                        no_impressions_per_plate: 300,
-                                        no_sheets_ordered_for_copy: 0.25
-                                    }
-                                ],
-                                product_type: {
-                                    id: 1,
-                                    product_name: "Book",
-                                    product_description: "This test product is a book"
-                                },
-                                client: {
-                                    id: 2,
-                                    user: "clayusa",
-                                    email: "clayusatest@email.com",
-                                    full_name: "Cynthia A Layusa",
-                                    organization_name: "Save the Children"
-                                },
-                                total_no_plates: 40,
-                                total_plate_costs: 10000.0,
-                                total_no_sheets: 2.5,
-                                total_paper_costs: 4365.0,
-                                total_running_costs: 4000.0,
-                                total_signatures: 5.0,
-                                total_folding_costs: 1800.0,
-                                total_gathering_costs: 450.0,
-                                total_lamination_costs: 1100.0,
-                                raw_total_costs: 22815.0,
-                                raw_unit_costs: 76.05,
-                                final_unit_costs: 87.4575,
-                                final_total_costs: 26237.25,
-                                project_name: "OISCA Forest Booklet",
-                                approval_status: "in_progress",
-                                approval_date: null,
-                                printing_process: "offset",
-                                quantity: 300,
-                                total_pages: 36,
-                                created_date: format(new Date("2021-03-08T17:44:35+08:00"),'yyyy-MM-dd'),
-                                project_file_path: "",
-                                page_length: 8.5,
-                                page_width: 11.0,
-                                spread_length: 11.0,
-                                spread_width: 17.0,
-                                margin_of_error: 0.1,
-                                markup_percentage: 0.15,
-                                pages_can_fit: 4,
-                                total_binding_costs: 500.0,
-                                total_folds: 4,
-                                cutting_costs: 200.0,
-                                packaging_costs: 200.0,
-                                transport_costs: 400.0
-                            }
+                            quotation: quoteDetails,
+                            finishComputing: false,
                         }}
                         onSubmit={(values, actions) => {
-                            navigate('/app/quote/review')
+                            if(values.finishComputing)
+                            {
+                                navigate('/app/quote/review')
+                            }
                         }}
                     >
                     {({
@@ -272,7 +200,7 @@ const QuoteReviewDetail = (props) => {
                         isSubmitting,
                         touched,
                         values
-                    }) => (
+                    }) => (values.quotation &&
                         <Form onSubmit={handleSubmit}>
                             <Box mb={3}>
                                 <Typography
@@ -344,7 +272,7 @@ const QuoteReviewDetail = (props) => {
                                                     name="quotation.created_date"
                                                     onBlur={handleBlur}
                                                     onChange={handleChange}
-                                                    value={values.quotation.created_date}
+                                                    value={format(new Date(values.quotation.created_date),"yyyy-MM-dd")}
                                                     // defaultValue={values.quotation.created_date}
                                                     variant="filled"
                                                     InputLabelProps={{ shrink: true }}
@@ -967,18 +895,37 @@ const QuoteReviewDetail = (props) => {
                                     </Box>
                                 </Grid>
                             </Grid>
-                            <Button
-                                color="primary"
-                                // disabled={isSubmitting}
-                                fullWidth
-                                size="large"
-                                type="button"
-                                variant="contained"
-                                onClick={handleOpenDialog}
-                                // onClick={handleSubmit}
-                            >
-                                Compute Quotation
-                            </Button>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={6}>
+                                    <Button
+                                        color="primary"
+                                        // disabled={isSubmitting}
+                                        fullWidth
+                                        size="large"
+                                        type="button"
+                                        variant="outlined"
+                                        onClick={handleSubmit}
+                                        // onClick={handleSubmit}
+                                    >
+                                        Save Changes
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <Button
+                                        color="primary"
+                                        // disabled={isSubmitting}
+                                        fullWidth
+                                        size="large"
+                                        type="button"
+                                        variant="contained"
+                                        onClick={handleOpenDialog}
+                                        // onClick={handleSubmit}
+                                    >
+                                        Compute Quotation
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            
                             <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth={true} maxWidth = {'sm'}>
                                 <DialogTitle>
                                     <Typography
@@ -1112,7 +1059,10 @@ const QuoteReviewDetail = (props) => {
                                                     type="submit"
                                                     variant="contained"
                                                     // onClick={handleOpenDialog}
-                                                    onClick={handleSubmit}
+                                                    onClick={(e)=>{
+                                                        values.finishComputing = true
+                                                        handleSubmit(e)
+                                                    }}
                                                 >
                                                     Submit Quotation
                                                 </Button>
