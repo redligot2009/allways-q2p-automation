@@ -81,13 +81,19 @@ TODO: Refactor these 1000+ lines of code into separate files:
 - index.js (here)
 - ProjectSummary.js
 - QuotationItem.js
+
+TODO: Implement update requests to make changes reflect in database. 
+Idea: Make it "autosave" and "auto-update." 
+(i.e., each time a form field is updated, a PATCH update is made to update the backend, 
+    and reflect changes on frontend simultaneously. Kinda like server-side rendering.)
+Would this be too costly though? I think not, at least for demo purposes. Optimization can follow.
+
 */
 
 const QuoteReviewDetail = (props) => {
     const classes = useStyles();
     const navigate = useNavigate();
     let location = useLocation();
-    // const { message } = useSelector(state => state.message);
     const dispatch = useDispatch();
 
     const [openDialog, setOpenDialog] = useState(false);
@@ -175,7 +181,6 @@ const QuoteReviewDetail = (props) => {
                 >
                     <Formik
                         initialValues={{
-                            // TODO: Fetch quotation data and store in initialValues quotation object.
                             quotation: {
                                 id: 1,
                                 items: [
