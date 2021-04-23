@@ -703,30 +703,51 @@ const QuoteReviewDetail = () => {
                                             >
                                                 Cutting, Packaging, Transport
                                             </Typography>
-                                            
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Cutting Costs"
+                                                margin="normal"
+                                                name="quotation.cutting_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.cutting_costs}
+                                                variant="outlined"
                                             >
-                                                Cutting Costs
-                                            </Typography>
-
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
+                                            </TextField>
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Packaging Costs"
+                                                margin="normal"
+                                                name="quotation.packaging_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.packaging_costs}
+                                                variant="outlined"
                                             >
-                                                Packaging Costs
-                                            </Typography>
-
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
+                                            </TextField>
+                                            <TextField
+                                                fullWidth
+                                                // inputProps = {
+                                                //     { readOnly: true, }
+                                                // }
+                                                type="number"
+                                                label="Transport Costs"
+                                                margin="normal"
+                                                name="quotation.transport_costs"
+                                                onBlur={handleBlur}
+                                                onChange={handleChange}
+                                                value={values.quotation.transport_costs}
+                                                variant="outlined"
                                             >
-                                                Transport Costs
-                                            </Typography>
+                                            </TextField>
                                         </Grid>
                                     </Box>
                                 </Grid>
