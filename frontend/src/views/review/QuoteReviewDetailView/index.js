@@ -101,18 +101,20 @@ const QuoteReviewDetail = () => {
                                 items: [
                                     {
                                         lamination: null,
-                                        binding: {
-                                            id: 4,
-                                            binding_type: "Saddle-stitched",
-                                            binding_base_price: 5.0
-                                        },
-                                        paper: {
-                                            id: 19,
-                                            "paper_type": "C2S 80",
-                                            "paper_category": "Coated & Matte Paper",
-                                            "paper_length": 25.0,
-                                            "paper_width": 38.0
-                                        },
+                                        binding: 4,
+                                        // {
+                                        //     id: 4,
+                                        //     binding_type: "Saddle-stitched",
+                                        //     binding_base_price: 5.0
+                                        // },
+                                        paper: 19,
+                                        // {
+                                        //     id: 19,
+                                        //     "paper_type": "C2S 80",
+                                        //     "paper_category": "Coated & Matte Paper",
+                                        //     "paper_length": 25.0,
+                                        //     "paper_width": 38.0
+                                        // },
                                         extra_plates: [],
                                         lamination_costs: 0.0,
                                         running_costs: 2400.0,
@@ -124,24 +126,27 @@ const QuoteReviewDetail = () => {
                                         no_sheets_ordered_for_copy: 2.25
                                     },
                                     {
-                                        lamination: {
-                                            id: 1,
-                                            lamination_type: "Plastic Matte",
-                                            base_price: 0.00725,
-                                            min_rate: 1100.0
-                                        },
-                                        binding: {
-                                            id: 4,
-                                            binding_type: "Saddle-stitched",
-                                            binding_base_price: 5.0
-                                        },
-                                        paper: {
-                                            id: 27,
-                                            paper_type: "C2S 220",
-                                            paper_category: "Coated & Matte Paper",
-                                            paper_length: 25.0,
-                                            paper_width: 38.0
-                                        },
+                                        lamination: 1,
+                                        // {
+                                        //     id: 1,
+                                        //     lamination_type: "Plastic Matte",
+                                        //     base_price: 0.00725,
+                                        //     min_rate: 1100.0
+                                        // },
+                                        binding: 4,
+                                        // {
+                                        //     id: 4,
+                                        //     binding_type: "Saddle-stitched",
+                                        //     binding_base_price: 5.0
+                                        // },
+                                        paper: 27,
+                                        // {
+                                        //     id: 27,
+                                        //     paper_type: "C2S 220",
+                                        //     paper_category: "Coated & Matte Paper",
+                                        //     paper_length: 25.0,
+                                        //     paper_width: 38.0
+                                        // },
                                         extra_plates: [],
                                         lamination_costs: 1100.0,
                                         running_costs: 1600.0,
@@ -219,7 +224,7 @@ const QuoteReviewDetail = () => {
                                     color="textPrimary"
                                     variant="h2"
                                 >
-                                    Quotation #1
+                                    Quotation #{values.quotation.id}
                                 </Typography>
                                 
                             </Box>
@@ -264,7 +269,7 @@ const QuoteReviewDetail = () => {
                                                     }
                                                     label="Client Name"
                                                     margin="normal"
-                                                    name="client_name"
+                                                    name="quotation.client.full_name"
                                                     onBlur={handleBlur}
                                                     onChange={handleChange}
                                                     value={values.quotation.client.full_name + " (" +  values.quotation.client.user + ")"}
@@ -397,74 +402,221 @@ const QuoteReviewDetail = () => {
                                                 Quotation Items
                                             </Typography>
                                             
-                                            <FieldArray name="items">
-                                                {({ push, remove }) => (
-                                                    <Grid item xs={12}>
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="h4"
-                                                            align="left"
-                                                        >
-                                                            Quotation Item #1
-                                                        </Typography>
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="h5"
-                                                            align="left"
-                                                        >
-                                                            Item Type
-                                                        </Typography>
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="h5"
-                                                            align="left"
-                                                        >
-                                                            Number of Colors
-                                                        </Typography>
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="h5"
-                                                            align="left"
-                                                        >
-                                                            Number of Plates Per Copy
-                                                        </Typography>
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="h5"
-                                                            align="left"
-                                                        >
-                                                            Number of Impressions Per Plate
-                                                        </Typography>
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="h5"
-                                                            align="left"
-                                                        >
-                                                            Number of Paper Sheets Per Copy
-                                                        </Typography>
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="h5"
-                                                            align="left"
-                                                        >
-                                                            Lamination Type
-                                                        </Typography>
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="h5"
-                                                            align="left"
-                                                        >
-                                                            Binding Type
-                                                        </Typography>
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="h5"
-                                                            align="left"
-                                                        >
-                                                            Paper Type
-                                                        </Typography>
-                                                    </Grid>
-                                                )}
+                                            <FieldArray name="quotation.items">
+                                                {
+                                                    ({ push, remove }) => {
+                                                        return <>
+                                                            {values.quotation.items.map(
+                                                                (item,index) => 
+                                                                {
+                                                                    return (
+                                                                        <Grid item xs={12} key={item.id}>
+                                                                            <Grid container>
+                                                                                <Grid item xs={10}>
+                                                                                    <Typography
+                                                                                        color="textSecondary"
+                                                                                        variant="h4"
+                                                                                        align="left"
+                                                                                    >
+                                                                                        Quotation Item # {index+1}
+                                                                                    </Typography>
+                                                                                </Grid>
+                                                                                <Grid container xs={2} justify="flex-end">
+                                                                                    <Button
+                                                                                        color="primary"
+                                                                                        // disabled={isSubmitting}
+                                                                                        size="small"
+                                                                                        type="button"
+                                                                                        variant="outlined"
+                                                                                        onClick={
+                                                                                            ()=>remove(index)
+                                                                                        }
+                                                                                    >
+                                                                                        X
+                                                                                    </Button>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                            
+                                                                            <TextField
+                                                                                select
+                                                                                label="Item Type"
+                                                                                fullWidth
+                                                                                margin="normal"
+                                                                                name={`quotation.items[${index}].item_type`}
+                                                                                onBlur={handleBlur}
+                                                                                onChange={handleChange}
+                                                                                value={values.quotation.items[index].item_type}
+                                                                                variant="outlined"
+                                                                            >
+                                                                                <MenuItem value="inner">
+                                                                                    Inner Pages
+                                                                                </MenuItem>
+                                                                                <MenuItem value="cover">
+                                                                                    Cover
+                                                                                </MenuItem>
+                                                                                <MenuItem value="other">
+                                                                                    Other
+                                                                                </MenuItem>
+                                                                            </TextField>
+                                                                            <TextField
+                                                                                select
+                                                                                label="Number of Colors"
+                                                                                fullWidth
+                                                                                margin="normal"
+                                                                                name={`quotation.items[${index}].no_colors`}
+                                                                                onBlur={handleBlur}
+                                                                                onChange={handleChange}
+                                                                                value={values.quotation.items[index].no_colors}
+                                                                                variant="outlined"
+                                                                            >
+                                                                                <MenuItem value={1}>
+                                                                                    One Color (Black and White)
+                                                                                </MenuItem>
+                                                                                <MenuItem value={2}>
+                                                                                    Two Colors (CMYK)
+                                                                                </MenuItem>
+                                                                                <MenuItem value={3}>
+                                                                                    Three Colors (CMYK)
+                                                                                </MenuItem>
+                                                                                <MenuItem value={4}>
+                                                                                    Four Colors (CMYK)
+                                                                                </MenuItem>
+                                                                            </TextField>
+                                                                            <TextField
+                                                                                fullWidth
+                                                                                // inputProps = {
+                                                                                //     { readOnly: true, }
+                                                                                // }
+                                                                                type="number"
+                                                                                label="Number of Plates Per Copy"
+                                                                                margin="normal"
+                                                                                name={`quotation.items[${index}].no_plates_per_copy`}
+                                                                                onBlur={handleBlur}
+                                                                                onChange={handleChange}
+                                                                                value={values.quotation.items[index].no_plates_per_copy}
+                                                                                variant="outlined"
+                                                                            >
+                                                                            </TextField>
+                                                                            <TextField
+                                                                                fullWidth
+                                                                                // inputProps = {
+                                                                                //     { readOnly: true, }
+                                                                                // }
+                                                                                type="number"
+                                                                                label="Number of Impressions Per Plate"
+                                                                                margin="normal"
+                                                                                name={`quotation.items[${index}].no_impressions_per_plate`}
+                                                                                onBlur={handleBlur}
+                                                                                onChange={handleChange}
+                                                                                value={values.quotation.items[index].no_impressions_per_plate}
+                                                                                variant="outlined"
+                                                                            >
+                                                                            </TextField>
+                                                                            <TextField
+                                                                                fullWidth
+                                                                                // inputProps = {
+                                                                                //     { readOnly: true, }
+                                                                                // }
+                                                                                type="number"
+                                                                                label="Number of Paper Sheets Per Copy"
+                                                                                margin="normal"
+                                                                                name={`quotation.items[${index}].no_sheets_ordered_for_copy`}
+                                                                                onBlur={handleBlur}
+                                                                                onChange={handleChange}
+                                                                                value={values.quotation.items[index].no_sheets_ordered_for_copy}
+                                                                                variant="outlined"
+                                                                            >
+                                                                            </TextField>
+                                                                            <TextField
+                                                                                select
+                                                                                label="Lamination Type"
+                                                                                fullWidth
+                                                                                margin="normal"
+                                                                                name={`quotation.items[${index}].lamination`}
+                                                                                onBlur={handleBlur}
+                                                                                onChange={handleChange}
+                                                                                value={values.quotation.items[index].lamination}
+                                                                                variant="outlined"
+                                                                            >
+                                                                                <MenuItem value={1}>
+                                                                                    Plastic Matte
+                                                                                </MenuItem>
+                                                                                <MenuItem value={null}>
+                                                                                    None
+                                                                                </MenuItem>
+                                                                            </TextField>
+                                                                            <TextField
+                                                                                select
+                                                                                label="Binding Type"
+                                                                                fullWidth
+                                                                                margin="normal"
+                                                                                name={`quotation.items[${index}].binding`}
+                                                                                onBlur={handleBlur}
+                                                                                onChange={handleChange}
+                                                                                value={values.quotation.items[index].binding}
+                                                                                variant="outlined"
+                                                                            >
+                                                                                <MenuItem value={4}>
+                                                                                    Saddle-stitched
+                                                                                </MenuItem>
+                                                                                <MenuItem value={null}>
+                                                                                    None
+                                                                                </MenuItem>
+                                                                            </TextField>
+                                                                            <TextField
+                                                                                select
+                                                                                label="Paper Type"
+                                                                                fullWidth
+                                                                                margin="normal"
+                                                                                name={`quotation.items[${index}].paper`}
+                                                                                onBlur={handleBlur}
+                                                                                onChange={handleChange}
+                                                                                value={values.quotation.items[index].paper}
+                                                                                variant="outlined"
+                                                                            >
+                                                                                <MenuItem value={27}>
+                                                                                    C2S 220
+                                                                                </MenuItem>
+                                                                                <MenuItem value={19}>
+                                                                                    C2S 80
+                                                                                </MenuItem>
+                                                                                <MenuItem value={null}>
+                                                                                    None
+                                                                                </MenuItem>
+                                                                            </TextField>
+                                                                        </Grid>
+                                                                        )
+                                                                    }
+                                                                )
+                                                            }
+                                                            <Button
+                                                                color="primary"
+                                                                // disabled={isSubmitting}
+                                                                fullWidth
+                                                                size="large"
+                                                                type="button"
+                                                                variant="outlined"
+                                                                onClick={
+                                                                    ()=>push({
+                                                                        id: 1,
+                                                                        lamination: null,
+                                                                        binding: null,
+                                                                        paper: null,
+                                                                        extra_plates: [],
+                                                                        item_type: "other",
+                                                                        no_colors: 4,
+                                                                        no_plates_per_copy: 1,
+                                                                        no_impressions_per_plate: 1,
+                                                                        no_sheets_ordered_for_copy: 1,
+                                                                        quotation: values.quotation.id
+                                                                    })
+                                                                }
+                                                            >
+                                                                Add new item
+                                                            </Button>
+                                                        </>
+                                                    }}
+                                            
                                             </FieldArray>
                                         </Grid>
                                     </Box>
