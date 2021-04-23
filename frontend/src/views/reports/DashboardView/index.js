@@ -1,12 +1,8 @@
-<<<<<<< Updated upstream
-import React from 'react';
-=======
 import React, { useState, useEffect } from 'react';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link as RouterLink, useNavigate, useHistory } from 'react-router-dom';
 
->>>>>>> Stashed changes
 import {
   Container,
   Grid,
@@ -38,10 +34,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = () => {
   const classes = useStyles();
-<<<<<<< Updated upstream
-=======
-  const [products] = useState(data);
   const [data, setData] = useState({in_progress:[],computed:[]});
+  const [products] = useState(data);
   const { isLoggedIn } = useSelector(state => state.auth);
   // const { profile } = useSelector(state => state.auth);
   const navigate = useNavigate();
@@ -55,7 +49,6 @@ const Dashboard = () => {
   //     navigate('/login/', { replace: true });
   //   }
   // },[isLoggedIn, navigate]);
->>>>>>> Stashed changes
 
   return (
     <Page
