@@ -105,20 +105,55 @@ const QuoteReviewDetail = (props) => {
         navigate('/app/quote/review')
     }
 
-
     const [quoteDetails, setQuoteDetails] = useState({});
+
+    const [paperTypes, setPaperTypes] = useState([]);
+    const [laminationTypes, setLaminationTypes] = useState([])
+    const [bindingTypes, setBindingTypes] = useState([])
     
     useEffect(() => {
         async function fetchData(){
-          const result = await axios.get(`api/quotations/${location.state.id}`)
-            .then((response)=>{
-                console.log(response.data);
-                setQuoteDetails(response.data);
-            })
-            .catch((error) => {
+            try
+            {
+                const quoteResult = await axios.get(`api/quotations/${location.state.id}`)
+                    .then((response)=>{
+                        console.log(response.data);
+                        setQuoteDetails(response.data);
+                    })
+                    .catch((error) => {
+                        handleGoBack();
+                    })
+                const paperResults = await axios.get('api/papers')
+                    .then((response)=>{
+                        console.log(response.data)
+                        setPaperTypes(response.data)
+                    })
+                    .catch((error)=>{
+
+                    })
+
+                const laminationResults = await axios.get('api/laminations')
+                    .then((response)=>{
+                        console.log(response.data)
+                        setLaminationTypes(response.data)
+                    })
+                    .catch((error)=>{
+
+                    })
+                
+                const bindingResults = await axios.get('api/bindings')
+                    .then((response)=>{
+                        console.log(response.data)
+                        setBindingTypes(response.data)
+                    })
+                    .catch((error)=>{
+
+                    })
+            }
+            catch(error)
+            {
                 handleGoBack();
-            })
-            
+            }
             // console.log(quoteDetails);
         }
         fetchData();
@@ -553,9 +588,13 @@ const QuoteReviewDetail = (props) => {
                                                                                 value={values.quotation.items[index].lamination}
                                                                                 variant="outlined"
                                                                             >
-                                                                                <MenuItem value={1}>
-                                                                                    Plastic Matte
-                                                                                </MenuItem>
+                                                                                {laminationTypes.map((laminationType, index)=>{
+                                                                                    return (
+                                                                                        <MenuItem value={laminationType.id}>
+                                                                                            {laminationType.lamination_type}
+                                                                                        </MenuItem>
+                                                                                    )
+                                                                                })}
                                                                                 <MenuItem value={null}>
                                                                                     None
                                                                                 </MenuItem>
@@ -571,9 +610,13 @@ const QuoteReviewDetail = (props) => {
                                                                                 value={values.quotation.items[index].binding}
                                                                                 variant="outlined"
                                                                             >
-                                                                                <MenuItem value={4}>
-                                                                                    Saddle-stitched
-                                                                                </MenuItem>
+                                                                                {bindingTypes.map((bindingType, index)=>{
+                                                                                    return (
+                                                                                        <MenuItem value={bindingType.id}>
+                                                                                            {bindingType.binding_type}
+                                                                                        </MenuItem>
+                                                                                    )
+                                                                                })}
                                                                                 <MenuItem value={null}>
                                                                                     None
                                                                                 </MenuItem>
@@ -589,12 +632,13 @@ const QuoteReviewDetail = (props) => {
                                                                                 value={values.quotation.items[index].paper}
                                                                                 variant="outlined"
                                                                             >
-                                                                                <MenuItem value={27}>
-                                                                                    C2S 220
-                                                                                </MenuItem>
-                                                                                <MenuItem value={19}>
-                                                                                    C2S 80
-                                                                                </MenuItem>
+                                                                                {paperTypes.map((paperType, index)=>{
+                                                                                    return (
+                                                                                        <MenuItem value={paperType.id}>
+                                                                                            {paperType.paper_type}
+                                                                                        </MenuItem>
+                                                                                    )
+                                                                                })}
                                                                                 <MenuItem value={null}>
                                                                                     None
                                                                                 </MenuItem>
