@@ -12,23 +12,19 @@ import {
   makeStyles
 } from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import MoneyIcon from '@material-ui/icons/Money';
+import CheckIcon from '@material-ui/icons/Check';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100%'
   },
   avatar: {
-    backgroundColor: colors.red[600],
+    backgroundColor: colors.grey[600],
     height: 56,
     width: 56
   },
-  differenceIcon: {
-    color: colors.red[900]
-  },
-  differenceValue: {
-    color: colors.red[900],
-    marginRight: theme.spacing(1)
+  media: {
+    paddingTop: "7%"
   }
 }));
 
@@ -41,30 +37,34 @@ const Budget = ({ className, ...rest }) => {
       {...rest}
     >
       <CardContent>
+
         <Grid
           container
           justify="space-between"
           spacing={3}
+          className={classes.media}
         >
+        <Grid container justify="center">
+            <Avatar className={classes.avatar}>
+              <CheckIcon />
+            </Avatar>
+        </Grid>
           <Grid item>
             <Typography
               color="textSecondary"
               gutterBottom
-              variant="h6"
+              align="center"
+              variant="h4"
             >
-              BUDGET
+              REVIEW QUOTATIONS
             </Typography>
             <Typography
-              color="textPrimary"
-              variant="h3"
+              color="textSecondary"
+              variant="body1"
+              align="center"
             >
-              $24,000
+              Approve quotations of orders, file job orders for production
             </Typography>
-          </Grid>
-          <Grid item>
-            <Avatar className={classes.avatar}>
-              <MoneyIcon />
-            </Avatar>
           </Grid>
         </Grid>
         <Box
@@ -72,19 +72,6 @@ const Budget = ({ className, ...rest }) => {
           display="flex"
           alignItems="center"
         >
-          <ArrowDownwardIcon className={classes.differenceIcon} />
-          <Typography
-            className={classes.differenceValue}
-            variant="body2"
-          >
-            12%
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="caption"
-          >
-            Since last month
-          </Typography>
         </Box>
       </CardContent>
     </Card>

@@ -12,16 +12,19 @@ import {
   makeStyles,
   colors
 } from '@material-ui/core';
-import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
   },
   avatar: {
-    backgroundColor: colors.orange[600],
+    backgroundColor: colors.grey[600],
     height: 56,
     width: 56
+  },
+  media: {
+    paddingTop: "7%"
   }
 }));
 
@@ -34,37 +37,41 @@ const TasksProgress = ({ className, ...rest }) => {
       {...rest}
     >
       <CardContent>
+
         <Grid
           container
-          justify="space-between"
+          justify="center"
           spacing={3}
+          className={classes.media}
         >
+        <Grid container justify="center">
+            <Avatar className={classes.avatar}>
+              <PersonIcon />
+            </Avatar>
+        </Grid>
           <Grid item>
             <Typography
               color="textSecondary"
               gutterBottom
-              variant="h6"
+              align="center"
+              variant="h4"
             >
-              TASKS PROGRESS
+              MANAGE EMPLOYEES
             </Typography>
             <Typography
-              color="textPrimary"
-              variant="h3"
+              color="textSecondary"
+              variant="body1"
+              align="center"
             >
-              75.5%
+              Check and manage the employees account
             </Typography>
           </Grid>
-          <Grid item>
-            <Avatar className={classes.avatar}>
-              <InsertChartIcon />
-            </Avatar>
-          </Grid>
         </Grid>
-        <Box mt={3}>
-          <LinearProgress
-            value={75.5}
-            variant="determinate"
-          />
+        <Box
+          mt={2}
+          display="flex"
+          alignItems="center"
+        >
         </Box>
       </CardContent>
     </Card>

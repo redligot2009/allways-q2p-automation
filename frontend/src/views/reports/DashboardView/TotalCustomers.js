@@ -12,23 +12,19 @@ import {
   makeStyles
 } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import SyncAltIcon from '@material-ui/icons/SyncAlt';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
   },
   avatar: {
-    backgroundColor: colors.green[600],
+    backgroundColor: colors.grey[600],
     height: 56,
     width: 56
   },
-  differenceIcon: {
-    color: colors.green[900]
-  },
-  differenceValue: {
-    color: colors.green[900],
-    marginRight: theme.spacing(1)
+  media: {
+    paddingTop: "7%"
   }
 }));
 
@@ -41,30 +37,34 @@ const TotalCustomers = ({ className, ...rest }) => {
       {...rest}
     >
       <CardContent>
+
         <Grid
           container
           justify="space-between"
           spacing={3}
+          className={classes.media}
         >
+        <Grid container justify="center">
+            <Avatar className={classes.avatar}>
+              <SyncAltIcon />
+            </Avatar>
+        </Grid>
           <Grid item>
             <Typography
               color="textSecondary"
               gutterBottom
-              variant="h6"
+              align="center"
+              variant="h4"
             >
-              TOTAL CUSTOMERS
+              TRACK ORDERS
             </Typography>
             <Typography
-              color="textPrimary"
-              variant="h3"
+              color="textSecondary"
+              variant="body1"
+              align="center"
             >
-              1,600
+              Keep note of all orders that are moving in production to delivery
             </Typography>
-          </Grid>
-          <Grid item>
-            <Avatar className={classes.avatar}>
-              <PeopleIcon />
-            </Avatar>
           </Grid>
         </Grid>
         <Box
@@ -72,19 +72,6 @@ const TotalCustomers = ({ className, ...rest }) => {
           display="flex"
           alignItems="center"
         >
-          <ArrowUpwardIcon className={classes.differenceIcon} />
-          <Typography
-            className={classes.differenceValue}
-            variant="body2"
-          >
-            16%
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="caption"
-          >
-            Since last month
-          </Typography>
         </Box>
       </CardContent>
     </Card>
