@@ -405,7 +405,7 @@ const QuoteReviewDetail = () => {
                                             <FieldArray name="quotation.items">
                                                 {
                                                     ({ push, remove }) => {
-                                                        return <>
+                                                        return <Container style={{maxHeight:540,overflow:'auto'}} mb={2}>
                                                             {values.quotation.items.map(
                                                                 (item,index) => 
                                                                 {
@@ -614,7 +614,7 @@ const QuoteReviewDetail = () => {
                                                             >
                                                                 Add new item
                                                             </Button>
-                                                        </>
+                                                        </Container>
                                                     }}
                                             
                                             </FieldArray>
