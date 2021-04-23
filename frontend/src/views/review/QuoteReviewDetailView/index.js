@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik, Form, FieldArray, getIn } from 'formik';
@@ -17,7 +17,8 @@ import {
     makeStyles,
     Select,
     MenuItem,
-    InputLabel
+    InputLabel,
+    Dialog, DialogContent, DialogTitle
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import {format} from 'date-fns';
@@ -79,6 +80,18 @@ const QuoteReviewDetail = () => {
     const navigate = useNavigate();
     // const { message } = useSelector(state => state.message);
     const dispatch = useDispatch();
+
+    const [openDialog, setOpenDialog] = useState(false);
+
+    const handleOpenDialog = () => 
+    {
+        setOpenDialog(true)
+    }
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false)
+    }
+
     return (
         <Page
           className={classes.root}
@@ -219,6 +232,7 @@ const QuoteReviewDetail = () => {
                         values
                     }) => (
                         <Form onSubmit={handleSubmit}>
+                            {/* {console.log(values.quotation)} */}
                             <Box mb={3}>
                                 <Typography
                                     color="textPrimary"
@@ -910,11 +924,158 @@ const QuoteReviewDetail = () => {
                                 size="large"
                                 type="button"
                                 variant="contained"
+                                onClick={handleOpenDialog}
                                 // onClick={handleSubmit}
                                 // TODO: Open modal dialog showing project costs summary
                             >
                                 Compute Quotation
                             </Button>
+                            <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth={true} maxWidth = {'sm'}>
+                                <DialogTitle>
+                                    <Typography
+                                        color="textPrimary"
+                                        variant="h3"
+                                        align="left"
+                                    >
+                                        Project Summary
+                                    </Typography>
+                                </DialogTitle>
+                                <DialogContent>
+                                    <Container spacing={3} my={3}>
+                                        <Grid container spacing={2}>
+                                            <Typography
+                                                color="textSecondary"
+                                                variant="h4"
+                                                align="left"
+                                            >
+                                                Computed Raw Project Costs
+                                            </Typography>
+                                            <Grid container>
+                                                <Grid item xs={6}>
+                                                    <Typography
+                                                        color="textSecondary"
+                                                        variant="body1"
+                                                        align="left"
+                                                    >
+                                                        Raw Total Costs
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Grid container justify="flex-end">
+                                                        <Typography
+                                                            color="textSecondary"
+                                                            variant="body1"
+                                                            align="left"
+                                                        >
+                                                            P {values.quotation.raw_total_costs}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Typography
+                                                        color="textSecondary"
+                                                        variant="body1"
+                                                        align="left"
+                                                    >
+                                                        Raw Unit Costs
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Grid container justify="flex-end">
+                                                        <Typography
+                                                            color="textSecondary"
+                                                            variant="body1"
+                                                            align="left"
+                                                        >
+                                                            P {values.quotation.raw_unit_costs}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Typography
+                                                color="textSecondary"
+                                                variant="h4"
+                                                align="left"
+                                            >
+                                                Computed Final Project Costs
+                                            </Typography>
+                                            <Grid container>
+                                                <Grid item xs={6}>
+                                                    <Typography
+                                                        color="textSecondary"
+                                                        variant="body1"
+                                                        align="left"
+                                                    >
+                                                        Final Total Costs (w/ Markup)
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Grid container justify="flex-end">
+                                                        <Typography
+                                                            color="textSecondary"
+                                                            variant="body1"
+                                                            align="left"
+                                                        >
+                                                            P {values.quotation.final_total_costs}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Typography
+                                                        color="textSecondary"
+                                                        variant="body1"
+                                                        align="left"
+                                                    >
+                                                        Final Unit Costs (w/ Markup)
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Grid container justify="flex-end">
+                                                        <Typography
+                                                            color="textSecondary"
+                                                            variant="body1"
+                                                            align="left"
+                                                        >
+                                                            P {values.quotation.final_unit_costs}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Button
+                                                    // color="primary"
+                                                    // disabled={isSubmitting}
+                                                    fullWidth
+                                                    size="large"
+                                                    type="button"
+                                                    variant="outlined"
+                                                    // onClick={handleOpenDialog}
+                                                    // onClick={handleSubmit}
+                                                    // TODO: Open modal dialog showing project costs summary
+                                                >
+                                                    Go back
+                                                </Button>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Button
+                                                    color="primary"
+                                                    // disabled={isSubmitting}
+                                                    fullWidth
+                                                    size="large"
+                                                    type="button"
+                                                    variant="contained"
+                                                    // onClick={handleOpenDialog}
+                                                    // onClick={handleSubmit}
+                                                    // TODO: Open modal dialog showing project costs summary
+                                                >
+                                                    Submit Quotation
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Container>
+                                </DialogContent>
+                                
+                            </Dialog>
                         </Form>
                     )}  
                     </Formik>
