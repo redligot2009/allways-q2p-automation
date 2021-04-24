@@ -31,6 +31,9 @@ import axios from 'axios';
 import QuotationItem from './QuotationItem';
 import ProjectSettings from './ProjectSettings';
 import Finishing from './Finishing';
+import PlatesRunningPaper from './PlatesRunningPaper';
+import ExtraCosts from './ExtraCosts';
+import ProjectSummaryDialog from './ProjectSummaryDialog';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,11 +87,11 @@ FORMAT FOR POST REQUEST:
 TODO: Refactor these 1000+ lines of code into separate files:
 - index.js (here)
 - ProjectSettings.js [DONE]
-- PlatesPaperRunning.js
+- PlatesRunningPaper.js [DONE]
 - Finishing [DONE]
-- ExtraCosts.js
+- ExtraCosts.js [DONE]
 - QuotationItem.js [DONE]
-
+- ProjectSummaryDialog.js [DONE]
 */
 
 const QuoteReviewDetail = (props) => {
@@ -257,177 +260,25 @@ const QuoteReviewDetail = (props) => {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <Box mb={3}>
-                                        <Grid item xs={12}>
-                                            <Typography
-                                                color="textPrimary"
-                                                variant="h3"
-                                                align="left"
-                                            >
-                                                Plates, Running, and Paper
-                                            </Typography>
-                                            {/* <Typography
-                                                color="textSecondary"
-                                                variant="h5"
-                                                align="left"
-                                            >
-                                                Number of Plates
-                                            </Typography> */}
-                                            <TextField
-                                                fullWidth
-                                                // inputProps = {
-                                                //     { readOnly: true, }
-                                                // }
-                                                type="number"
-                                                label="Number of Plates"
-                                                margin="normal"
-                                                name="quotation.total_no_plates"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.quotation.total_no_plates}
-                                                variant="outlined"
-                                            >
-                                            </TextField>
-                                            <TextField
-                                                fullWidth
-                                                // inputProps = {
-                                                //     { readOnly: true, }
-                                                // }
-                                                type="number"
-                                                label="Total Plate Costs"
-                                                margin="normal"
-                                                name="quotation.total_plate_costs"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.quotation.total_plate_costs}
-                                                variant="outlined"
-                                            >
-                                            </TextField>
-
-                                            <TextField
-                                                fullWidth
-                                                // inputProps = {
-                                                //     { readOnly: true, }
-                                                // }
-                                                type="number"
-                                                label="Total Running Costs"
-                                                margin="normal"
-                                                name="quotation.total_running_costs"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.quotation.total_running_costs}
-                                                variant="outlined"
-                                            >
-                                            </TextField>
-
-                                            <TextField
-                                                fullWidth
-                                                // inputProps = {
-                                                //     { readOnly: true, }
-                                                // }
-                                                type="number"
-                                                label="Total Number of Sheets"
-                                                margin="normal"
-                                                name="quotation.total_no_sheets"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.quotation.total_no_sheets}
-                                                variant="outlined"
-                                            >
-                                            </TextField>
-
-                                            <TextField
-                                                fullWidth
-                                                // inputProps = {
-                                                //     { readOnly: true, }
-                                                // }
-                                                type="number"
-                                                label="Number of Pages"
-                                                margin="normal"
-                                                name="quotation.total_pages"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.quotation.total_pages}
-                                                variant="outlined"
-                                            >
-                                            </TextField>
-                                            
-                                            <TextField
-                                                fullWidth
-                                                // inputProps = {
-                                                //     { readOnly: true, }
-                                                // }
-                                                type="number"
-                                                label="Total Paper Costs"
-                                                margin="normal"
-                                                name="quotation.total_paper_costs"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.quotation.total_paper_costs}
-                                                variant="outlined"
-                                            >
-                                            </TextField>
-
-                                        </Grid>
+                                        {/* PLATES RUNNING PAPER */}
+                                        
+                                        <PlatesRunningPaper
+                                            handleBlur={handleBlur}
+                                            handleChange={handleChange}
+                                            values={values}
+                                        />
 
                                         <Finishing
                                             handleBlur={handleBlur}
                                             handleChange={handleChange}
                                             values={values}
                                         />
-                                        <Grid item xs={12}>
-                                            <Typography
-                                                color="textPrimary"
-                                                variant="h3"
-                                                align="left"
-                                            >
-                                                Extra Costs
-                                            </Typography>
-                                            <TextField
-                                                fullWidth
-                                                // inputProps = {
-                                                //     { readOnly: true, }
-                                                // }
-                                                type="number"
-                                                label="Cutting Costs"
-                                                margin="normal"
-                                                name="quotation.cutting_costs"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.quotation.cutting_costs}
-                                                variant="outlined"
-                                            >
-                                            </TextField>
-                                            <TextField
-                                                fullWidth
-                                                // inputProps = {
-                                                //     { readOnly: true, }
-                                                // }
-                                                type="number"
-                                                label="Packaging Costs"
-                                                margin="normal"
-                                                name="quotation.packaging_costs"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.quotation.packaging_costs}
-                                                variant="outlined"
-                                            >
-                                            </TextField>
-                                            <TextField
-                                                fullWidth
-                                                // inputProps = {
-                                                //     { readOnly: true, }
-                                                // }
-                                                type="number"
-                                                label="Transport Costs"
-                                                margin="normal"
-                                                name="quotation.transport_costs"
-                                                onBlur={handleBlur}
-                                                onChange={handleChange}
-                                                value={values.quotation.transport_costs}
-                                                variant="outlined"
-                                            >
-                                            </TextField>
-                                        </Grid>
+
+                                        <ExtraCosts
+                                            handleBlur={handleBlur}
+                                            handleChange={handleChange}
+                                            values={values}
+                                        />
                                     </Box>
                                 </Grid>
                             </Grid>
@@ -461,153 +312,16 @@ const QuoteReviewDetail = (props) => {
                                     </Button>
                                 </Grid>
                             </Grid>
-                            
-                            <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth={true} maxWidth = {'sm'}>
-                                <DialogTitle>
-                                    <Typography
-                                        color="textPrimary"
-                                        variant="h3"
-                                        align="left"
-                                    >
-                                        Project Summary
-                                    </Typography>
-                                </DialogTitle>
-                                <DialogContent>
-                                    <Container spacing={3} my={3}>
-                                        <Grid container spacing={2}>
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h4"
-                                                align="left"
-                                            >
-                                                Computed Raw Project Costs
-                                            </Typography>
-                                            <Grid container>
-                                                <Grid item xs={6}>
-                                                    <Typography
-                                                        color="textSecondary"
-                                                        variant="body1"
-                                                        align="left"
-                                                    >
-                                                        Raw Total Costs
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container justify="flex-end">
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="body1"
-                                                            align="left"
-                                                        >
-                                                            P {values.quotation.raw_total_costs}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Typography
-                                                        color="textSecondary"
-                                                        variant="body1"
-                                                        align="left"
-                                                    >
-                                                        Raw Unit Costs
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container justify="flex-end">
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="body1"
-                                                            align="left"
-                                                        >
-                                                            P {values.quotation.raw_unit_costs}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Typography
-                                                color="textSecondary"
-                                                variant="h4"
-                                                align="left"
-                                            >
-                                                Computed Final Project Costs
-                                            </Typography>
-                                            <Grid container>
-                                                <Grid item xs={6}>
-                                                    <Typography
-                                                        color="textSecondary"
-                                                        variant="body1"
-                                                        align="left"
-                                                    >
-                                                        Final Total Costs (w/ Markup)
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container justify="flex-end">
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="body1"
-                                                            align="left"
-                                                        >
-                                                            P {values.quotation.final_total_costs}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Typography
-                                                        color="textSecondary"
-                                                        variant="body1"
-                                                        align="left"
-                                                    >
-                                                        Final Unit Costs (w/ Markup)
-                                                    </Typography>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container justify="flex-end">
-                                                        <Typography
-                                                            color="textSecondary"
-                                                            variant="body1"
-                                                            align="left"
-                                                        >
-                                                            P {values.quotation.final_unit_costs}
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <Button
-                                                    // color="primary"
-                                                    // disabled={isSubmitting}
-                                                    fullWidth
-                                                    size="large"
-                                                    type="button"
-                                                    variant="outlined"
-                                                    onClick={handleGoBack}
-                                                >
-                                                    Go back
-                                                </Button>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <Button
-                                                    color="primary"
-                                                    disabled={isSubmitting}
-                                                    fullWidth
-                                                    size="large"
-                                                    type="submit"
-                                                    variant="contained"
-                                                    // onClick={handleOpenDialog}
-                                                    onClick={(e)=>{
-                                                        values.finishComputing = true
-                                                        handleSubmit(e)
-                                                    }}
-                                                >
-                                                    Submit Quotation
-                                                </Button>
-                                            </Grid>
-                                        </Grid>
-                                    </Container>
-                                </DialogContent>
-                                
-                            </Dialog>
+                            <ProjectSummaryDialog
+                                handleBlur={handleBlur}
+                                handleChange={handleChange}
+                                values={values}
+                                isSubmitting={isSubmitting}
+                                openDialog={openDialog}
+                                handleCloseDialog={handleCloseDialog}
+                                handleGoBack={handleGoBack}
+                                handleSubmit={handleSubmit} 
+                            />
                         </Form>
                     )}  
                     </Formik>
