@@ -11,6 +11,7 @@ import {
   Button,
   makeStyles
 } from '@material-ui/core';
+import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard = ({ className, product, ...rest }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -67,7 +69,13 @@ const ProductCard = ({ className, product, ...rest }) => {
             </Typography>
         </Box>
         <Box>
-          <Button variant="outlined" color="primary">REQUEST FOR QUOTATION</Button>
+          <Button variant="outlined" color="primary"
+            onClick={()=>{
+              navigate('/app/quote/request/');
+            }}
+          >
+            REQUEST FOR QUOTATION
+          </Button>
         </Box>
       </CardContent>
     </Card>
