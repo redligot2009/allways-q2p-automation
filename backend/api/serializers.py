@@ -253,12 +253,29 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
     
     # Override update action
     # TODO: REFACTOR THIS SHIT! What the fuck? There has to be an easier way to update nested objects...
+    
+    def get_model_fields(model):
+        return model._meta.fields
+    
     def update(self, instance, validated_data):
         items_data = validated_data.pop('items')
         items = list((instance.items).all())
+        # for()
         instance.project_name = validated_data.get('project_name',instance.project_name)
         instance.product_type = validated_data.get('product_type',instance.product_type)
         instance.approval_status = validated_data.get('approval_status',instance.approval_status)
+        instance.printing_process = validated_data.get('printing_process',instance.printing_process)
+        instance.quantity = validated_data.get('quantity',instance.quantity)
+        instance.total_pages = validated_data.get('total_pages',instance.total_pages)
+        instance.markup_percentage = validated_data.get('markup_percentage',instance.markup_percentage)
+        instance.margin_of_error = validated_data.get('margin_of_error',instance.margin_of_error)
+        instance.page_length = validated_data.get('page_length',instance.page_length)
+        instance.pages_can_fit = validated_data.get('pages_can_fit',instance.pages_can_fit)
+        instance.total_binding_costs = validated_data.get('total_binding_costs',instance.total_binding_costs)
+        instance.total_folds = validated_data.get('total_binding_costs',instance.total_binding_costs)
+        instance.cutting_costs = validated_data.get('cutting_costs',instance.cutting_costs)
+        instance.packaging_costs = validated_data.get('packaging_costs',instance.packaging_costs)
+        instance.transport_costs = validated_data.get('transport_costs',instance.transport_costs)
         
         if (instance.approval_status=="approved"):
             instance.approval_date = timezone.now()
