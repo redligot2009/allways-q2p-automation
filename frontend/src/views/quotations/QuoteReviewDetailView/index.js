@@ -28,6 +28,8 @@ import axios from 'axios';
 
 // import { register } from "../../_actions/auth";
 
+import QuotationItem from './QuotationItem';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: theme.palette.background.dark,
@@ -90,6 +92,8 @@ Would this be too costly though? I think not, at least for demo purposes. Optimi
 
 */
 
+
+
 const QuoteReviewDetail = (props) => {
     const classes = useStyles();
     const navigate = useNavigate();
@@ -117,53 +121,54 @@ const QuoteReviewDetail = (props) => {
     const [laminationTypes, setLaminationTypes] = useState([])
     const [bindingTypes, setBindingTypes] = useState([])
     
-    useEffect(() => {
-        async function fetchData(){
-            try
-            {
-                const quoteResult = await axios.get(`api/quotations/${location.state.id}`)
-                    .then((response)=>{
-                        // console.log(response.data);
-                        setQuoteDetails(response.data);
-                    })
-                    .catch((error) => {
-                        handleGoBack();
-                    })
-                const paperResults = await axios.get('api/papers')
-                    .then((response)=>{
-                        // console.log(response.data)
-                        setPaperTypes(response.data)
-                    })
-                    .catch((error)=>{
+    async function fetchData()
+    {
+        try
+        {
+            const quoteResult = await axios.get(`api/quotations/${location.state.id}`)
+                .then((response)=>{
+                    // console.log(response.data);
+                    setQuoteDetails(response.data);
+                })
+                .catch((error) => {
+                    handleGoBack();
+                })
+            const paperResults = await axios.get('api/papers')
+                .then((response)=>{
+                    // console.log(response.data)
+                    setPaperTypes(response.data)
+                })
+                .catch((error)=>{
 
-                    })
+                })
 
-                const laminationResults = await axios.get('api/laminations')
-                    .then((response)=>{
-                        // console.log(response.data)
-                        setLaminationTypes(response.data)
-                    })
-                    .catch((error)=>{
+            const laminationResults = await axios.get('api/laminations')
+                .then((response)=>{
+                    // console.log(response.data)
+                    setLaminationTypes(response.data)
+                })
+                .catch((error)=>{
 
-                    })
-                
-                const bindingResults = await axios.get('api/bindings')
-                    .then((response)=>{
-                        // console.log(response.data)
-                        setBindingTypes(response.data)
-                    })
-                    .catch((error)=>{
+                })
+            
+            const bindingResults = await axios.get('api/bindings')
+                .then((response)=>{
+                    // console.log(response.data)
+                    setBindingTypes(response.data)
+                })
+                .catch((error)=>{
 
-                    })
-            }
-            catch(error)
-            {
-                handleGoBack();
-            }
-            // console.log(quoteDetails);
+                })
         }
+        catch(error)
+        {
+            handleGoBack();
+        }
+        // console.log(quoteDetails);
+    }
+    useEffect(() => {    
         fetchData();
-      }, [location, setQuoteDetails])
+    }, [])
     console.log(quoteDetails)
     return (
         <Page
@@ -190,6 +195,11 @@ const QuoteReviewDetail = (props) => {
                             {
                                 navigate('/app/quote/review')
                             }
+                            else
+                            {
+
+                                fetchData();
+                            }
                         }}
                     >
                     {({
@@ -211,7 +221,7 @@ const QuoteReviewDetail = (props) => {
                                 </Typography>
                                 
                             </Box>
-                            <Grid container  spacing={3}>
+                            <Grid container spacing={3}>
                                 <Grid item xs={12} sm={6}>
                                     <Box mb={3}>
                                         <Grid item xs={12}>
@@ -388,225 +398,19 @@ const QuoteReviewDetail = (props) => {
                                             <FieldArray name="quotation.items">
                                                 {
                                                     ({ push, remove }) => {
-                                                        return <Container style={{maxHeight:540,overflow:'auto'}} mb={2}>
-                                                            {values.quotation.items.map(
-                                                                (item,index) => 
-                                                                {
-                                                                    return (
-                                                                        <Grid item xs={12} key={item.id}>
-                                                                            <Grid container>
-                                                                                <Grid item xs={10}>
-                                                                                    <Typography
-                                                                                        color="textSecondary"
-                                                                                        variant="h4"
-                                                                                        align="left"
-                                                                                    >
-                                                                                        Quotation Item # {index+1}
-                                                                                    </Typography>
-                                                                                </Grid>
-                                                                                <Grid container xs={2} justify="flex-end">
-                                                                                    <Button
-                                                                                        color="primary"
-                                                                                        // disabled={isSubmitting}
-                                                                                        size="small"
-                                                                                        type="button"
-                                                                                        variant="outlined"
-                                                                                        onClick={
-                                                                                            ()=>remove(index)
-                                                                                        }
-                                                                                    >
-                                                                                        X
-                                                                                    </Button>
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                            
-                                                                            <TextField
-                                                                                select
-                                                                                label="Item Type"
-                                                                                fullWidth
-                                                                                margin="normal"
-                                                                                name={`quotation.items[${index}].item_type`}
-                                                                                onBlur={handleBlur}
-                                                                                onChange={handleChange}
-                                                                                value={values.quotation.items[index].item_type}
-                                                                                variant="outlined"
-                                                                            >
-                                                                                <MenuItem value="inner">
-                                                                                    Inner Pages
-                                                                                </MenuItem>
-                                                                                <MenuItem value="cover">
-                                                                                    Cover
-                                                                                </MenuItem>
-                                                                                <MenuItem value="other">
-                                                                                    Other
-                                                                                </MenuItem>
-                                                                            </TextField>
-                                                                            <TextField
-                                                                                select
-                                                                                label="Number of Colors"
-                                                                                fullWidth
-                                                                                margin="normal"
-                                                                                name={`quotation.items[${index}].no_colors`}
-                                                                                onBlur={handleBlur}
-                                                                                onChange={handleChange}
-                                                                                value={values.quotation.items[index].no_colors}
-                                                                                variant="outlined"
-                                                                            >
-                                                                                <MenuItem value={1}>
-                                                                                    One Color (Black and White)
-                                                                                </MenuItem>
-                                                                                <MenuItem value={2}>
-                                                                                    Two Colors (CMYK)
-                                                                                </MenuItem>
-                                                                                <MenuItem value={3}>
-                                                                                    Three Colors (CMYK)
-                                                                                </MenuItem>
-                                                                                <MenuItem value={4}>
-                                                                                    Four Colors (CMYK)
-                                                                                </MenuItem>
-                                                                            </TextField>
-                                                                            <TextField
-                                                                                fullWidth
-                                                                                // inputProps = {
-                                                                                //     { readOnly: true, }
-                                                                                // }
-                                                                                type="number"
-                                                                                label="Number of Plates Per Copy"
-                                                                                margin="normal"
-                                                                                name={`quotation.items[${index}].no_plates_per_copy`}
-                                                                                onBlur={handleBlur}
-                                                                                onChange={handleChange}
-                                                                                value={values.quotation.items[index].no_plates_per_copy}
-                                                                                variant="outlined"
-                                                                            >
-                                                                            </TextField>
-                                                                            <TextField
-                                                                                fullWidth
-                                                                                // inputProps = {
-                                                                                //     { readOnly: true, }
-                                                                                // }
-                                                                                type="number"
-                                                                                label="Number of Impressions Per Plate"
-                                                                                margin="normal"
-                                                                                name={`quotation.items[${index}].no_impressions_per_plate`}
-                                                                                onBlur={handleBlur}
-                                                                                onChange={handleChange}
-                                                                                value={values.quotation.items[index].no_impressions_per_plate}
-                                                                                variant="outlined"
-                                                                            >
-                                                                            </TextField>
-                                                                            <TextField
-                                                                                fullWidth
-                                                                                // inputProps = {
-                                                                                //     { readOnly: true, }
-                                                                                // }
-                                                                                type="number"
-                                                                                label="Number of Paper Sheets Per Copy"
-                                                                                margin="normal"
-                                                                                name={`quotation.items[${index}].no_sheets_ordered_for_copy`}
-                                                                                onBlur={handleBlur}
-                                                                                onChange={handleChange}
-                                                                                value={values.quotation.items[index].no_sheets_ordered_for_copy}
-                                                                                variant="outlined"
-                                                                            >
-                                                                            </TextField>
-                                                                            <TextField
-                                                                                select
-                                                                                label="Lamination Type"
-                                                                                fullWidth
-                                                                                margin="normal"
-                                                                                name={`quotation.items[${index}].lamination`}
-                                                                                onBlur={handleBlur}
-                                                                                onChange={handleChange}
-                                                                                value={values.quotation.items[index].lamination}
-                                                                                variant="outlined"
-                                                                            >
-                                                                                {laminationTypes.map((laminationType, index)=>{
-                                                                                    return (
-                                                                                        <MenuItem value={laminationType.id}>
-                                                                                            {laminationType.lamination_type}
-                                                                                        </MenuItem>
-                                                                                    )
-                                                                                })}
-                                                                                <MenuItem value={null}>
-                                                                                    None
-                                                                                </MenuItem>
-                                                                            </TextField>
-                                                                            <TextField
-                                                                                select
-                                                                                label="Binding Type"
-                                                                                fullWidth
-                                                                                margin="normal"
-                                                                                name={`quotation.items[${index}].binding`}
-                                                                                onBlur={handleBlur}
-                                                                                onChange={handleChange}
-                                                                                value={values.quotation.items[index].binding}
-                                                                                variant="outlined"
-                                                                            >
-                                                                                {bindingTypes.map((bindingType, index)=>{
-                                                                                    return (
-                                                                                        <MenuItem value={bindingType.id}>
-                                                                                            {bindingType.binding_type}
-                                                                                        </MenuItem>
-                                                                                    )
-                                                                                })}
-                                                                                <MenuItem value={null}>
-                                                                                    None
-                                                                                </MenuItem>
-                                                                            </TextField>
-                                                                            <TextField
-                                                                                select
-                                                                                label="Paper Type"
-                                                                                fullWidth
-                                                                                margin="normal"
-                                                                                name={`quotation.items[${index}].paper`}
-                                                                                onBlur={handleBlur}
-                                                                                onChange={handleChange}
-                                                                                value={values.quotation.items[index].paper}
-                                                                                variant="outlined"
-                                                                            >
-                                                                                {paperTypes.map((paperType, index)=>{
-                                                                                    return (
-                                                                                        <MenuItem value={paperType.id}>
-                                                                                            {paperType.paper_type}
-                                                                                        </MenuItem>
-                                                                                    )
-                                                                                })}
-                                                                                <MenuItem value={null}>
-                                                                                    None
-                                                                                </MenuItem>
-                                                                            </TextField>
-                                                                        </Grid>
-                                                                        )
-                                                                    }
-                                                                )
-                                                            }
-                                                            <Button
-                                                                color="primary"
-                                                                // disabled={isSubmitting}
-                                                                fullWidth
-                                                                size="large"
-                                                                type="button"
-                                                                variant="outlined"
-                                                                onClick={
-                                                                    ()=>push({
-                                                                        id: 1,
-                                                                        lamination: null,
-                                                                        binding: null,
-                                                                        paper: null,
-                                                                        extra_plates: [],
-                                                                        item_type: "other",
-                                                                        no_colors: 4,
-                                                                        no_plates_per_copy: 1,
-                                                                        no_impressions_per_plate: 1,
-                                                                        no_sheets_ordered_for_copy: 1,
-                                                                        quotation: values.quotation.id
-                                                                    })
-                                                                }
-                                                            >
-                                                                Add new item
-                                                            </Button>
-                                                        </Container>
+                                                        return (
+                                                        <QuotationItem
+                                                            handleBlur={handleBlur}
+                                                            handleChange={handleChange}
+                                                            values={values}
+                                                            push={push}
+                                                            remove={remove}
+                                                            laminationTypes={laminationTypes}
+                                                            paperTypes={paperTypes}
+                                                            bindingTypes={bindingTypes}
+                                                        >
+                                                        </QuotationItem>
+                                                        )
                                                     }}
                                             </FieldArray>
                                         </Grid>
