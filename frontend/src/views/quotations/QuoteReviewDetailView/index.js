@@ -155,6 +155,67 @@ const QuoteReviewDetail = (props) => {
         }
         // console.log(quoteDetails);
     }
+
+    async function updateQuotation (quotation) {
+        const allowedQuotationFields = [
+            'project_name',
+            'product_type',
+            'approval_status',
+            'printing_process',
+            'quantity',
+            'items',
+        ]
+        const allowedQuotationItemFields = [
+            'id',
+            'lamination',
+            'binding',
+            'paper',
+            'extra_plates',
+            'item_type',
+            'no_colors',
+            'no_plates_per_copy',
+            'no_impressions_per_plate',
+            'no_sheets_ordered_for_copy',
+            'quotation'
+        ]
+
+        const filteredQuotationData = Object.keys(quotation)
+            .filter(key => allowedQuotationFields.includes(key))
+            .reduce((object,key)=>{
+                object[key] = quotation[key]
+                return object
+            }, {});
+
+        // console.log(quotation.items);
+        const filteredQuotationItemsData = []
+
+        for(let i = 0; i < quotation.items.length; i++)
+        {
+            let item = quotation.items[i];
+            console.log(item);
+            let filteredQuotationItemData = Object.keys(item)
+                .filter(key=>allowedQuotationItemFields.includes(key))
+                .reduce((object,key)=>{
+                    object[key] = item[key]
+                    return object;
+                },{});
+            filteredQuotationItemsData.push(filteredQuotationItemData);
+        }
+        filteredQuotationData.items = filteredQuotationItemsData;
+
+        const updateResult = await axios.put(`api/quotations/${quotation.id}`,filteredQuotationData)
+            .then(
+                (response)=>{
+                    console.log(response.data);
+                }
+            )
+            .catch(
+                (error)=>{
+                    console.log(JSON.stringify(filteredQuotationData));
+                    console.log(error);
+                }
+            );
+    }
     useEffect(() => {    
         fetchData();
     }, [])
@@ -180,13 +241,13 @@ const QuoteReviewDetail = (props) => {
                             finishComputing: false,
                         }}
                         onSubmit={(values, actions) => {
+                            updateQuotation(values.quotation);
                             if(values.finishComputing)
                             {
                                 navigate('/app/quote/review')
                             }
                             else
                             {
-
                                 fetchData();
                             }
                         }}
