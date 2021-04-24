@@ -229,14 +229,14 @@ const QuoteReviewDetail = (props) => {
         const updateResult = axios.put(`api/quotations/${quotation.id}/`,filteredQuotationData)
             .then(
                 (response)=>{
-                    console.log("SUCCESS! (?) ", response.data);
+                    // console.log("SUCCESS! (?) ", response.data);
                 }
             )
             .catch(
                 (error)=>{
-                    console.log(JSON.stringify(filteredQuotationData));
-                    console.log(filteredQuotationData);
-                    console.log(error);
+                    // console.log(JSON.stringify(filteredQuotationData));
+                    // console.log(filteredQuotationData);
+                    // console.log(error);
                 }
             );
     }
