@@ -137,38 +137,42 @@ const ProjectSettings = (props) =>
                 variant="h5"
                 align="left"
             >
-                Cost Settings
+                Cost Computation Settings
             </Typography>
-            <TextField
-                fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
-                type="number"
-                label="Markup Percentage"
-                margin="normal"
-                name="quotation.markup_percentage"
-                onBlur={props.handleBlur}
-                onChange={props.handleChange}
-                value={props.values.quotation.markup_percentage}
-                variant="outlined"
-            >
-            </TextField>
-            <TextField
-                fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
-                type="number"
-                label="Margin of Error"
-                margin="normal"
-                name="quotation.margin_of_error"
-                onBlur={props.handleBlur}
-                onChange={props.handleChange}
-                value={props.values.quotation.margin_of_error}
-                variant="outlined"
-            >
-            </TextField>
+            <Grid container>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        fullWidth
+                        // inputProps = {
+                        //     { readOnly: true, }
+                        // }
+                        type="number"
+                        label="Markup Percentage"
+                        margin="normal"
+                        name="quotation.markup_percentage"
+                        onBlur={props.handleBlur}
+                        onChange={props.handleChange}
+                        value={props.values.quotation.markup_percentage}
+                        variant="outlined"
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        fullWidth
+                        // inputProps = {
+                        //     { readOnly: true, }
+                        // }
+                        type="number"
+                        label="Margin of Error"
+                        margin="normal"
+                        name="quotation.margin_of_error"
+                        onBlur={props.handleBlur}
+                        onChange={props.handleChange}
+                        value={props.values.quotation.margin_of_error}
+                        variant="outlined"
+                    />
+                </Grid>
+            </Grid>
         </Box>
         <Box mb={1}>
             <Typography
@@ -178,66 +182,90 @@ const ProjectSettings = (props) =>
             >
                 Project Dimensions
             </Typography>
-            <TextField
-                fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
-                type="number"
-                label="Page Length"
-                margin="normal"
-                name="quotation.page_length"
-                onBlur={props.handleBlur}
-                onChange={props.handleChange}
-                value={props.values.quotation.page_length}
-                variant="outlined"
+            <Typography
+                color="textSecondary"
+                variant="h6"
+                align="left"
             >
-            </TextField>
-            <TextField
-                fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
-                type="number"
-                label="Page Width"
-                margin="normal"
-                name="quotation.page_width"
-                onBlur={props.handleBlur}
-                onChange={props.handleChange}
-                value={props.values.quotation.page_width}
-                variant="outlined"
+                Folded Size
+            </Typography>
+            <Grid container>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        fullWidth
+                        // inputProps = {
+                        //     { readOnly: true, }
+                        // }
+                        type="number"
+                        label="Page Length"
+                        margin="normal"
+                        name="quotation.page_length"
+                        onBlur={props.handleBlur}
+                        onChange={props.handleChange}
+                        value={props.values.quotation.page_length}
+                        variant="outlined"
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        fullWidth
+                        // inputProps = {
+                        //     { readOnly: true, }
+                        // }
+                        type="number"
+                        label="Page Width"
+                        margin="normal"
+                        name="quotation.page_width"
+                        onBlur={props.handleBlur}
+                        onChange={props.handleChange}
+                        value={props.values.quotation.page_width}
+                        variant="outlined"
+                    />
+                </Grid>
+            </Grid>
+            
+            <Typography
+                color="textSecondary"
+                variant="h6"
+                align="left"
             >
-            </TextField>
-            <TextField
-                fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
-                type="number"
-                label="Spread Length"
-                margin="normal"
-                name="quotation.spread_length"
-                onBlur={props.handleBlur}
-                onChange={props.handleChange}
-                value={props.values.quotation.spread_length}
-                variant="outlined"
-            >
-            </TextField>
-            <TextField
-                fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
-                type="number"
-                label="Spread Width"
-                margin="normal"
-                name="quotation.spread_width"
-                onBlur={props.handleBlur}
-                onChange={props.handleChange}
-                value={props.values.quotation.spread_width}
-                variant="outlined"
-            >
-            </TextField>
+                Spread Size
+            </Typography>
+            <Grid container>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        fullWidth
+                        // inputProps = {
+                        //     { readOnly: true, }
+                        // }
+                        type="number"
+                        label="Spread Length"
+                        margin="normal"
+                        name="quotation.spread_length"
+                        onBlur={props.handleBlur}
+                        onChange={props.handleChange}
+                        value={props.values.quotation.spread_length}
+                        variant="outlined"
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        fullWidth
+                        // inputProps = {
+                        //     { readOnly: true, }
+                        // }
+                        type="number"
+                        label="Spread Width"
+                        margin="normal"
+                        name="quotation.spread_width"
+                        onBlur={props.handleBlur}
+                        onChange={props.handleChange}
+                        value={props.values.quotation.spread_width}
+                        variant="outlined"
+                    />
+                </Grid>
+            </Grid>
+            
         </Box>
     </Grid>
     )
