@@ -124,7 +124,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     {
       href: '/app/products',
       icon: ShoppingBagIcon,
-      title: 'Order Tracking',
+      title: 'Request Quotation',
       handleClick: () => {
 
       },
