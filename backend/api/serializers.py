@@ -174,7 +174,7 @@ class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='quotations-detail')
     
     # Related Objects
-    product_type=ProductSerializer(read_only=True)
+    product_type = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
     client = AccountListSerializer(read_only=True)
     
     # Read only fields (AKA properties)
@@ -212,7 +212,7 @@ class QuotationDetailSerializer(serializers.ModelSerializer):
     
     # Related Objects
     items=QuotationItemListSerializer(many=True, read_only=True)
-    product_type=ProductSerializer(read_only=True)
+    product_type = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
     client = AccountListSerializer(read_only=True)
     
     # Read only fields (AKA properties)
@@ -296,7 +296,19 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
                 'approval_status',
                 'printing_process',
                 'quantity',
-                'items')
+                'total_pages',
+                'markup_percentage',
+                'margin_of_error',
+                'items',
+                'page_length',
+                'page_width',
+                'pages_can_fit',
+                'total_binding_costs',
+                'total_folds',
+                'cutting_costs',
+                'packaging_costs',
+                'transport_costs'
+                )
 
 # Main Quotation serializer (for create actions)
 class QuotationSerializer(serializers.ModelSerializer):
