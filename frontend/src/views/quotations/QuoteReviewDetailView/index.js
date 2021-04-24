@@ -83,17 +83,6 @@ FORMAT FOR POST REQUEST:
 }
 */
 
-/*
-TODO: Refactor these 1000+ lines of code into separate files:
-- index.js (here)
-- ProjectSettings.js [DONE]
-- PlatesRunningPaper.js [DONE]
-- Finishing [DONE]
-- ExtraCosts.js [DONE]
-- QuotationItem.js [DONE]
-- ProjectSummaryDialog.js [DONE]
-*/
-
 const QuoteReviewDetail = (props) => {
     const classes = useStyles();
     const navigate = useNavigate();
@@ -169,7 +158,7 @@ const QuoteReviewDetail = (props) => {
     useEffect(() => {    
         fetchData();
     }, [])
-    console.log(quoteDetails)
+    // console.log(quoteDetails)
     return (
         <Page
           className={classes.root}
@@ -327,7 +316,8 @@ const QuoteReviewDetail = (props) => {
                     </Formik>
                 </Container>
             </Box>
-        </Page>);
+        </Page>
+    );
 }
 
 export default QuoteReviewDetail;
