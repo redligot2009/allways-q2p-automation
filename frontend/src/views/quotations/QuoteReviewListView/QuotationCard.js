@@ -262,7 +262,7 @@ const ProductCard = ({ className, quotation, ...rest }) => {
           </Grid>
         </Box>
         <Box>
-          <Button 
+          {/* <Button 
             variant="contained" 
             color="primary" 
             md={3}
@@ -273,10 +273,15 @@ const ProductCard = ({ className, quotation, ...rest }) => {
             }
           >
             COMPUTE QUOTATION
-          </Button>
+          </Button> */}
           <Button 
             variant="outlined" 
             color="primary"
+            onClick={
+              ()=>{
+                navigate('/app/quote/detail',{state: {id: quotation.id}})
+              }
+            }
           >
             REVIEW PRODUCT SPECS
           </Button>

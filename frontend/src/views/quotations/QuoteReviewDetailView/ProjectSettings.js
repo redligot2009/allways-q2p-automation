@@ -114,7 +114,61 @@ const ProjectSettings = (props) =>
                 <MenuItem value="not_approved">
                     Not Approved
                 </MenuItem>
+            </TextField>
+            <TextField
+                fullWidth
+                // inputProps = {
+                //     { readOnly: true, }
+                // }
+                type="number"
+                label="Quantity"
+                margin="normal"
+                name="quotation.quantity"
+                onBlur={props.handleBlur}
+                onChange={props.handleChange}
+                value={props.values.quotation.quantity}
+                variant="outlined"
+            >
             </TextField>    
+        </Box>
+        <Box mb={1}>
+            <Typography
+                color="textSecondary"
+                variant="h5"
+                align="left"
+            >
+                Cost Settings
+            </Typography>
+            <TextField
+                fullWidth
+                // inputProps = {
+                //     { readOnly: true, }
+                // }
+                type="number"
+                label="Markup Percentage"
+                margin="normal"
+                name="quotation.markup_percentage"
+                onBlur={props.handleBlur}
+                onChange={props.handleChange}
+                value={props.values.quotation.markup_percentage}
+                variant="outlined"
+            >
+            </TextField>
+            <TextField
+                fullWidth
+                // inputProps = {
+                //     { readOnly: true, }
+                // }
+                type="number"
+                label="Margin of Error"
+                margin="normal"
+                name="quotation.margin_of_error"
+                onBlur={props.handleBlur}
+                onChange={props.handleChange}
+                value={props.values.quotation.margin_of_error}
+                variant="outlined"
+            >
+            </TextField>
         </Box>
         <Box mb={1}>
             <Typography

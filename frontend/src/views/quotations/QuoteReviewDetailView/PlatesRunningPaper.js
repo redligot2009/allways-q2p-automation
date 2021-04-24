@@ -49,20 +49,35 @@ const PlatesRunningPaper = (props) => {
                 //     { readOnly: true, }
                 // }
                 type="number"
-                label="Number of Plates"
+                label="Pages Can Fit (per plate)"
                 margin="normal"
-                name="quotation.total_no_plates"
+                name="quotation.pages_can_fit"
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
-                value={props.values.quotation.total_no_plates}
+                value={props.values.quotation.pages_can_fit}
                 variant="outlined"
             >
             </TextField>
             <TextField
                 fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
+                inputProps = {
+                    { readOnly: true, }
+                }
+                type="number"
+                label="Total Number of Plates"
+                margin="normal"
+                name="quotation.total_no_plates"
+                onBlur={props.handleBlur}
+                onChange={props.handleChange}
+                value={props.values.quotation.total_no_plates}
+                variant="filled"
+            >
+            </TextField>
+            <TextField
+                fullWidth
+                inputProps = {
+                    { readOnly: true, }
+                }
                 type="number"
                 label="Total Plate Costs"
                 margin="normal"
@@ -70,15 +85,15 @@ const PlatesRunningPaper = (props) => {
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 value={props.values.quotation.total_plate_costs}
-                variant="outlined"
+                variant="filled"
             >
             </TextField>
 
             <TextField
                 fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
+                inputProps = {
+                    { readOnly: true, }
+                }
                 type="number"
                 label="Total Running Costs"
                 margin="normal"
@@ -86,23 +101,23 @@ const PlatesRunningPaper = (props) => {
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 value={props.values.quotation.total_running_costs}
-                variant="outlined"
+                variant="filled"
             >
             </TextField>
 
             <TextField
                 fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
+                inputProps = {
+                    { readOnly: true, }
+                }
                 type="number"
-                label="Total Number of Sheets"
+                label="Total Number of Sheets (per copy)"
                 margin="normal"
                 name="quotation.total_no_sheets"
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 value={props.values.quotation.total_no_sheets}
-                variant="outlined"
+                variant="filled"
             >
             </TextField>
 
@@ -124,9 +139,9 @@ const PlatesRunningPaper = (props) => {
             
             <TextField
                 fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
+                inputProps = {
+                    { readOnly: true, }
+                }
                 type="number"
                 label="Total Paper Costs"
                 margin="normal"
@@ -134,7 +149,7 @@ const PlatesRunningPaper = (props) => {
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 value={props.values.quotation.total_paper_costs}
-                variant="outlined"
+                variant="filled"
             >
             </TextField>
         </Grid>

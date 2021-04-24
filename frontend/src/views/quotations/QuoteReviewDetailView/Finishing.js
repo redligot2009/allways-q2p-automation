@@ -45,9 +45,9 @@ const Finishing = (props) => {
             </Typography>
             <TextField
                 fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
+                inputProps = {
+                    { readOnly: true, }
+                }
                 type="number"
                 label="Total Lamination Costs"
                 margin="normal"
@@ -55,7 +55,7 @@ const Finishing = (props) => {
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 value={props.values.quotation.total_lamination_costs}
-                variant="outlined"
+                variant="filled"
             >
             </TextField>
             <Typography
@@ -93,7 +93,7 @@ const Finishing = (props) => {
                 //     { readOnly: true, }
                 // }
                 type="number"
-                label="Total Folds"
+                label="Total Folds (per copy)"
                 margin="normal"
                 name="quotation.total_folds"
                 onBlur={props.handleBlur}
@@ -104,9 +104,9 @@ const Finishing = (props) => {
             </TextField>
             <TextField
                 fullWidth
-                // inputProps = {
-                //     { readOnly: true, }
-                // }
+                inputProps = {
+                    { readOnly: true, }
+                }
                 type="number"
                 label="Total Folding Costs"
                 margin="normal"
@@ -114,7 +114,7 @@ const Finishing = (props) => {
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 value={props.values.quotation.total_folding_costs}
-                variant="outlined"
+                variant="filled"
             >
             </TextField>
             <Typography

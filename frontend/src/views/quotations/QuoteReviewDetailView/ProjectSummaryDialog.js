@@ -162,8 +162,8 @@ const ProjectSummaryDialog = (props) => {
                                 variant="contained"
                                 // onClick={handleOpenDialog}
                                 onClick={(e)=>{
-                                    props.values.finishComputing = true
-                                    props.handleSubmit(e)
+                                    props.values.finishComputing = true;
+                                    props.handleSubmit(e);
                                 }}
                             >
                                 Submit Quotation
