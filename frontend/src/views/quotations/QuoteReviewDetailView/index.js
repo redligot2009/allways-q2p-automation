@@ -29,6 +29,7 @@ import axios from 'axios';
 // import { register } from "../../_actions/auth";
 
 import QuotationItem from './QuotationItem';
+import ProjectSettings from './ProjectSettings';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -81,18 +82,12 @@ FORMAT FOR POST REQUEST:
 /*
 TODO: Refactor these 1000+ lines of code into separate files:
 - index.js (here)
-- ProjectSummary.js
-- QuotationItem.js
-
-TODO: Implement update requests to make changes reflect in database. 
-Idea: Make it "autosave" and "auto-update." 
-(i.e., each time a form field is updated, a PATCH update is made to update the backend, 
-    and reflect changes on frontend simultaneously. Kinda like server-side rendering.)
-Would this be too costly though? I think not, at least for demo purposes. Optimization can follow.
+- ProjectSettings.js
+- PlatesPaperRunning.js
+- FinishingAndExtraCosts.js
+- QuotationItem.js [DONE]
 
 */
-
-
 
 const QuoteReviewDetail = (props) => {
     const classes = useStyles();
@@ -224,168 +219,11 @@ const QuoteReviewDetail = (props) => {
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={6}>
                                     <Box mb={3}>
-                                        <Grid item xs={12}>
-                                            <Typography
-                                                color="textPrimary"
-                                                variant="h3"
-                                                align="left"
-                                            >
-                                                Project Settings
-                                            </Typography>
-                                            <Box mb={1}>
-                                                <Typography
-                                                    color="textSecondary"
-                                                    variant="h5"
-                                                    align="left"
-                                                >
-                                                    Project Information
-                                                </Typography>
-                                                <TextField
-                                                    fullWidth
-                                                    // inputProps = {
-                                                    //     { readOnly: true, }
-                                                    // }
-                                                    label="Project Name"
-                                                    margin="normal"
-                                                    name="quotation.project_name"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.quotation.project_name}
-                                                    variant="outlined"
-                                                >
-                                                </TextField>
-
-                                                <TextField
-                                                    fullWidth
-                                                    inputProps = {
-                                                        { readOnly: true, }
-                                                    }
-                                                    label="Client Name"
-                                                    margin="normal"
-                                                    name="quotation.client.full_name"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.quotation.client.full_name + " (" +  values.quotation.client.user + ")"}
-                                                    variant="filled"
-                                                >
-                                                    
-                                                </TextField>
-
-                                                <TextField
-                                                    fullWidth
-                                                    inputProps = {
-                                                        { readOnly: true, }
-                                                    }
-                                                    type="date"
-                                                    label="Created Date"
-                                                    margin="normal"
-                                                    name="quotation.created_date"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={format(new Date(values.quotation.created_date),"yyyy-MM-dd")}
-                                                    // defaultValue={values.quotation.created_date}
-                                                    variant="filled"
-                                                    InputLabelProps={{ shrink: true }}
-                                                >
-
-                                                </TextField>
-
-                                                <TextField
-                                                    select
-                                                    label="Approval Status"
-                                                    fullWidth
-                                                    margin="normal"
-                                                    name="quotation.approval_status"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.quotation.approval_status}
-                                                    variant="outlined"
-                                                >
-                                                    <MenuItem value="in_progress">
-                                                        In Progress
-                                                    </MenuItem>
-                                                    <MenuItem value="computed">
-                                                        Computed
-                                                    </MenuItem>
-                                                    <MenuItem value="approved">
-                                                        Approved
-                                                    </MenuItem>
-                                                    <MenuItem value="not_approved">
-                                                        Not Approved
-                                                    </MenuItem>
-                                                </TextField>
-
-                                            </Box>
-                                            <Box mb={1}>
-                                                <Typography
-                                                    color="textSecondary"
-                                                    variant="h5"
-                                                    align="left"
-                                                >
-                                                    Project Dimensions
-                                                </Typography>
-                                                <TextField
-                                                    fullWidth
-                                                    // inputProps = {
-                                                    //     { readOnly: true, }
-                                                    // }
-                                                    type="number"
-                                                    label="Page Length"
-                                                    margin="normal"
-                                                    name="quotation.page_length"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.quotation.page_length}
-                                                    variant="outlined"
-                                                >
-                                                </TextField>
-                                                <TextField
-                                                    fullWidth
-                                                    // inputProps = {
-                                                    //     { readOnly: true, }
-                                                    // }
-                                                    type="number"
-                                                    label="Page Width"
-                                                    margin="normal"
-                                                    name="quotation.page_width"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.quotation.page_width}
-                                                    variant="outlined"
-                                                >
-                                                </TextField>
-                                                <TextField
-                                                    fullWidth
-                                                    // inputProps = {
-                                                    //     { readOnly: true, }
-                                                    // }
-                                                    type="number"
-                                                    label="Spread Length"
-                                                    margin="normal"
-                                                    name="quotation.spread_length"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.quotation.spread_length}
-                                                    variant="outlined"
-                                                >
-                                                </TextField>
-                                                <TextField
-                                                    fullWidth
-                                                    // inputProps = {
-                                                    //     { readOnly: true, }
-                                                    // }
-                                                    type="number"
-                                                    label="Spread Width"
-                                                    margin="normal"
-                                                    name="quotation.spread_width"
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.quotation.spread_width}
-                                                    variant="outlined"
-                                                >
-                                                </TextField>
-                                            </Box>
-                                        </Grid>
+                                        <ProjectSettings
+                                            handleBlur={handleBlur}
+                                            handleChange={handleChange}
+                                            values={values}
+                                        />
                                         <Grid item xs={12}>
                                             <Typography
                                                 color="textPrimary"
@@ -408,8 +246,7 @@ const QuoteReviewDetail = (props) => {
                                                             laminationTypes={laminationTypes}
                                                             paperTypes={paperTypes}
                                                             bindingTypes={bindingTypes}
-                                                        >
-                                                        </QuotationItem>
+                                                        />
                                                         )
                                                     }}
                                             </FieldArray>
@@ -648,7 +485,7 @@ const QuoteReviewDetail = (props) => {
                                                 variant="h3"
                                                 align="left"
                                             >
-                                                Cutting, Packaging, Transport
+                                                Extra Costs
                                             </Typography>
                                             <TextField
                                                 fullWidth
