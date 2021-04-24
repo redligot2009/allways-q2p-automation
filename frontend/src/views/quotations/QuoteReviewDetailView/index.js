@@ -380,9 +380,9 @@ const QuoteReviewDetail = (props) => {
                                         size="large"
                                         type="button"
                                         variant="contained"
-                                        onClick={()=>{
-                                            updateQuotation(values.quotation);
-                                            handleOpenDialog()
+                                        onClick={(e)=>{
+                                            handleSubmit(e);
+                                            handleOpenDialog();
                                         }}
                                         // onClick={handleSubmit}
                                     >
