@@ -168,7 +168,7 @@ const QuoteReviewDetail = (props) => {
     }
 
     function updateQuotation (quotation) {
-        console.log(quotation);
+        // console.log(quotation);
         const allowedQuotationFields = [
             "project_name",
             "product_type",
@@ -215,7 +215,7 @@ const QuoteReviewDetail = (props) => {
         for(let i = 0; i < quotation.items.length; i++)
         {
             let item = quotation.items[i];
-            console.log(item);
+            // console.log(item);
             let filteredQuotationItemData = Object.keys(item)
                 .filter(key=>allowedQuotationItemFields.includes(key))
                 .reduce((object,key)=>{
@@ -265,7 +265,7 @@ const QuoteReviewDetail = (props) => {
                             finishComputing: false,
                         }}
                         onSubmit={(values, actions) => {
-                            console.log(values.quotation);
+                            // console.log(values.quotation);
                             updateQuotation(values.quotation);
                             if(values.finishComputing)
                             {
