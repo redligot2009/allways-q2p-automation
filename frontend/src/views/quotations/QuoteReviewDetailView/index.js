@@ -52,6 +52,9 @@ FORMAT FOR POST REQUEST:
     "approval_status": "in_progress",
     "printing_process": "offset",
     "quantity": 300,
+    "total_pages": 36,
+    "markup_percentage": 0.15,
+    "margin_of_error": 0.1,
     "items": [
         {
             "id": 1,
@@ -74,12 +77,20 @@ FORMAT FOR POST REQUEST:
             "extra_plates": [],
             "item_type": "cover",
             "no_colors": 4,
-            "no_plates_per_copy": 1,
+            "no_plates_per_copy": 2,
             "no_impressions_per_plate": 300,
             "no_sheets_ordered_for_copy": 0.25,
             "quotation": 1
         }
-    ]
+    ],
+    "page_length": 8.5,
+    "page_width": 11.0,
+    "pages_can_fit": 4,
+    "total_binding_costs": 500.0,
+    "total_folds": 4,
+    "cutting_costs": 200.0,
+    "packaging_costs": 200.0,
+    "transport_costs": 400.0
 }
 */
 
@@ -156,14 +167,26 @@ const QuoteReviewDetail = (props) => {
         // console.log(quoteDetails);
     }
 
-    async function updateQuotation (quotation) {
+    function updateQuotation (quotation) {
+        console.log(quotation);
         const allowedQuotationFields = [
-            'project_name',
-            'product_type',
-            'approval_status',
-            'printing_process',
-            'quantity',
-            'items',
+            "project_name",
+            "product_type",
+            "approval_status",
+            "printing_process",
+            "quantity",
+            "total_pages",
+            "markup_percentage",
+            "margin_of_error",
+            "items",
+            "page_length",
+            "page_width",
+            "pages_can_fit",
+            "total_binding_costs",
+            "total_folds",
+            "cutting_costs",
+            "packaging_costs",
+            "transport_costs",
         ]
         const allowedQuotationItemFields = [
             'id',
@@ -203,15 +226,16 @@ const QuoteReviewDetail = (props) => {
         }
         filteredQuotationData.items = filteredQuotationItemsData;
 
-        const updateResult = await axios.put(`api/quotations/${quotation.id}`,filteredQuotationData)
+        const updateResult = axios.put(`api/quotations/${quotation.id}/`,filteredQuotationData)
             .then(
                 (response)=>{
-                    console.log(response.data);
+                    console.log("SUCCESS! (?) ", response.data);
                 }
             )
             .catch(
                 (error)=>{
                     console.log(JSON.stringify(filteredQuotationData));
+                    console.log(filteredQuotationData);
                     console.log(error);
                 }
             );
@@ -241,6 +265,7 @@ const QuoteReviewDetail = (props) => {
                             finishComputing: false,
                         }}
                         onSubmit={(values, actions) => {
+                            console.log(values.quotation);
                             updateQuotation(values.quotation);
                             if(values.finishComputing)
                             {
