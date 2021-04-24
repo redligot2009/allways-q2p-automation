@@ -19,6 +19,7 @@ import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import QuotationReviewList from 'src/views/quotations/QuoteReviewListView';
 import QuotationReviewDetail from 'src/views/quotations/QuoteReviewDetailView';
+import RequestForQuotation from 'src/views/quotations/RequestForQuotationView';
 import ProductView from 'src/views/product/ProductListView';
 import EmployeeView from 'src/views/employee/ProductListView';
 
@@ -73,7 +74,8 @@ function Routes() {
         { path: 'customers', element: limitRouteAccess(['O','AM'], <CustomerListView />) },
         { path:'quote', children: [
           { path: 'review', element: limitRouteAccess(['O', 'AM'], <QuotationReviewList />)},
-          { path: 'detail', element: <QuotationReviewDetail/>},
+          { path: 'detail', element: limitRouteAccess(['O', 'AM'],<QuotationReviewDetail/>)},
+          { path: 'request', element: <RequestForQuotation/>},
         ]},
         // { path: 'review', element: limitRouteAccess(['O', 'AM'], <QuotationReviewList />)},
         { path: 'dashboard', element: limitRouteAccess([],<DashboardView />)},
