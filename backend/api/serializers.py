@@ -272,7 +272,7 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
         instance.page_length = validated_data.get('page_length',instance.page_length)
         instance.pages_can_fit = validated_data.get('pages_can_fit',instance.pages_can_fit)
         instance.total_binding_costs = validated_data.get('total_binding_costs',instance.total_binding_costs)
-        instance.total_folds = validated_data.get('total_binding_costs',instance.total_binding_costs)
+        instance.total_folds = validated_data.get('total_folds',instance.total_folds)
         instance.cutting_costs = validated_data.get('cutting_costs',instance.cutting_costs)
         instance.packaging_costs = validated_data.get('packaging_costs',instance.packaging_costs)
         instance.transport_costs = validated_data.get('transport_costs',instance.transport_costs)
