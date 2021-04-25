@@ -27,6 +27,7 @@ import {
   } from "./types";
   
 import AuthService from "../_services/auth.service";
+import UsersService from "../_services/users.service";
 
 export const createNewEmployee = (account) => (dispatch) => {
 // TODO: Create new employee implementation
@@ -62,4 +63,59 @@ export const updateEmployeeProfile = (username, account) => (dispatch) => {
       })
       return Promise.reject();
     })
+}
+
+export const getProductionEmployees = () => {
+// TODO: Implementation of retrieving production employees
+  return UsersService.getEmployees("P")
+    .then((response)=>{
+      return Promise.resolve();
+    })
+    .catch((error)=>{
+      return Promise.reject();
+    })
+}
+
+export const getDriverEmployees = () => {
+  // TODO: Implementation of retrieving driver employees
+  return UsersService.getEmployees("D")
+  .then((response)=>{
+    return Promise.resolve();
+  })
+  .catch((error)=>{
+    return Promise.reject();
+  })
+}
+
+export const getOwnerEmployees = () => {
+  // TODO: Implementation of retrieving owner employees
+  return UsersService.getEmployees("O")
+  .then((response)=>{
+    return Promise.resolve();
+  })
+  .catch((error)=>{
+    return Promise.reject();
+  })
+}
+
+export const getAccountManagerEmployees = () => { 
+  // TODO: Implementation of retrieving owner employees
+  return UsersService.getEmployees("AM")
+  .then((response)=>{
+    return Promise.resolve();
+  })
+  .catch((error)=>{
+    return Promise.reject();
+  })
+}
+
+export const getAllAccounts = () => {
+  // TODO: Implementation of retrieving all accounts
+  return UsersService.getEmployees("")
+  .then((response)=>{
+    return Promise.resolve();
+  })
+  .catch((error)=>{
+    return Promise.reject();
+  })
 }
