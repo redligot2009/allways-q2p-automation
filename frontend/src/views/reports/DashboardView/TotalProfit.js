@@ -8,18 +8,22 @@ import {
   Grid,
   Typography,
   makeStyles,
-  colors
+  colors,
+  Box
 } from '@material-ui/core';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
   },
   avatar: {
-    backgroundColor: colors.indigo[600],
+    backgroundColor: colors.grey[600],
     height: 56,
     width: 56
+  },
+  media: {
+    paddingTop: "7%"
   }
 }));
 
@@ -32,32 +36,42 @@ const TotalProfit = ({ className, ...rest }) => {
       {...rest}
     >
       <CardContent>
+
         <Grid
           container
-          justify="space-between"
+          justify="center"
           spacing={3}
+          className={classes.media}
         >
+        <Grid container justify="center">
+            <Avatar className={classes.avatar}>
+              <SettingsIcon />
+            </Avatar>
+        </Grid>
           <Grid item>
             <Typography
               color="textSecondary"
               gutterBottom
-              variant="h6"
+              align="center"
+              variant="h4"
             >
-              TOTAL PROFIT
+              ADJUST SETTINGS
             </Typography>
             <Typography
-              color="textPrimary"
-              variant="h3"
+              color="textSecondary"
+              variant="body1"
+              align="center"
             >
-              $23,200
+              Change your password and other details on hand
             </Typography>
           </Grid>
-          <Grid item>
-            <Avatar className={classes.avatar}>
-              <AttachMoneyIcon />
-            </Avatar>
-          </Grid>
         </Grid>
+        <Box
+          mt={2}
+          display="flex"
+          alignItems="center"
+        >
+        </Box>
       </CardContent>
     </Card>
   );
