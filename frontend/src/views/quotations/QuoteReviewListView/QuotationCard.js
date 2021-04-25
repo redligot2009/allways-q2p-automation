@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ProductCard = ({ className, quotation, ...rest }) => {
+const QuotationCard = ({ className, quotation, ...rest }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const getApprovalStatus = () => {
@@ -41,6 +41,8 @@ const ProductCard = ({ className, quotation, ...rest }) => {
         return "Approved";
       case "not_approved":
         return "Not Approved";
+      case "computed":
+        return "Computed";
       default:
         return "Unknown";
     }
@@ -291,9 +293,9 @@ const ProductCard = ({ className, quotation, ...rest }) => {
   );
 };
 
-ProductCard.propTypes = {
+QuotationCard.propTypes = {
   className: PropTypes.string,
   quotation: PropTypes.object.isRequired
 };
 
-export default ProductCard;
+export default QuotationCard;

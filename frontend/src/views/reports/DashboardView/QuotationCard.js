@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { AddBoxOutlined } from '@material-ui/icons';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const ProductCard = ({ className, quotation, ...rest }) => {
+const QuotationCard = ({ className, quotation, ...rest }) => {
   const classes = useStyles();
-
+  const navigate = useNavigate();
   const getApprovalStatus = () => {
     switch(quotation.approval_status)
     {
@@ -40,6 +41,8 @@ const ProductCard = ({ className, quotation, ...rest }) => {
         return "Approved";
       case "not_approved":
         return "Not Approved";
+      case "computed":
+        return "Computed";
       default:
         return "Unknown";
     }
@@ -155,122 +158,27 @@ const ProductCard = ({ className, quotation, ...rest }) => {
             </Grid>
           </Grid>
         </Box>
-        <Box 
-          display="flex" 
-          flexDirection="column" 
-          mb={3}
-        >
-          <Grid 
-            container 
-            spacing={1}
-          >
-            <Grid 
-              item 
-              xs={6}
-            >
-              <Typography 
-                align="left" 
-                color="textSecondary" 
-                gutterBottom 
-                variant="h5"
-              >
-                Page Dimensions (Length x Width):
-              </Typography>
-              <Typography 
-                align="left" 
-                color="textSecondary" 
-                gutterBottom 
-                variant="body1"
-              >
-                {(Number)(quotation.page_length).toFixed(2)}" x {(Number)(quotation.page_width).toFixed(2)}"
-                {/* {(Number)(quotation.raw_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
-              </Typography>
-            </Grid>
-
-            <Grid 
-              item 
-              xs={6}
-            >
-              <Typography 
-                align="left" 
-                color="textSecondary" 
-                gutterBottom 
-                variant="h5"
-              >
-                Paper Types:
-              </Typography>
-              <Typography 
-                align="left" 
-                color="textSecondary" 
-                gutterBottom 
-                variant="body1"
-              >
-                {quotation.paper_types}
-                {/* {(Number)(quotation.raw_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid 
-            container 
-            spacing={1}
-          >
-            <Grid 
-              item 
-              xs={6}
-            >
-              <Typography 
-                align="left" 
-                color="textSecondary" 
-                gutterBottom 
-                variant="h5"
-              >
-                Lamination Types: 
-              </Typography>
-              <Typography 
-                align="left" 
-                color="textSecondary" 
-                gutterBottom 
-                variant="body1"
-              >
-                {quotation.lamination_types}
-                {/* {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
-              </Typography>
-            </Grid>
-            <Grid 
-              item 
-              xs={6}
-            >
-              <Typography 
-                align="left" 
-                color="textSecondary" 
-                gutterBottom 
-                variant="h5"
-              >
-                Binding Types:
-              </Typography>
-              <Typography 
-                align="left" 
-                color="textSecondary" 
-                gutterBottom 
-                variant="body1"
-              >
-                {quotation.binding_types}
-                {/* {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Box>
         <Box>
-          <Button 
+          {/* <Button 
             variant="contained" 
             color="primary" 
             md={3}
+            onClick={
+              ()=>{
+                navigate('/app/quote/detail',{state: {id: quotation.id}})
+              }
+            }
           >
             COMPUTE QUOTATION
-          </Button>
+          </Button> */}
           <Button 
             variant="outlined" 
             color="primary"
+            onClick={
+              ()=>{
+                navigate('/app/quote/detail',{state: {id: quotation.id}})
+              }
+            }
           >
             REVIEW PRODUCT SPECS
           </Button>
@@ -280,9 +188,9 @@ const ProductCard = ({ className, quotation, ...rest }) => {
   );
 };
 
-ProductCard.propTypes = {
+QuotationCard.propTypes = {
   className: PropTypes.string,
   quotation: PropTypes.object.isRequired
 };
 
-export default ProductCard;
+export default QuotationCard;
