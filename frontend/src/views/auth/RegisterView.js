@@ -79,12 +79,7 @@ const RegisterView = () => {
             onSubmit={(values, actions) => {
               // console.log("YO BOY!");
               dispatch(
-                register( values.username,
-                          values.email,
-                          values.password,
-                          values.first_name,
-                          values.middle_name,
-                          values.last_name))
+                register(values))
                 .then(()=>{
                   navigate('/app/dashboard', { replace: true });
                 })

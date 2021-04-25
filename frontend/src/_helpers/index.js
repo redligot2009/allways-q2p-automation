@@ -20,7 +20,7 @@ export const getResultURL = (baseURL="api/",urlParams = {}) => {
     return requestURL;
 }
 
-export const getFilteredObject = (rawObject={}, allowedFields={}) => {
+export const getFilteredObject = (rawObject={}, allowedFields=[]) => {
     if(Array.isArray(rawObject))
     {
         let filteredObjects = []
