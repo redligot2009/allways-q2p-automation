@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useSelector } from "react-redux";
-import { Link as RouterLink, useNavigate, useHistory } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useHistory, Link } from 'react-router-dom';
 
 import {
   Container,
@@ -38,19 +38,9 @@ const Dashboard = () => {
   const classes = useStyles();
   const [data, setData] = useState({in_progress:[],computed:[]});
   const [products] = useState(data);
-  const { isLoggedIn } = useSelector(state => state.auth);
-  // const { profile } = useSelector(state => state.auth);
-  const navigate = useNavigate();
-  // const user = JSON.parse(localStorage.getItem("user"));
+  const { profile : currentUserProfile } = useSelector(state => state.auth);
   
-  // useEffect(()=>{
-  //   // console.log("isLoggedIn: ", isLoggedIn);
-  //   // console.log(user);
-  //   if(isLoggedIn === false)
-  //   {
-  //     navigate('/login/', { replace: true });
-  //   }
-  // },[isLoggedIn, navigate]);
+  const navigate = useNavigate();
 
   return (
     <Page
@@ -64,7 +54,7 @@ const Dashboard = () => {
       color="textPrimary"
       variant="h2"
       >
-        Hello /name/! What would you like to do today?
+        Hello {currentUserProfile.full_name}! What would you like to do today?
       </Typography>
       </Box>
         <Grid
@@ -74,41 +64,25 @@ const Dashboard = () => {
           justify="flex-start"
           alignItems="flex-start"
         >
-          <Grid
-            items
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <Button><Budget /></Button>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <Link to={'/app/quote/review/'}>
+              <Budget />
+            </Link>
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <Button><TotalCustomers /></Button>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <Link to={'/'}>
+              <TotalCustomers />
+            </Link>
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <Button><TasksProgress /></Button>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <Link to={'/app/employees/'}>
+              <TasksProgress />
+            </Link>
           </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <Button><TotalProfit /></Button>
+          <Grid item lg={3} sm={6} xl={3} xs={12}>
+            <Link to={'/app/settings'}>
+              <TotalProfit />
+            </Link>
           </Grid>
           <Box ml={1} width={1} height={1}>
           <Typography className={classes.name}
