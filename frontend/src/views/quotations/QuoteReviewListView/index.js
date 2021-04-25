@@ -10,7 +10,9 @@ import Page from 'src/components/Page';
 import QuotationCard from './QuotationCard';
 import QuotationCardComputed from './QuotationCardComputed';
 // import data from './data';
-import axios from 'axios'
+import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import {getComputedQuotations, getInProgressQuotations} from "../../../_actions/quotation";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,15 +28,24 @@ const useStyles = makeStyles((theme) => ({
 
 const QuotationReviewList = () => {
   const classes = useStyles();
-  const [data, setData] = useState({in_progress:[],computed:[]});
+  const dispatch = useDispatch();
+
+  const {computedQuotations: computed} = useSelector((state)=>state.quotation);
+  const {inProgressQuotations: in_progress} = useSelector((state)=>state.quotation);
   
   useEffect(() => {
     async function fetchData(){
-      const in_progress = await axios.get('api/quotations/?approval_status=in_progress');
-      const computed = await axios.get('api/quotations/?approval_status=computed');
-      // console.log(in_progress.data);
-      // console.log(computed.data);
-      setData({ in_progress: in_progress.data, computed: computed.data});
+      try
+      {
+        await dispatch(getComputedQuotations());
+        await dispatch(getInProgressQuotations());
+        console.log(in_progress);
+        console.log(computed);
+      }
+      catch(error)
+      {
+        console.log(error);
+      }
     }
     fetchData();
   }, [])
@@ -55,7 +66,7 @@ const QuotationReviewList = () => {
               Awaiting Computation
             </Typography>
               <Box mt={2}>
-                {data.in_progress.map((quotation) => (
+                {in_progress ? in_progress.map((quotation) => (
                   <Grid item key={quotation.id} lg={12} md={12} xs={12}>
                     <Box mt={2}>
                       <QuotationCard 
@@ -64,7 +75,7 @@ const QuotationReviewList = () => {
                       />
                     </Box>
                   </Grid>
-                ))}
+                )) : null}
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -72,7 +83,7 @@ const QuotationReviewList = () => {
                 Awaiting Approval
               </Typography>
                 <Box mt={2}>
-                  {data.computed.map((quotation) => (
+                  {computed ? computed.map((quotation) => (
                     <Grid item key={quotation.id} lg={12} md={12} xs={12}>
                       <Box mt={2}>
                         <QuotationCardComputed
@@ -81,7 +92,7 @@ const QuotationReviewList = () => {
                         />
                       </Box>
                     </Grid>
-                  ))}
+                  )) : null}
                 </Box>
               </Grid>
             </Grid>

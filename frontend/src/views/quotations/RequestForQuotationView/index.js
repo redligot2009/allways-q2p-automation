@@ -28,12 +28,11 @@ import axios from 'axios';
 
 // import { register } from "../../_actions/auth";
 
+import {createQuotation} from "../../../_actions/quotation";
+
 import QuotationItem from './QuotationItem';
-// import ProjectSettings from './ProjectSettings';
-// import Finishing from './Finishing';
-// import PlatesRunningPaper from './PlatesRunningPaper';
-// import ExtraCosts from './ExtraCosts';
-// import ProjectSummaryDialog from './ProjectSummaryDialog';
+
+import { ToastContainer, toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -155,70 +154,13 @@ const RequestForQuotation = (props) => {
         }
         catch(error)
         {
-            handleGoBack();
+            toast.error("Product specifications failed to load.");
         }
         // console.log(quoteDetails);
     }
 
-    function createQuotation (quotation) {
-        // console.log(quotation);
-        const allowedQuotationFields = [
-            "project_name",
-            "product_type",
-            "created_date",
-            "client",
-            "approval_status",
-            "printing_process",
-            "quantity",
-            "items"
-        ]
-        const allowedQuotationItemFields = [
-            'lamination',
-            'binding',
-            'paper',
-            'extra_plates',
-            'item_type',
-            'no_colors',
-            'quotation'
-        ]
-
-        const filteredQuotationData = Object.keys(quotation)
-            .filter(key => allowedQuotationFields.includes(key))
-            .reduce((object,key)=>{
-                object[key] = quotation[key]
-                return object
-            }, {});
-
-        // console.log(quotation.items);
-        const filteredQuotationItemsData = []
-
-        for(let i = 0; i < quotation.items.length; i++)
-        {
-            let item = quotation.items[i];
-            // console.log(item);
-            let filteredQuotationItemData = Object.keys(item)
-                .filter(key=>allowedQuotationItemFields.includes(key))
-                .reduce((object,key)=>{
-                    object[key] = item[key]
-                    return object;
-                },{});
-            filteredQuotationItemsData.push(filteredQuotationItemData);
-        }
-        filteredQuotationData.items = filteredQuotationItemsData;
-
-        const createResult = axios.post(`api/quotations/`,filteredQuotationData)
-            .then(
-                (response)=>{
-                    console.log("SUCCESS! (?) ", response.data);
-                }
-            )
-            .catch(
-                (error)=>{
-                    console.log(JSON.stringify(filteredQuotationData));
-                    console.log(filteredQuotationData);
-                    console.log(error);
-                }
-            );
+    function handleCreateQuotation (quotation) {
+        return dispatch(createQuotation(quotation))
     }
     useEffect(() => {    
         fetchData();
@@ -268,15 +210,20 @@ const RequestForQuotation = (props) => {
                         }}
                         onSubmit={(values, actions) => {
                             // console.log(values.quotation);
-                            createQuotation(values.quotation);
-                            if(values.finishComputing)
-                            {
-                                navigate('/app/quote/review')
-                            }
-                            else
-                            {
-                                fetchData();
-                            }
+                            handleCreateQuotation(values.quotation)
+                                .then((response)=>{
+                                    if(values.finishComputing)
+                                    {
+                                        handleGoBack();
+                                    }
+                                    else
+                                    {
+                                        fetchData();
+                                    }
+                                })
+                                .catch((error)=>{
+                                    toast.error("Inputted quotation specifications are invalid.");
+                                })
                         }}
                     >
                     {({
