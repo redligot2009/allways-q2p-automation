@@ -295,12 +295,15 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
             item.no_plates_per_copy = item_data.get('no_plates_per_copy',item.no_plates_per_copy)
             item.no_sheets_ordered_for_copy = item_data.get('no_sheets_ordered_for_copy',item.no_sheets_ordered_for_copy)
             # Handle extra plates
-            extra_plates_data = item_data.pop('extra_plates')
-            extra_plates = list(item.extra_plates.all())
-            for extra_plate_data in extra_plates_data:
-                extra_plate = extra_plates.pop(0)
-                extra_plate.extra_plate_name = extra_plate_data.get('extra_plate_name',extra_plate.extra_plate_name)
-                extra_plate.no_impressions = extra_plate_data.get('no_impressions',extra_plate.no_impressions)
+            try:
+                extra_plates_data = item_data.pop('extra_plates')
+                extra_plates = list(item.extra_plates.all())
+                for extra_plate_data in extra_plates_data:
+                    extra_plate = extra_plates.pop(0)
+                    extra_plate.extra_plate_name = extra_plate_data.get('extra_plate_name',extra_plate.extra_plate_name)
+                    extra_plate.no_impressions = extra_plate_data.get('no_impressions',extra_plate.no_impressions)
+            except:
+                extra_plates = list()
             item.save()
         
         return instance
