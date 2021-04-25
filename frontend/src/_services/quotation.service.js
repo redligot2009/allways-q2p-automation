@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getResultURL, getFilteredObject} from "../_helpers/"
 
 /*
 ///////////////////////////////
@@ -27,27 +28,11 @@ const createQuotation = (quotation) => {
         'no_colors',
         'quotation'
     ]
-    const filteredQuotationData = Object.keys(quotation)
-        .filter(key => allowedQuotationFields.includes(key))
-        .reduce((object,key)=>{
-            object[key] = quotation[key]
-            return object
-        }, {});
-    // console.log(quotation.items);
-    const filteredQuotationItemsData = []
-    for(let i = 0; i < quotation.items.length; i++)
-    {
-        let item = quotation.items[i];
-        // console.log(item);
-        let filteredQuotationItemData = Object.keys(item)
-            .filter(key=>allowedQuotationItemFields.includes(key))
-            .reduce((object,key)=>{
-                object[key] = item[key]
-                return object;
-            },{});
-        filteredQuotationItemsData.push(filteredQuotationItemData);
-    }
+    
+    const filteredQuotationData = getFilteredObject(quotation,allowedQuotationFields)
+    const filteredQuotationItemsData = getFilteredObject(quotation.items,allowedQuotationItemFields)
     filteredQuotationData.items = filteredQuotationItemsData;
+    
     const createResult = axios.post(`api/quotations/`,filteredQuotationData)
     return createResult;
 }
@@ -59,29 +44,11 @@ const retrieveQuotation = (id) => {
 
 const retrieveQuotations = (approval_status=null,client=null) => {
     // TODO: Add support for filtering quotations by client
-    let requestURL = "api/quotations/";
     const urlParams = {
         "approval_status" : approval_status,
         "client" : client,
     }
-    let foundFirstParam = false;
-    let i = 0;
-    for(let key in urlParams)
-    {
-        if(urlParams[key])
-        {
-            if(!foundFirstParam)
-            {
-                requestURL = requestURL.concat("?")
-                foundFirstParam = true;
-            }
-            requestURL = requestURL.concat(`${key.toString()}=${urlParams[key]}`)
-            if(i > 0 && i < urlParams.length-1)
-                requestURL = requestURL.concat("&")
-        }
-        i++;
-    }
-    // console.log(requestURL);
+    let requestURL = getResultURL("api/quotations/", urlParams);
     const quotationsListResult = axios.get(requestURL);
     return quotationsListResult;
 }
@@ -126,28 +93,8 @@ const updateQuotation = (quotation) => {
         'quotation'
     ]
 
-    const filteredQuotationData = Object.keys(quotation)
-        .filter(key => allowedQuotationFields.includes(key))
-        .reduce((object,key)=>{
-            object[key] = quotation[key]
-            return object
-        }, {});
-
-    // console.log(quotation.items);
-    const filteredQuotationItemsData = []
-
-    for(let i = 0; i < quotation.items.length; i++)
-    {
-        let item = quotation.items[i];
-        // console.log(item);
-        let filteredQuotationItemData = Object.keys(item)
-            .filter(key=>allowedQuotationItemFields.includes(key))
-            .reduce((object,key)=>{
-                object[key] = item[key]
-                return object;
-            },{});
-        filteredQuotationItemsData.push(filteredQuotationItemData);
-    }
+    const filteredQuotationData = getFilteredObject(quotation,allowedQuotationFields)
+    const filteredQuotationItemsData = getFilteredObject(quotation.items,allowedQuotationItemFields)
     filteredQuotationData.items = filteredQuotationItemsData;
 
     const updateResult = axios.put(`api/quotations/${quotation.id}/`,filteredQuotationData)
