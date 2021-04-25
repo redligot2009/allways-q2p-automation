@@ -230,7 +230,6 @@ const QuotationItem = (props) => {
                 variant="outlined"
                 onClick={
                     ()=>props.push({
-                        id: 1,
                         lamination: null,
                         binding: null,
                         paper: null,

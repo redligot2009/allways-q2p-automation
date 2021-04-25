@@ -32,8 +32,8 @@ const QuotationReviewList = () => {
     async function fetchData(){
       const in_progress = await axios.get('api/quotations/?approval_status=in_progress');
       const computed = await axios.get('api/quotations/?approval_status=computed');
-      console.log(in_progress.data);
-      console.log(computed.data);
+      // console.log(in_progress.data);
+      // console.log(computed.data);
       setData({ in_progress: in_progress.data, computed: computed.data});
     }
     fetchData();

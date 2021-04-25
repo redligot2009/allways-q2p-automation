@@ -75,7 +75,7 @@ function Routes() {
         { path:'quote', children: [
           { path: 'review', element: limitRouteAccess(['O', 'AM'], <QuotationReviewList />)},
           { path: 'detail', element: limitRouteAccess(['O', 'AM'],<QuotationReviewDetail/>)},
-          { path: 'request', element: <RequestForQuotation/>},
+          { path: 'request', element: limitRouteAccess([],<RequestForQuotation/>)},
         ]},
         // { path: 'review', element: limitRouteAccess(['O', 'AM'], <QuotationReviewList />)},
         { path: 'dashboard', element: limitRouteAccess([],<DashboardView />)},

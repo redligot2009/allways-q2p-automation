@@ -185,16 +185,11 @@ const QuotationItem = (props) => {
                 variant="outlined"
                 onClick={
                     ()=>props.push({
-                        id: 1,
                         lamination: null,
                         binding: null,
                         paper: null,
-                        extra_plates: [],
                         item_type: "other",
                         no_colors: 4,
-                        no_plates_per_copy: 1,
-                        no_impressions_per_plate: 1,
-                        no_sheets_ordered_for_copy: 1,
                         quotation: props.values.quotation.id
                     })
                 }

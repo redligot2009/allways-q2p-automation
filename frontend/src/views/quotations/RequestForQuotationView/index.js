@@ -120,6 +120,7 @@ const RequestForQuotation = (props) => {
     const [paperTypes, setPaperTypes] = useState([]);
     const [laminationTypes, setLaminationTypes] = useState([])
     const [bindingTypes, setBindingTypes] = useState([])
+    const { profile: currentUserProfile } = useSelector((state) => state.auth)
     
     async function fetchData()
     {
@@ -164,33 +165,20 @@ const RequestForQuotation = (props) => {
         const allowedQuotationFields = [
             "project_name",
             "product_type",
+            "created_date",
+            "client",
             "approval_status",
             "printing_process",
             "quantity",
-            "total_pages",
-            "markup_percentage",
-            "margin_of_error",
-            "items",
-            "page_length",
-            "page_width",
-            "pages_can_fit",
-            "total_binding_costs",
-            "total_folds",
-            "cutting_costs",
-            "packaging_costs",
-            "transport_costs",
+            "items"
         ]
         const allowedQuotationItemFields = [
-            'id',
             'lamination',
             'binding',
             'paper',
             'extra_plates',
             'item_type',
             'no_colors',
-            'no_plates_per_copy',
-            'no_impressions_per_plate',
-            'no_sheets_ordered_for_copy',
             'quotation'
         ]
 
@@ -218,17 +206,17 @@ const RequestForQuotation = (props) => {
         }
         filteredQuotationData.items = filteredQuotationItemsData;
 
-        const updateResult = axios.put(`api/quotations/${quotation.id}/`,filteredQuotationData)
+        const createResult = axios.post(`api/quotations/`,filteredQuotationData)
             .then(
                 (response)=>{
-                    // console.log("SUCCESS! (?) ", response.data);
+                    console.log("SUCCESS! (?) ", response.data);
                 }
             )
             .catch(
                 (error)=>{
-                    // console.log(JSON.stringify(filteredQuotationData));
-                    // console.log(filteredQuotationData);
-                    // console.log(error);
+                    console.log(JSON.stringify(filteredQuotationData));
+                    console.log(filteredQuotationData);
+                    console.log(error);
                 }
             );
     }
@@ -255,22 +243,35 @@ const RequestForQuotation = (props) => {
                         initialValues={{
                             quotation: {
                                 "project_name": "",
-                                "product_type": null,
-                                "created_date": null,
-                                "client": null,
-                                "approval_status": null,
-                                "printing_process": null,
-                                "quantity": null,
-                                "items": []
+                                "product_type": 1,
+                                "client": currentUserProfile.id,
+                                "page_length":8.5,
+                                "page_width":11,
+                                "quantity": 1,
+                                "total_pages":1,
+                                "items": [{
+                                    lamination: null,
+                                    binding: null,
+                                    paper: null,
+                                    item_type: "cover",
+                                    no_colors: 4
+                                },
+                                {
+                                    lamination: null,
+                                    binding: null,
+                                    paper: null,
+                                    item_type: "inner",
+                                    no_colors: 4
+                                }]
                             },
                             finishComputing: false,
                         }}
                         onSubmit={(values, actions) => {
                             // console.log(values.quotation);
-                            // updateQuotation(values.quotation);
+                            createQuotation(values.quotation);
                             if(values.finishComputing)
                             {
-                                // navigate('/app/quote/review')
+                                navigate('/app/quote/review')
                             }
                             else
                             {
@@ -450,7 +451,10 @@ const RequestForQuotation = (props) => {
                                         size="large"
                                         type="button"
                                         variant="contained"
-                                        onClick={handleSubmit}
+                                        onClick={(e)=>{
+                                            values.finishComputing=true;
+                                            handleSubmit(e);
+                                        }}
                                         // onClick={handleSubmit}
                                     >
                                         Submit Request for Quotation
