@@ -149,7 +149,7 @@ const ProjectSummaryDialog = (props) => {
                                 variant="outlined"
                                 onClick={props.handleGoBack}
                             >
-                                Go back
+                                Return to Quote Review
                             </Button>
                         </Grid>
                         <Grid item xs={6}>
