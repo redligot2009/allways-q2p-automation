@@ -12,6 +12,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
+import { ToastContainer, toast } from 'react-toastify';
 // import FacebookIcon from 'src/icons/Facebook';
 // import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
@@ -65,6 +66,7 @@ const LoginView = (props) => {
                   .catch(error=>error)
                 })
                 .catch((error)=>{
+                  toast.error("User with inputted credentials not found.");
                   actions.setSubmitting(false);
                 })
             }}

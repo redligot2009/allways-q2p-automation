@@ -227,7 +227,7 @@ const RequestForQuotation = (props) => {
     return (
         <Page
           className={classes.root}
-          title="Register"
+          title="Request for Quotation"
         >
             <Box
                 display="flex"

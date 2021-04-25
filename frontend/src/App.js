@@ -15,9 +15,15 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
+        <ToastContainer 
+          position="top-right"
+          closeOnClick
+          hideProgressBar={true}
+          autoClose={2000}
+          draggable={false}
+        />
         <Routes>
         </Routes>
-      <ToastContainer hideProgressBar={true} newestOnTop={true} />
     </ThemeProvider>
   );
 };

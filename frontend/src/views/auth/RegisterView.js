@@ -14,6 +14,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../_actions/auth";
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 const RegisterView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const { message } = useSelector(state => state.message);
+  // const { message } = useSelector(state => state.message);
   const dispatch = useDispatch();
 
   return (
@@ -65,7 +66,13 @@ const RegisterView = () => {
                 middle_name: Yup.string().max(255),
                 last_name: Yup.string().max(255).required('Last name is required'),
                 // TODO: Mimic Django password validation behavior
-                password: Yup.string().max(255).required('Password is required'),
+                password: Yup.string()
+                          .max(255)
+                          .required('Password is required')
+                          .matches(
+                            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                            `Must contain: 8 characters, 1 uppercase, 1 lowercase, 1 number, and 1 special character.`
+                          ),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
@@ -83,7 +90,7 @@ const RegisterView = () => {
                 })
                 .catch((error)=>{
                   actions.setSubmitting(false);
-                  console.log("NOPE! " + error);
+                  toast.error("User with inputted credentials already exists.");
                 });
             }}
           >

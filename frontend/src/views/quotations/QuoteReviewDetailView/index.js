@@ -247,7 +247,7 @@ const QuoteReviewDetail = (props) => {
     return (
         <Page
           className={classes.root}
-          title="Register"
+          title="Quote Specifications Review"
         >
             <Box
                 display="flex"
