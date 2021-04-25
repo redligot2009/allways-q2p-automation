@@ -25,6 +25,7 @@ import logging
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     lookup_field = 'user__username'
+    filterset_fields=('job_position',)
     
     def get_serializer_class(self):
         if(self.action=='retrieve'):
@@ -33,8 +34,6 @@ class AccountViewSet(viewsets.ModelViewSet):
             return AccountUpdateSerializer
         else:
             return AccountListSerializer
-
-
 
 ##################################
 ### QUOTATION RELATED VIEWSETS ###
