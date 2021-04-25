@@ -21,7 +21,7 @@ import QuotationReviewList from 'src/views/quotations/QuoteReviewListView';
 import QuotationReviewDetail from 'src/views/quotations/QuoteReviewDetailView';
 import RequestForQuotation from 'src/views/quotations/RequestForQuotationView';
 import ProductView from 'src/views/product/ProductListView';
-import EmployeeView from 'src/views/employee/ProductListView';
+import EmployeeView from 'src/views/employee/EmployeeListView';
 
 function Routes() {
 

@@ -4,27 +4,23 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-
     PROFILE_FOUND,
     PROFILE_NOT_FOUND,
     PROFILE_UPDATE_SUCCESS,
     PROFILE_UPDATE_FAIL,
-
+    ALL_ACCOUNTS_FOUND,
+    ALL_ACCOUNTS_NOT_FOUND,
     CLIENTS_FOUND,
     CLIENTS_NOT_FOUND,
-
     PRODUCTION_EMPLOYEES_FOUND,
     PRODUCTION_EMPLOYEES_NOT_FOUND,
-
     DRIVER_EMPLOYEES_FOUND,
     DRIVER_EMPLOYEES_NOT_FOUND,
-    
     ACCOUNT_MANAGER_EMPLOYEES_FOUND,
     ACCOUNT_MANAGER_EMPLOYEES_NOT_FOUND,
-
     OWNER_EMPLOYEES_FOUND,
     OWNER_EMPLOYEES_NOT_FOUND,
-  } from "./types";
+} from "./types";
   
 import AuthService from "../_services/auth.service";
 import UsersService from "../_services/users.service";
@@ -65,57 +61,94 @@ export const updateEmployeeProfile = (username, account) => (dispatch) => {
     })
 }
 
-export const getProductionEmployees = () => {
+export const getProductionEmployees = () => (dispatch) => {
 // TODO: Implementation of retrieving production employees
   return UsersService.getEmployees("P")
     .then((response)=>{
+      dispatch({
+        type: PRODUCTION_EMPLOYEES_FOUND,
+        payload: {userAccounts: response.data}
+      })
       return Promise.resolve();
     })
     .catch((error)=>{
+      dispatch({
+        type: PRODUCTION_EMPLOYEES_NOT_FOUND
+      })
       return Promise.reject();
     })
 }
 
-export const getDriverEmployees = () => {
+export const getDriverEmployees = () => (dispatch) => {
   // TODO: Implementation of retrieving driver employees
   return UsersService.getEmployees("D")
-  .then((response)=>{
-    return Promise.resolve();
-  })
-  .catch((error)=>{
-    return Promise.reject();
-  })
+    .then((response)=>{
+      dispatch({
+        type: DRIVER_EMPLOYEES_FOUND,
+        payload: {userAccounts: response.data}
+      })
+      return Promise.resolve();
+    })
+    .catch((error)=>{
+      dispatch({
+        type: DRIVER_EMPLOYEES_NOT_FOUND
+      })
+      return Promise.reject();
+    })
 }
 
-export const getOwnerEmployees = () => {
+export const getOwnerEmployees = () => (dispatch) =>{
   // TODO: Implementation of retrieving owner employees
   return UsersService.getEmployees("O")
-  .then((response)=>{
-    return Promise.resolve();
-  })
-  .catch((error)=>{
-    return Promise.reject();
-  })
+    .then((response)=>{
+      dispatch({
+        type: OWNER_EMPLOYEES_FOUND,
+        payload: {userAccounts: response.data}
+      })
+      return Promise.resolve();
+    })
+    .catch((error)=>{
+      dispatch({
+        type: OWNER_EMPLOYEES_NOT_FOUND
+      })
+      return Promise.reject();
+    })
 }
 
-export const getAccountManagerEmployees = () => { 
+export const getAccountManagerEmployees = () => (dispatch) =>{ 
   // TODO: Implementation of retrieving owner employees
   return UsersService.getEmployees("AM")
   .then((response)=>{
+    dispatch({
+      type: ACCOUNT_MANAGER_EMPLOYEES_FOUND,
+      payload: {userAccounts: response.data}
+    })
+    console.log(response.data)
     return Promise.resolve();
   })
   .catch((error)=>{
+    dispatch({
+      type: ACCOUNT_MANAGER_EMPLOYEES_NOT_FOUND
+    })
+    console.log(error)
     return Promise.reject();
   })
 }
 
-export const getAllAccounts = () => {
+export const getAllAccounts = () => (dispatch) =>{
   // TODO: Implementation of retrieving all accounts
   return UsersService.getEmployees("")
-  .then((response)=>{
-    return Promise.resolve();
-  })
-  .catch((error)=>{
-    return Promise.reject();
-  })
+    .then((response)=>{
+      dispatch({
+        type: ALL_ACCOUNTS_FOUND,
+        payload: {userAccounts: response.data}
+      })
+      return Promise.resolve();
+    })
+    .catch((error)=>{
+      dispatch({
+        type: ALL_ACCOUNTS_NOT_FOUND
+      })
+      return Promise.reject();
+    })
 }

@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   Box,
   Container,
@@ -9,6 +12,12 @@ import {
 import Page from 'src/components/Page';
 import EmployeeCard from './EmployeeCard';
 import data from './data';
+import {
+  getAccountManagerEmployees,
+  getOwnerEmployees,
+  getDriverEmployees,
+  getProductionEmployees,
+} from "../../../_actions/users";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +33,29 @@ const useStyles = makeStyles((theme) => ({
 
 const EmployeeList = () => {
   const classes = useStyles();
-  const [employee] = useState(data);
+  const dispatch = useDispatch();
+  const {accountManagers} = useSelector(state=>state.users);
+  const {owners} = useSelector(state=>state.users);
+  const {productionEmployees} = useSelector(state=>state.users);
+  const {driverEmployees} = useSelector(state=>state.users);
+  // const [employee] = useState(data);
+
+  useEffect(()=>{
+    async function fetchData () {
+      await dispatch(getAccountManagerEmployees())
+        .then((response)=>{
+          console.log(response);
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+      await dispatch(getOwnerEmployees())
+      await dispatch(getDriverEmployees())
+      await dispatch(getProductionEmployees())
+      console.log(accountManagers);
+    }
+    fetchData();
+  },[]);
 
   return (
     <Page
@@ -41,7 +72,7 @@ const EmployeeList = () => {
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
-        <Grid item xs>
+        <Grid item xs={12} sm={6} md={4}>
             <Typography
               className={classes.name}
               color="textSecondary"
@@ -50,12 +81,24 @@ const EmployeeList = () => {
               Account Manager/Owner Access
             </Typography>
               <Box mt={2}>
-                {employee.map((employee) => (
+                {accountManagers && accountManagers.map((employee) => (
                   <Grid
                     item
                     key={employee.id}
-                    lg={12}
-                    md={6}
+                    xs={12}
+                  >
+                    <Box mt={2}>
+                    <EmployeeCard
+                      className={classes.employeeCard}
+                      employee={employee}
+                    />
+                    </Box>
+                  </Grid>
+                ))}
+                {owners && owners.map((employee) => (
+                  <Grid
+                    item
+                    key={employee.id}
                     xs={12}
                   >
                     <Box mt={2}>
@@ -68,7 +111,7 @@ const EmployeeList = () => {
                 ))}
               </Box>
             </Grid>
-          <Grid item xs>
+          <Grid item xs={12} sm={6} md={4}>
             <Typography
               className={classes.name}
               color="textSecondary"
@@ -77,12 +120,10 @@ const EmployeeList = () => {
               Production Team Access
             </Typography>
               <Box mt={2}>
-                {employee.map((employee) => (
+                {productionEmployees && productionEmployees.map((employee) => (
                   <Grid
                     item
                     key={employee.id}
-                    lg={12}
-                    md={6}
                     xs={12}
                   >
                     <Box mt={2}>
@@ -95,7 +136,7 @@ const EmployeeList = () => {
                 ))}
               </Box>
             </Grid>
-            <Grid item xs>
+            <Grid item xs={12} sm={6} md={4}>
               <Typography
                 className={classes.name}
                 color="textSecondary"
@@ -104,19 +145,17 @@ const EmployeeList = () => {
                 Driver Access
               </Typography>
                 <Box mt={2}>
-                  {employee.map((employee) => (
+                  {driverEmployees && driverEmployees.map((employee) => (
                     <Grid
                       item
                       key={employee.id}
-                      lg={12}
-                      md={6}
                       xs={12}
                     >
                       <Box mt={2}>
                       <EmployeeCard
-                      className={classes.employeeCard}
-                      employee={employee}
-                    />
+                        className={classes.employeeCard}
+                        employee={employee}
+                      />
                       </Box>
                     </Grid>
                   ))}

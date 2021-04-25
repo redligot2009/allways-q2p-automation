@@ -24,7 +24,7 @@ import {
 
     OWNER_EMPLOYEES_FOUND,
     OWNER_EMPLOYEES_NOT_FOUND,
-} from "./types";
+} from "../_actions/types";
 
 const initialState = {
     allUsers : null,
@@ -66,9 +66,10 @@ export default function (state = initialState, action) {
         case OWNER_EMPLOYEES_NOT_FOUND:
             return {
                 ...state,
-                owners: payload.userAccounts,
+                owners: null,
             }
         case ACCOUNT_MANAGER_EMPLOYEES_FOUND:
+            // console.log("WORKING! ", payload.userAccounts);
             return {
                 ...state,
                 accountManagers:  payload.userAccounts,

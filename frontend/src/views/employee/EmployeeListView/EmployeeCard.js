@@ -53,14 +53,14 @@ const EmployeeCard = ({ className, employee, ...rest }) => {
             color="textPrimary"
             variant="h4"
             >
-              {employee.employeeName}
+              {employee.full_name}
             </Typography>
             <Typography
               color="textSecondary"
               variant="subtitle2"
               align="bottom"
             >
-              {employee.employeeJob}
+              {employee.job_position}
             </Typography>
         </Box>
         </Grid>
