@@ -29,7 +29,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if(self.action=='retrieve'):
             return AccountDetailSerializer
-        elif(self.action=='update'):
+        elif(self.action=='update' or self.action=='create'):
             return AccountUpdateSerializer
         else:
             return AccountListSerializer

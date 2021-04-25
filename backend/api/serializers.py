@@ -47,7 +47,7 @@ class AccountListSerializer(serializers.ModelSerializer):
     email = serializers.CharField(max_length=255,source='user.email', read_only=True)
     class Meta:
         model = Account
-        fields=('id','user','email','full_name', 'organization_name')
+        fields=('id','user','email','full_name', 'job_position', 'organization_name')
 
 """"
 ========================================
