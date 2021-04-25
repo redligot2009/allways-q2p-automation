@@ -155,7 +155,7 @@ const ProjectSummaryDialog = (props) => {
                         <Grid item xs={6}>
                             <Button
                                 color="primary"
-                                disabled={props.isSubmitting}
+                                disabled={props.values.finishComputing}
                                 fullWidth
                                 size="large"
                                 type="submit"
