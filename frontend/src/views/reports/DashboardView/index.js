@@ -155,7 +155,7 @@ const Dashboard = () => {
           >
           IN PRODUCTION
           </Typography>
-          {products.map((product) => (
+          {/* {products.map((product) => (
                   <Grid
                     item
                     key={product.id}
@@ -170,7 +170,7 @@ const Dashboard = () => {
                     />
                     </Box>
                   </Grid>
-                ))}
+                ))} */}
           </Grid>
           <Grid
             item
