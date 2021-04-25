@@ -44,7 +44,7 @@ function Routes() {
 
   const { profile: currentUserProfile } = useSelector((state) => state.auth)
   
-  console.log("Found profile, ", currentUserProfile);
+  // console.log("Found profile, ", currentUserProfile);
 
   const limitRouteAccess = (roles, element) =>
   {
