@@ -48,3 +48,19 @@ export const getFilteredObject = (rawObject={}, allowedFields=[]) => {
         return filteredObject
     }
 }
+
+export const getJobPosition = (job_position) => {
+    switch(job_position)
+    {
+        case 'O':
+            return "Owner"
+        case 'AM':
+            return "Account Manager"
+        case 'D':
+            return "Deliveryman"
+        case 'P':
+            return "Production Employee"
+        default:
+            return "Client"
+    }
+}

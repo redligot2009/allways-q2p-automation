@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { AddBoxOutlined } from '@material-ui/icons';
+import { getJobPosition } from "../../../_helpers"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,7 +61,7 @@ const EmployeeCard = ({ className, employee, ...rest }) => {
               variant="subtitle2"
               align="bottom"
             >
-              {employee.job_position}
+              {getJobPosition(employee.job_position)}
             </Typography>
         </Box>
         </Grid>

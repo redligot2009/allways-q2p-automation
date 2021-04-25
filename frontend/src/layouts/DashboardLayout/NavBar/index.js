@@ -29,6 +29,8 @@ import NavItem from './NavItem';
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../../_actions/auth";
 
+import {getJobPosition} from "../../../_helpers";
+
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
     width: 256
@@ -49,18 +51,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
   const dispatch = useDispatch()
   
-  // useEffect(()=>{
-  //   async function fetchProfile () {
-  //     await dispatch(getProfile())
-  //           .then((response)=>{
-  //           })
-  //           .catch((error)=>{
-  //             dispatch(logout())
-  //           })
-  //   }
-  //   fetchProfile();
-  // },[dispatch]);
-  
   const { profile: currentUserProfile } = useSelector((state) => state.auth) 
   const { user: currentUser } = useSelector((state) => state.auth);
 
@@ -74,24 +64,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     if(currentUserProfile !== null)
     {
       newUser.name = currentUserProfile.full_name
-      switch(currentUserProfile.job_position)
-      {
-        case 'O':
-          newUser.jobTitle = "Owner"
-          break
-        case 'AM':
-          newUser.jobTitle = "Account Manager"
-          break
-        case 'D':
-          newUser.jobTitle = "Deliveryman"
-          break
-        case 'P':
-          newUser.jobTitle = "Production Employee"
-          break
-        default:
-          newUser.jobTitle ="Client"
-          break
-      }
+      newUser.jobTitle = getJobPosition(currentUserProfile.job_position)
     }
     return newUser
   }
