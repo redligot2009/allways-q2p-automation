@@ -62,6 +62,10 @@ const getProfile = () => {
     })
 }
 
+const updateProfile = (username, account) => {
+  return axios.put(`api/accounts/${username}`, account);
+}
+
 const verifyLoggedIn = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   return axios.post('/auth/jwt/verify',user.access)
@@ -84,5 +88,6 @@ export default {
   login,
   logout,
   getProfile,
+  updateProfile,
   verifyLoggedIn,
 };
