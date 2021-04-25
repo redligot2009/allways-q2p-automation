@@ -1,0 +1,379 @@
+[
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$av9AuLA4rCDN$ZQ2jn2h9fI1WWRDNBoPu9IpzUgkue+xxqqZpkHCgr/g=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "dosabel",
+        "first_name": "Diogenes",
+        "last_name": "Osabel",
+        "email": "dosabel@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-04T10:32:15Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$XTp5fcxLFw0p$VGYh0G3xx3RJz0iJABEWhhquBFW1AWA0CgVAviKTCQk=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "asiancollege",
+        "first_name": "Asian College",
+        "last_name": "",
+        "email": "asiancollege@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-04T10:32:53Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$NoUbxEUnnNCR$qDuAkljKKPwApIwiXzxkY09ojolUGXaHKq97J7D/1+I=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "clayusa",
+        "first_name": "Cynthia",
+        "last_name": "Layusa",
+        "email": "clayusatest@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-04T10:19:29Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "api.account",
+    "pk": 3,
+    "fields": {
+        "user": 3,
+        "middle_name": "M",
+        "mobile_number": "09120000000",
+        "shipping_address": "123 Data St., Computer City",
+        "organization_name": "",
+        "job_position": null,
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 4,
+    "fields": {
+        "user": 4,
+        "middle_name": null,
+        "mobile_number": "09130000000",
+        "shipping_address": "2345 Moon St., Star City",
+        "organization_name": "",
+        "job_position": null,
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.product",
+    "pk": 1,
+    "fields": {
+        "product_name": "Book",
+        "product_price": 4000.0,
+        "product_description": "This test product is a book"
+    }
+},
+{
+    "model": "api.account",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "middle_name": null,
+        "mobile_number": "09000000000",
+        "shipping_address": "00, Asdf St., Alphabet City",
+        "organization_name": "",
+        "job_position": null,
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 27,
+    "fields": {
+        "paper_type": "C2S 220",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 0.0,
+        "sheet_cost": 15.0,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.binding",
+    "pk": 2,
+    "fields": {
+        "binding_type": "Perfect Binding",
+        "binding_base_price": 0.00625
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 31,
+    "fields": {
+        "paper_type": "Book 60",
+        "paper_category": "Book Paper",
+        "paper_length": 28.0,
+        "paper_width": 34.0,
+        "ream_cost": 2135.0,
+        "sheet_cost": 4.7,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.quotation",
+    "pk": 3,
+    "fields": {
+        "client": 3,
+        "project_name": "A Continuing Pastoral Accompaniment of the BECs in the Philippines: A 50 Year Journey",
+        "approval_status": "approved",
+        "approval_date": "2021-04-28T11:11:08Z",
+        "printing_process": "digital",
+        "product_type": 1,
+        "quantity": 6000,
+        "total_pages": 500,
+        "created_date": "2021-04-23T09:44:35Z",
+        "project_file_path": "",
+        "page_length": 6.0,
+        "page_width": 9.0,
+        "spread_length": 12.0,
+        "spread_width": 18.0,
+        "margin_of_error": 0.1,
+        "markup_percentage": 0.1,
+        "pages_can_fit": 8,
+        "total_binding_costs": 10000.0,
+        "total_folds": 125,
+        "cutting_costs": 1000.0,
+        "packaging_costs": 1000.0,
+        "transport_costs": 1000.0
+    }
+},
+{
+    "model": "api.binding",
+    "pk": 1,
+    "fields": {
+        "binding_type": "Hardbound",
+        "binding_base_price": 0.00625
+    }
+},
+{
+    "model": "api.lamination",
+    "pk": 1,
+    "fields": {
+        "lamination_type": "Plastic Matte",
+        "base_price": 0.00725,
+        "min_rate": 1100.0
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 22,
+    "fields": {
+        "paper_type": "C2S 100",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 2400.0,
+        "sheet_cost": 6.6,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.quotation",
+    "pk": 2,
+    "fields": {
+        "client": 4,
+        "project_name": "Yearbook",
+        "approval_status": "computed",
+        "approval_date": null,
+        "printing_process": "offset",
+        "product_type": 1,
+        "quantity": 400,
+        "total_pages": 200,
+        "created_date": "2021-03-13T09:44:35Z",
+        "project_file_path": "",
+        "page_length": 8.0,
+        "page_width": 8.0,
+        "spread_length": 8.0,
+        "spread_width": 16.0,
+        "margin_of_error": 0.1,
+        "markup_percentage": 0.25,
+        "pages_can_fit": 4,
+        "total_binding_costs": 600.0,
+        "total_folds": 4,
+        "cutting_costs": 10000.0,
+        "packaging_costs": 5000.0,
+        "transport_costs": 1000.0
+    }
+},
+{
+    "model": "api.binding",
+    "pk": 4,
+    "fields": {
+        "binding_type": "Saddle-stitched",
+        "binding_base_price": 5.0
+    }
+},
+{
+    "model": "api.paper",
+    "pk": 19,
+    "fields": {
+        "paper_type": "C2S 80",
+        "paper_category": "Coated & Matte Paper",
+        "paper_length": 25.0,
+        "paper_width": 38.0,
+        "ream_cost": 2400.0,
+        "sheet_cost": 5.3,
+        "is_colored": "n",
+        "is_sticker": "n"
+    }
+},
+{
+    "model": "api.quotation",
+    "pk": 1,
+    "fields": {
+        "client": 2,
+        "project_name": "OISCA Forest Booklet",
+        "approval_status": "in_progress",
+        "approval_date": null,
+        "printing_process": "offset",
+        "product_type": 1,
+        "quantity": 300,
+        "total_pages": 36,
+        "created_date": "2021-03-08T09:44:35Z",
+        "project_file_path": "",
+        "page_length": 8.5,
+        "page_width": 11.0,
+        "spread_length": 11.0,
+        "spread_width": 17.0,
+        "margin_of_error": 0.1,
+        "markup_percentage": 0.15,
+        "pages_can_fit": 4,
+        "total_binding_costs": 500.0,
+        "total_folds": 4,
+        "cutting_costs": 200.0,
+        "packaging_costs": 200.0,
+        "transport_costs": 400.0
+    }
+},
+{
+    "model": "api.quotationitem",
+    "pk": 6,
+    "fields": {
+        "quotation": 3,
+        "item_type": "cover",
+        "no_colors": 4,
+        "no_plates_per_copy": 1,
+        "no_impressions_per_plate": 6000,
+        "paper": 27,
+        "no_sheets_ordered_for_copy": 0.25,
+        "lamination": 1,
+        "binding": 2
+    }
+},
+{
+    "model": "api.quotationitem",
+    "pk": 5,
+    "fields": {
+        "quotation": 2,
+        "item_type": "inner",
+        "no_colors": 4,
+        "no_plates_per_copy": 1,
+        "no_impressions_per_plate": 400,
+        "paper": 22,
+        "no_sheets_ordered_for_copy": 25.0,
+        "lamination": null,
+        "binding": null
+    }
+},
+{
+    "model": "api.quotationitem",
+    "pk": 4,
+    "fields": {
+        "quotation": 1,
+        "item_type": "cover",
+        "no_colors": 4,
+        "no_plates_per_copy": 1,
+        "no_impressions_per_plate": 300,
+        "paper": 27,
+        "no_sheets_ordered_for_copy": 0.25,
+        "lamination": 1,
+        "binding": 4
+    }
+},
+{
+    "model": "api.quotationitem",
+    "pk": 3,
+    "fields": {
+        "quotation": 3,
+        "item_type": "inner",
+        "no_colors": 1,
+        "no_plates_per_copy": 62,
+        "no_impressions_per_plate": 6000,
+        "paper": 31,
+        "no_sheets_ordered_for_copy": 15.625,
+        "lamination": null,
+        "binding": 2
+    }
+},
+{
+    "model": "api.quotationitem",
+    "pk": 2,
+    "fields": {
+        "quotation": 2,
+        "item_type": "cover",
+        "no_colors": 4,
+        "no_plates_per_copy": 50,
+        "no_impressions_per_plate": 400,
+        "paper": 22,
+        "no_sheets_ordered_for_copy": 25.0,
+        "lamination": 1,
+        "binding": 1
+    }
+},
+{
+    "model": "api.quotationitem",
+    "pk": 1,
+    "fields": {
+        "quotation": 1,
+        "item_type": "inner",
+        "no_colors": 4,
+        "no_plates_per_copy": 9,
+        "no_impressions_per_plate": 300,
+        "paper": 19,
+        "no_sheets_ordered_for_copy": 2.25,
+        "lamination": null,
+        "binding": 4
+    }
+}
+]

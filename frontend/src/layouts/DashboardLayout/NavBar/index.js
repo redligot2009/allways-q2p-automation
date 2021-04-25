@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
@@ -16,62 +15,19 @@ import {
   AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
   Lock as LockIcon,
+  LogOut as LogOutIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
+  Clipboard as ClipboardIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
-};
 
-const items = [
-  {
-    href: '/app/dashboard',
-    icon: BarChartIcon,
-    title: 'Dashboard'
-  },
-  {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
-  },
-  {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products'
-  },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Account'
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Settings'
-  },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
-  }
-];
+import { useSelector, useDispatch } from "react-redux";
+import { getProfile, logout } from "../../../_actions/auth";
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -90,6 +46,165 @@ const useStyles = makeStyles(() => ({
 }));
 
 const NavBar = ({ onMobileClose, openMobile }) => {
+
+  const dispatch = useDispatch()
+  
+  // useEffect(()=>{
+  //   async function fetchProfile () {
+  //     await dispatch(getProfile())
+  //           .then((response)=>{
+  //           })
+  //           .catch((error)=>{
+  //             dispatch(logout())
+  //           })
+  //   }
+  //   fetchProfile();
+  // },[dispatch]);
+  
+  const { profile: currentUserProfile } = useSelector((state) => state.auth) 
+  const { user: currentUser } = useSelector((state) => state.auth);
+
+  useEffect(()=>{
+    console.log("YO! ", currentUser, currentUserProfile);
+  },[currentUserProfile,currentUser]);
+
+  const setUserProfile = (user) =>
+  {
+    let newUser = user
+    if(currentUserProfile !== null)
+    {
+      newUser.name = currentUserProfile.full_name
+      switch(currentUserProfile.job_position)
+      {
+        case 'O':
+          newUser.jobTitle = "Owner"
+          break
+        case 'AM':
+          newUser.jobTitle = "Account Manager"
+          break
+        case 'D':
+          newUser.jobTitle = "Deliveryman"
+          break
+        case 'P':
+          newUser.jobTitle = "Production Employee"
+          break
+        default:
+          newUser.jobTitle ="Client"
+          break
+      }
+    }
+    return newUser
+  }
+
+  const user = setUserProfile({
+    avatar: '/static/images/avatars/avatar_6.png',
+    jobTitle: 'None',
+    name: 'Mr. Ligot'
+  });
+
+  const items = [
+    {
+      href: '/app/dashboard',
+      icon: BarChartIcon,
+      title: 'Home',
+      handleClick: () => {
+
+      },
+      restrict_to: [],
+    },
+    {
+      href: '/app/quote/review',
+      icon: UsersIcon,
+      title: 'Quote Review',
+      handleClick: () => {
+
+      },
+      restrict_to: ['O','AM'],
+    },
+    {
+      href: '/app/products',
+      icon: ShoppingBagIcon,
+      title: 'Request Quotation',
+      handleClick: () => {
+
+      },
+      restrict_to: ['O','AM'],
+    },
+    {
+      href: '/app/customers',
+      icon: UserIcon,
+      title: 'Manage Customers',
+      handleClick: () => {
+
+      },
+      restrict_to: ['O','AM'],
+    },
+    {
+      href: '/app/employees',
+      icon: UserIcon,
+      title: 'Manage Employees',
+      handleClick: () => {
+
+      },
+      restrict_to: ['O','AM'],
+    },
+    {
+      href: '/app/tracking/account_manager',
+      icon: ClipboardIcon,
+      title: 'Order Tracking',
+      handleClick: () => {
+
+      },
+      restrict_to: [],
+    },
+    {
+      href: '/app/settings',
+      icon: SettingsIcon,
+      title: 'Account Settings',
+      handleClick: () => {
+
+      },
+      restrict_to: [],
+    },
+    {
+      href: '/login',
+      icon: LockIcon,
+      title: 'Login',
+      handleClick: () => {
+
+      },
+      restrict_to: [],
+    },
+    {
+      href:'/logout',
+      icon: LogOutIcon,
+      title:'Logout',
+      handleClick: () => {
+        dispatch(logout())
+      },
+      restrict_to: [],
+    },
+    {
+      href: '/register',
+      icon: UserPlusIcon,
+      title: 'Register',
+      handleClick: () => {
+
+      },
+      restrict_to: [],
+    },
+    {
+      href: '/404',
+      icon: AlertCircleIcon,
+      title: 'Error',
+      handleClick: () => {
+
+      },
+      restrict_to: [],
+    }
+  ];
+  
+
   const classes = useStyles();
   const location = useLocation();
 
@@ -109,7 +224,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Box
         alignItems="center"
         display="flex"
-        flexDirection="column"
+        flexDirection="row"
+        justifyContent="space-around"
         p={2}
       >
         <Avatar
@@ -118,19 +234,23 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           src={user.avatar}
           to="/app/account"
         />
-        <Typography
-          className={classes.name}
-          color="textPrimary"
-          variant="h5"
+        <Box
+          ml={1}
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
-        </Typography>
+          <Typography
+            className={classes.name}
+            color="textPrimary"
+            variant="h5"
+          >
+            {user.name}
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="body2"
+          >
+            {user.jobTitle}
+          </Typography>
+        </Box>
       </Box>
       <Divider />
       <Box p={2}>
@@ -141,43 +261,10 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               key={item.title}
               title={item.title}
               icon={item.icon}
+              onClick={item.handleClick}
             />
           ))}
         </List>
-      </Box>
-      <Box flexGrow={1} />
-      <Box
-        p={2}
-        m={2}
-        bgcolor="background.dark"
-      >
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          Need more?
-        </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          display="flex"
-          justifyContent="center"
-          mt={2}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
       </Box>
     </Box>
   );

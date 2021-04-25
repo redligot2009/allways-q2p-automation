@@ -7,7 +7,7 @@ from .models import Invoice, JobOrder
 from .models import PrintingProcess
 from .models import ProductionConstants
 from .models import Paper, Lamination, DieCut, Binding
-from .models import Product, Quotation, QuotationItem, Plate
+from .models import Product, Quotation, QuotationItem, ExtraPlate
 import nested_admin
 
 """ 
@@ -102,8 +102,8 @@ More info on the library below:
 https://github.com/theatlantic/django-nested-admin
 """
 
-class PlateInline(nested_admin.NestedTabularInline):
-    model=Plate
+class ExtraPlateInline(nested_admin.NestedTabularInline):
+    model=ExtraPlate
     extra=0
     readonly_fields=(
         'extra_impressions',
@@ -115,25 +115,39 @@ class PlateInline(nested_admin.NestedTabularInline):
 class QuotationItemInline(nested_admin.NestedStackedInline):
     model=QuotationItem
     inlines=[
-        PlateInline
+        ExtraPlateInline
     ]
     extra=0
+    readonly_fields=(
+        'total_impressions',
+        'running_costs',
+        'lamination_costs',
+        'paper_costs',
+    )
     
 @admin.register(Quotation)
 class QuotationAdmin(nested_admin.NestedModelAdmin):
     fieldsets=(
         ("Project Settings", {
-            'fields' : ('approval_status', 
+            'fields' : ('client',
+                        'project_name',
+                        'created_date',
+                        'approval_status',
+                        'approval_date', 
                         'printing_process',
-                        'product_type',)
+                        'product_type',
+                        'total_pages',
+                        'quantity')
         }),
         ("Cost-related Settings", {
             'fields': ('markup_percentage',
                        'margin_of_error',)
         }),
         ("Project Dimensions",{
-            'fields': ('project_dimensions_length',
-                       'project_dimensions_width',)
+            'fields': ('page_length',
+                       'page_width',
+                       'spread_length',
+                       'spread_width')
         }),
         ("Plates / Running Costs",{
             'fields':('pages_can_fit',
@@ -150,12 +164,12 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         ("Binding Costs", {
             'fields': ('total_binding_costs',)
         }),
-        ("Folding Costs", {
-            'fields': ('total_folds',
-                       'total_folding_costs',)
-        }),
-        ("Gathering Costs", {
-            'fields': ('total_gathering_costs',)
+        ("Folding + Gathering Costs", {
+            'fields': ('total_no_sheets',
+                       'total_folds',
+                       'total_signatures',
+                       'total_folding_costs',
+                       'total_gathering_costs',)
         }),
         ("Extra Costs", {
             'fields': ('cutting_costs',
@@ -164,13 +178,37 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         }),
         ("Summary Costs", {
             'fields': ('raw_total_costs',
+                       'raw_unit_costs',
                        'final_unit_costs',
                        'final_total_costs',)
         }),
     )
+    list_display=(
+        'project_name',
+        'client',
+        'created_date',
+        'approval_status',
+        'approval_date',
+        'product_type',
+    )
     inlines=[
         QuotationItemInline
     ]
+    readonly_fields=(
+        'total_no_plates',
+        'total_plate_costs',
+        'total_no_sheets',
+        'total_paper_costs',
+        'total_running_costs',
+        'total_signatures',
+        'total_folding_costs',
+        'total_gathering_costs',
+        'total_lamination_costs',
+        'raw_total_costs',
+        'raw_unit_costs',
+        'final_unit_costs',
+        'final_total_costs',
+    )
     pass
 
 
@@ -184,16 +222,65 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
 admin.site.register(ProductionConstants)
 
 # Paper types admin page
-admin.site.register(Paper)
+# admin.site.register(Paper)
+@admin.register(Paper)
+class PaperAdmin(admin.ModelAdmin):
+    list_display=(
+        'paper_type',
+        'paper_dimensions',
+        'is_colored',
+        'is_sticker',
+        'paper_category',
+        'ream_cost',
+        'sheet_cost',
+    )
+    
+    actions=['make_sticker', 'make_non_sticker',
+             'make_colored', 'make_non_colored']
+    
+    ordering=('paper_category','paper_type','paper_width','paper_length','ream_cost','sheet_cost',)
+    
+    save_as = True
+    
+    def make_sticker(self,request,queryset):
+        queryset.update(is_sticker='y')
+    make_sticker.short_description='Change to sticker'
+    
+    def make_non_sticker(self,request,queryset):
+        queryset.update(is_sticker='n')
+    make_non_sticker.short_description='Change to non-sticker'
+    
+    def make_colored(self,request,queryset):
+        queryset.update(is_colored='y')
+    make_colored.short_description='Change to colored'
+    
+    def make_non_colored(self,request,queryset):
+        queryset.update(is_colored='n')
+    make_non_colored.short_description='Change to non-colored'
+    
 
 # Printing processes admin page
 admin.site.register(PrintingProcess)
 
 # Lamination types admin page
-admin.site.register(Lamination)
+@admin.register(Lamination)
+class LaminationAdmin(admin.ModelAdmin):
+    list_display=(
+        'lamination_type',
+        'base_price',
+        'min_rate',
+    )
+    save_as = True
 
 # Diecut types admin page
 admin.site.register(DieCut)
 
 # Binding types admin page
-admin.site.register(Binding)
+@admin.register(Binding)
+class BindingAdmin(admin.ModelAdmin):
+    list_display=(
+        'binding_type',
+        'binding_base_price',
+    )
+    save_as = True
+

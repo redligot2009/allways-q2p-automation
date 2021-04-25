@@ -3,12 +3,11 @@ import {
   Box,
   Container,
   Grid,
-  makeStyles
+  makeStyles,
+  Typography
 } from '@material-ui/core';
-import { Pagination } from '@material-ui/lab';
 import Page from 'src/components/Page';
-import Toolbar from './Toolbar';
-import ProductCard from './ProductCard';
+import ProductCards from './ProductCards';
 import data from './data';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,42 +29,40 @@ const ProductList = () => {
   return (
     <Page
       className={classes.root}
-      title="Products"
+      title="Product List"
     >
       <Container maxWidth={false}>
-        <Toolbar />
-        <Box mt={3}>
-          <Grid
-            container
-            spacing={3}
-          >
-            {products.map((product) => (
-              <Grid
-                item
-                key={product.id}
-                lg={4}
-                md={6}
-                xs={12}
-              >
-                <ProductCard
-                  className={classes.productCard}
-                  product={product}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-        <Box
-          mt={3}
-          display="flex"
-          justifyContent="center"
+        <Typography
+          className={classes.name}
+          color="textPrimary"
+          variant="h2"
         >
-          <Pagination
-            color="primary"
-            count={3}
-            size="small"
-          />
-        </Box>
+          Product List
+        </Typography>
+        <Box mt={2}>
+        <Grid container spacing={3}>
+          <Grid item xs>
+              <Box mt={2}>
+                {products.map((product) => (
+                  <Grid
+                    item
+                    key={product.id}
+                    lg={12}
+                    md={6}
+                    xs={12}
+                  >
+                    <Box mt={2}>
+                    <ProductCards
+                      className={classes.productCard}
+                      product={product}
+                    />
+                    </Box>
+                  </Grid>
+                ))}
+              </Box>
+            </Grid>
+            </Grid>
+          </Box>
       </Container>
     </Page>
   );

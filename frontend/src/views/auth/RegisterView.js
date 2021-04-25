@@ -14,6 +14,10 @@ import {
   makeStyles
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import { ToastContainer, toast } from 'react-toastify';
+
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../_actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
 const RegisterView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
+  // const { message } = useSelector(state => state.message);
+  const dispatch = useDispatch();
 
   return (
     <Page
@@ -36,29 +42,56 @@ const RegisterView = () => {
       <Box
         display="flex"
         flexDirection="column"
+        overflow="auto"
         height="100%"
-        justifyContent="center"
       >
-        <Container maxWidth="sm">
+        <Container 
+          maxWidth="sm"
+        >
           <Formik
             initialValues={{
+              username: '',
               email: '',
-              firstName: '',
-              lastName: '',
+              first_name: '',
+              middle_name: '',
+              last_name: '',
               password: '',
               policy: false
             }}
             validationSchema={
               Yup.object().shape({
+                username: Yup.string().required('Username is required'),
                 email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
-                password: Yup.string().max(255).required('password is required'),
+                first_name: Yup.string().max(255).required('First name is required'),
+                middle_name: Yup.string().max(255),
+                last_name: Yup.string().max(255).required('Last name is required'),
+                // TODO: Mimic Django password validation behavior
+                password: Yup.string()
+                          .max(255)
+                          .required('Password is required')
+                          .matches(
+                            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                            `Must contain: 8 characters, 1 uppercase, 1 lowercase, 1 number, and 1 special character.`
+                          ),
                 policy: Yup.boolean().oneOf([true], 'This field must be checked')
               })
             }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values, actions) => {
+              // console.log("YO BOY!");
+              dispatch(
+                register( values.username,
+                          values.email,
+                          values.password,
+                          values.first_name,
+                          values.middle_name,
+                          values.last_name))
+                .then(()=>{
+                  navigate('/app/dashboard', { replace: true });
+                })
+                .catch((error)=>{
+                  actions.setSubmitting(false);
+                  toast.error("User with inputted credentials already exists.");
+                });
             }}
           >
             {({
@@ -70,7 +103,9 @@ const RegisterView = () => {
               touched,
               values
             }) => (
-              <form onSubmit={handleSubmit}>
+              <form 
+                onSubmit={handleSubmit}
+              >
                 <Box mb={3}>
                   <Typography
                     color="textPrimary"
@@ -83,31 +118,55 @@ const RegisterView = () => {
                     gutterBottom
                     variant="body2"
                   >
-                    Use your email to create new account
+                    Enter all required fields below to create your account.
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.firstName && errors.firstName)}
+                  error={Boolean(touched.username && errors.username)}
                   fullWidth
-                  helperText={touched.firstName && errors.firstName}
-                  label="First name"
+                  helperText={touched.username && errors.username}
+                  label="Username"
                   margin="normal"
-                  name="firstName"
+                  name="username"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.firstName}
+                  value={values.username}
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.lastName && errors.lastName)}
+                  error={Boolean(touched.first_name && errors.first_name)}
                   fullWidth
-                  helperText={touched.lastName && errors.lastName}
-                  label="Last name"
+                  helperText={touched.first_name && errors.first_name}
+                  label="First name"
                   margin="normal"
-                  name="lastName"
+                  name="first_name"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.lastName}
+                  value={values.first_name}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.middle_name && errors.middle_name)}
+                  fullWidth
+                  helperText={touched.middle_name && errors.middle_name}
+                  label="Middle name"
+                  margin="normal"
+                  name="middle_name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.middle_name}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.last_name && errors.last_name)}
+                  fullWidth
+                  helperText={touched.last_name && errors.last_name}
+                  label="Last name"
+                  margin="normal"
+                  name="last_name"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.last_name}
                   variant="outlined"
                 />
                 <TextField

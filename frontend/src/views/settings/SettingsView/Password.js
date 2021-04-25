@@ -73,7 +73,7 @@ const Password = ({ className, ...rest }) => {
             color="primary"
             variant="contained"
           >
-            Update
+            Update Password
           </Button>
         </Box>
       </Card>

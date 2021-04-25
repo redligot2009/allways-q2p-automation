@@ -11,6 +11,7 @@ import {
   Button,
   Typography
 } from '@material-ui/core';
+
 import Page from 'src/components/Page';
 import Budget from './Budget';
 import TasksProgress from './TasksProgress';
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3)
   }
 }));
+
 
 const Dashboard = () => {
   const classes = useStyles();
