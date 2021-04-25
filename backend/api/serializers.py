@@ -120,7 +120,7 @@ class QuotationItemListSerializer(serializers.ModelSerializer):
     # Related Objectslamination=serializers.PrimaryKeyRelatedField(queryset=Lamination.objects.all(), required=False, allow_null=True, default=None)
     binding=serializers.PrimaryKeyRelatedField(queryset=Binding.objects.all(), required=False, allow_null=True, default=None)
     paper=serializers.PrimaryKeyRelatedField(queryset=Paper.objects.all())
-    extra_plates=ExtraPlateSerializer(many=True, required=False, allow_null=True, default=None)
+    # extra_plates=ExtraPlateSerializer(many=True, required=False, allow_null=True, default=None)
     # extra_plates=ExtraPlateSerializer(many=True)
     
     # Read only fields (AKA properties)
@@ -331,7 +331,7 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
 class QuotationSerializer(serializers.ModelSerializer):
     
     # Related Objects
-    items = QuotationItemSerializer(many=True)
+    items = QuotationItemListSerializer(many=True)
     product_type = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
     client = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
     
@@ -344,7 +344,7 @@ class QuotationSerializer(serializers.ModelSerializer):
         return new_quotation
     
     # Read-only fields
-    approval_date = serializers.ReadOnlyField()
+    # approval_date = serializers.ReadOnlyField()
     
     # Set default values for fields
     
@@ -353,12 +353,11 @@ class QuotationSerializer(serializers.ModelSerializer):
         model = Quotation
         fields=('project_name',
                 'product_type',
-                'created_date',
                 'client',
-                'approval_status',
-                'approval_date',
-                'printing_process',
                 'quantity',
+                'total_pages',
+                'page_length',
+                'page_width',
                 'items')
 
 """"
