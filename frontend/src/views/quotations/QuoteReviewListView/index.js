@@ -50,13 +50,13 @@ const QuotationReviewList = () => {
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
-          <Grid item xs>
+          <Grid item xs={12} sm={6}>
             <Typography className={classes.name} color="textSecondary" variant="h5">
               Awaiting Computation
             </Typography>
               <Box mt={2}>
                 {data.in_progress.map((quotation) => (
-                  <Grid item key={quotation.id} lg={12} md={6} xs={12}>
+                  <Grid item key={quotation.id} lg={12} md={12} xs={12}>
                     <Box mt={2}>
                       <QuotationCard 
                         className={classes.quotationCard} 
@@ -67,13 +67,13 @@ const QuotationReviewList = () => {
                 ))}
               </Box>
             </Grid>
-            <Grid item xs>
+            <Grid item xs={12} sm={6}>
               <Typography className={classes.name} color="textSecondary" variant="h5">
                 Awaiting Approval
               </Typography>
                 <Box mt={2}>
                   {data.computed.map((quotation) => (
-                    <Grid item key={quotation.id} lg={12} md={6} xs={12}>
+                    <Grid item key={quotation.id} lg={12} md={12} xs={12}>
                       <Box mt={2}>
                         <QuotationCardComputed
                           className={classes.quotationCard}

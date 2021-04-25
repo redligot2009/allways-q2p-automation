@@ -174,7 +174,8 @@ class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='quotations-detail')
     
     # Related Objects
-    product_type = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
+    product_type = ProductSerializer()
+    # serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
     client = AccountListSerializer(read_only=True)
     
     # Read only fields (AKA properties)
