@@ -233,7 +233,7 @@ const QuotationItem = (props) => {
                         lamination: null,
                         binding: null,
                         paper: null,
-                        extra_plates: [],
+                        // extra_plates: [],
                         item_type: "other",
                         no_colors: 4,
                         no_plates_per_copy: 1,
