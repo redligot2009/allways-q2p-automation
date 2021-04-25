@@ -1,0 +1,40 @@
+import { v4 as uuid } from 'uuid';
+
+export default [
+  {
+    id: uuid(),
+    totalPrice: 'P3000.00',
+    orderID: '#29JKFSPSE',
+    status: 'IN PRODUCTION',
+    type: 'Book',
+    quantity: '500',
+    totalPages: '250',
+    length: '8.5',
+    width: '11',
+    numberColors: '4 colors (CMYK)',
+  },
+  {
+    id: uuid(),
+    totalPrice: 'P3000.00',
+    orderID: '#29JKFSPSE',
+    status: 'IN PRODUCTION',
+    type: 'Book',
+    quantity: '500',
+    totalPages: '250',
+    length: '8.5',
+    width: '11',
+    numberColors: '4 colors (CMYK)',
+  },
+  {
+    id: uuid(),
+    totalPrice: 'P3000.00',
+    orderID: '#29JKFSPSE',
+    status: 'IN PRODUCTION',
+    type: 'Book',
+    quantity: '500',
+    totalPages: '250',
+    length: '8.5',
+    width: '11',
+    numberColors: '4 colors (CMYK)',
+  },
+];
