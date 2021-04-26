@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
     height: '100%'
   }
 }));
+// TODO: Implement "ViewOrder.js" page
+// This is basically a simplified and non-interactable version of the Quote Review detail page
 
 const ProductList = () => {
   const classes = useStyles();
@@ -49,7 +51,7 @@ const ProductList = () => {
               color="textSecondary"
               variant="h5"
             >
-              Pending
+              Pending Approval
             </Typography>
               <Box mt={2}>
                 {products.map((product) => (

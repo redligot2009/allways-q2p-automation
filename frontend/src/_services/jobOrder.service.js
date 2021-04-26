@@ -19,7 +19,7 @@ const retrieveJobOrder = (id) => {
   return jobOrderResult;
 }
 
-const retrieveJobOrders = (production_status, manager, client) => {
+const retrieveJobOrders = (production_status="", manager="", client="") => {
   // TODO: Implement API call to retrieve list of job orders
   const urlParams = {
     "production_status" : production_status,
