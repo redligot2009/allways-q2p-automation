@@ -63,7 +63,7 @@ const AddEmployeeDialog = (props) => {
             Yup.object().shape({
               username: Yup.string().required('Username is required'),
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              mobile_number: Yup.string().required().min(10, "Must be a valid phone number"),
+              mobile_number: Yup.string().required('Mobile number is required').min(10, "Must be a valid phone number"),
               first_name: Yup.string().max(255).required('First name is required'),
               middle_name: Yup.string().max(255),
               last_name: Yup.string().max(255).required('Last name is required'),
@@ -183,7 +183,7 @@ const AddEmployeeDialog = (props) => {
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
-                  label="Email Address"
+                  label="Email address"
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
@@ -196,7 +196,7 @@ const AddEmployeeDialog = (props) => {
                   error={Boolean(touched.mobile_number && errors.mobile_number)}
                   fullWidth
                   helperText={touched.mobile_number && errors.mobile_number}
-                  label="Mobile Number"
+                  label="Mobile number"
                   margin="normal"
                   name="mobile_number"
                   onBlur={handleBlur}
@@ -204,35 +204,48 @@ const AddEmployeeDialog = (props) => {
                   value={values.mobile_number}
                   variant="outlined"
                 />
-              {()=>{
-                switch(props.employeeType)
-                {
-                  case 'O':
-                    return <></>
-                  case 'AM':
-                    return <></>
-                  case 'P':
-                    return <></>
-                  case 'D':
-                    return <></>
-                  default:
-                    return <></>
-                }
-              }}
-              <Button
-                  color="primary"
-                  // disabled={isSubmitting}
-                  fullWidth
-                  size="large"
-                  type="button"
-                  variant="outlined"
-                  onClick={handleSubmit}
-                  // onClick={handleSubmit}
-              >
-                  Create Account
-              </Button>
-            </form>
-          )}
+                {props.employeeType !== 'O' && props.employeeType !== 'AM' && 
+                (
+                  <>
+                    <Typography
+                      className={classes.name}
+                      color="textSecondary"
+                      variant="h5"
+                    >
+                      {getJobPosition(props.employeeType)} Details
+                    </Typography>
+                    {()=>{
+                      switch(props.employeeType)
+                      {
+                        case 'O':
+                          return <></>
+                        case 'AM':
+                          return <></>
+                        case 'P':
+                          return <></>
+                        case 'D':
+                          return <></>
+                        default:
+                          return <></>
+                      }
+                    }}
+                  </>
+                )}
+                
+                <Button
+                    color="primary"
+                    // disabled={isSubmitting}
+                    fullWidth
+                    size="large"
+                    type="button"
+                    variant="outlined"
+                    onClick={handleSubmit}
+                    // onClick={handleSubmit}
+                >
+                    Create Account
+                </Button>
+              </form>
+            )}
         </Formik>
       </DialogContent>
     </Dialog>

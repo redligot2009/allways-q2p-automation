@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import {
+  Button,
   Box,
   Container,
   Grid,
@@ -90,19 +91,18 @@ const EmployeeList = () => {
               >
                 Account Manager/Owner Access
               </Typography>
-                <Box mt={2}>
+              <Box my={1}>
+                <Grid container style={{maxHeight:540,overflow:'auto'}} my={1}>
                   {accountManagers && accountManagers.map((employee) => (
                     <Grid
                       item
                       key={employee.id}
                       xs={12}
                     >
-                      <Box mt={2}>
-                        <EmployeeCard
-                          className={classes.employeeCard}
-                          employee={employee}
-                        />
-                      </Box>
+                      <EmployeeCard
+                        className={classes.employeeCard}
+                        employee={employee}
+                      />
                     </Grid>
                   ))}
                   {owners && owners.map((employee) => (
@@ -111,16 +111,51 @@ const EmployeeList = () => {
                       key={employee.id}
                       xs={12}
                     >
-                      <Box mt={2}>
-                        <EmployeeCard
-                          className={classes.employeeCard}
-                          employee={employee}
-                        />
-                      </Box>
+                      <EmployeeCard
+                        className={classes.employeeCard}
+                        employee={employee}
+                      />
                     </Grid>
                   ))}
-                </Box>
+                </Grid>
+              </Box>
+              <Grid container>
+                <Grid item xs={12} sm={6} >
+                  <Button
+                      color="primary"
+                      // disabled={isSubmitting}
+                      fullWidth
+                      size="small"
+                      type="button"
+                      variant="outlined"
+                      onClick={()=>{
+                        setEmployeeType('AM');
+                        setOpenAddEmployeeDialog(true);
+                      }}
+                      // onClick={handleSubmit}
+                  >
+                      Add Account Manager
+                  </Button>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Button
+                    color="primary"
+                    // disabled={isSubmitting}
+                    fullWidth
+                    size="small"
+                    type="button"
+                    variant="outlined"
+                    onClick={()=>{
+                      setEmployeeType('O');
+                      setOpenAddEmployeeDialog(true);
+                    }}
+                    // onClick={handleSubmit}
+                  >
+                    Add Owner
+                  </Button>
+                </Grid>
               </Grid>
+            </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <Typography
                 className={classes.name}
@@ -129,23 +164,38 @@ const EmployeeList = () => {
               >
                 Production Team Access
               </Typography>
-                <Box mt={2}>
+              <Box my={1}>
+                <Grid container style={{maxHeight:540,overflow:'auto'}}>
                   {productionEmployees && productionEmployees.map((employee) => (
                     <Grid
                       item
                       key={employee.id}
                       xs={12}
                     >
-                      <Box mt={2}>
-                        <EmployeeCard
-                          className={classes.employeeCard}
-                          employee={employee}
-                        />
-                        </Box>
+                      <EmployeeCard
+                        className={classes.employeeCard}
+                        employee={employee}
+                      />
                     </Grid>
-                  ))}
-                </Box>
-              </Grid>
+                  ))}  
+                </Grid>
+              </Box>
+              <Button
+                color="primary"
+                // disabled={isSubmitting}
+                fullWidth
+                size="small"
+                type="button"
+                variant="outlined"
+                onClick={()=>{
+                  setEmployeeType('P');
+                  setOpenAddEmployeeDialog(true);
+                }}
+                // onClick={handleSubmit}
+              >
+                Add Production Employee
+              </Button>
+            </Grid>
               <Grid item xs={12} sm={6} md={4}>
                 <Typography
                   className={classes.name}
@@ -154,22 +204,37 @@ const EmployeeList = () => {
                 >
                   Driver Access
                 </Typography>
-                <Box mt={2}>
-                  {driverEmployees && driverEmployees.map((employee) => (
-                    <Grid
-                      item
-                      key={employee.id}
-                      xs={12}
-                    >
-                      <Box mt={2}>
+                <Box my={1}>
+                  <Grid container style={{maxHeight:540,overflow:'auto'}}>
+                    {driverEmployees && driverEmployees.map((employee) => (
+                      <Grid
+                        item
+                        key={employee.id}
+                        xs={12}
+                      >
                         <EmployeeCard
                           className={classes.employeeCard}
                           employee={employee}
                         />
-                      </Box>
-                    </Grid>
-                  ))}
+                      </Grid>
+                    ))}
+                  </Grid>
                 </Box>
+                <Button
+                  color="primary"
+                  // disabled={isSubmitting}
+                  fullWidth
+                  size="small"
+                  type="button"
+                  variant="outlined"
+                  onClick={()=>{
+                    setEmployeeType('D');
+                    setOpenAddEmployeeDialog(true);
+                  }}
+                  // onClick={handleSubmit}
+                >
+                  Add Driver Employee
+                </Button>
               </Grid>
             </Grid>
         </Box>
