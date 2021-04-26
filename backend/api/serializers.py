@@ -394,7 +394,9 @@ class JobOrderSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = JobOrder
-        fields = ('__all__')
+        # fields = ('__all__')
+        exclude=('created_date',
+                 )
 
 # Retrieve serializer
 class JobOrderDetailSerializer(serializers.ModelSerializer):

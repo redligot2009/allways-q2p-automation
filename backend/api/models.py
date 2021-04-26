@@ -78,7 +78,10 @@ class Account(models.Model):
     production_staff_position=models.CharField(null=True,blank=True,max_length=20)
     
     def __str__(self):
-        return self.user.username
+        try:
+            return self.user.username
+        except:
+            return ""
 
 @receiver(post_save,sender=User)
 def create_user_account(sender,instance,created,**kwargs):
@@ -632,7 +635,9 @@ class Invoice(models.Model):
 class JobOrder(models.Model):
     # Different production statuses for a "job"
     STATUS=[
+        ('pending','Pending'),
         ('inprogress','In-Progress'),
+        ('delivery','Out for Delivery'),
         ('finished','Finished'),
         ]
     # Which manager account is associated with this job order?
