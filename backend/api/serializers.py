@@ -402,6 +402,7 @@ class JobOrderSerializer(serializers.ModelSerializer):
 class JobOrderDetailSerializer(serializers.ModelSerializer):
     
     quotation = QuotationSerializer()
+    manager=serializers.StringRelatedField()
     
     class Meta:
         model = JobOrder
