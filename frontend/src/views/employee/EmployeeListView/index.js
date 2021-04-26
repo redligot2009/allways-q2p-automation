@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import EmployeeCard from './EmployeeCard';
+import AddEmployeeDialog from './AddEmployeeDialog';
 import data from './data';
 import {
   getAccountManagerEmployees,
@@ -38,7 +39,6 @@ const EmployeeList = () => {
   const {owners} = useSelector(state=>state.users);
   const {productionEmployees} = useSelector(state=>state.users);
   const {driverEmployees} = useSelector(state=>state.users);
-  // const [employee] = useState(data);
 
   useEffect(()=>{
     async function fetchData () {
@@ -57,12 +57,22 @@ const EmployeeList = () => {
     fetchData();
   },[]);
 
+  const [openAddEmployeeDialog, setOpenAddEmployeeDialog] = useState(true);
+  const [employeeType, setEmployeeType] = useState('O');
+
   return (
     <Page
       className={classes.root}
       title="Order Tracking"
     >
       <Container maxWidth={false}>
+        <AddEmployeeDialog
+          employeeType={employeeType}
+          openAddEmployeeDialog={openAddEmployeeDialog}
+          handleCloseAddEmployeeDialog={()=>{
+            setOpenAddEmployeeDialog(false);
+          }}
+        />
         <Typography
           className={classes.name}
           color="textPrimary"
@@ -71,79 +81,79 @@ const EmployeeList = () => {
           Employee Authorization
         </Typography>
         <Box mt={2}>
-        <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={4}>
-            <Typography
-              className={classes.name}
-              color="textSecondary"
-              variant="h5"
-            >
-              Account Manager/Owner Access
-            </Typography>
-              <Box mt={2}>
-                {accountManagers && accountManagers.map((employee) => (
-                  <Grid
-                    item
-                    key={employee.id}
-                    xs={12}
-                  >
-                    <Box mt={2}>
-                    <EmployeeCard
-                      className={classes.employeeCard}
-                      employee={employee}
-                    />
-                    </Box>
-                  </Grid>
-                ))}
-                {owners && owners.map((employee) => (
-                  <Grid
-                    item
-                    key={employee.id}
-                    xs={12}
-                  >
-                    <Box mt={2}>
-                    <EmployeeCard
-                      className={classes.employeeCard}
-                      employee={employee}
-                    />
-                    </Box>
-                  </Grid>
-                ))}
-              </Box>
-            </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Typography
-              className={classes.name}
-              color="textSecondary"
-              variant="h5"
-            >
-              Production Team Access
-            </Typography>
-              <Box mt={2}>
-                {productionEmployees && productionEmployees.map((employee) => (
-                  <Grid
-                    item
-                    key={employee.id}
-                    xs={12}
-                  >
-                    <Box mt={2}>
-                    <EmployeeCard
-                      className={classes.employeeCard}
-                      employee={employee}
-                    />
-                    </Box>
-                  </Grid>
-                ))}
-              </Box>
-            </Grid>
+          <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={4}>
               <Typography
                 className={classes.name}
                 color="textSecondary"
                 variant="h5"
               >
-                Driver Access
+                Account Manager/Owner Access
               </Typography>
+                <Box mt={2}>
+                  {accountManagers && accountManagers.map((employee) => (
+                    <Grid
+                      item
+                      key={employee.id}
+                      xs={12}
+                    >
+                      <Box mt={2}>
+                        <EmployeeCard
+                          className={classes.employeeCard}
+                          employee={employee}
+                        />
+                      </Box>
+                    </Grid>
+                  ))}
+                  {owners && owners.map((employee) => (
+                    <Grid
+                      item
+                      key={employee.id}
+                      xs={12}
+                    >
+                      <Box mt={2}>
+                        <EmployeeCard
+                          className={classes.employeeCard}
+                          employee={employee}
+                        />
+                      </Box>
+                    </Grid>
+                  ))}
+                </Box>
+              </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <Typography
+                className={classes.name}
+                color="textSecondary"
+                variant="h5"
+              >
+                Production Team Access
+              </Typography>
+                <Box mt={2}>
+                  {productionEmployees && productionEmployees.map((employee) => (
+                    <Grid
+                      item
+                      key={employee.id}
+                      xs={12}
+                    >
+                      <Box mt={2}>
+                        <EmployeeCard
+                          className={classes.employeeCard}
+                          employee={employee}
+                        />
+                        </Box>
+                    </Grid>
+                  ))}
+                </Box>
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <Typography
+                  className={classes.name}
+                  color="textSecondary"
+                  variant="h5"
+                >
+                  Driver Access
+                </Typography>
                 <Box mt={2}>
                   {driverEmployees && driverEmployees.map((employee) => (
                     <Grid
@@ -152,17 +162,17 @@ const EmployeeList = () => {
                       xs={12}
                     >
                       <Box mt={2}>
-                      <EmployeeCard
-                        className={classes.employeeCard}
-                        employee={employee}
-                      />
+                        <EmployeeCard
+                          className={classes.employeeCard}
+                          employee={employee}
+                        />
                       </Box>
                     </Grid>
                   ))}
                 </Box>
               </Grid>
             </Grid>
-          </Box>
+        </Box>
       </Container>
     </Page>
   );
