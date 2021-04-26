@@ -115,7 +115,7 @@ FINISHED:
 
 class JobOrderViewSet(viewsets.ModelViewSet):
     queryset = JobOrder.objects.all()
-    
+    filterset_fields=('production_status','manager',)
     def get_serializer_class(self):
         if(self.action=='list'):
             return JobOrderListSerializer
