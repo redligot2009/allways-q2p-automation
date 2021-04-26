@@ -58,7 +58,7 @@ const EmployeeList = () => {
     fetchData();
   },[]);
 
-  const [openAddEmployeeDialog, setOpenAddEmployeeDialog] = useState(true);
+  const [openAddEmployeeDialog, setOpenAddEmployeeDialog] = useState(false);
   const [employeeType, setEmployeeType] = useState('O');
 
   return (
