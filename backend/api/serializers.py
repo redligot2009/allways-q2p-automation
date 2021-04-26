@@ -391,7 +391,7 @@ class JobOrderListSerializer(serializers.ModelSerializer):
 # Create / update / delete serializer
 class JobOrderSerializer(serializers.ModelSerializer):
     quotation = serializers.PrimaryKeyRelatedField(queryset=Quotation.objects.all())
-    
+    # client = serializers.CharField(source='quotation.client.user', read_only=True)
     class Meta:
         model = JobOrder
         # fields = ('__all__')
@@ -400,8 +400,9 @@ class JobOrderSerializer(serializers.ModelSerializer):
 
 # Retrieve serializer
 class JobOrderDetailSerializer(serializers.ModelSerializer):
-    
     quotation = QuotationSerializer()
+    client = serializers.CharField(source='quotation.client.user', read_only=True)
+    # project_name=serializers.CharField(source='quotation.project_name',read_only=True)
     manager=serializers.StringRelatedField()
     
     class Meta:

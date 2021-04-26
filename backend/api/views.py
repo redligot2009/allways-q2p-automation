@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import django_filters
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
 
@@ -113,9 +114,16 @@ FINISHED:
 - Initial setup for JobOrder viewset
 """
 
+class JobOrderFilter(django_filters.FilterSet):
+    class Meta:
+        model=JobOrder
+        fields=('production_status','manager','quotation__client__user')
+
 class JobOrderViewSet(viewsets.ModelViewSet):
     queryset = JobOrder.objects.all()
-    filterset_fields=('production_status','manager',)
+    # filterset_fields=('production_status','manager',)
+    filterset_class = JobOrderFilter
+    filter_backends = (filters.DjangoFilterBackend,)
     def get_serializer_class(self):
         if(self.action=='list'):
             return JobOrderListSerializer
