@@ -3,15 +3,16 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
   Avatar,
+  Box,
   Card,
   CardContent,
   Grid,
+  LinearProgress,
   Typography,
   makeStyles,
-  colors,
-  Box
+  colors
 } from '@material-ui/core';
-import SettingsIcon from '@material-ui/icons/Settings';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TotalProfit = ({ className, ...rest }) => {
+const ManageEmployees = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -45,7 +46,7 @@ const TotalProfit = ({ className, ...rest }) => {
         >
         <Grid container justify="center">
             <Avatar className={classes.avatar}>
-              <SettingsIcon />
+              <PersonIcon />
             </Avatar>
         </Grid>
           <Grid item>
@@ -55,14 +56,14 @@ const TotalProfit = ({ className, ...rest }) => {
               align="center"
               variant="h4"
             >
-              ADJUST SETTINGS
+              MANAGE EMPLOYEES
             </Typography>
             <Typography
               color="textSecondary"
               variant="body1"
               align="center"
             >
-              Change your password and other details on hand
+              Check and manage the employees account
             </Typography>
           </Grid>
         </Grid>
@@ -77,8 +78,8 @@ const TotalProfit = ({ className, ...rest }) => {
   );
 };
 
-TotalProfit.propTypes = {
+ManageEmployees.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalProfit;
+export default ManageEmployees;

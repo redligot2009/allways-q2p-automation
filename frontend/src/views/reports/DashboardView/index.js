@@ -13,14 +13,11 @@ import {
 } from '@material-ui/core';
 
 import Page from 'src/components/Page';
-import Budget from './Budget';
-import TasksProgress from './TasksProgress';
-import TotalCustomers from './TotalCustomers';
-import TotalProfit from './TotalProfit';
+import QuoteReview from './QuoteReview';
+import ManageEmployees from './ManageEmployees';
+import OrderTracking from './OrderTracking';
+import AccountSettings from './AccountSettings';
 import QuotationCard from './QuotationCard';
-import data from  './data';
-import QuotationCardComputed from './QuotationCardComputed';
-import ProductCard from './ProductCard';
 
 import {getComputedQuotations, getInProgressQuotations} from '../../../_actions/quotation';
 
@@ -78,22 +75,22 @@ const Dashboard = () => {
             >
               <Grid item lg={3} sm={6} xl={3} xs={12}>
                 <Link to={'/app/quote/review/'}>
-                  <Budget />
+                  <QuoteReview />
                 </Link>
               </Grid>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
                 <Link to={'/app/tracking/account_manager'}>
-                  <TotalCustomers />
+                  <OrderTracking />
                 </Link>
               </Grid>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
                 <Link to={'/app/employees/'}>
-                  <TasksProgress />
+                  <ManageEmployees />
                 </Link>
               </Grid>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
                 <Link to={'/app/settings'}>
-                  <TotalProfit />
+                  <AccountSettings />
                 </Link>
               </Grid>
               <Box ml={1} width={1} height={1}>

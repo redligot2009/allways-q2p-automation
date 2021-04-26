@@ -3,16 +3,15 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
   Avatar,
-  Box,
   Card,
   CardContent,
   Grid,
-  LinearProgress,
   Typography,
   makeStyles,
-  colors
+  colors,
+  Box
 } from '@material-ui/core';
-import PersonIcon from '@material-ui/icons/Person';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -28,7 +27,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TasksProgress = ({ className, ...rest }) => {
+const AccountSettings = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -46,7 +45,7 @@ const TasksProgress = ({ className, ...rest }) => {
         >
         <Grid container justify="center">
             <Avatar className={classes.avatar}>
-              <PersonIcon />
+              <SettingsIcon />
             </Avatar>
         </Grid>
           <Grid item>
@@ -56,14 +55,14 @@ const TasksProgress = ({ className, ...rest }) => {
               align="center"
               variant="h4"
             >
-              MANAGE EMPLOYEES
+              ADJUST SETTINGS
             </Typography>
             <Typography
               color="textSecondary"
               variant="body1"
               align="center"
             >
-              Check and manage the employees account
+              Change your password and other details on hand
             </Typography>
           </Grid>
         </Grid>
@@ -78,8 +77,8 @@ const TasksProgress = ({ className, ...rest }) => {
   );
 };
 
-TasksProgress.propTypes = {
+AccountSettings.propTypes = {
   className: PropTypes.string
 };
 
-export default TasksProgress;
+export default AccountSettings;

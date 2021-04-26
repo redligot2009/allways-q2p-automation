@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TotalCustomers = ({ className, ...rest }) => {
+const OrderTracking = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -78,8 +78,8 @@ const TotalCustomers = ({ className, ...rest }) => {
   );
 };
 
-TotalCustomers.propTypes = {
+OrderTracking.propTypes = {
   className: PropTypes.string
 };
 
-export default TotalCustomers;
+export default OrderTracking;

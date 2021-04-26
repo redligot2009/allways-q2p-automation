@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Budget = ({ className, ...rest }) => {
+const QuotationReview = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -78,8 +78,8 @@ const Budget = ({ className, ...rest }) => {
   );
 };
 
-Budget.propTypes = {
+QuotationReview.propTypes = {
   className: PropTypes.string
 };
 
-export default Budget;
+export default QuotationReview;
