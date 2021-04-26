@@ -1,6 +1,96 @@
 [
 {
     "model": "auth.user",
+    "pk": 42,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$QA5Yw6bnFz9L$Z04Y+unZpYUF9JBzhvMtyKfgFeIN1ocknqqfXQ6R+ak=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testAccountManager",
+        "first_name": "Test",
+        "last_name": "Number One",
+        "email": "placeholder.email@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-04-26T04:57:40.122Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 41,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$npy5LLVDM5a9$k5HjQkYd6ueHw1h3Rxy/naIaSaBgfHDYrPszDDep8Jk=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testOwner2",
+        "first_name": "Test",
+        "last_name": "Number Two",
+        "email": "placeholder.email@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-04-26T01:11:38.962Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 39,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$Gp5CKS6aZ4cD$U8ubT8iLWLfW5WgNFwZOswTAsRDUT7c2v9Xou6yadXQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testDriver",
+        "first_name": "Mister",
+        "last_name": "Driver",
+        "email": "driver.gang@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-04-25T21:19:27.814Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 38,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$OnNMbxkN76BX$Ut7tR+4qIIa16R9oPMGLLh3FJraI87ur7l9Hn4LkqY4=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testProduction",
+        "first_name": "Production",
+        "last_name": "Man",
+        "email": "production.guy@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-04-25T14:41:12.126Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 31,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$dlVcE5nh58A9$V0Cv3FEVIJp2zI0DOjFFeWwWPxC7oeWufDbBf71k9Y8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "ulap2019",
+        "first_name": "Ian Red",
+        "last_name": "Ligot",
+        "email": "ian.ligot@obf.ateneo.edu",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-27T18:17:04Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
     "pk": 4,
     "fields": {
         "password": "pbkdf2_sha256$216000$XTp5fcxLFw0p$VGYh0G3xx3RJz0iJABEWhhquBFW1AWA0CgVAviKTCQk=",
@@ -51,6 +141,108 @@
         "date_joined": "2021-03-04T10:19:29Z",
         "groups": [],
         "user_permissions": []
+    }
+},
+{
+    "model": "api.account",
+    "pk": 38,
+    "fields": {
+        "user": 42,
+        "middle_name": "Account Manager",
+        "mobile_number": "1234567890",
+        "shipping_address": "",
+        "organization_name": "",
+        "job_position": "AM",
+        "plate_number": "",
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 37,
+    "fields": {
+        "user": 41,
+        "middle_name": "Owner",
+        "mobile_number": "1234567890",
+        "shipping_address": "",
+        "organization_name": "",
+        "job_position": "O",
+        "plate_number": "",
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 35,
+    "fields": {
+        "user": 39,
+        "middle_name": "Man",
+        "mobile_number": "",
+        "shipping_address": "",
+        "organization_name": "",
+        "job_position": "D",
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 34,
+    "fields": {
+        "user": 38,
+        "middle_name": "Guy",
+        "mobile_number": "",
+        "shipping_address": "",
+        "organization_name": "",
+        "job_position": "P",
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 30,
+    "fields": {
+        "user": null,
+        "middle_name": "Account",
+        "mobile_number": "",
+        "shipping_address": "",
+        "organization_name": "",
+        "job_position": null,
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.account",
+    "pk": 26,
+    "fields": {
+        "user": 31,
+        "middle_name": "Dela Cruz",
+        "mobile_number": null,
+        "shipping_address": null,
+        "organization_name": "",
+        "job_position": "O",
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
     }
 },
 {
