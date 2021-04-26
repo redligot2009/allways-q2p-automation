@@ -32,7 +32,7 @@ import {createQuotation} from "../../../_actions/quotation";
 
 import QuotationItem from './QuotationItem';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
     root: {

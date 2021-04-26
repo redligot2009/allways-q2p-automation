@@ -73,6 +73,7 @@ const EmployeeList = () => {
           handleCloseAddEmployeeDialog={()=>{
             setOpenAddEmployeeDialog(false);
           }}
+          setOpenAddEmployeeDialog={setOpenAddEmployeeDialog}
         />
         <Typography
           className={classes.name}
@@ -120,7 +121,7 @@ const EmployeeList = () => {
                 </Grid>
               </Box>
               <Grid container>
-                <Grid item xs={12} sm={6} >
+                <Grid item xs={12} sm={6} md={12}>
                   <Button
                       color="primary"
                       // disabled={isSubmitting}
@@ -137,7 +138,7 @@ const EmployeeList = () => {
                       Add Account Manager
                   </Button>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6} md={12}>
                   <Button
                     color="primary"
                     // disabled={isSubmitting}
