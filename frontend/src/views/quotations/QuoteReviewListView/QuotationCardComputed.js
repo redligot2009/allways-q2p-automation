@@ -124,26 +124,32 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
             (Unit Costs: {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})})
           </Typography>
         </Box>
-        <Box>
-          <Button 
-            variant="contained" 
-            color="error" 
-            md={3}
-          >
-            CANCEL JOB ORDER
-          </Button>
-          <Button 
-            variant="outlined" 
-            color="primary"
-            onClick={
-              ()=>{
-                navigate('/app/quote/detail',{state: {id: quotation.id}})
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <Button 
+              fullWidth
+              variant="contained" 
+              color="primary" 
+              md={3}
+            >
+              CREATE JOB ORDER
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Button 
+              fullWidth
+              variant="outlined" 
+              color="primary"
+              onClick={
+                ()=>{
+                  navigate('/app/quote/detail',{state: {id: quotation.id}})
+                }
               }
-            }
-          >
-            REVIEW PRODUCT SPECS
-          </Button>
-        </Box>
+            >
+              REVIEW PROJECT SPECS
+            </Button>
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   );

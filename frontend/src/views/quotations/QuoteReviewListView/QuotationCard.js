@@ -277,6 +277,7 @@ const QuotationCard = ({ className, quotation, ...rest }) => {
             COMPUTE QUOTATION
           </Button> */}
           <Button 
+            fullWidth
             variant="outlined" 
             color="primary"
             onClick={
@@ -285,7 +286,7 @@ const QuotationCard = ({ className, quotation, ...rest }) => {
               }
             }
           >
-            REVIEW PRODUCT SPECS
+            REVIEW PROJECT SPECS
           </Button>
         </Box>
       </CardContent>
