@@ -39,16 +39,16 @@ const QuotationReviewList = () => {
       {
         await dispatch(getComputedQuotations());
         await dispatch(getInProgressQuotations());
-        console.log(in_progress);
-        console.log(computed);
+        // console.log(in_progress);
+        // console.log(computed);
       }
       catch(error)
       {
-        console.log(error);
+        // console.log(error);
       }
     }
     fetchData();
-  }, [computed, in_progress])
+  }, [])
 
   return (
     <Page

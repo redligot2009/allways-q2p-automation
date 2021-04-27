@@ -142,12 +142,12 @@ const QuoteReviewDetail = (props) => {
                             quotation: quoteDetails,
                             finishComputing: false,
                         }}
-                        onSubmit={(values, actions) => {
+                        onSubmit={async (values, actions) => {
                             // console.log(values.quotation);
                             if(values.finishComputing)
                             {
                                 values.quotation.approval_status="computed";
-                                handleUpdateQuotation(values.quotation);
+                                await handleUpdateQuotation(values.quotation);
                                 navigate('/app/quote/review')
                             }
                             else
