@@ -84,10 +84,11 @@ function Routes() {
         { path: 'settings', element: limitRouteAccess([],<SettingsView />)},
         { path: '*', element: limitRouteAccess([],<Navigate to="/404" />)},
         { path: 'tracking', children: [
-          { path: 'account_manager', element: limitRouteAccess(['O','AM',], <TrackingAMListView />) },
-          { path: 'production_employee', element: limitRouteAccess(['P'], <TrackingPRODListView />) },
-          { path: 'delivery_man', element: limitRouteAccess(['D'], <TrackingDELListView />) },
-          { path: 'customer', element: limitRouteAccess([], <TrackingCUSTListView />) },
+          { path: 'AM', element: limitRouteAccess(['O','AM',], <TrackingAMListView />) },
+          { path: 'O', element: limitRouteAccess(['O','AM',], <TrackingAMListView />) },
+          { path: 'P', element: limitRouteAccess(['P'], <TrackingPRODListView />) },
+          { path: 'D', element: limitRouteAccess(['D'], <TrackingDELListView />) },
+          { path: '', element: limitRouteAccess([], <TrackingCUSTListView />) },
         ]}
       ]
     },
