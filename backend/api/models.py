@@ -648,4 +648,4 @@ class JobOrder(models.Model):
     # Status of the "job"
     production_status=models.CharField(max_length=11, choices=STATUS)
     # When was the quotation created as a job order?
-    created_date = models.DateTimeField(null=False,blank=False, default=timezone.now)
+    created_date = models.DateTimeField(null=False,blank=False, default=timezone.now())
