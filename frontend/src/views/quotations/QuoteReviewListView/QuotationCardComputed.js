@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
+
 import {
   Box,
   Card,
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const QuotationCardComputed = ({ className, quotation, ...rest }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const getApprovalStatus = () => {
     switch(quotation.approval_status)
@@ -132,6 +135,11 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
           <Button 
             variant="outlined" 
             color="primary"
+            onClick={
+              ()=>{
+                navigate('/app/quote/detail',{state: {id: quotation.id}})
+              }
+            }
           >
             REVIEW PRODUCT SPECS
           </Button>

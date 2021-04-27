@@ -48,7 +48,7 @@ const QuotationReviewList = () => {
       }
     }
     fetchData();
-  }, [])
+  }, [computed, in_progress])
 
   return (
     <Page

@@ -144,13 +144,15 @@ const QuoteReviewDetail = (props) => {
                         }}
                         onSubmit={(values, actions) => {
                             // console.log(values.quotation);
-                            handleUpdateQuotation(values.quotation);
                             if(values.finishComputing)
                             {
+                                values.quotation.approval_status="computed";
+                                handleUpdateQuotation(values.quotation);
                                 navigate('/app/quote/review')
                             }
                             else
                             {
+                                handleUpdateQuotation(values.quotation);
                                 fetchData();
                             }
                         }}
@@ -166,13 +168,32 @@ const QuoteReviewDetail = (props) => {
                     }) => (values.quotation &&
                         <Form onSubmit={handleSubmit}>
                             <Box mb={3}>
-                                <Typography
-                                    color="textPrimary"
-                                    variant="h2"
-                                >
-                                    Quotation #{values.quotation.id}
-                                </Typography>
-                                
+                                <Grid container>
+                                    <Grid item xs={12} sm={8}>
+                                        <Typography
+                                            color="textPrimary"
+                                            variant="h2"
+                                        >
+                                            Quotation #{values.quotation.id}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={4} alignContent="flex-end">
+                                        <Button
+                                            color="primary"
+                                            // disabled={isSubmitting}
+                                            size="medium"
+                                            type="button"
+                                            variant="outlined"
+                                            onClick={
+                                                ()=>{
+                                                    handleGoBack();
+                                                }
+                                            }
+                                        >
+                                            « Return to Quote Review
+                                        </Button>
+                                    </Grid>
+                                </Grid>
                             </Box>
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={6}>
