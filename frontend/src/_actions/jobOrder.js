@@ -6,12 +6,16 @@ import {
 import JobOrderService from "../_services/jobOrder.service";
 
 export const createJobOrder = (quotation, manager) => (dispatch) => {
+    // TODO: Test if createJobOrder action is functioning
     return JobOrderService.createJobOrder(quotation, manager)
         .then((response)=>{
-
+            dispatch({
+                type: CREATE_JOB_ORDER_SUCCESS,
+                payload: {jobOrder: response.data}
+            })
         })
         .catch((error)=>{
-
+            dispatch({type:CREATE_JOB_ORDER_FAIL})
         })
 }
 
