@@ -9,10 +9,19 @@ JOB ORDER API SERVICE FUNCTIONS
 
 const createJobOrder = (quotation, manager) => {
   // TODO: Test if createJobOrder functioning
-  const createResult = axios.post(`api/joborders/`,{
+  const newJobOrder = {
     quotation:  quotation.id,
     manager: manager.id,
     production_status: "pending",
+  }
+  const createResult = axios.post(`api/joborders/`,newJobOrder)
+  .then((response)=>{
+    console.log(response.data)
+    return response;
+  })
+  .catch((error)=>{
+    console.log(JSON.stringify(newJobOrder))
+    console.log(newJobOrder)
   })
   return createResult;
 }

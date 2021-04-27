@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+
+import {createJobOrder} from "../../../_actions/jobOrder";
 
 import {
   Box,
@@ -31,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
 const QuotationCardComputed = ({ className, quotation, ...rest }) => {
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const {profile : currentUserProfile} = useSelector(state=>state.auth);
 
   const getApprovalStatus = () => {
     switch(quotation.approval_status)
@@ -131,6 +138,16 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
               variant="contained" 
               color="primary" 
               md={3}
+              onClick={()=>{
+                // TODO: Implement job order creation upon pressing button
+                dispatch(createJobOrder(quotation,currentUserProfile))
+                .then((response)=>{
+                  console.log("SUCCESS!")
+                })
+                .catch((error)=>{
+                  console.log(error);
+                })
+              }}
             >
               CREATE JOB ORDER
             </Button>
