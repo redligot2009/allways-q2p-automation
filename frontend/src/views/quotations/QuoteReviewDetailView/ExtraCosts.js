@@ -61,7 +61,7 @@ const ExtraCosts = (props) => {
                 margin="normal"
                 name="quotation.packaging_costs"
                 onBlur={props.handleBlur}
-                onChange={props.andleChange}
+                onChange={props.handleChange}
                 value={props.values.quotation.packaging_costs}
                 variant="outlined"
             >
