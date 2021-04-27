@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.utils import timezone
@@ -646,5 +647,5 @@ class JobOrder(models.Model):
     quotation = models.OneToOneField(to=Quotation,null=True,on_delete=models.SET_NULL)
     # Status of the "job"
     production_status=models.CharField(max_length=11, choices=STATUS)
-    # When was the quotation approved as a job order?
-    created_date = models.DateTimeField(null=False,blank=False)
+    # When was the quotation created as a job order?
+    created_date = models.DateTimeField(null=False,blank=False, default=timezone.now)
