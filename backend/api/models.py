@@ -251,6 +251,7 @@ class Quotation(models.Model):
         ('not_approved','Not Approved'),
         ('in_progress', 'In Progress'),
         ('approved', 'Approved'),
+        ('archived', 'Archived'),
         ]
     # IS QUOTATION APPROVED OR NOT?
     approval_status=models.CharField(default='in_progress',max_length=12, choices=STATUS)
