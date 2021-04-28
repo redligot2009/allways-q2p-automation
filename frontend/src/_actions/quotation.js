@@ -22,14 +22,12 @@ export const createQuotation = (quotation) => (dispatch) => {
                 type: CREATE_QUOTATION_SUCCESS,
                 payload: {quotation: response.data}
             })
-            console.log("FAILED TO FAIL!");
             return Promise.resolve();
         })
         .catch((error)=>{
             dispatch({
                 type: CREATE_QUOTATION_FAIL,
             })
-            console.log("SUCCESSFULLY FAILED!!")
             return Promise.reject();
         })
 }
@@ -101,6 +99,23 @@ export const getInProgressQuotations = () => (dispatch) => {
         .catch((error)=>{
             dispatch({
                 type: RETRIEVE_IN_PROGRESS_QUOTATIONS_FAIL
+            })
+            return Promise.reject();
+        })
+}
+
+export const getApprovedQuotations = () => (dispatch) => {
+    return QuotationService.retrieveQuotations("approved")
+        .then((response)=>{
+            dispatch({
+                type: RETRIEVE_APPROVED_QUOTATIONS_SUCCESS,
+                payload: {quotations: response.data}
+            })
+            return Promise.resolve();
+        })
+        .catch((error)=>{
+            dispatch({
+                type: RETRIEVE_APPROVED_QUOTATIONS_FAIL,
             })
             return Promise.reject();
         })

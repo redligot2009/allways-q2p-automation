@@ -58,14 +58,21 @@ const QuotationCardComputed = ({ className, quotation, approveQuotation, ...rest
   }
 
   const isUserClient = () => {
-    switch(currentUserProfile.job_position)
+    try
     {
-      case "":
-        return true;
-      case null:
-        return true;
-      default:
-        return false;
+      switch(currentUserProfile.job_position)
+      {
+        case "":
+          return true;
+        case null:
+          return true;
+        default:
+          return false;
+      }
+    }
+    catch(error)
+    {
+      return false;
     }
   }
 
@@ -309,18 +316,31 @@ const QuotationCardComputed = ({ className, quotation, approveQuotation, ...rest
               <Grid item xs={12} md={6}>
                 <Button 
                   fullWidth
+                  disabled={quotation.approval_status !== "approved"}
                   variant="contained" 
                   color="primary" 
                   md={3}
-                  onClick={()=>{
-                    // TODO: Implement job order creation upon pressing button
-                    dispatch(createJobOrder(quotation,currentUserProfile))
-                    .then((response)=>{
-                      console.log("SUCCESS!")
-                    })
-                    .catch((error)=>{
-                      console.log(error);
-                    })
+                  onClick={async ()=>{
+                    await dispatch(getQuotationById(quotation.id))
+                    if(currentQuotation)
+                    {
+                      let quotationToArchive = currentQuotation;
+                      quotationToArchive.approval_status="archived"
+                      await dispatch(updateQuotation(quotationToArchive))
+                        .then(async (response)=>{
+                          await dispatch(createJobOrder(currentQuotation,currentUserProfile))
+                          .then((response)=>{
+                            console.log("SUCCESS!")
+                          })
+                          .catch((error)=>{
+                            console.log(error);
+                          })
+                        })
+                        .catch((error)=>{
+                          console.log(error);
+                        })
+                      
+                    }
                   }}
                 >
                   CREATE JOB ORDER

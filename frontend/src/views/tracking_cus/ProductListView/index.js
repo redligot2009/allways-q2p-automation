@@ -58,6 +58,7 @@ const ProductList = () => {
     await dispatch(getComputedQuotations(currentUserProfile.id))
   }
 
+  // TODO: Refactor this shitty approveQuotation method. WTF is this anyway? But hey it works.
   function approveQuotation (quotationToUpdate) {
     dispatch(getQuotationById(quotationToUpdate.id))
     if(currentQuotation)

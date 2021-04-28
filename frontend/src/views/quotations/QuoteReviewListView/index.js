@@ -12,7 +12,7 @@ import QuotationCardComputed from '../QuotationCardComputed';
 // import data from './data';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import {getComputedQuotations, getInProgressQuotations} from "../../../_actions/quotation";
+import {getComputedQuotations, getInProgressQuotations, getApprovedQuotations} from "../../../_actions/quotation";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +30,9 @@ const QuotationReviewList = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const {computedQuotations: computed} = useSelector((state)=>state.quotation);
-  const {inProgressQuotations: in_progress} = useSelector((state)=>state.quotation);
+  const { computedQuotations: computed} = useSelector((state)=>state.quotation);
+  const { inProgressQuotations: in_progress} = useSelector((state)=>state.quotation);
+  const { approvedQuotations : approved} = useSelector((state)=>state.quotation);
   
   useEffect(() => {
     async function fetchData(){
@@ -39,6 +40,7 @@ const QuotationReviewList = () => {
       {
         await dispatch(getComputedQuotations());
         await dispatch(getInProgressQuotations());
+        await dispatch(getApprovedQuotations())
         // console.log(in_progress);
         // console.log(computed);
       }
@@ -49,6 +51,7 @@ const QuotationReviewList = () => {
     }
     fetchData();
   }, [])
+  //computed, in_progress, approved
 
   return (
     <Page
@@ -61,7 +64,7 @@ const QuotationReviewList = () => {
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} md={4}>
             <Typography className={classes.name} color="textSecondary" variant="h5">
               Awaiting Computation
             </Typography>
@@ -78,25 +81,42 @@ const QuotationReviewList = () => {
                 )) : null}
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} md={4}>
               <Typography className={classes.name} color="textSecondary" variant="h5">
                 Awaiting Approval
               </Typography>
-                <Box mt={2}>
-                  {computed ? computed.map((quotation) => (
-                    <Grid item key={quotation.id} lg={12} md={12} xs={12}>
-                      <Box mt={2}>
-                        <QuotationCardComputed
-                          className={classes.quotationCard}
-                          quotation={quotation}
-                        />
-                      </Box>
-                    </Grid>
-                  )) : null}
-                </Box>
-              </Grid>
+              <Box mt={2}>
+                {computed ? computed.map((quotation) => (
+                  <Grid item key={quotation.id} lg={12} md={12} xs={12}>
+                    <Box mt={2}>
+                      <QuotationCardComputed
+                        className={classes.quotationCard}
+                        quotation={quotation}
+                      />
+                    </Box>
+                  </Grid>
+                )) : null}
+              </Box>
             </Grid>
-          </Box>
+            <Grid item xs={12} sm={6} md={4}>
+              <Typography className={classes.name} color="textSecondary" variant="h5">
+                Approved
+              </Typography>
+              <Box mt={2}>
+                {approved ? approved.map((quotation) => (
+                  <Grid item key={quotation.id} lg={12} md={12} xs={12}>
+                    <Box mt={2}>
+                      <QuotationCardComputed
+                        className={classes.quotationCard}
+                        quotation={quotation}
+                      />
+                    </Box>
+                  </Grid>
+                )) : null}
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
       </Container>
     </Page>
   );
