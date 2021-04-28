@@ -81,6 +81,7 @@ const QuoteReviewDetail = (props) => {
         {
             // const quoteResult = await axios.get(`api/quotations/${location.state.id}`)
             await dispatch(getQuotationById(location.state.id))
+            // TODO: Convert these into Redux actions.
             const paperResults = await axios.get('api/papers')
                 .then((response)=>{
                     // console.log(response.data)

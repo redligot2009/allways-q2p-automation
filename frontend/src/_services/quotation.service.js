@@ -98,6 +98,8 @@ const updateQuotation = (quotation) => {
     filteredQuotationData.items = filteredQuotationItemsData;
 
     const updateResult = axios.put(`api/quotations/${quotation.id}/`,filteredQuotationData)
+    console.log(filteredQuotationData);
+    console.log(JSON.stringify(filteredQuotationData));
     return updateResult;
 }
 

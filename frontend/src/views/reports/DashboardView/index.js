@@ -79,7 +79,7 @@ const Dashboard = () => {
                 </Link>
               </Grid>
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Link to={`/app/tracking/${currentUserProfile.job_position}`}>
+                <Link to={`/app/tracking/${currentUserProfile.job_position ? currentUserProfile.job_position : ""}`}>
                   <OrderTracking />
                 </Link>
               </Grid>

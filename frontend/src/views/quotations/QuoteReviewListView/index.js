@@ -7,8 +7,8 @@ import {
   Typography
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import QuotationCard from './QuotationCard';
-import QuotationCardComputed from './QuotationCardComputed';
+import QuotationCard from '../QuotationCard';
+import QuotationCardComputed from '../QuotationCardComputed';
 // import data from './data';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";

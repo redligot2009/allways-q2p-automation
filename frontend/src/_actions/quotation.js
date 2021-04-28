@@ -45,6 +45,8 @@ export const updateQuotation = (quotation) => (dispatch) => {
         })
         .catch((error)=>{
             console.log("WTF?")
+            console.log(quotation);
+            console.log(JSON.stringify(quotation));
             dispatch({
                 type: UPDATE_QUOTATION_FAIL,
             })
@@ -69,10 +71,10 @@ export const getQuotationById = (id) => (dispatch) => {
         })
 };
 
-export const getComputedQuotations = () => (dispatch) => {
-    return QuotationService.retrieveQuotations("computed")
+export const getComputedQuotations = (client="") => (dispatch) => {
+    return QuotationService.retrieveQuotations("computed",client)
         .then((response)=>{
-            console.log(response.data);
+            // console.log(response.data);
             dispatch({
                 type: RETRIEVE_COMPUTED_QUOTATIONS_SUCCESS,
                 payload: {quotations: response.data}

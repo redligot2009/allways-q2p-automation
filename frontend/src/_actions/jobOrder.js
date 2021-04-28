@@ -13,9 +13,11 @@ export const createJobOrder = (quotation, manager) => (dispatch) => {
                 type: CREATE_JOB_ORDER_SUCCESS,
                 payload: {jobOrder: response.data}
             })
+            return Promise.resolve()
         })
         .catch((error)=>{
             dispatch({type:CREATE_JOB_ORDER_FAIL})
+            return Promise.reject()
         })
 }
 
