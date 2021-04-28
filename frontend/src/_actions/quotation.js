@@ -52,6 +52,86 @@ export const updateQuotation = (quotation) => (dispatch) => {
         })
 }
 
+export const approveQuotation = (id) => (dispatch) => {
+    
+    return QuotationService.retrieveQuotation(id)
+        .then((response)=>{
+            
+            dispatch({
+                type: RETRIEVE_QUOTATION_SUCCESS,
+                payload: {quotation: response.data}
+            })
+
+            let quotationToUpdate = response.data;
+            quotationToUpdate.approval_status="approved";
+
+            return QuotationService.updateQuotation(quotationToUpdate)
+                .then((response)=>{
+                    dispatch({
+                        type: UPDATE_QUOTATION_SUCCESS,
+                        payload: {quotation: response.data}
+                    })
+                    console.log(response.data);
+                    return Promise.resolve();
+                })
+                .catch((error)=>{
+                    dispatch({
+                        type: UPDATE_QUOTATION_FAIL
+                    })
+                    console.log(error);
+                    console.log(quotationToUpdate);
+                    console.log(JSON.stringify(quotationToUpdate));
+                    return Promise.reject();
+                })
+            
+        })
+        .catch((error)=>{
+            dispatch({
+                type: RETRIEVE_QUOTATION_FAIL,
+            })
+            console.log(error);
+            return Promise.reject();
+        })
+}
+
+export const archiveQuotation = (id) => (dispatch) => {
+    
+    return QuotationService.retrieveQuotation(id)
+        .then((response)=>{
+            
+            dispatch({
+                type: RETRIEVE_QUOTATION_SUCCESS,
+                payload: {quotation: response.data}
+            })
+
+            let quotationToUpdate = response.data;
+            quotationToUpdate.approval_status="archived";
+
+            return QuotationService.updateQuotation(quotationToUpdate)
+                .then((response)=>{
+                    dispatch({
+                        type: UPDATE_QUOTATION_SUCCESS,
+                        payload: {quotation: response.data}
+                    })
+                    return Promise.resolve();
+                })
+                .catch((error)=>{
+                    dispatch({
+                        type: UPDATE_QUOTATION_FAIL,
+                        payload: {quotation: response.data}
+                    })
+                    return Promise.reject();
+                })
+            
+        })
+        .catch((error)=>{
+            dispatch({
+                type: RETRIEVE_QUOTATION_FAIL,
+            })
+            return Promise.reject();
+        })
+}
+
 export const getQuotationById = (id) => (dispatch) => {
     return QuotationService.retrieveQuotation(id)
         .then((response)=>{

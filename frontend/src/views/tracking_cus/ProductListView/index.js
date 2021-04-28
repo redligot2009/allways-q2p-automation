@@ -15,6 +15,7 @@ import QuotationCardComputed from '../../quotations/QuotationCardComputed';
 import data from './data';
 
 import { getComputedQuotations, updateQuotation, getQuotationById } from "../../../_actions/quotation";
+import { useInterval } from "../../../_helpers/hooks"
 import { getProfile } from "../../../_actions/auth";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
@@ -69,8 +70,8 @@ const ProductList = () => {
     }
   }
 
-  useEffect(()=>{
-    async function initialFetchData (){
+  useInterval(()=>{
+    async function reFetchData (){
       // console.log(currentUserProfile)
       try
       {
@@ -82,8 +83,8 @@ const ProductList = () => {
       }
       // console.log(computedQuotations)
     }
-    initialFetchData()
-  },[dispatch, currentUserProfile, computedQuotations])
+    reFetchData()
+  },2000);
 
 
   return (

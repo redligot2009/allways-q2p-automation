@@ -5,7 +5,7 @@ import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import { createJobOrder } from "../../_actions/jobOrder";
-import { updateQuotation, getQuotationById } from "../../_actions/quotation";
+import { updateQuotation, getQuotationById, approveQuotation, archiveQuotation } from "../../_actions/quotation";
 import { getJobPosition } from "../../_helpers/index";
 
 import {
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const QuotationCardComputed = ({ className, quotation, approveQuotation, ...rest }) => {
+const QuotationCardComputed = ({ className, quotation, ...rest }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -304,7 +304,7 @@ const QuotationCardComputed = ({ className, quotation, approveQuotation, ...rest
                   onClick={async ()=>{
                     console.log("YO!");
                     console.log(quotation);
-                    approveQuotation(quotation);
+                    dispatch(approveQuotation(quotation.id));
                     // props.fetchData();
                   }}
                 >
@@ -320,27 +320,14 @@ const QuotationCardComputed = ({ className, quotation, approveQuotation, ...rest
                   variant="contained" 
                   color="primary" 
                   md={3}
-                  onClick={async ()=>{
-                    await dispatch(getQuotationById(quotation.id))
-                    if(currentQuotation)
-                    {
-                      let quotationToArchive = currentQuotation;
-                      quotationToArchive.approval_status="archived"
-                      await dispatch(updateQuotation(quotationToArchive))
-                        .then(async (response)=>{
-                          await dispatch(createJobOrder(currentQuotation,currentUserProfile))
-                          .then((response)=>{
-                            console.log("SUCCESS!")
-                          })
-                          .catch((error)=>{
-                            console.log(error);
-                          })
-                        })
-                        .catch((error)=>{
-                          console.log(error);
-                        })
-                      
-                    }
+                  onClick={()=>{
+                    dispatch(archiveQuotation(quotation.id))
+                    .then((response)=>{
+                      dispatch(createJobOrder(currentQuotation,currentUserProfile))
+                    })
+                    .catch((error)=>{
+
+                    })
                   }}
                 >
                   CREATE JOB ORDER

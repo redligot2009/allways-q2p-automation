@@ -12,7 +12,9 @@ import QuotationCardComputed from '../QuotationCardComputed';
 // import data from './data';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
+
 import {getComputedQuotations, getInProgressQuotations, getApprovedQuotations} from "../../../_actions/quotation";
+import {useInterval} from "../../../_helpers/hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +36,7 @@ const QuotationReviewList = () => {
   const { inProgressQuotations: in_progress} = useSelector((state)=>state.quotation);
   const { approvedQuotations : approved} = useSelector((state)=>state.quotation);
   
-  useEffect(() => {
+  useInterval(() => {
     async function fetchData(){
       try
       {
@@ -50,7 +52,7 @@ const QuotationReviewList = () => {
       }
     }
     fetchData();
-  }, [])
+  },1000)
   //computed, in_progress, approved
 
   return (
