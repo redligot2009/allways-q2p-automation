@@ -75,6 +75,26 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     name: 'Mr. Ligot'
   });
 
+  const limitVisibility = (element, roles, exclude=false) => {
+    if(exclude===false)
+    {
+      if(roles.includes(currentUserProfile.job_position) || roles.length === 0)
+      {
+        // console.log("YEAH", element);
+        return element;
+      }
+    }
+    else
+    {
+      if(!(roles.includes(currentUserProfile.job_position)))
+      {
+        // console.log("YEAH NO", element);
+        return element;
+      }
+    }
+    return <></>
+  }
+
   const items = [
     {
       href: '/app/dashboard',
@@ -122,7 +142,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       restrict_to: ['O','AM'],
     },
     {
-      href: '/app/tracking/account_manager',
+      href: `/app/tracking/`,
       icon: ClipboardIcon,
       title: 'Order Tracking',
       handleClick: () => {
@@ -139,15 +159,15 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       },
       restrict_to: [],
     },
-    {
-      href: '/login',
-      icon: LockIcon,
-      title: 'Login',
-      handleClick: () => {
+    // {
+    //   href: '/login',
+    //   icon: LockIcon,
+    //   title: 'Login',
+    //   handleClick: () => {
 
-      },
-      restrict_to: [],
-    },
+    //   },
+    //   restrict_to: [],
+    // },
     {
       href:'/logout',
       icon: LogOutIcon,
@@ -157,24 +177,24 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       },
       restrict_to: [],
     },
-    {
-      href: '/register',
-      icon: UserPlusIcon,
-      title: 'Register',
-      handleClick: () => {
+    // {
+    //   href: '/register',
+    //   icon: UserPlusIcon,
+    //   title: 'Register',
+    //   handleClick: () => {
 
-      },
-      restrict_to: [],
-    },
-    {
-      href: '/404',
-      icon: AlertCircleIcon,
-      title: 'Error',
-      handleClick: () => {
+    //   },
+    //   restrict_to: [],
+    // },
+    // {
+    //   href: '/404',
+    //   icon: AlertCircleIcon,
+    //   title: 'Error',
+    //   handleClick: () => {
 
-      },
-      restrict_to: [],
-    }
+    //   },
+    //   restrict_to: [],
+    // }
   ];
   
 
@@ -229,13 +249,16 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Box p={2}>
         <List>
           {items.map((item) => (
-            <NavItem
-              href={item.href}
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-              onClick={item.handleClick}
-            />
+            limitVisibility(
+              <NavItem
+                href={item.href}
+                key={item.title}
+                title={item.title}
+                icon={item.icon}
+                onClick={item.handleClick}
+              />,
+              item.restrict_to
+            )
           ))}
         </List>
       </Box>
