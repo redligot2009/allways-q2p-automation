@@ -14,6 +14,7 @@ import {
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { AddBoxOutlined } from '@material-ui/icons';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
 const JobOrderCard = ({ className, jobOrder, ...rest }) => {
   const classes = useStyles();
   const navigate = useNavigate();
+
+  const { currentUserProfile } = useSelector((state)=>state.auth)
+
   const getProductionStatus = () => {
     switch(jobOrder.production_status)
     {
