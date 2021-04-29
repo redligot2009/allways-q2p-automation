@@ -52,11 +52,10 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const dispatch = useDispatch()
   
   const { profile: currentUserProfile } = useSelector((state) => state.auth) 
-  const { user: currentUser } = useSelector((state) => state.auth);
 
-  useEffect(()=>{
-    console.log("YO! ", currentUser, currentUserProfile);
-  },[currentUserProfile,currentUser]);
+  // useEffect(()=>{
+  //   console.log("YO! ", currentUser, currentUserProfile);
+  // },[currentUserProfile,currentUser]);
 
   const setUserProfile = (user) =>
   {

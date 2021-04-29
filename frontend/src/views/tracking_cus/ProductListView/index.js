@@ -16,7 +16,7 @@ import JobOrderCard from '../../jobOrders/JobOrderCard';
 import data from './data';
 
 import { getComputedQuotations, updateQuotation, getQuotationById, approveQuotation } from "../../../_actions/quotation";
-import { getInProductionJobOrders } from '../../../_actions/jobOrder';
+import { getInProductionJobOrders, getPendingJobOrders } from '../../../_actions/jobOrder';
 import { useInterval } from "../../../_helpers/hooks"
 import { getProfile } from "../../../_actions/auth";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -43,6 +43,7 @@ const ProductList = () => {
 
   const {profile : currentUserProfile} = useSelector(state=>state.auth)
   const { computedQuotations } = useSelector(state=>state.quotation);
+  const { pendingJobOrders } = useSelector(state=>state.jobOrder)
   const { inProgressJobOrders } = useSelector(state=>state.jobOrder);
   const { outForDeliveryJobOrders } = useSelector(state=>state.jobOrder)
   const { currentQuotation } = useSelector(state=>state.quotation);
@@ -80,8 +81,25 @@ const ProductList = () => {
   }
 
   async function fetchData () {
-    await dispatch(getComputedQuotations(currentUserProfile.id))
-    await dispatch(getInProductionJobOrders(currentUserProfile.id))
+    switch(currentUserProfile.job_position)
+    {
+      case 'O':
+        await dispatch(getPendingJobOrders())
+        await dispatch(getInProductionJobOrders())
+        break;
+      case 'AM':
+        await dispatch(getPendingJobOrders())
+        await dispatch(getInProductionJobOrders())
+        break;
+      case 'P':
+        break;
+      case 'D':
+        break;
+      default:
+        await dispatch(getComputedQuotations(currentUserProfile.id))
+        await dispatch(getInProductionJobOrders(currentUserProfile.id))
+    }
+    
   }
 
   useInterval(()=>{
@@ -145,32 +163,31 @@ const ProductList = () => {
           ['O','AM','P','D'], true
           )}
           {currentUserProfile && limitVisibility(
-            <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4}>
             <Typography
               className={classes.name}
               color="textSecondary"
               variant="h5"
             >
-              Pending Client Approval
+              Pending Job Orders
             </Typography>
             <Box mt={2}>
-              {computedQuotations && computedQuotations.map((quotation) => (
+              {pendingJobOrders && pendingJobOrders.map((jobOrder) => (
                 <Grid
                   item
-                  key={quotation.id}
+                  key={jobOrder.id}
                 >
                   <Box mt={2}>
-                  <QuotationCardComputed
-                    className={classes.productCard}
-                    quotation={quotation}
-                    fetchData={fetchData}
-                  />
+                    <JobOrderCard
+                      className={classes.productCard}
+                      jobOrder={jobOrder}
+                    />
                   </Box>
                 </Grid>
               ))}
             </Box>
           </Grid>,
-          ['O','AM','P','D'], true
+          ['O','AM',],
           )}
           <Grid item xs={12} md={4}>
             <Typography
