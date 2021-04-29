@@ -25,11 +25,10 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
-
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../../_actions/auth";
 
-import {getJobPosition} from "../../../_helpers";
+import {getJobPosition, limitVisibility} from "../../../_helpers";
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -73,26 +72,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     jobTitle: 'None',
     name: 'Mr. Ligot'
   });
-
-  const limitVisibility = (element, roles, exclude=false) => {
-    if(exclude===false)
-    {
-      if(roles.includes(currentUserProfile.job_position) || roles.length === 0)
-      {
-        // console.log("YEAH", element);
-        return element;
-      }
-    }
-    else
-    {
-      if(!(roles.includes(currentUserProfile.job_position)))
-      {
-        // console.log("YEAH NO", element);
-        return element;
-      }
-    }
-    return <></>
-  }
 
   const items = [
     {
@@ -256,7 +235,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
                 icon={item.icon}
                 onClick={item.handleClick}
               />,
-              item.restrict_to
+              item.restrict_to,
+              currentUserProfile.job_position,
             )
           ))}
         </List>

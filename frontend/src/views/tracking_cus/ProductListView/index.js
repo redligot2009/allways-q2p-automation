@@ -47,6 +47,8 @@ const ProductList = () => {
   const { inProgressJobOrders } = useSelector(state=>state.jobOrder);
   const { outForDeliveryJobOrders } = useSelector(state=>state.jobOrder)
   const { currentQuotation } = useSelector(state=>state.quotation);
+
+  const [initialFetchDataFinished, setInitialFetchDataFinished]  = useState(false);
   
   const isUserClient = () => {
     switch(currentUserProfile.job_position)
@@ -81,6 +83,7 @@ const ProductList = () => {
   }
 
   async function fetchData () {
+    await dispatch(getProfile())
     switch(currentUserProfile.job_position)
     {
       case 'O':
@@ -101,6 +104,21 @@ const ProductList = () => {
     }
     
   }
+
+  useEffect(()=>{
+    async function initialFetchData () {
+      try
+      {
+        await fetchData()
+        setInitialFetchDataFinished(true);
+      }
+      catch(error)
+      {
+        console.log(error)
+      }
+    }
+    initialFetchData();
+  },[])
 
   useInterval(()=>{
     async function reFetchData (){
@@ -134,7 +152,7 @@ const ProductList = () => {
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
-          {currentUserProfile && limitVisibility(
+          {initialFetchDataFinished && currentUserProfile && limitVisibility(
             <Grid item xs={12} md={4}>
             <Typography
               className={classes.name}
@@ -162,7 +180,7 @@ const ProductList = () => {
           </Grid>,
           ['O','AM','P','D'], true
           )}
-          {currentUserProfile && limitVisibility(
+          {initialFetchDataFinished && currentUserProfile && limitVisibility(
           <Grid item xs={12} md={4}>
             <Typography
               className={classes.name}
@@ -198,7 +216,7 @@ const ProductList = () => {
               In Production
             </Typography>
             <Box mt={2}>
-              {inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
+              {initialFetchDataFinished && inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
                 <Grid
                   item
                   key={jobOrder.id}
@@ -219,7 +237,7 @@ const ProductList = () => {
                 Out for Delivery
               </Typography>
                 <Box mt={2}>
-                  {outForDeliveryJobOrders && outForDeliveryJobOrders.map((jobOrder) => (
+                  {initialFetchDataFinished && outForDeliveryJobOrders && outForDeliveryJobOrders.map((jobOrder) => (
                     <Grid
                       item
                       key={jobOrder.id}

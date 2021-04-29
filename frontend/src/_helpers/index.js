@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const getResultURL = (baseURL="api/",urlParams = {}) => {
     let requestURL = baseURL;
     let foundFirstParam = false;
@@ -63,3 +65,23 @@ export const getJobPosition = (job_position) => {
             return "Client"
     }
 }
+
+export const limitVisibility = (element, roles, job_position, exclude=false) => {
+    if(exclude===false)
+    {
+      if(roles.includes(job_position) || roles.length === 0)
+      {
+        // console.log("YEAH", element);
+        return element;
+      }
+    }
+    else
+    {
+      if(!(roles.includes(job_position.job_position)))
+      {
+        // console.log("YEAH NO", element);
+        return element;
+      }
+    }
+    return <></>
+  }
