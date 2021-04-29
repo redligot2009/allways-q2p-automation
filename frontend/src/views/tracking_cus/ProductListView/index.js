@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {useSelector, useDispatch } from 'react-redux';
 import {
   Box,
   Container,
@@ -10,7 +11,15 @@ import Page from 'src/components/Page';
 import ProductCard from './ProductCard';
 import ProductCardDelivery from './ProductCardDelivery';
 import ProductCardProd from './ProductCardProd';
+import QuotationCardComputed from '../../quotations/QuotationCardComputed';
+import JobOrderCard from '../../jobOrders/JobOrderCard';
 import data from './data';
+
+import { getComputedQuotations, updateQuotation, getQuotationById, approveQuotation } from "../../../_actions/quotation";
+import { getInProductionJobOrders } from '../../../_actions/jobOrder';
+import { useInterval } from "../../../_helpers/hooks"
+import { getProfile } from "../../../_actions/auth";
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +39,48 @@ const ProductList = () => {
   const classes = useStyles();
   const [products] = useState(data);
 
+  const dispatch = useDispatch();
+
+  const {profile : currentUserProfile} = useSelector(state=>state.auth)
+  const { computedQuotations } = useSelector(state=>state.quotation);
+  const { inProgressJobOrders } = useSelector(state=>state.jobOrder);
+  const { outForDeliveryJobOrders } = useSelector(state=>state.jobOrder)
+  const { currentQuotation } = useSelector(state=>state.quotation);
+  
+  const isUserClient = () => {
+    switch(currentUserProfile.job_position)
+    {
+      case "":
+        return true;
+      case null:
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  async function fetchData () {
+    await dispatch(getComputedQuotations(currentUserProfile.id))
+    await dispatch(getInProductionJobOrders(currentUserProfile.id))
+  }
+
+  useInterval(()=>{
+    async function reFetchData (){
+      // console.log(currentUserProfile)
+      try
+      {
+        await fetchData()
+      }
+      catch(error)
+      {
+        console.log(error)
+      }
+      // console.log(computedQuotations)
+    }
+    reFetchData()
+  },2000);
+
+
   return (
     <Page
       className={classes.root}
@@ -45,7 +96,7 @@ const ProductList = () => {
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
-        <Grid item xs>
+          <Grid item xs={12} md={4}>
             <Typography
               className={classes.name}
               color="textSecondary"
@@ -53,26 +104,24 @@ const ProductList = () => {
             >
               Pending Approval
             </Typography>
-              <Box mt={2}>
-                {products.map((product) => (
-                  <Grid
-                    item
-                    key={product.id}
-                    lg={12}
-                    md={6}
-                    xs={12}
-                  >
-                    <Box mt={2}>
-                    <ProductCardProd
-                      className={classes.productCard}
-                      product={product}
-                    />
-                    </Box>
-                  </Grid>
-                ))}
-              </Box>
-            </Grid>
-          <Grid item xs>
+            <Box mt={2}>
+              {computedQuotations && computedQuotations.map((quotation) => (
+                <Grid
+                  item
+                  key={quotation.id}
+                >
+                  <Box mt={2}>
+                  <QuotationCardComputed
+                    className={classes.productCard}
+                    quotation={quotation}
+                    fetchData={fetchData}
+                  />
+                  </Box>
+                </Grid>
+              ))}
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
             <Typography
               className={classes.name}
               color="textSecondary"
@@ -80,26 +129,20 @@ const ProductList = () => {
             >
               In Production
             </Typography>
-              <Box mt={2}>
-                {products.map((product) => (
-                  <Grid
-                    item
-                    key={product.id}
-                    lg={12}
-                    md={6}
-                    xs={12}
-                  >
-                    <Box mt={2}>
-                    <ProductCard
-                      className={classes.productCard}
-                      product={product}
-                    />
-                    </Box>
-                  </Grid>
-                ))}
-              </Box>
-            </Grid>
-            <Grid item xs>
+            <Box mt={2}>
+              {inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
+                <Grid
+                  item
+                  key={jobOrder.id}
+                >
+                  <JobOrderCard
+                    jobOrder={jobOrder}
+                  />
+                </Grid>
+              ))}
+            </Box>
+          </Grid>
+            <Grid item xs={12} md={4}>
               <Typography
                 className={classes.name}
                 color="textSecondary"
@@ -108,20 +151,14 @@ const ProductList = () => {
                 Out for Delivery
               </Typography>
                 <Box mt={2}>
-                  {products.map((product) => (
+                  {outForDeliveryJobOrders && outForDeliveryJobOrders.map((jobOrder) => (
                     <Grid
                       item
-                      key={product.id}
-                      lg={12}
-                      md={6}
-                      xs={12}
+                      key={jobOrder.id}
                     >
-                      <Box mt={2}>
-                      <ProductCardDelivery
-                        className={classes.productCard}
-                        product={product}
+                      <JobOrderCard
+                        jobOrder={jobOrder}
                       />
-                      </Box>
                     </Grid>
                   ))}
                 </Box>

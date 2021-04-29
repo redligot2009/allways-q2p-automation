@@ -26,7 +26,7 @@ import AuthService from "../_services/auth.service";
 import UsersService from "../_services/users.service";
 
 export const createNewEmployee = (account) => (dispatch) => {
-// TODO: Create new employee implementation
+
   return AuthService.register(account)
       .then(
         (response) => {
@@ -45,7 +45,7 @@ export const createNewEmployee = (account) => (dispatch) => {
 }
 
 export const updateEmployeeProfile = (username, account) => (dispatch) => {
-// TODO: Update employee job position
+
   return AuthService.updateProfile(username.account)
     .then((response)=>{
       dispatch({
@@ -62,7 +62,7 @@ export const updateEmployeeProfile = (username, account) => (dispatch) => {
 }
 
 export const getProductionEmployees = () => (dispatch) => {
-// TODO: Implementation of retrieving production employees
+
   return UsersService.getEmployees("P")
     .then((response)=>{
       dispatch({
@@ -80,7 +80,7 @@ export const getProductionEmployees = () => (dispatch) => {
 }
 
 export const getDriverEmployees = () => (dispatch) => {
-  // TODO: Implementation of retrieving driver employees
+
   return UsersService.getEmployees("D")
     .then((response)=>{
       dispatch({
@@ -98,7 +98,7 @@ export const getDriverEmployees = () => (dispatch) => {
 }
 
 export const getOwnerEmployees = () => (dispatch) =>{
-  // TODO: Implementation of retrieving owner employees
+
   return UsersService.getEmployees("O")
     .then((response)=>{
       dispatch({
@@ -116,7 +116,7 @@ export const getOwnerEmployees = () => (dispatch) =>{
 }
 
 export const getAccountManagerEmployees = () => (dispatch) =>{ 
-  // TODO: Implementation of retrieving owner employees
+
   return UsersService.getEmployees("AM")
   .then((response)=>{
     dispatch({
@@ -136,7 +136,7 @@ export const getAccountManagerEmployees = () => (dispatch) =>{
 }
 
 export const getAllAccounts = () => (dispatch) =>{
-  // TODO: Implementation of retrieving all accounts
+
   return UsersService.getEmployees("")
     .then((response)=>{
       dispatch({

@@ -12,8 +12,7 @@ export const getResultURL = (baseURL="api/",urlParams = {}) => {
                 foundFirstParam = true;
             }
             requestURL = requestURL.concat(`${key.toString()}=${urlParams[key]}`)
-            if(i > 0 && i < urlParams.length-1)
-                requestURL = requestURL.concat("&")
+            requestURL = requestURL.concat("&")
         }
         i++;
     }

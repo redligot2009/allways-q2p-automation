@@ -13,13 +13,31 @@ import {
 } from '@material-ui/core';
 
 import Page from 'src/components/Page';
-import QuoteReview from './QuoteReview';
-import ManageEmployees from './ManageEmployees';
-import OrderTracking from './OrderTracking';
-import AccountSettings from './AccountSettings';
-import QuotationCard from './QuotationCard';
 
-import {getComputedQuotations, getInProgressQuotations} from '../../../_actions/quotation';
+// BUTTONS
+import QuoteReview from './buttons/QuoteReview';
+import ManageEmployees from './buttons/ManageEmployees';
+import OrderTracking from './buttons/OrderTracking';
+import AccountSettings from './buttons/AccountSettings';
+import RequestForQuotation from './buttons/RequestForQuotation';
+
+// CARDS
+import QuotationCard from './cards/QuotationCard';
+
+// QUOTATION-RELATED LISTS
+import AwaitingComputation from './overviews/quotations/AwaitingComputation';
+import AwaitingApproval from './overviews/quotations/AwaitingApproval';
+
+// JOB ORDER RELATED LISTS
+import CurrentOrders from './overviews/CurrentOrders';
+import InProduction from './overviews/jobOrders/InProduction';
+import OutForDelivery from './overviews/jobOrders/OutForDelivery';
+
+import {getComputedQuotations, getInProgressQuotations} 
+from '../../../_actions/quotation';
+
+import {getInProductionJobOrders, getPendingJobOrders} 
+from '../../../_actions/jobOrder';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,14 +60,39 @@ const Dashboard = () => {
   
   const {computedQuotations : computed} = useSelector(state => state.quotation);
   const {inProgressQuotations: in_progress} = useSelector(state=>state.quotation);
+  const {inProgressJobOrders : in_production} = useSelector(state=>state.jobOrder);
+  const {outForDeliveryJobOrders : out_for_delivery} = useSelector(state=>state.jobOrder);
+  const {finishedJobOrders : finished } = useSelector(state=>state.jobOrder);
 
   useEffect(()=>{
     async function fetchData() {
       await dispatch(getComputedQuotations())
       await dispatch(getInProgressQuotations())
+      await dispatch(getInProductionJobOrders())
+      await dispatch(getPendingJobOrders())
     }
     fetchData();
   },[])
+
+  const limitVisibility = (element, roles, exclude=false) => {
+    if(exclude===false)
+    {
+      if(roles.includes(currentUserProfile.job_position))
+      {
+        console.log("YEAH", element);
+        return element;
+      }
+    }
+    else
+    {
+      if(!(roles.includes(currentUserProfile.job_position)))
+      {
+        console.log("YEAH NO", element);
+        return element;
+      }
+    }
+    return <></>
+  }
 
   return (currentUserProfile && 
     <Page
@@ -73,131 +116,94 @@ const Dashboard = () => {
               justify="flex-start"
               alignItems="flex-start"
             >
+              {limitVisibility(
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                  <Link to={'/app/quote/review/'}>
+                    <QuoteReview />
+                  </Link>
+                </Grid>,
+                ['O','AM']
+              )}
+              
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Link to={'/app/quote/review/'}>
-                  <QuoteReview />
-                </Link>
-              </Grid>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Link to={'/app/tracking/account_manager'}>
+                <Link to={`/app/tracking/${currentUserProfile.job_position ? currentUserProfile.job_position : ""}`}>
                   <OrderTracking />
                 </Link>
               </Grid>
-              <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Link to={'/app/employees/'}>
-                  <ManageEmployees />
-                </Link>
-              </Grid>
+
+              {limitVisibility(
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                  <Link to={'/app/products'}>
+                    <RequestForQuotation />
+                  </Link>
+                </Grid>,
+                ['O','AM','P','D'], true
+              )}
+
+              {limitVisibility(
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                  <Link to={'/app/employees/'}>
+                    <ManageEmployees />
+                  </Link>
+                </Grid>,
+                ['O','AM']
+              )}
+              
               <Grid item lg={3} sm={6} xl={3} xs={12}>
                 <Link to={'/app/settings'}>
                   <AccountSettings />
                 </Link>
               </Grid>
-              <Box ml={1} width={1} height={1}>
-                <Box my={2}>
-                  <Typography 
-                    className={classes.name}
-                    color="textPrimary"
-                    variant="h2"
-                    mb={3}
-                  >
-                    Overview of Quotes
-                  </Typography>
-                </Box>
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
-                    <Box mb={1}>
-                      <Typography className={classes.name}
-                        color="textSecondary"
-                        variant="h5"
-                      >
-                        AWAITING COMPUTATION
-                      </Typography>
-                    </Box>
-                    <Grid container style={{maxHeight:480,overflow:'auto'}}>
-                      {in_progress && in_progress.map((quotation) => (
-                        <Grid
-                          item
-                          key={quotation.id}
-                        >
-                          <Box mt={2}>
-                          <QuotationCard
-                            className={classes.QuotationCard}
-                            quotation={quotation}
-                          />
-                          </Box>
-                        </Grid>
-                    ))}
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Box mb={1}>
-                      <Typography className={classes.name}
-                        color="textSecondary"
-                        variant="h5"
-                      >
-                        AWAITING APPROVAL
-                      </Typography>
-                    </Box>
-                    <Grid container style={{maxHeight:480,overflow:'auto'}}>
-                      {computed && computed.map((quotation) => (
-                        <Grid
-                          item
-                          key={quotation.id}
-                        >
-                          <Box mt={2}>
-                          <QuotationCard
-                            className={classes.QuotationCard}
-                            quotation={quotation}
-                          />
-                          </Box>
-                        </Grid>
-                    ))}
-                  </Grid>
-                </Grid>
-              </Grid>
               
-              <Box ml={1} width={1} height={1}>
-                <Box my={2}>
-                  <Typography 
-                    className={classes.name}
-                    color="textPrimary"
-                    variant="h2"
-                    mb={3}
-                  >
-                    Overview of Job Orders
-                  </Typography>
-                </Box>
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
-                    <Box mb={1}>
-                      <Typography className={classes.name}
-                        color="textSecondary"
-                        variant="h5"
+              {limitVisibility(
+                <Box ml={1} width={1} height={1}>
+                  <Box my={2}>
+                    <Typography 
+                      className={classes.name}
+                      color="textPrimary"
+                      variant="h2"
+                      mb={3}
+                    >
+                      Overview of Quotes
+                    </Typography>
+                  </Box>
+                  <Grid container spacing={3}>
+                    <AwaitingComputation
+                      classes={classes}
+                      in_progress={in_progress}
+                    />
+                    <AwaitingApproval
+                      classes={classes}
+                      computed={computed}
+                    />
+                  </Grid>
+                  <Box ml={1} width={1} height={1}>
+                    <Box my={2}>
+                      <Typography 
+                        className={classes.name}
+                        color="textPrimary"
+                        variant="h2"
+                        mb={3}
                       >
-                        IN PRODUCTION
+                        Overview of Job Orders
                       </Typography>
                     </Box>
-                    <Grid container style={{maxHeight:480,overflow:'auto'}}>
+                    
+                    <Grid container spacing={3}>
+                      <InProduction
+                        classes={classes}
+                        in_production={in_production}
+                      />
                       
+                      <OutForDelivery
+                        classes={classes}
+                        out_for_delivery={out_for_delivery}
+                      />
                     </Grid>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Box mb={1}>
-                      <Typography className={classes.name}
-                        color="textSecondary"
-                        variant="h5"
-                      >
-                        OUT FOR DELIVERY
-                      </Typography>
-                    </Box>
-                    <Grid container style={{maxHeight:480,overflow:'auto'}}>
-                      
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
+                  </Box>
+                </Box>,
+                ['O','AM']
+              )}
         </Grid>
       </Container>
     </Page>
