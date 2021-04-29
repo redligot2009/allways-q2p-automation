@@ -11,10 +11,10 @@ import {
   colors,
   makeStyles
 } from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import CheckIcon from '@material-ui/icons/Check';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import SyncAltIcon from '@material-ui/icons/SyncAlt';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
   },
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const QuotationReview = ({ className, ...rest }) => {
+const OrderTracking = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -46,7 +46,7 @@ const QuotationReview = ({ className, ...rest }) => {
         >
         <Grid container justify="center">
             <Avatar className={classes.avatar}>
-              <CheckIcon />
+              <SyncAltIcon />
             </Avatar>
         </Grid>
           <Grid item>
@@ -56,30 +56,24 @@ const QuotationReview = ({ className, ...rest }) => {
               align="center"
               variant="h4"
             >
-              REVIEW QUOTATIONS
+              TRACK ORDERS
             </Typography>
             <Typography
               color="textSecondary"
               variant="body1"
               align="center"
             >
-              Approve quotations of orders, file job orders for production
+              Keep note of all orders that are moving in production to delivery
             </Typography>
           </Grid>
         </Grid>
-        <Box
-          mt={2}
-          display="flex"
-          alignItems="center"
-        >
-        </Box>
       </CardContent>
     </Card>
   );
 };
 
-QuotationReview.propTypes = {
+OrderTracking.propTypes = {
   className: PropTypes.string
 };
 
-export default QuotationReview;
+export default OrderTracking;

@@ -34,23 +34,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Dashboard = () => {
+const CustomerDashboard = () => {
   const classes = useStyles();
   const [data, setData] = useState({in_progress:[],computed:[]});
   const [products] = useState(data);
   const { isLoggedIn } = useSelector(state => state.auth);
-  // const { profile } = useSelector(state => state.auth);
   const navigate = useNavigate();
-  // const user = JSON.parse(localStorage.getItem("user"));
-  
-  // useEffect(()=>{
-  //   // console.log("isLoggedIn: ", isLoggedIn);
-  //   // console.log(user);
-  //   if(isLoggedIn === false)
-  //   {
-  //     navigate('/login/', { replace: true });
-  //   }
-  // },[isLoggedIn, navigate]);
 
   return (
     <Page
@@ -178,4 +167,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default CustomerDashboard;

@@ -41,6 +41,7 @@ const retrieveJobOrders = (production_status="", manager="", client="") => {
     "quotation__client__user" : client,
   }
   let requestURL = getResultURL("api/joborders/", urlParams);
+  // console.log(requestURL);
   const jobOrdersListResult = axios.get(requestURL);
   return jobOrdersListResult;
 }

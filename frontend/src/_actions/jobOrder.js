@@ -1,6 +1,10 @@
 import {
     CREATE_JOB_ORDER_SUCCESS,
-    CREATE_JOB_ORDER_FAIL
+    CREATE_JOB_ORDER_FAIL,
+    RETRIEVE_IN_PROGRESS_JOB_ORDERS_SUCCESS,
+    RETRIEVE_IN_PROGRESS_JOB_ORDERS_FAIL,
+    RETRIEVE_PENDING_JOB_ORDERS_SUCCESS,
+    RETRIEVE_PENDING_JOB_ORDERS_FAIL
 } from './types';
 
 import JobOrderService from "../_services/jobOrder.service";
@@ -21,12 +25,38 @@ export const createJobOrder = (quotation, manager) => (dispatch) => {
         })
 }
 
-export const retrievePendingJobOrders = () => {
-    // TODO: Implement action for retrieving pending job orders
+export const getPendingJobOrders = () => (dispatch) => {
+    return JobOrderService.retrieveJobOrders("pending")
+        .then((response)=>{
+            dispatch({
+                type: RETRIEVE_PENDING_JOB_ORDERS_SUCCESS,
+                payload: {jobOrders: response.data}
+            })
+            return Promise.resolve();
+        })
+        .catch((error)=>{
+            dispatch({
+                type: RETRIEVE_PENDING_JOB_ORDERS_FAIL
+            })
+            return Promise.reject();
+        })
 }
 
-export const retrieveInProgressJobOrders = () => {
-    // TODO: Implement action for retrieving in progress job orders
+export const getInProductionJobOrders = () => (dispatch) => {
+    return JobOrderService.retrieveJobOrders("inprogress")
+        .then((response)=>{
+            dispatch({
+                type: RETRIEVE_IN_PROGRESS_JOB_ORDERS_SUCCESS,
+                payload: {jobOrders: response.data}
+            })
+            return Promise.resolve();
+        })
+        .catch((error)=>{
+            dispatch({
+                type: RETRIEVE_IN_PROGRESS_JOB_ORDERS_FAIL
+            })
+            return Promise.reject();
+        })
 }
 
 export const startJobOrderProduction = (jobOrder) => {
