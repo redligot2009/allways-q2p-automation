@@ -12,7 +12,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-import JobOrderCard from '../../cards/JobOrderCard';
+import JobOrderCard from '../../../../jobOrders/JobOrderCard';
 
 const InProduction = (props) => {
     return (

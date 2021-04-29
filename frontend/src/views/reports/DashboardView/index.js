@@ -77,15 +77,17 @@ const Dashboard = () => {
   const limitVisibility = (element, roles, exclude=false) => {
     if(exclude===false)
     {
-      if(currentUserProfile.job_position in roles)
+      if(roles.includes(currentUserProfile.job_position))
       {
+        console.log("YEAH", element);
         return element;
       }
     }
     else
     {
-      if(!(currentUserProfile.job_position in roles))
+      if(!(roles.includes(currentUserProfile.job_position)))
       {
+        console.log("YEAH NO", element);
         return element;
       }
     }
