@@ -59,6 +59,26 @@ const ProductList = () => {
     }
   }
 
+  const limitVisibility = (element, roles, exclude=false) => {
+    if(exclude===false)
+    {
+      if(roles.includes(currentUserProfile.job_position) || roles.length === 0)
+      {
+        // console.log("YEAH", element);
+        return element;
+      }
+    }
+    else
+    {
+      if(!(roles.includes(currentUserProfile.job_position)))
+      {
+        // console.log("YEAH NO", element);
+        return element;
+      }
+    }
+    return <></>
+  }
+
   async function fetchData () {
     await dispatch(getComputedQuotations(currentUserProfile.id))
     await dispatch(getInProductionJobOrders(currentUserProfile.id))
@@ -96,7 +116,8 @@ const ProductList = () => {
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
+          {currentUserProfile && limitVisibility(
+            <Grid item xs={12} md={4}>
             <Typography
               className={classes.name}
               color="textSecondary"
@@ -120,7 +141,37 @@ const ProductList = () => {
                 </Grid>
               ))}
             </Box>
-          </Grid>
+          </Grid>,
+          ['O','AM','P','D'], true
+          )}
+          {currentUserProfile && limitVisibility(
+            <Grid item xs={12} md={4}>
+            <Typography
+              className={classes.name}
+              color="textSecondary"
+              variant="h5"
+            >
+              Pending Client Approval
+            </Typography>
+            <Box mt={2}>
+              {computedQuotations && computedQuotations.map((quotation) => (
+                <Grid
+                  item
+                  key={quotation.id}
+                >
+                  <Box mt={2}>
+                  <QuotationCardComputed
+                    className={classes.productCard}
+                    quotation={quotation}
+                    fetchData={fetchData}
+                  />
+                  </Box>
+                </Grid>
+              ))}
+            </Box>
+          </Grid>,
+          ['O','AM','P','D'], true
+          )}
           <Grid item xs={12} md={4}>
             <Typography
               className={classes.name}

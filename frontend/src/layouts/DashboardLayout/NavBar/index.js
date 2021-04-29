@@ -248,7 +248,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Divider />
       <Box p={2}>
         <List>
-          {items.map((item) => (
+          {currentUserProfile && items.map((item) => (
             limitVisibility(
               <NavItem
                 href={item.href}
