@@ -42,8 +42,8 @@ export const getPendingJobOrders = () => (dispatch) => {
         })
 }
 
-export const getInProductionJobOrders = () => (dispatch) => {
-    return JobOrderService.retrieveJobOrders("inprogress")
+export const getInProductionJobOrders = (client="",manager="") => (dispatch) => {
+    return JobOrderService.retrieveJobOrders("inprogress",manager,client)
         .then((response)=>{
             dispatch({
                 type: RETRIEVE_IN_PROGRESS_JOB_ORDERS_SUCCESS,

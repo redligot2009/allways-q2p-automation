@@ -12,9 +12,11 @@ import ProductCard from './ProductCard';
 import ProductCardDelivery from './ProductCardDelivery';
 import ProductCardProd from './ProductCardProd';
 import QuotationCardComputed from '../../quotations/QuotationCardComputed';
+import JobOrderCard from '../../jobOrders/JobOrderCard';
 import data from './data';
 
-import { getComputedQuotations, updateQuotation, getQuotationById } from "../../../_actions/quotation";
+import { getComputedQuotations, updateQuotation, getQuotationById, approveQuotation } from "../../../_actions/quotation";
+import { getInProductionJobOrders } from '../../../_actions/jobOrder';
 import { useInterval } from "../../../_helpers/hooks"
 import { getProfile } from "../../../_actions/auth";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -41,6 +43,8 @@ const ProductList = () => {
 
   const {profile : currentUserProfile} = useSelector(state=>state.auth)
   const { computedQuotations } = useSelector(state=>state.quotation);
+  const { inProgressJobOrders } = useSelector(state=>state.jobOrder);
+  const { outForDeliveryJobOrders } = useSelector(state=>state.jobOrder)
   const { currentQuotation } = useSelector(state=>state.quotation);
   
   const isUserClient = () => {
@@ -57,17 +61,7 @@ const ProductList = () => {
 
   async function fetchData () {
     await dispatch(getComputedQuotations(currentUserProfile.id))
-  }
-
-  // TODO: Refactor this shitty approveQuotation method. WTF is this anyway? But hey it works.
-  function approveQuotation (quotationToUpdate) {
-    dispatch(getQuotationById(quotationToUpdate.id))
-    if(currentQuotation)
-    {
-      let updatedQuotation = currentQuotation;
-      updatedQuotation.approval_status="approved";
-      dispatch(updateQuotation(updatedQuotation));
-    }
+    await dispatch(getInProductionJobOrders(currentUserProfile.id))
   }
 
   useInterval(()=>{
@@ -121,7 +115,6 @@ const ProductList = () => {
                     className={classes.productCard}
                     quotation={quotation}
                     fetchData={fetchData}
-                    approveQuotation={approveQuotation}
                   />
                   </Box>
                 </Grid>
@@ -137,17 +130,14 @@ const ProductList = () => {
               In Production
             </Typography>
             <Box mt={2}>
-              {products.map((product) => (
+              {inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
                 <Grid
                   item
-                  key={product.id}
+                  key={jobOrder.id}
                 >
-                  <Box mt={2}>
-                  <ProductCard
-                    className={classes.productCard}
-                    product={product}
+                  <JobOrderCard
+                    jobOrder={jobOrder}
                   />
-                  </Box>
                 </Grid>
               ))}
             </Box>
@@ -161,17 +151,14 @@ const ProductList = () => {
                 Out for Delivery
               </Typography>
                 <Box mt={2}>
-                  {products.map((product) => (
+                  {outForDeliveryJobOrders && outForDeliveryJobOrders.map((jobOrder) => (
                     <Grid
                       item
-                      key={product.id}
+                      key={jobOrder.id}
                     >
-                      <Box mt={2}>
-                      <ProductCardDelivery
-                        className={classes.productCard}
-                        product={product}
+                      <JobOrderCard
+                        jobOrder={jobOrder}
                       />
-                      </Box>
                     </Grid>
                   ))}
                 </Box>
