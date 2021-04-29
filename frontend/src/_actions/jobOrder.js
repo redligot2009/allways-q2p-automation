@@ -49,12 +49,14 @@ export const getInProductionJobOrders = (client="",manager="") => (dispatch) => 
                 type: RETRIEVE_IN_PROGRESS_JOB_ORDERS_SUCCESS,
                 payload: {jobOrders: response.data}
             })
+            //console.log("SUCCESS!", response.data)
             return Promise.resolve();
         })
         .catch((error)=>{
             dispatch({
                 type: RETRIEVE_IN_PROGRESS_JOB_ORDERS_FAIL
             })
+            //console.log(error)
             return Promise.reject();
         })
 }
