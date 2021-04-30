@@ -117,7 +117,7 @@ FINISHED:
 class JobOrderFilter(django_filters.FilterSet):
     class Meta:
         model=JobOrder
-        fields=('production_status','manager','quotation__client__user')
+        fields=('production_status','manager','quotation__client')
 
 class JobOrderViewSet(viewsets.ModelViewSet):
     queryset = JobOrder.objects.all()

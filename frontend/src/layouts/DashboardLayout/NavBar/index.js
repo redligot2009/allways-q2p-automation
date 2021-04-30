@@ -25,11 +25,10 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
-
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../../_actions/auth";
 
-import {getJobPosition} from "../../../_helpers";
+import {getJobPosition, limitVisibility} from "../../../_helpers";
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -52,11 +51,10 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const dispatch = useDispatch()
   
   const { profile: currentUserProfile } = useSelector((state) => state.auth) 
-  const { user: currentUser } = useSelector((state) => state.auth);
 
-  useEffect(()=>{
-    console.log("YO! ", currentUser, currentUserProfile);
-  },[currentUserProfile,currentUser]);
+  // useEffect(()=>{
+  //   console.log("YO! ", currentUser, currentUserProfile);
+  // },[currentUserProfile,currentUser]);
 
   const setUserProfile = (user) =>
   {
@@ -122,7 +120,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       restrict_to: ['O','AM'],
     },
     {
-      href: '/app/tracking/account_manager',
+      href: `/app/tracking/`,
       icon: ClipboardIcon,
       title: 'Order Tracking',
       handleClick: () => {
@@ -139,15 +137,15 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       },
       restrict_to: [],
     },
-    {
-      href: '/login',
-      icon: LockIcon,
-      title: 'Login',
-      handleClick: () => {
+    // {
+    //   href: '/login',
+    //   icon: LockIcon,
+    //   title: 'Login',
+    //   handleClick: () => {
 
-      },
-      restrict_to: [],
-    },
+    //   },
+    //   restrict_to: [],
+    // },
     {
       href:'/logout',
       icon: LogOutIcon,
@@ -157,24 +155,24 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       },
       restrict_to: [],
     },
-    {
-      href: '/register',
-      icon: UserPlusIcon,
-      title: 'Register',
-      handleClick: () => {
+    // {
+    //   href: '/register',
+    //   icon: UserPlusIcon,
+    //   title: 'Register',
+    //   handleClick: () => {
 
-      },
-      restrict_to: [],
-    },
-    {
-      href: '/404',
-      icon: AlertCircleIcon,
-      title: 'Error',
-      handleClick: () => {
+    //   },
+    //   restrict_to: [],
+    // },
+    // {
+    //   href: '/404',
+    //   icon: AlertCircleIcon,
+    //   title: 'Error',
+    //   handleClick: () => {
 
-      },
-      restrict_to: [],
-    }
+    //   },
+    //   restrict_to: [],
+    // }
   ];
   
 
@@ -228,14 +226,18 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Divider />
       <Box p={2}>
         <List>
-          {items.map((item) => (
-            <NavItem
-              href={item.href}
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-              onClick={item.handleClick}
-            />
+          {currentUserProfile && items.map((item) => (
+            limitVisibility(
+              <NavItem
+                href={item.href}
+                key={item.title}
+                title={item.title}
+                icon={item.icon}
+                onClick={item.handleClick}
+              />,
+              item.restrict_to,
+              currentUserProfile.job_position,
+            )
           ))}
         </List>
       </Box>

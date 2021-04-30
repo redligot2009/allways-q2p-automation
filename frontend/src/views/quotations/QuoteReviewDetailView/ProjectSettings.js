@@ -85,11 +85,15 @@ const ProjectSettings = (props) =>
                 name="quotation.created_date"
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
-                value={format(new Date(props.values.quotation.created_date),"yyyy-MM-dd")}
+                value={
+                    props.values.quotation ? 
+                    format(new Date(props.values.quotation.created_date),"yyyy-MM-dd") : 
+                    new Date(Date.now())
+                }
                 // defaultValue={values.quotation.created_date}
                 variant="filled"
                 InputLabelProps={{ shrink: true }}
-            >   
+            > 
             </TextField>    
             <TextField
                 select

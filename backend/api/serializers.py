@@ -383,7 +383,7 @@ class InvoiceSerializer(serializers.ModelSerializer):
 class JobOrderListSerializer(serializers.ModelSerializer):
     
     quotation = QuotationListSerializer()
-    
+    client = serializers.CharField(source='quotation.client', read_only=True)
     class Meta:
         model = JobOrder
         fields = ('__all__')
@@ -401,7 +401,7 @@ class JobOrderSerializer(serializers.ModelSerializer):
 # Retrieve serializer
 class JobOrderDetailSerializer(serializers.ModelSerializer):
     quotation = QuotationSerializer()
-    client = serializers.CharField(source='quotation.client.user', read_only=True)
+    client = serializers.CharField(source='quotation.client', read_only=True)
     # project_name=serializers.CharField(source='quotation.project_name',read_only=True)
     manager=serializers.StringRelatedField()
     

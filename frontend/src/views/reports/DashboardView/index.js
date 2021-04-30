@@ -79,7 +79,6 @@ const Dashboard = () => {
     {
       if(roles.includes(currentUserProfile.job_position))
       {
-        console.log("YEAH", element);
         return element;
       }
     }
@@ -87,7 +86,6 @@ const Dashboard = () => {
     {
       if(!(roles.includes(currentUserProfile.job_position)))
       {
-        console.log("YEAH NO", element);
         return element;
       }
     }
@@ -126,7 +124,7 @@ const Dashboard = () => {
               )}
               
               <Grid item lg={3} sm={6} xl={3} xs={12}>
-                <Link to={`/app/tracking/${currentUserProfile.job_position ? currentUserProfile.job_position : ""}`}>
+                <Link to={`/app/tracking/`}>
                   <OrderTracking />
                 </Link>
               </Grid>
