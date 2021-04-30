@@ -277,20 +277,24 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
             
           </Grid>
           <Divider />
-          <Typography
-            color="textSecondary"
-            variant="subtitle2"
-            align="right"
-          >
-            Total Costs: {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="subtitle2"
-            align="right"
-          >
-            (Unit Costs: {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})})
-          </Typography>
+          {quotation.approval_status!=="in_progress"? 
+          <>
+            <Typography
+              color="textSecondary"
+              variant="subtitle2"
+              align="right"
+            >
+              Total Costs: {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})}
+            </Typography>
+            <Typography
+              color="textSecondary"
+              variant="subtitle2"
+              align="right"
+            >
+              (Unit Costs: {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})})
+            </Typography>
+          </>:<></>}
+          
         </Box>
         <Grid container>
           {
