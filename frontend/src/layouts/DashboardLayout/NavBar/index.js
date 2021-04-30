@@ -99,7 +99,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
-      restrict_to: ['O','AM'],
+      restrict_to: ['C'],
     },
     {
       href: '/app/customers',

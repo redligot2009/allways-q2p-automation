@@ -61,12 +61,18 @@ export const getJobPosition = (job_position) => {
             return "Deliveryman"
         case 'P':
             return "Production Employee"
+        case 'C':
+            return 'Client'
         default:
             return "Client"
     }
 }
 
 export const limitVisibility = (element, roles, job_position, exclude=false) => {
+    if(job_position === null || job_position === "")
+    {
+        job_position = 'C';
+    }
     if(exclude===false)
     {
       if(roles.includes(job_position) || roles.length === 0)
