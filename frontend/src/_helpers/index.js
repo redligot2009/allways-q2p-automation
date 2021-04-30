@@ -77,11 +77,12 @@ export const limitVisibility = (element, roles, job_position, exclude=false) => 
     }
     else
     {
-      if(!(roles.includes(job_position.job_position)))
+      if(!(roles.includes(job_position)))
       {
         // console.log("YEAH NO", element);
         return element;
       }
     }
+    // console.log("WTF happened?", roles, job_position, exclude);
     return <></>
   }

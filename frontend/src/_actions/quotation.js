@@ -167,8 +167,8 @@ export const getComputedQuotations = (client="") => (dispatch) => {
         })
 }
 
-export const getInProgressQuotations = () => (dispatch) => {
-    return QuotationService.retrieveQuotations("in_progress")
+export const getInProgressQuotations = (client="") => (dispatch) => {
+    return QuotationService.retrieveQuotations("in_progress",client)
         .then((response)=>{
             dispatch({
                 type: RETRIEVE_IN_PROGRESS_QUOTATIONS_SUCCESS,

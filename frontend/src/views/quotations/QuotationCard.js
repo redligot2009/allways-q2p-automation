@@ -186,7 +186,6 @@ const QuotationCard = ({ className, quotation, ...rest }) => {
                 variant="body1"
               >
                 {(Number)(quotation.page_length).toFixed(2)}" x {(Number)(quotation.page_width).toFixed(2)}"
-                {/* {(Number)(quotation.raw_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
 
@@ -209,7 +208,6 @@ const QuotationCard = ({ className, quotation, ...rest }) => {
                 variant="body1"
               >
                 {quotation.paper_types}
-                {/* {(Number)(quotation.raw_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
           </Grid>
@@ -236,7 +234,6 @@ const QuotationCard = ({ className, quotation, ...rest }) => {
                 variant="body1"
               >
                 {quotation.lamination_types}
-                {/* {(Number)(quotation.final_total_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
             <Grid 
@@ -258,7 +255,6 @@ const QuotationCard = ({ className, quotation, ...rest }) => {
                 variant="body1"
               >
                 {quotation.binding_types}
-                {/* {(Number)(quotation.final_unit_costs).toLocaleString('en-PH',{currency:'PHP',style:'currency'})} */}
               </Typography>
             </Grid>
           </Grid>

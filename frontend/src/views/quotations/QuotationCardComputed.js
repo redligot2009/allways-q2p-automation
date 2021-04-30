@@ -295,6 +295,7 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
         <Grid container>
           {
             (isUserClient()) ? 
+            (quotation.approval_status === "computed") && 
               <>
                 <Button 
                   fullWidth
@@ -302,8 +303,8 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
                   color="primary" 
                   md={3}
                   onClick={async ()=>{
-                    console.log("YO!");
-                    console.log(quotation);
+                    // console.log("YO!");
+                    // console.log(quotation);
                     dispatch(approveQuotation(quotation.id));
                     // props.fetchData();
                   }}
