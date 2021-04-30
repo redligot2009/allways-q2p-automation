@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import {toast} from 'react-toastify';
 
 import { useDispatch, useSelector } from "react-redux";
+
+import {useInterval} from '../../../_helpers/hooks';
 
 import {
   Button,
@@ -41,22 +44,27 @@ const EmployeeList = () => {
   const {productionEmployees} = useSelector(state=>state.users);
   const {driverEmployees} = useSelector(state=>state.users);
 
+  async function handleFetchData () {
+    await dispatch(getAccountManagerEmployees())
+      .then((response)=>{
+        console.log(response);
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+    await dispatch(getOwnerEmployees())
+    await dispatch(getDriverEmployees())
+    await dispatch(getProductionEmployees())
+    console.log(accountManagers);
+  }
+
   useEffect(()=>{
-    async function fetchData () {
-      await dispatch(getAccountManagerEmployees())
-        .then((response)=>{
-          console.log(response);
-        })
-        .catch((error)=>{
-          console.log(error);
-        })
-      await dispatch(getOwnerEmployees())
-      await dispatch(getDriverEmployees())
-      await dispatch(getProductionEmployees())
-      console.log(accountManagers);
-    }
-    fetchData();
-  },[]);
+    handleFetchData();
+  },[])
+
+  useInterval(()=>{
+    handleFetchData();
+  }, 2000);
 
   const [openAddEmployeeDialog, setOpenAddEmployeeDialog] = useState(false);
   const [employeeType, setEmployeeType] = useState('O');
