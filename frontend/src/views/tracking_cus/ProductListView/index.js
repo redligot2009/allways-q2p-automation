@@ -162,9 +162,8 @@ const ProductList = () => {
               ))}
             </Box>
           </Grid>,
-          ['O','AM','P','D'], 
-          currentUserProfile.job_position, 
-          true
+          ['C'], 
+          currentUserProfile.job_position
           )}
           {initialFetchDataFinished && currentUserProfile && 
           limitVisibility(
@@ -193,9 +192,8 @@ const ProductList = () => {
               ))}
             </Box>
           </Grid>,
-          ['O','AM','P','D'], 
-          currentUserProfile.job_position, 
-          true
+          ['C'], 
+          currentUserProfile.job_position
           )}
           {initialFetchDataFinished && currentUserProfile && 
           limitVisibility(
@@ -227,30 +225,36 @@ const ProductList = () => {
           ['O','AM',],
           currentUserProfile.job_position,
           )}
-          <Grid item xs={12} md={4}>
-            <Typography
-              className={classes.name}
-              color="textSecondary"
-              variant="h5"
-            >
-              In Production
-            </Typography>
-            <Box mt={2}>
-              {initialFetchDataFinished && inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
-                <Grid
-                  item
-                  key={jobOrder.id}
-                >
-                  <Box mt={2}>
-                    <JobOrderCard
-                      jobOrder={jobOrder}
-                      currentUserProfile={currentUserProfile}
-                    />
-                  </Box>
-                </Grid>
-              ))}
-            </Box>
-          </Grid>
+          {limitVisibility(
+            <Grid item xs={12} md={4}>
+              <Typography
+                className={classes.name}
+                color="textSecondary"
+                variant="h5"
+              >
+                In Production
+              </Typography>
+              <Box mt={2}>
+                {initialFetchDataFinished && inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
+                  <Grid
+                    item
+                    key={jobOrder.id}
+                  >
+                    <Box mt={2}>
+                      <JobOrderCard
+                        jobOrder={jobOrder}
+                        currentUserProfile={currentUserProfile}
+                      />
+                    </Box>
+                  </Grid>
+                ))}
+              </Box>
+            </Grid>
+            ,
+            ['D'],
+            true
+          )}
+          
             <Grid item xs={12} md={4}>
               <Typography
                 className={classes.name}
