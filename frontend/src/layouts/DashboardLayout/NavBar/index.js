@@ -99,7 +99,16 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
-      restrict_to: ['O','AM'],
+      restrict_to: ['C'],
+    },
+    {
+      href: `/app/tracking/`,
+      icon: ClipboardIcon,
+      title: 'Order Tracking',
+      handleClick: () => {
+
+      },
+      restrict_to: [],
     },
     {
       href: '/app/customers',
@@ -118,15 +127,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
       },
       restrict_to: ['O','AM'],
-    },
-    {
-      href: `/app/tracking/`,
-      icon: ClipboardIcon,
-      title: 'Order Tracking',
-      handleClick: () => {
-
-      },
-      restrict_to: [],
     },
     {
       href: '/app/settings',

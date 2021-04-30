@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
@@ -14,7 +14,9 @@ import {
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { AddBoxOutlined } from '@material-ui/icons';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { limitVisibility } from '../../_helpers/index';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProfile } from '../../_actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,11 +32,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const JobOrderCard = ({ className, jobOrder, ...rest }) => {
+const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
   const classes = useStyles();
   const navigate = useNavigate();
-
-  const { currentUserProfile } = useSelector((state)=>state.auth)
+  const dispatch = useDispatch();
 
   const getProductionStatus = () => {
     switch(jobOrder.production_status)
@@ -97,7 +98,6 @@ const JobOrderCard = ({ className, jobOrder, ...rest }) => {
                 {jobOrder.quotation.client.full_name}
               </Typography>
             </Grid>
-
             <Grid 
               item 
               xs={6}
@@ -119,7 +119,100 @@ const JobOrderCard = ({ className, jobOrder, ...rest }) => {
                 {jobOrder.quotation.product_type.product_name}
               </Typography>
             </Grid>
-            
+            <Grid 
+            container 
+            spacing={1}
+          >
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
+                Page Dimensions (Length x Width):
+              </Typography>
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
+                {(Number)(jobOrder.quotation.page_length).toFixed(2)}" x {(Number)(jobOrder.quotation.page_width).toFixed(2)}"
+              </Typography>
+            </Grid>
+
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
+                Paper Types:
+              </Typography>
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
+                {jobOrder.quotation.paper_types}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid 
+            container 
+            spacing={1}
+          >
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
+                Lamination Types: 
+              </Typography>
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
+                {jobOrder.quotation.lamination_types}
+              </Typography>
+            </Grid>
+            <Grid 
+              item 
+              xs={6}
+            >
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="h5"
+              >
+                Binding Types:
+              </Typography>
+              <Typography 
+                align="left" 
+                color="textSecondary" 
+                gutterBottom 
+                variant="body1"
+              >
+                {jobOrder.quotation.binding_types}
+              </Typography>
+            </Grid>
             <Grid 
               item 
               xs={6}
@@ -142,21 +235,27 @@ const JobOrderCard = ({ className, jobOrder, ...rest }) => {
               </Typography>
             </Grid>
           </Grid>
+          </Grid>
         </Box>
         <Box>
+          { currentUserProfile && limitVisibility(
+              <Button 
+                variant="outlined" 
+                color="primary"
+                onClick={
+                  ()=>{
+                    // navigate('/app/quote/detail',{state: {id: quotation.id}})
+                  }
+                }
+              >
+                REVIEW PRODUCT SPECS
+              </Button>,
+              ['O','AM'],
+              currentUserProfile.job_position,
+              false
+            )
+          }
           {/* <Button 
-            variant="contained" 
-            color="primary" 
-            md={3}
-            onClick={
-              ()=>{
-                navigate('/app/quote/detail',{state: {id: quotation.id}})
-              }
-            }
-          >
-            COMPUTE QUOTATION
-          </Button> */}
-          <Button 
             variant="outlined" 
             color="primary"
             onClick={
@@ -166,7 +265,7 @@ const JobOrderCard = ({ className, jobOrder, ...rest }) => {
             }
           >
             REVIEW PRODUCT SPECS
-          </Button>
+          </Button> */}
         </Box>
       </CardContent>
     </Card>

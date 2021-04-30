@@ -15,9 +15,10 @@ import QuotationCardComputed from '../../quotations/QuotationCardComputed';
 import JobOrderCard from '../../jobOrders/JobOrderCard';
 import data from './data';
 
-import { getComputedQuotations, updateQuotation, getQuotationById, approveQuotation } from "../../../_actions/quotation";
+import { getComputedQuotations, updateQuotation, getQuotationById, approveQuotation, getInProgressQuotations } from "../../../_actions/quotation";
 import { getInProductionJobOrders, getPendingJobOrders } from '../../../_actions/jobOrder';
 import { useInterval } from "../../../_helpers/hooks"
+import { limitVisibility } from "../../../_helpers/";
 import { getProfile } from "../../../_actions/auth";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
   },
-  productCard: {
+  JobOrderCard: {
     height: '100%'
   }
 }));
@@ -42,6 +43,7 @@ const ProductList = () => {
   const dispatch = useDispatch();
 
   const {profile : currentUserProfile} = useSelector(state=>state.auth)
+  const { inProgressQuotations } = useSelector (state=>state.quotation);
   const { computedQuotations } = useSelector(state=>state.quotation);
   const { pendingJobOrders } = useSelector(state=>state.jobOrder)
   const { inProgressJobOrders } = useSelector(state=>state.jobOrder);
@@ -62,26 +64,6 @@ const ProductList = () => {
     }
   }
 
-  const limitVisibility = (element, roles, exclude=false) => {
-    if(exclude===false)
-    {
-      if(roles.includes(currentUserProfile.job_position) || roles.length === 0)
-      {
-        // console.log("YEAH", element);
-        return element;
-      }
-    }
-    else
-    {
-      if(!(roles.includes(currentUserProfile.job_position)))
-      {
-        // console.log("YEAH NO", element);
-        return element;
-      }
-    }
-    return <></>
-  }
-
   async function fetchData () {
     await dispatch(getProfile())
     switch(currentUserProfile.job_position)
@@ -99,6 +81,7 @@ const ProductList = () => {
       case 'D':
         break;
       default:
+        await dispatch(getInProgressQuotations(currentUserProfile.id))
         await dispatch(getComputedQuotations(currentUserProfile.id))
         await dispatch(getInProductionJobOrders(currentUserProfile.id))
     }
@@ -152,8 +135,39 @@ const ProductList = () => {
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
-          {initialFetchDataFinished && currentUserProfile && limitVisibility(
-            <Grid item xs={12} md={4}>
+        {initialFetchDataFinished && currentUserProfile && 
+          limitVisibility(
+          <Grid item xs={12} md={4}>
+            <Typography
+              className={classes.name}
+              color="textSecondary"
+              variant="h5"
+            >
+              Awaiting Computation
+            </Typography>
+            <Box mt={2}>
+              {inProgressQuotations && inProgressQuotations.map((quotation) => (
+                <Grid
+                  item
+                  key={quotation.id}
+                >
+                  <Box mt={2}>
+                  <QuotationCardComputed
+                    className={classes.productCard}
+                    quotation={quotation}
+                    fetchData={fetchData}
+                  />
+                  </Box>
+                </Grid>
+              ))}
+            </Box>
+          </Grid>,
+          ['C'], 
+          currentUserProfile.job_position
+          )}
+          {initialFetchDataFinished && currentUserProfile && 
+          limitVisibility(
+          <Grid item xs={12} md={4}>
             <Typography
               className={classes.name}
               color="textSecondary"
@@ -178,9 +192,11 @@ const ProductList = () => {
               ))}
             </Box>
           </Grid>,
-          ['O','AM','P','D'], true
+          ['C'], 
+          currentUserProfile.job_position
           )}
-          {initialFetchDataFinished && currentUserProfile && limitVisibility(
+          {initialFetchDataFinished && currentUserProfile && 
+          limitVisibility(
           <Grid item xs={12} md={4}>
             <Typography
               className={classes.name}
@@ -197,8 +213,9 @@ const ProductList = () => {
                 >
                   <Box mt={2}>
                     <JobOrderCard
-                      className={classes.productCard}
+                      className={classes.JobOrderCard}
                       jobOrder={jobOrder}
+                      currentUserProfile={currentUserProfile}
                     />
                   </Box>
                 </Grid>
@@ -206,28 +223,38 @@ const ProductList = () => {
             </Box>
           </Grid>,
           ['O','AM',],
+          currentUserProfile.job_position,
           )}
-          <Grid item xs={12} md={4}>
-            <Typography
-              className={classes.name}
-              color="textSecondary"
-              variant="h5"
-            >
-              In Production
-            </Typography>
-            <Box mt={2}>
-              {initialFetchDataFinished && inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
-                <Grid
-                  item
-                  key={jobOrder.id}
-                >
-                  <JobOrderCard
-                    jobOrder={jobOrder}
-                  />
-                </Grid>
-              ))}
-            </Box>
-          </Grid>
+          {limitVisibility(
+            <Grid item xs={12} md={4}>
+              <Typography
+                className={classes.name}
+                color="textSecondary"
+                variant="h5"
+              >
+                In Production
+              </Typography>
+              <Box mt={2}>
+                {initialFetchDataFinished && inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
+                  <Grid
+                    item
+                    key={jobOrder.id}
+                  >
+                    <Box mt={2}>
+                      <JobOrderCard
+                        jobOrder={jobOrder}
+                        currentUserProfile={currentUserProfile}
+                      />
+                    </Box>
+                  </Grid>
+                ))}
+              </Box>
+            </Grid>
+            ,
+            ['D'],
+            true
+          )}
+          
             <Grid item xs={12} md={4}>
               <Typography
                 className={classes.name}
@@ -242,9 +269,12 @@ const ProductList = () => {
                       item
                       key={jobOrder.id}
                     >
-                      <JobOrderCard
-                        jobOrder={jobOrder}
-                      />
+                      <Box mt={2}>
+                        <JobOrderCard
+                          jobOrder={jobOrder}
+                          currentUserProfile={currentUserProfile}
+                        />
+                      </Box>
                     </Grid>
                   ))}
                 </Box>

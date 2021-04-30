@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {toast} from 'react-toastify';
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik, Form, FieldArray, getIn } from 'formik';
@@ -119,7 +120,7 @@ const QuoteReviewDetail = (props) => {
     function handleUpdateQuotation (quotation) {
         dispatch(updateQuotation(quotation))
     }
-    useEffect(() => {    
+    useEffect(() => {
         fetchData();
     }, [])
     // console.log(quoteDetails)
@@ -149,11 +150,13 @@ const QuoteReviewDetail = (props) => {
                             {
                                 values.quotation.approval_status="computed";
                                 await handleUpdateQuotation(values.quotation);
+                                toast.success("Quotation successfully submitted for approval!")
                                 navigate('/app/quote/review')
                             }
                             else
                             {
                                 handleUpdateQuotation(values.quotation);
+                                toast.success("Quotation changes successfully saved!")
                                 fetchData();
                             }
                         }}

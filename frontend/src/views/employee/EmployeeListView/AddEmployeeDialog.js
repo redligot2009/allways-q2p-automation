@@ -84,11 +84,12 @@ const AddEmployeeDialog = (props) => {
           onSubmit={(values,actions)=>{
             dispatch(createNewEmployee(values))
               .then((response)=>{
+                toast.success("New employee successfully created!");
                 props.setOpenAddEmployeeDialog(false)
               })
               .catch((error)=>{
                 // console.log("What the fuck is this", values)
-                toast.error("Inputted employee details are invalid.");
+                toast.error("Inputted employee details are invalid or user already exists.");
               })
           }}
         >
