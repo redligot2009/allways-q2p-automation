@@ -252,7 +252,6 @@ const ProductList = () => {
             </Grid>
             ,
             ['D'],
-            true
           )}
           
             <Grid item xs={12} md={4}>
