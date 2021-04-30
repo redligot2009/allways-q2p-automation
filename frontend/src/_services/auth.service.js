@@ -1,23 +1,28 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import {getFilteredObject} from "../_helpers/";
 
-const register = (username, 
-                  email, 
-                  password, 
-                  first_name="", 
-                  middle_name="", 
-                  last_name="") => {
-  let result = axios.post("auth/users/", {
-    username,
-    email,
-    password,
-    first_name,
-    last_name,
-  })
+const register = (newAccount) => {
+  let user = getFilteredObject(newAccount,[
+    "username",
+    "email",
+    "password",
+    "first_name",
+    "last_name"
+  ])
+  let account = getFilteredObject(newAccount,[
+    "middle_name",
+    "job_position",
+    "plate_number",
+    "shipping_address",
+    "mobile_number",
+  ])
+  account.user = user.id;
+  // console.log("RESULTING OBJECTS: ", account, ", \n", user)
+  // console.log("RESULTING QUERY: ", JSON.stringify(account))
+  let result = axios.post("auth/users/", user)
   .then((response) => {
-    axios.put(`api/accounts/${username}/`,{
-      middle_name
-    })
+    axios.put(`api/accounts/${user.username}/`,account)
   });
   return result;
 };
@@ -33,8 +38,6 @@ const login = (username, password) => {
         localStorage.setItem("user", JSON.stringify(response.data));
         // console.log(response.data);
       }
-
-      return response.data;
     });
 };
 
@@ -59,6 +62,10 @@ const getProfile = () => {
     })
 }
 
+const updateProfile = (username, account) => {
+  return axios.put(`api/accounts/${username}`, account);
+}
+
 const verifyLoggedIn = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   return axios.post('/auth/jwt/verify',user.access)
@@ -81,5 +88,6 @@ export default {
   login,
   logout,
   getProfile,
+  updateProfile,
   verifyLoggedIn,
 };

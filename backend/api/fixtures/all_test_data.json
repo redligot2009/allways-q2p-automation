@@ -925,6 +925,96 @@
     },
     {
         "fields": {
+            "date_joined": "2021-04-26T04:57:40.122Z",
+            "email": "placeholder.email@gmail.com",
+            "first_name": "Test",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Number One",
+            "password": "pbkdf2_sha256$216000$QA5Yw6bnFz9L$Z04Y+unZpYUF9JBzhvMtyKfgFeIN1ocknqqfXQ6R+ak=",
+            "user_permissions": [],
+            "username": "testAccountManager"
+        },
+        "model": "auth.user",
+        "pk": 42
+    },
+    {
+        "fields": {
+            "date_joined": "2021-04-26T01:11:38.962Z",
+            "email": "placeholder.email@gmail.com",
+            "first_name": "Test",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Number Two",
+            "password": "pbkdf2_sha256$216000$npy5LLVDM5a9$k5HjQkYd6ueHw1h3Rxy/naIaSaBgfHDYrPszDDep8Jk=",
+            "user_permissions": [],
+            "username": "testOwner2"
+        },
+        "model": "auth.user",
+        "pk": 41
+    },
+    {
+        "fields": {
+            "date_joined": "2021-04-25T21:19:27.814Z",
+            "email": "driver.gang@gmail.com",
+            "first_name": "Mister",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Driver",
+            "password": "pbkdf2_sha256$216000$Gp5CKS6aZ4cD$U8ubT8iLWLfW5WgNFwZOswTAsRDUT7c2v9Xou6yadXQ=",
+            "user_permissions": [],
+            "username": "testDriver"
+        },
+        "model": "auth.user",
+        "pk": 39
+    },
+    {
+        "fields": {
+            "date_joined": "2021-04-25T14:41:12.126Z",
+            "email": "production.guy@gmail.com",
+            "first_name": "Production",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Man",
+            "password": "pbkdf2_sha256$216000$OnNMbxkN76BX$Ut7tR+4qIIa16R9oPMGLLh3FJraI87ur7l9Hn4LkqY4=",
+            "user_permissions": [],
+            "username": "testProduction"
+        },
+        "model": "auth.user",
+        "pk": 38
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-27T18:17:04Z",
+            "email": "ian.ligot@obf.ateneo.edu",
+            "first_name": "Ian Red",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Ligot",
+            "password": "pbkdf2_sha256$216000$dlVcE5nh58A9$V0Cv3FEVIJp2zI0DOjFFeWwWPxC7oeWufDbBf71k9Y8=",
+            "user_permissions": [],
+            "username": "ulap2019"
+        },
+        "model": "auth.user",
+        "pk": 31
+    },
+    {
+        "fields": {
             "date_joined": "2021-03-04T10:32:53Z",
             "email": "asiancollege@email.com",
             "first_name": "Asian College",
@@ -976,6 +1066,108 @@
         },
         "model": "auth.user",
         "pk": 2
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "AM",
+            "license_number": null,
+            "middle_name": "Account Manager",
+            "mobile_number": "1234567890",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": "",
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 42
+        },
+        "model": "api.account",
+        "pk": 38
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "O",
+            "license_number": null,
+            "middle_name": "Owner",
+            "mobile_number": "1234567890",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": "",
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 41
+        },
+        "model": "api.account",
+        "pk": 37
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "D",
+            "license_number": null,
+            "middle_name": "Man",
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 39
+        },
+        "model": "api.account",
+        "pk": 35
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "P",
+            "license_number": null,
+            "middle_name": "Guy",
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 38
+        },
+        "model": "api.account",
+        "pk": 34
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": null,
+            "license_number": null,
+            "middle_name": "Account",
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": null
+        },
+        "model": "api.account",
+        "pk": 30
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "O",
+            "license_number": null,
+            "middle_name": "Dela Cruz",
+            "mobile_number": null,
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": null,
+            "user": 31
+        },
+        "model": "api.account",
+        "pk": 26
     },
     {
         "fields": {

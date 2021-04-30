@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import django_filters
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
 
@@ -25,16 +26,15 @@ import logging
 class AccountViewSet(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     lookup_field = 'user__username'
+    filterset_fields=('job_position',)
     
     def get_serializer_class(self):
         if(self.action=='retrieve'):
             return AccountDetailSerializer
-        elif(self.action=='update'):
+        elif(self.action=='update' or self.action=='create'):
             return AccountUpdateSerializer
         else:
             return AccountListSerializer
-
-
 
 ##################################
 ### QUOTATION RELATED VIEWSETS ###
@@ -114,9 +114,16 @@ FINISHED:
 - Initial setup for JobOrder viewset
 """
 
+class JobOrderFilter(django_filters.FilterSet):
+    class Meta:
+        model=JobOrder
+        fields=('production_status','manager','quotation__client')
+
 class JobOrderViewSet(viewsets.ModelViewSet):
     queryset = JobOrder.objects.all()
-    
+    # filterset_fields=('production_status','manager',)
+    filterset_class = JobOrderFilter
+    filter_backends = (filters.DjangoFilterBackend,)
     def get_serializer_class(self):
         if(self.action=='list'):
             return JobOrderListSerializer

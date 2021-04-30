@@ -7,8 +7,7 @@ import {
   Typography
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import ProductCard from './ProductCard';
-import ProductCardDelivery from './ProductCardDelivery';
+import ProductCards from './ProductCards';
 import data from './data';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,7 +29,7 @@ const ProductList = () => {
   return (
     <Page
       className={classes.root}
-      title="Order Tracking"
+      title="Product List"
     >
       <Container maxWidth={false}>
         <Typography
@@ -38,18 +37,11 @@ const ProductList = () => {
           color="textPrimary"
           variant="h2"
         >
-          Order Tracking
+          Product List
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
           <Grid item xs>
-            <Typography
-              className={classes.name}
-              color="textSecondary"
-              variant="h5"
-            >
-              In Production
-            </Typography>
               <Box mt={2}>
                 {products.map((product) => (
                   <Grid
@@ -60,7 +52,7 @@ const ProductList = () => {
                     xs={12}
                   >
                     <Box mt={2}>
-                    <ProductCard
+                    <ProductCards
                       className={classes.productCard}
                       product={product}
                     />
@@ -69,33 +61,6 @@ const ProductList = () => {
                 ))}
               </Box>
             </Grid>
-            <Grid item xs>
-              <Typography
-                className={classes.name}
-                color="textSecondary"
-                variant="h5"
-              >
-                Out for Delivery
-              </Typography>
-                <Box mt={2}>
-                  {products.map((product) => (
-                    <Grid
-                      item
-                      key={product.id}
-                      lg={12}
-                      md={6}
-                      xs={12}
-                    >
-                      <Box mt={2}>
-                      <ProductCardDelivery
-                        className={classes.productCard}
-                        product={product}
-                      />
-                      </Box>
-                    </Grid>
-                  ))}
-                </Box>
-              </Grid>
             </Grid>
           </Box>
       </Container>

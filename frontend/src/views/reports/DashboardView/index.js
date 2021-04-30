@@ -1,23 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useSelector, useDispatch } from "react-redux";
-import { Link as RouterLink, useNavigate, useHistory } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useHistory, Link } from 'react-router-dom';
 
 import {
   Container,
   Grid,
-  makeStyles
+  makeStyles,
+  Box,
+  Button,
+  Typography
 } from '@material-ui/core';
 
 import Page from 'src/components/Page';
-import Budget from './Budget';
-import LatestOrders from './LatestOrders';
-import LatestProducts from './LatestProducts';
-import Sales from './Sales';
-import TasksProgress from './TasksProgress';
-import TotalCustomers from './TotalCustomers';
-import TotalProfit from './TotalProfit';
-import TrafficByDevice from './TrafficByDevice';
+
+// BUTTONS
+import QuoteReview from './buttons/QuoteReview';
+import ManageEmployees from './buttons/ManageEmployees';
+import OrderTracking from './buttons/OrderTracking';
+import AccountSettings from './buttons/AccountSettings';
+import RequestForQuotation from './buttons/RequestForQuotation';
+
+// CARDS
+import QuotationCard from './cards/QuotationCard';
+
+// QUOTATION-RELATED LISTS
+import AwaitingComputation from './overviews/quotations/AwaitingComputation';
+import AwaitingApproval from './overviews/quotations/AwaitingApproval';
+
+// JOB ORDER RELATED LISTS
+import CurrentOrders from './overviews/CurrentOrders';
+import InProduction from './overviews/jobOrders/InProduction';
+import OutForDelivery from './overviews/jobOrders/OutForDelivery';
+
+import {getComputedQuotations, getInProgressQuotations} 
+from '../../../_actions/quotation';
+
+import {getInProductionJobOrders, getPendingJobOrders} 
+from '../../../_actions/jobOrder';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,102 +51,157 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = () => {
   const classes = useStyles();
-  const { isLoggedIn } = useSelector(state => state.auth);
-  const { profile } = useSelector(state => state.auth);
-  const navigate = useNavigate();
-  // const user = JSON.parse(localStorage.getItem("user"));
+  const [data, setData] = useState({in_progress:[],computed:[]});
+  const [products] = useState(data);
+  const { profile : currentUserProfile } = useSelector(state => state.auth);
   
-  useEffect(()=>{
-    // console.log("isLoggedIn: ", isLoggedIn);
-    // console.log(user);
-    if(isLoggedIn === false)
-    {
-      navigate('/login/', { replace: true });
-    }
-  },[]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+  const {computedQuotations : computed} = useSelector(state => state.quotation);
+  const {inProgressQuotations: in_progress} = useSelector(state=>state.quotation);
+  const {inProgressJobOrders : in_production} = useSelector(state=>state.jobOrder);
+  const {outForDeliveryJobOrders : out_for_delivery} = useSelector(state=>state.jobOrder);
+  const {finishedJobOrders : finished } = useSelector(state=>state.jobOrder);
 
-  return (
+  useEffect(()=>{
+    async function fetchData() {
+      await dispatch(getComputedQuotations())
+      await dispatch(getInProgressQuotations())
+      await dispatch(getInProductionJobOrders())
+      await dispatch(getPendingJobOrders())
+    }
+    fetchData();
+  },[])
+
+  const limitVisibility = (element, roles, exclude=false) => {
+    if(exclude===false)
+    {
+      if(roles.includes(currentUserProfile.job_position))
+      {
+        return element;
+      }
+    }
+    else
+    {
+      if(!(roles.includes(currentUserProfile.job_position)))
+      {
+        return element;
+      }
+    }
+    return <></>
+  }
+
+  return (currentUserProfile && 
     <Page
       className={classes.root}
       title="Dashboard"
     >
       <Container maxWidth={false}>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
+        <Box mb={2}>
+          <Typography 
+            className={classes.name}
+            color="textPrimary"
+            variant="h2"
           >
-            <Budget />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalCustomers />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TasksProgress />
-          </Grid>
-          <Grid
-            item
-            lg={3}
-            sm={6}
-            xl={3}
-            xs={12}
-          >
-            <TotalProfit />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <Sales />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <TrafficByDevice />
-          </Grid>
-          <Grid
-            item
-            lg={4}
-            md={6}
-            xl={3}
-            xs={12}
-          >
-            <LatestProducts />
-          </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <LatestOrders />
-          </Grid>
+            Hello {currentUserProfile.full_name}! What would you like to do today?
+          </Typography>
+          </Box>
+            <Grid
+              container
+              spacing={3}
+              direction="row"
+              justify="flex-start"
+              alignItems="flex-start"
+            >
+              {limitVisibility(
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                  <Link to={'/app/quote/review/'}>
+                    <QuoteReview />
+                  </Link>
+                </Grid>,
+                ['O','AM']
+              )}
+              
+              <Grid item lg={3} sm={6} xl={3} xs={12}>
+                <Link to={`/app/tracking/`}>
+                  <OrderTracking />
+                </Link>
+              </Grid>
+
+              {limitVisibility(
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                  <Link to={'/app/products'}>
+                    <RequestForQuotation />
+                  </Link>
+                </Grid>,
+                ['O','AM','P','D'], true
+              )}
+
+              {limitVisibility(
+                <Grid item lg={3} sm={6} xl={3} xs={12}>
+                  <Link to={'/app/employees/'}>
+                    <ManageEmployees />
+                  </Link>
+                </Grid>,
+                ['O','AM']
+              )}
+              
+              <Grid item lg={3} sm={6} xl={3} xs={12}>
+                <Link to={'/app/settings'}>
+                  <AccountSettings />
+                </Link>
+              </Grid>
+              
+              {limitVisibility(
+                <Box ml={1} width={1} height={1}>
+                  <Box my={2}>
+                    <Typography 
+                      className={classes.name}
+                      color="textPrimary"
+                      variant="h2"
+                      mb={3}
+                    >
+                      Overview of Quotes
+                    </Typography>
+                  </Box>
+                  <Grid container spacing={3}>
+                    <AwaitingComputation
+                      classes={classes}
+                      in_progress={in_progress}
+                    />
+                    <AwaitingApproval
+                      classes={classes}
+                      computed={computed}
+                    />
+                  </Grid>
+                  <Box ml={1} width={1} height={1}>
+                    <Box my={2}>
+                      <Typography 
+                        className={classes.name}
+                        color="textPrimary"
+                        variant="h2"
+                        mb={3}
+                      >
+                        Overview of Job Orders
+                      </Typography>
+                    </Box>
+                    
+                    <Grid container spacing={3}>
+                      <InProduction
+                        classes={classes}
+                        in_production={in_production}
+                      />
+                      
+                      <OutForDelivery
+                        classes={classes}
+                        out_for_delivery={out_for_delivery}
+                      />
+                    </Grid>
+                  </Box>
+                </Box>,
+                ['O','AM']
+              )}
         </Grid>
       </Container>
     </Page>

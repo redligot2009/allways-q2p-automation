@@ -47,7 +47,7 @@ class AccountListSerializer(serializers.ModelSerializer):
     email = serializers.CharField(max_length=255,source='user.email', read_only=True)
     class Meta:
         model = Account
-        fields=('id','user','email','full_name', 'organization_name')
+        fields=('id','user','email','full_name', 'job_position', 'organization_name')
 
 """"
 ========================================
@@ -117,11 +117,11 @@ class ExtraPlateSerializer(serializers.ModelSerializer):
 # Serialize QuotationItem objects (list view)
 class QuotationItemListSerializer(serializers.ModelSerializer):
 
-    # Related Objects
-    lamination=LaminationSerializer()
-    binding=BindingSerializer()
-    paper=PaperListSerializer()
-    extra_plates=ExtraPlateSerializer(many=True)
+    # Related Objectslamination=serializers.PrimaryKeyRelatedField(queryset=Lamination.objects.all(), required=False, allow_null=True, default=None)
+    binding=serializers.PrimaryKeyRelatedField(queryset=Binding.objects.all(), required=False, allow_null=True, default=None)
+    paper=serializers.PrimaryKeyRelatedField(queryset=Paper.objects.all())
+    # extra_plates=ExtraPlateSerializer(many=True, required=False, allow_null=True, default=None)
+    # extra_plates=ExtraPlateSerializer(many=True)
     
     # Read only fields (AKA properties)
     lamination_costs = serializers.ReadOnlyField()
@@ -174,7 +174,8 @@ class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='quotations-detail')
     
     # Related Objects
-    product_type=ProductSerializer(read_only=True)
+    product_type = ProductSerializer()
+    # serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
     client = AccountListSerializer(read_only=True)
     
     # Read only fields (AKA properties)
@@ -212,7 +213,7 @@ class QuotationDetailSerializer(serializers.ModelSerializer):
     
     # Related Objects
     items=QuotationItemListSerializer(many=True, read_only=True)
-    product_type=ProductSerializer(read_only=True)
+    product_type = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
     client = AccountListSerializer(read_only=True)
     
     # Read only fields (AKA properties)
@@ -253,12 +254,29 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
     
     # Override update action
     # TODO: REFACTOR THIS SHIT! What the fuck? There has to be an easier way to update nested objects...
+    
+    def get_model_fields(model):
+        return model._meta.fields
+    
     def update(self, instance, validated_data):
         items_data = validated_data.pop('items')
         items = list((instance.items).all())
+        # for()
         instance.project_name = validated_data.get('project_name',instance.project_name)
         instance.product_type = validated_data.get('product_type',instance.product_type)
         instance.approval_status = validated_data.get('approval_status',instance.approval_status)
+        instance.printing_process = validated_data.get('printing_process',instance.printing_process)
+        instance.quantity = validated_data.get('quantity',instance.quantity)
+        instance.total_pages = validated_data.get('total_pages',instance.total_pages)
+        instance.markup_percentage = validated_data.get('markup_percentage',instance.markup_percentage)
+        instance.margin_of_error = validated_data.get('margin_of_error',instance.margin_of_error)
+        instance.page_length = validated_data.get('page_length',instance.page_length)
+        instance.pages_can_fit = validated_data.get('pages_can_fit',instance.pages_can_fit)
+        instance.total_binding_costs = validated_data.get('total_binding_costs',instance.total_binding_costs)
+        instance.total_folds = validated_data.get('total_folds',instance.total_folds)
+        instance.cutting_costs = validated_data.get('cutting_costs',instance.cutting_costs)
+        instance.packaging_costs = validated_data.get('packaging_costs',instance.packaging_costs)
+        instance.transport_costs = validated_data.get('transport_costs',instance.transport_costs)
         
         if (instance.approval_status=="approved"):
             instance.approval_date = timezone.now()
@@ -278,12 +296,15 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
             item.no_plates_per_copy = item_data.get('no_plates_per_copy',item.no_plates_per_copy)
             item.no_sheets_ordered_for_copy = item_data.get('no_sheets_ordered_for_copy',item.no_sheets_ordered_for_copy)
             # Handle extra plates
-            extra_plates_data = item_data.pop('extra_plates')
-            extra_plates = list(item.extra_plates.all())
-            for extra_plate_data in extra_plates_data:
-                extra_plate = extra_plates.pop(0)
-                extra_plate.extra_plate_name = extra_plate_data.get('extra_plate_name',extra_plate.extra_plate_name)
-                extra_plate.no_impressions = extra_plate_data.get('no_impressions',extra_plate.no_impressions)
+            try:
+                extra_plates_data = item_data.pop('extra_plates')
+                extra_plates = list(item.extra_plates.all())
+                for extra_plate_data in extra_plates_data:
+                    extra_plate = extra_plates.pop(0)
+                    extra_plate.extra_plate_name = extra_plate_data.get('extra_plate_name',extra_plate.extra_plate_name)
+                    extra_plate.no_impressions = extra_plate_data.get('no_impressions',extra_plate.no_impressions)
+            except:
+                extra_plates = list()
             item.save()
         
         return instance
@@ -296,13 +317,25 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
                 'approval_status',
                 'printing_process',
                 'quantity',
-                'items')
+                'total_pages',
+                'markup_percentage',
+                'margin_of_error',
+                'items',
+                'page_length',
+                'page_width',
+                'pages_can_fit',
+                'total_binding_costs',
+                'total_folds',
+                'cutting_costs',
+                'packaging_costs',
+                'transport_costs'
+                )
 
 # Main Quotation serializer (for create actions)
 class QuotationSerializer(serializers.ModelSerializer):
     
     # Related Objects
-    items = QuotationItemSerializer(many=True)
+    items = QuotationItemListSerializer(many=True)
     product_type = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
     client = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
     
@@ -315,7 +348,7 @@ class QuotationSerializer(serializers.ModelSerializer):
         return new_quotation
     
     # Read-only fields
-    approval_date = serializers.ReadOnlyField()
+    # approval_date = serializers.ReadOnlyField()
     
     # Set default values for fields
     
@@ -324,12 +357,11 @@ class QuotationSerializer(serializers.ModelSerializer):
         model = Quotation
         fields=('project_name',
                 'product_type',
-                'created_date',
                 'client',
-                'approval_status',
-                'approval_date',
-                'printing_process',
                 'quantity',
+                'total_pages',
+                'page_length',
+                'page_width',
                 'items')
 
 """"
@@ -351,7 +383,7 @@ class InvoiceSerializer(serializers.ModelSerializer):
 class JobOrderListSerializer(serializers.ModelSerializer):
     
     quotation = QuotationListSerializer()
-    
+    client = serializers.CharField(source='quotation.client', read_only=True)
     class Meta:
         model = JobOrder
         fields = ('__all__')
@@ -359,15 +391,19 @@ class JobOrderListSerializer(serializers.ModelSerializer):
 # Create / update / delete serializer
 class JobOrderSerializer(serializers.ModelSerializer):
     quotation = serializers.PrimaryKeyRelatedField(queryset=Quotation.objects.all())
-    
+    # client = serializers.CharField(source='quotation.client.user', read_only=True)
     class Meta:
         model = JobOrder
-        fields = ('__all__')
+        # fields = ('__all__')
+        exclude=('created_date',
+                 )
 
 # Retrieve serializer
 class JobOrderDetailSerializer(serializers.ModelSerializer):
-    
     quotation = QuotationSerializer()
+    client = serializers.CharField(source='quotation.client', read_only=True)
+    # project_name=serializers.CharField(source='quotation.project_name',read_only=True)
+    manager=serializers.StringRelatedField()
     
     class Meta:
         model = JobOrder

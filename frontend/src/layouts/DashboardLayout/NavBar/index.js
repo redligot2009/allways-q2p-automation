@@ -18,6 +18,7 @@ import {
   LogOut as LogOutIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
+  Clipboard as ClipboardIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
   Users as UsersIcon
@@ -26,6 +27,8 @@ import NavItem from './NavItem';
 
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../../_actions/auth";
+
+import {getJobPosition, limitVisibility} from "../../../_helpers";
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -47,30 +50,28 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
   const dispatch = useDispatch()
   
-  useEffect(()=>{
-    async function fetchProfile () {
-      await dispatch(getProfile())
-            .then((response)=>{
-            })
-            .catch((error)=>{
-              dispatch(logout())
-            })
-    }
-    fetchProfile();
-  },[]);
-  
   const { profile: currentUserProfile } = useSelector((state) => state.auth) 
-  const { user: currentUser } = useSelector((state) => state.auth);
 
   // useEffect(()=>{
   //   console.log("YO! ", currentUser, currentUserProfile);
-  // },[]);
+  // },[currentUserProfile,currentUser]);
 
-  const user = {
+  const setUserProfile = (user) =>
+  {
+    let newUser = user
+    if(currentUserProfile !== null)
+    {
+      newUser.name = currentUserProfile.full_name
+      newUser.jobTitle = getJobPosition(currentUserProfile.job_position)
+    }
+    return newUser
+  }
+
+  const user = setUserProfile({
     avatar: '/static/images/avatars/avatar_6.png',
-    jobTitle: 'Client',
-    name: (currentUserProfile == null ? 'Mr. Ligot' : currentUserProfile.full_name)
-  };
+    jobTitle: 'None',
+    name: 'Mr. Ligot'
+  });
 
   const items = [
     {
@@ -80,47 +81,71 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
 
       },
+      restrict_to: [],
     },
     {
-      href: '/app/review',
+      href: '/app/quote/review',
       icon: UsersIcon,
       title: 'Quote Review',
       handleClick: () => {
 
       },
+      restrict_to: ['O','AM'],
     },
     {
       href: '/app/products',
       icon: ShoppingBagIcon,
+      title: 'Request Quotation',
+      handleClick: () => {
+
+      },
+      restrict_to: ['C'],
+    },
+    {
+      href: `/app/tracking/`,
+      icon: ClipboardIcon,
       title: 'Order Tracking',
       handleClick: () => {
 
       },
+      restrict_to: [],
     },
     {
-      href: '/app/account',
+      href: '/app/customers',
+      icon: UserIcon,
+      title: 'Manage Customers',
+      handleClick: () => {
+
+      },
+      restrict_to: ['O','AM'],
+    },
+    {
+      href: '/app/employees',
       icon: UserIcon,
       title: 'Manage Employees',
       handleClick: () => {
 
       },
+      restrict_to: ['O','AM'],
     },
     {
       href: '/app/settings',
       icon: SettingsIcon,
-      title: 'Settings',
+      title: 'Account Settings',
       handleClick: () => {
 
       },
+      restrict_to: [],
     },
-    {
-      href: '/login',
-      icon: LockIcon,
-      title: 'Login',
-      handleClick: () => {
+    // {
+    //   href: '/login',
+    //   icon: LockIcon,
+    //   title: 'Login',
+    //   handleClick: () => {
 
-      },
-    },
+    //   },
+    //   restrict_to: [],
+    // },
     {
       href:'/logout',
       icon: LogOutIcon,
@@ -128,23 +153,26 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       handleClick: () => {
         dispatch(logout())
       },
+      restrict_to: [],
     },
-    {
-      href: '/register',
-      icon: UserPlusIcon,
-      title: 'Register',
-      handleClick: () => {
+    // {
+    //   href: '/register',
+    //   icon: UserPlusIcon,
+    //   title: 'Register',
+    //   handleClick: () => {
 
-      },
-    },
-    {
-      href: '/404',
-      icon: AlertCircleIcon,
-      title: 'Error',
-      handleClick: () => {
+    //   },
+    //   restrict_to: [],
+    // },
+    // {
+    //   href: '/404',
+    //   icon: AlertCircleIcon,
+    //   title: 'Error',
+    //   handleClick: () => {
 
-      },
-    }
+    //   },
+    //   restrict_to: [],
+    // }
   ];
   
 
@@ -198,14 +226,18 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Divider />
       <Box p={2}>
         <List>
-          {items.map((item) => (
-            <NavItem
-              href={item.href}
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-              onClick={item.handleClick}
-            />
+          {currentUserProfile && items.map((item) => (
+            limitVisibility(
+              <NavItem
+                href={item.href}
+                key={item.title}
+                title={item.title}
+                icon={item.icon}
+                onClick={item.handleClick}
+              />,
+              item.restrict_to,
+              currentUserProfile.job_position,
+            )
           ))}
         </List>
       </Box>

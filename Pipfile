@@ -15,6 +15,7 @@ django-filter = "*"
 markdown = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
+graphviz = "*"
 
 [dev-packages]
 

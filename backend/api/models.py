@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.utils import timezone
@@ -78,7 +79,10 @@ class Account(models.Model):
     production_staff_position=models.CharField(null=True,blank=True,max_length=20)
     
     def __str__(self):
-        return self.user.username
+        try:
+            return self.user.username
+        except:
+            return ""
 
 @receiver(post_save,sender=User)
 def create_user_account(sender,instance,created,**kwargs):
@@ -247,6 +251,7 @@ class Quotation(models.Model):
         ('not_approved','Not Approved'),
         ('in_progress', 'In Progress'),
         ('approved', 'Approved'),
+        ('archived', 'Archived'),
         ]
     # IS QUOTATION APPROVED OR NOT?
     approval_status=models.CharField(default='in_progress',max_length=12, choices=STATUS)
@@ -632,14 +637,16 @@ class Invoice(models.Model):
 class JobOrder(models.Model):
     # Different production statuses for a "job"
     STATUS=[
+        ('pending','Pending'),
         ('inprogress','In-Progress'),
+        ('delivery','Out for Delivery'),
         ('finished','Finished'),
         ]
     # Which manager account is associated with this job order?
-    manager = models.OneToOneField(to=Account,null=True,on_delete=models.SET_NULL)
+    manager = models.ForeignKey(to=Account,null=True,on_delete=models.SET_NULL)
     # Quotation associated with this job order
     quotation = models.OneToOneField(to=Quotation,null=True,on_delete=models.SET_NULL)
     # Status of the "job"
     production_status=models.CharField(max_length=11, choices=STATUS)
-    # When was the quotation approved as a job order?
-    created_date = models.DateTimeField(null=False,blank=False)
+    # When was the quotation created as a job order?
+    created_date = models.DateTimeField(null=False,blank=False, default=timezone.now())
