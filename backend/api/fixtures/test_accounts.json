@@ -1,9 +1,27 @@
 [
 {
     "model": "auth.user",
+    "pk": 54,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$9s65IWVXfim5sePAvWRt8A$EV5ILnpNgLmEfXFgEuQ/mcwW9h+qXcMxZts9qLBu1GE=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testClient",
+        "first_name": "Test",
+        "last_name": "Number One",
+        "email": "testclient@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-05-01T04:01:38.526Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
     "pk": 42,
     "fields": {
-        "password": "pbkdf2_sha256$216000$QA5Yw6bnFz9L$Z04Y+unZpYUF9JBzhvMtyKfgFeIN1ocknqqfXQ6R+ak=",
+        "password": "pbkdf2_sha256$260000$uMYFsc2V1dVZ9PTZllzghb$PESOENUTNewkdAI9/gOhSI3/2jco3SxlzCAnXosohaE=",
         "last_login": null,
         "is_superuser": false,
         "username": "testAccountManager",
@@ -141,6 +159,23 @@
         "date_joined": "2021-03-04T10:19:29Z",
         "groups": [],
         "user_permissions": []
+    }
+},
+{
+    "model": "api.account",
+    "pk": 48,
+    "fields": {
+        "user": 54,
+        "middle_name": "Client",
+        "mobile_number": "",
+        "shipping_address": "",
+        "organization_name": "",
+        "job_position": null,
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
     }
 },
 {

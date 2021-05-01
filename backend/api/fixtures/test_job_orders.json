@@ -1,0 +1,129 @@
+[
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$av9AuLA4rCDN$ZQ2jn2h9fI1WWRDNBoPu9IpzUgkue+xxqqZpkHCgr/g=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "dosabel",
+        "first_name": "Diogenes",
+        "last_name": "Osabel",
+        "email": "dosabel@email.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-04T10:32:15Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "api.product",
+    "pk": 1,
+    "fields": {
+        "product_name": "Book",
+        "product_price": 4000.0,
+        "product_description": "This test product is a book"
+    }
+},
+{
+    "model": "api.account",
+    "pk": 3,
+    "fields": {
+        "user": 3,
+        "middle_name": "M",
+        "mobile_number": "09120000000",
+        "shipping_address": "123 Data St., Computer City",
+        "organization_name": "",
+        "job_position": null,
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 31,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$dlVcE5nh58A9$V0Cv3FEVIJp2zI0DOjFFeWwWPxC7oeWufDbBf71k9Y8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "ulap2019",
+        "first_name": "Ian Red",
+        "last_name": "Ligot",
+        "email": "ian.ligot@obf.ateneo.edu",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-03-27T18:17:04Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "api.quotation",
+    "pk": 3,
+    "fields": {
+        "client": 3,
+        "project_name": "A Continuing Pastoral Accompaniment of the BECs in the Philippines: A 50 Year Journey",
+        "approval_status": "approved",
+        "approval_date": "2021-04-28T11:11:08Z",
+        "printing_process": "digital",
+        "product_type": 1,
+        "quantity": 6000,
+        "total_pages": 500,
+        "created_date": "2021-04-23T09:44:35Z",
+        "project_file_path": "",
+        "page_length": 6.0,
+        "page_width": 9.0,
+        "spread_length": 12.0,
+        "spread_width": 18.0,
+        "margin_of_error": 0.1,
+        "markup_percentage": 0.1,
+        "pages_can_fit": 8,
+        "total_binding_costs": 10000.0,
+        "total_folds": 125,
+        "cutting_costs": 1000.0,
+        "packaging_costs": 1000.0,
+        "transport_costs": 1000.0
+    }
+},
+{
+    "model": "api.account",
+    "pk": 26,
+    "fields": {
+        "user": 31,
+        "middle_name": "Dela Cruz",
+        "mobile_number": null,
+        "shipping_address": null,
+        "organization_name": "",
+        "job_position": "O",
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
+    }
+},
+{
+    "model": "api.joborder",
+    "pk": 12,
+    "fields": {
+        "manager": 26,
+        "quotation": 3,
+        "production_status": "inprogress",
+        "created_date": "2021-04-28T21:24:41.885Z"
+    }
+},
+{
+    "model": "api.joborder",
+    "pk": 11,
+    "fields": {
+        "manager": 26,
+        "quotation": null,
+        "production_status": "pending",
+        "created_date": "2021-04-28T21:24:41.885Z"
+    }
+}
+]

@@ -1,6 +1,24 @@
 [
 {
     "model": "auth.user",
+    "pk": 54,
+    "fields": {
+        "password": "pbkdf2_sha256$260000$9s65IWVXfim5sePAvWRt8A$EV5ILnpNgLmEfXFgEuQ/mcwW9h+qXcMxZts9qLBu1GE=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "testClient",
+        "first_name": "Test",
+        "last_name": "Number One",
+        "email": "testclient@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-05-01T04:01:38.526Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
     "pk": 3,
     "fields": {
         "password": "pbkdf2_sha256$216000$av9AuLA4rCDN$ZQ2jn2h9fI1WWRDNBoPu9IpzUgkue+xxqqZpkHCgr/g=",
@@ -51,6 +69,23 @@
         "date_joined": "2021-03-04T10:19:29Z",
         "groups": [],
         "user_permissions": []
+    }
+},
+{
+    "model": "api.account",
+    "pk": 48,
+    "fields": {
+        "user": 54,
+        "middle_name": "Client",
+        "mobile_number": "",
+        "shipping_address": "",
+        "organization_name": "",
+        "job_position": null,
+        "plate_number": null,
+        "license_number": null,
+        "owner_key": null,
+        "account_manager_key": null,
+        "production_staff_position": null
     }
 },
 {
@@ -114,39 +149,87 @@
     }
 },
 {
-    "model": "api.paper",
-    "pk": 27,
+    "model": "api.quotation",
+    "pk": 15,
     "fields": {
-        "paper_type": "C2S 220",
-        "paper_category": "Coated & Matte Paper",
-        "paper_length": 25.0,
-        "paper_width": 38.0,
-        "ream_cost": 0.0,
-        "sheet_cost": 15.0,
-        "is_colored": "n",
-        "is_sticker": "n"
+        "client": 48,
+        "project_name": "Test Project 3",
+        "approval_status": "in_progress",
+        "approval_date": null,
+        "printing_process": "offset",
+        "product_type": 1,
+        "quantity": 1,
+        "total_pages": 1,
+        "created_date": "2021-05-01T04:05:52.417Z",
+        "project_file_path": "",
+        "page_length": 11.0,
+        "page_width": 8.5,
+        "spread_length": 11.0,
+        "spread_width": 17.0,
+        "margin_of_error": 0.1,
+        "markup_percentage": 0.45,
+        "pages_can_fit": 1,
+        "total_binding_costs": 0.0,
+        "total_folds": 1,
+        "cutting_costs": 0.0,
+        "packaging_costs": 0.0,
+        "transport_costs": 0.0
     }
 },
 {
-    "model": "api.binding",
-    "pk": 2,
+    "model": "api.quotation",
+    "pk": 14,
     "fields": {
-        "binding_type": "Perfect Binding",
-        "binding_base_price": 0.00625
+        "client": 48,
+        "project_name": "Test Project 2",
+        "approval_status": "in_progress",
+        "approval_date": null,
+        "printing_process": "offset",
+        "product_type": 1,
+        "quantity": 1,
+        "total_pages": 1,
+        "created_date": "2021-05-01T04:04:05.706Z",
+        "project_file_path": "",
+        "page_length": 11.0,
+        "page_width": 8.5,
+        "spread_length": 11.0,
+        "spread_width": 17.0,
+        "margin_of_error": 0.1,
+        "markup_percentage": 0.45,
+        "pages_can_fit": 1,
+        "total_binding_costs": 0.0,
+        "total_folds": 1,
+        "cutting_costs": 0.0,
+        "packaging_costs": 0.0,
+        "transport_costs": 0.0
     }
 },
 {
-    "model": "api.paper",
-    "pk": 31,
+    "model": "api.quotation",
+    "pk": 13,
     "fields": {
-        "paper_type": "Book 60",
-        "paper_category": "Book Paper",
-        "paper_length": 28.0,
-        "paper_width": 34.0,
-        "ream_cost": 2135.0,
-        "sheet_cost": 4.7,
-        "is_colored": "n",
-        "is_sticker": "n"
+        "client": 48,
+        "project_name": "Test Project 1",
+        "approval_status": "in_progress",
+        "approval_date": null,
+        "printing_process": "offset",
+        "product_type": 1,
+        "quantity": 1,
+        "total_pages": 1,
+        "created_date": "2021-05-01T04:03:14.265Z",
+        "project_file_path": "",
+        "page_length": 11.0,
+        "page_width": 8.5,
+        "spread_length": 11.0,
+        "spread_width": 17.0,
+        "margin_of_error": 0.1,
+        "markup_percentage": 0.45,
+        "pages_can_fit": 1,
+        "total_binding_costs": 0.0,
+        "total_folds": 1,
+        "cutting_costs": 0.0,
+        "packaging_costs": 0.0,
+        "transport_costs": 0.0
     }
 },
 {
@@ -178,37 +261,6 @@
     }
 },
 {
-    "model": "api.binding",
-    "pk": 1,
-    "fields": {
-        "binding_type": "Hardbound",
-        "binding_base_price": 0.00625
-    }
-},
-{
-    "model": "api.lamination",
-    "pk": 1,
-    "fields": {
-        "lamination_type": "Plastic Matte",
-        "base_price": 0.00725,
-        "min_rate": 1100.0
-    }
-},
-{
-    "model": "api.paper",
-    "pk": 22,
-    "fields": {
-        "paper_type": "C2S 100",
-        "paper_category": "Coated & Matte Paper",
-        "paper_length": 25.0,
-        "paper_width": 38.0,
-        "ream_cost": 2400.0,
-        "sheet_cost": 6.6,
-        "is_colored": "n",
-        "is_sticker": "n"
-    }
-},
-{
     "model": "api.quotation",
     "pk": 2,
     "fields": {
@@ -237,28 +289,6 @@
     }
 },
 {
-    "model": "api.binding",
-    "pk": 4,
-    "fields": {
-        "binding_type": "Saddle-stitched",
-        "binding_base_price": 5.0
-    }
-},
-{
-    "model": "api.paper",
-    "pk": 19,
-    "fields": {
-        "paper_type": "C2S 80",
-        "paper_category": "Coated & Matte Paper",
-        "paper_length": 25.0,
-        "paper_width": 38.0,
-        "ream_cost": 2400.0,
-        "sheet_cost": 5.3,
-        "is_colored": "n",
-        "is_sticker": "n"
-    }
-},
-{
     "model": "api.quotation",
     "pk": 1,
     "fields": {
@@ -284,96 +314,6 @@
         "cutting_costs": 200.0,
         "packaging_costs": 200.0,
         "transport_costs": 400.0
-    }
-},
-{
-    "model": "api.quotationitem",
-    "pk": 6,
-    "fields": {
-        "quotation": 3,
-        "item_type": "cover",
-        "no_colors": 4,
-        "no_plates_per_copy": 1,
-        "no_impressions_per_plate": 6000,
-        "paper": 27,
-        "no_sheets_ordered_for_copy": 0.25,
-        "lamination": 1,
-        "binding": 2
-    }
-},
-{
-    "model": "api.quotationitem",
-    "pk": 5,
-    "fields": {
-        "quotation": 2,
-        "item_type": "inner",
-        "no_colors": 4,
-        "no_plates_per_copy": 1,
-        "no_impressions_per_plate": 400,
-        "paper": 22,
-        "no_sheets_ordered_for_copy": 25.0,
-        "lamination": null,
-        "binding": null
-    }
-},
-{
-    "model": "api.quotationitem",
-    "pk": 4,
-    "fields": {
-        "quotation": 1,
-        "item_type": "cover",
-        "no_colors": 4,
-        "no_plates_per_copy": 1,
-        "no_impressions_per_plate": 300,
-        "paper": 27,
-        "no_sheets_ordered_for_copy": 0.25,
-        "lamination": 1,
-        "binding": 4
-    }
-},
-{
-    "model": "api.quotationitem",
-    "pk": 3,
-    "fields": {
-        "quotation": 3,
-        "item_type": "inner",
-        "no_colors": 1,
-        "no_plates_per_copy": 62,
-        "no_impressions_per_plate": 6000,
-        "paper": 31,
-        "no_sheets_ordered_for_copy": 15.625,
-        "lamination": null,
-        "binding": 2
-    }
-},
-{
-    "model": "api.quotationitem",
-    "pk": 2,
-    "fields": {
-        "quotation": 2,
-        "item_type": "cover",
-        "no_colors": 4,
-        "no_plates_per_copy": 50,
-        "no_impressions_per_plate": 400,
-        "paper": 22,
-        "no_sheets_ordered_for_copy": 25.0,
-        "lamination": 1,
-        "binding": 1
-    }
-},
-{
-    "model": "api.quotationitem",
-    "pk": 1,
-    "fields": {
-        "quotation": 1,
-        "item_type": "inner",
-        "no_colors": 4,
-        "no_plates_per_copy": 9,
-        "no_impressions_per_plate": 300,
-        "paper": 19,
-        "no_sheets_ordered_for_copy": 2.25,
-        "lamination": null,
-        "binding": 4
     }
 }
 ]

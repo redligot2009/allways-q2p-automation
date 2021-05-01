@@ -1,6 +1,535 @@
 [
     {
         "fields": {
+            "date_joined": "2021-05-01T04:01:38.526Z",
+            "email": "testclient@gmail.com",
+            "first_name": "Test",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Number One",
+            "password": "pbkdf2_sha256$260000$9s65IWVXfim5sePAvWRt8A$EV5ILnpNgLmEfXFgEuQ/mcwW9h+qXcMxZts9qLBu1GE=",
+            "user_permissions": [],
+            "username": "testClient"
+        },
+        "model": "auth.user",
+        "pk": 54
+    },
+    {
+        "fields": {
+            "date_joined": "2021-04-26T04:57:40.122Z",
+            "email": "placeholder.email@gmail.com",
+            "first_name": "Test",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Number One",
+            "password": "pbkdf2_sha256$260000$uMYFsc2V1dVZ9PTZllzghb$PESOENUTNewkdAI9/gOhSI3/2jco3SxlzCAnXosohaE=",
+            "user_permissions": [],
+            "username": "testAccountManager"
+        },
+        "model": "auth.user",
+        "pk": 42
+    },
+    {
+        "fields": {
+            "date_joined": "2021-04-26T01:11:38.962Z",
+            "email": "placeholder.email@gmail.com",
+            "first_name": "Test",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Number Two",
+            "password": "pbkdf2_sha256$216000$npy5LLVDM5a9$k5HjQkYd6ueHw1h3Rxy/naIaSaBgfHDYrPszDDep8Jk=",
+            "user_permissions": [],
+            "username": "testOwner2"
+        },
+        "model": "auth.user",
+        "pk": 41
+    },
+    {
+        "fields": {
+            "date_joined": "2021-04-25T21:19:27.814Z",
+            "email": "driver.gang@gmail.com",
+            "first_name": "Mister",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Driver",
+            "password": "pbkdf2_sha256$216000$Gp5CKS6aZ4cD$U8ubT8iLWLfW5WgNFwZOswTAsRDUT7c2v9Xou6yadXQ=",
+            "user_permissions": [],
+            "username": "testDriver"
+        },
+        "model": "auth.user",
+        "pk": 39
+    },
+    {
+        "fields": {
+            "date_joined": "2021-04-25T14:41:12.126Z",
+            "email": "production.guy@gmail.com",
+            "first_name": "Production",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Man",
+            "password": "pbkdf2_sha256$216000$OnNMbxkN76BX$Ut7tR+4qIIa16R9oPMGLLh3FJraI87ur7l9Hn4LkqY4=",
+            "user_permissions": [],
+            "username": "testProduction"
+        },
+        "model": "auth.user",
+        "pk": 38
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-27T18:17:04Z",
+            "email": "ian.ligot@obf.ateneo.edu",
+            "first_name": "Ian Red",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Ligot",
+            "password": "pbkdf2_sha256$216000$dlVcE5nh58A9$V0Cv3FEVIJp2zI0DOjFFeWwWPxC7oeWufDbBf71k9Y8=",
+            "user_permissions": [],
+            "username": "ulap2019"
+        },
+        "model": "auth.user",
+        "pk": 31
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:32:53Z",
+            "email": "asiancollege@email.com",
+            "first_name": "Asian College",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "",
+            "password": "pbkdf2_sha256$216000$XTp5fcxLFw0p$VGYh0G3xx3RJz0iJABEWhhquBFW1AWA0CgVAviKTCQk=",
+            "user_permissions": [],
+            "username": "asiancollege"
+        },
+        "model": "auth.user",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:32:15Z",
+            "email": "dosabel@email.com",
+            "first_name": "Diogenes",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Osabel",
+            "password": "pbkdf2_sha256$216000$av9AuLA4rCDN$ZQ2jn2h9fI1WWRDNBoPu9IpzUgkue+xxqqZpkHCgr/g=",
+            "user_permissions": [],
+            "username": "dosabel"
+        },
+        "model": "auth.user",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "date_joined": "2021-03-04T10:19:29Z",
+            "email": "clayusatest@email.com",
+            "first_name": "Cynthia",
+            "groups": [],
+            "is_active": true,
+            "is_staff": false,
+            "is_superuser": false,
+            "last_login": null,
+            "last_name": "Layusa",
+            "password": "pbkdf2_sha256$216000$NoUbxEUnnNCR$qDuAkljKKPwApIwiXzxkY09ojolUGXaHKq97J7D/1+I=",
+            "user_permissions": [],
+            "username": "clayusa"
+        },
+        "model": "auth.user",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": null,
+            "license_number": null,
+            "middle_name": "Client",
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 54
+        },
+        "model": "api.account",
+        "pk": 48
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "AM",
+            "license_number": null,
+            "middle_name": "Account Manager",
+            "mobile_number": "1234567890",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": "",
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 42
+        },
+        "model": "api.account",
+        "pk": 38
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "O",
+            "license_number": null,
+            "middle_name": "Owner",
+            "mobile_number": "1234567890",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": "",
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 41
+        },
+        "model": "api.account",
+        "pk": 37
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "D",
+            "license_number": null,
+            "middle_name": "Man",
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 39
+        },
+        "model": "api.account",
+        "pk": 35
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "P",
+            "license_number": null,
+            "middle_name": "Guy",
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": 38
+        },
+        "model": "api.account",
+        "pk": 34
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": null,
+            "license_number": null,
+            "middle_name": "Account",
+            "mobile_number": "",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "",
+            "user": null
+        },
+        "model": "api.account",
+        "pk": 30
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": "O",
+            "license_number": null,
+            "middle_name": "Dela Cruz",
+            "mobile_number": null,
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": null,
+            "user": 31
+        },
+        "model": "api.account",
+        "pk": 26
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": null,
+            "license_number": null,
+            "middle_name": null,
+            "mobile_number": "09130000000",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "2345 Moon St., Star City",
+            "user": 4
+        },
+        "model": "api.account",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": null,
+            "license_number": null,
+            "middle_name": "M",
+            "mobile_number": "09120000000",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "123 Data St., Computer City",
+            "user": 3
+        },
+        "model": "api.account",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "account_manager_key": null,
+            "job_position": null,
+            "license_number": null,
+            "middle_name": null,
+            "mobile_number": "09000000000",
+            "organization_name": "",
+            "owner_key": null,
+            "plate_number": null,
+            "production_staff_position": null,
+            "shipping_address": "00, Asdf St., Alphabet City",
+            "user": 2
+        },
+        "model": "api.account",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "product_description": "This test product is a book",
+            "product_name": "Book",
+            "product_price": 4000.0
+        },
+        "model": "api.product",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "approval_date": "2021-04-28T11:11:08Z",
+            "approval_status": "approved",
+            "client": 3,
+            "created_date": "2021-04-23T09:44:35Z",
+            "cutting_costs": 1000.0,
+            "margin_of_error": 0.1,
+            "markup_percentage": 0.1,
+            "packaging_costs": 1000.0,
+            "page_length": 6.0,
+            "page_width": 9.0,
+            "pages_can_fit": 8,
+            "printing_process": "digital",
+            "product_type": 1,
+            "project_file_path": "",
+            "project_name": "A Continuing Pastoral Accompaniment of the BECs in the Philippines: A 50 Year Journey",
+            "quantity": 6000,
+            "spread_length": 12.0,
+            "spread_width": 18.0,
+            "total_binding_costs": 10000.0,
+            "total_folds": 125,
+            "total_pages": 500,
+            "transport_costs": 1000.0
+        },
+        "model": "api.quotation",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "created_date": "2021-04-28T21:24:41.885Z",
+            "manager": 26,
+            "production_status": "inprogress",
+            "quotation": 3
+        },
+        "model": "api.joborder",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "created_date": "2021-04-28T21:24:41.885Z",
+            "manager": 26,
+            "production_status": "pending",
+            "quotation": null
+        },
+        "model": "api.joborder",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "approval_date": null,
+            "approval_status": "in_progress",
+            "client": 48,
+            "created_date": "2021-05-01T04:05:52.417Z",
+            "cutting_costs": 0.0,
+            "margin_of_error": 0.1,
+            "markup_percentage": 0.45,
+            "packaging_costs": 0.0,
+            "page_length": 11.0,
+            "page_width": 8.5,
+            "pages_can_fit": 1,
+            "printing_process": "offset",
+            "product_type": 1,
+            "project_file_path": "",
+            "project_name": "Test Project 3",
+            "quantity": 1,
+            "spread_length": 11.0,
+            "spread_width": 17.0,
+            "total_binding_costs": 0.0,
+            "total_folds": 1,
+            "total_pages": 1,
+            "transport_costs": 0.0
+        },
+        "model": "api.quotation",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "approval_date": null,
+            "approval_status": "in_progress",
+            "client": 48,
+            "created_date": "2021-05-01T04:04:05.706Z",
+            "cutting_costs": 0.0,
+            "margin_of_error": 0.1,
+            "markup_percentage": 0.45,
+            "packaging_costs": 0.0,
+            "page_length": 11.0,
+            "page_width": 8.5,
+            "pages_can_fit": 1,
+            "printing_process": "offset",
+            "product_type": 1,
+            "project_file_path": "",
+            "project_name": "Test Project 2",
+            "quantity": 1,
+            "spread_length": 11.0,
+            "spread_width": 17.0,
+            "total_binding_costs": 0.0,
+            "total_folds": 1,
+            "total_pages": 1,
+            "transport_costs": 0.0
+        },
+        "model": "api.quotation",
+        "pk": 14
+    },
+    {
+        "fields": {
+            "approval_date": null,
+            "approval_status": "in_progress",
+            "client": 48,
+            "created_date": "2021-05-01T04:03:14.265Z",
+            "cutting_costs": 0.0,
+            "margin_of_error": 0.1,
+            "markup_percentage": 0.45,
+            "packaging_costs": 0.0,
+            "page_length": 11.0,
+            "page_width": 8.5,
+            "pages_can_fit": 1,
+            "printing_process": "offset",
+            "product_type": 1,
+            "project_file_path": "",
+            "project_name": "Test Project 1",
+            "quantity": 1,
+            "spread_length": 11.0,
+            "spread_width": 17.0,
+            "total_binding_costs": 0.0,
+            "total_folds": 1,
+            "total_pages": 1,
+            "transport_costs": 0.0
+        },
+        "model": "api.quotation",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "approval_date": null,
+            "approval_status": "computed",
+            "client": 4,
+            "created_date": "2021-03-13T09:44:35Z",
+            "cutting_costs": 10000.0,
+            "margin_of_error": 0.1,
+            "markup_percentage": 0.25,
+            "packaging_costs": 5000.0,
+            "page_length": 8.0,
+            "page_width": 8.0,
+            "pages_can_fit": 4,
+            "printing_process": "offset",
+            "product_type": 1,
+            "project_file_path": "",
+            "project_name": "Yearbook",
+            "quantity": 400,
+            "spread_length": 8.0,
+            "spread_width": 16.0,
+            "total_binding_costs": 600.0,
+            "total_folds": 4,
+            "total_pages": 200,
+            "transport_costs": 1000.0
+        },
+        "model": "api.quotation",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "approval_date": null,
+            "approval_status": "in_progress",
+            "client": 2,
+            "created_date": "2021-03-08T09:44:35Z",
+            "cutting_costs": 200.0,
+            "margin_of_error": 0.1,
+            "markup_percentage": 0.15,
+            "packaging_costs": 200.0,
+            "page_length": 8.5,
+            "page_width": 11.0,
+            "pages_can_fit": 4,
+            "printing_process": "offset",
+            "product_type": 1,
+            "project_file_path": "",
+            "project_name": "OISCA Forest Booklet",
+            "quantity": 300,
+            "spread_length": 11.0,
+            "spread_width": 17.0,
+            "total_binding_costs": 500.0,
+            "total_folds": 4,
+            "total_pages": 36,
+            "transport_costs": 400.0
+        },
+        "model": "api.quotation",
+        "pk": 1
+    },
+    {
+        "fields": {
             "is_colored": "n",
             "is_sticker": "n",
             "paper_category": "Board",
@@ -922,518 +1451,5 @@
         },
         "model": "api.paper",
         "pk": 8
-    },
-    {
-        "fields": {
-            "date_joined": "2021-04-26T04:57:40.122Z",
-            "email": "placeholder.email@gmail.com",
-            "first_name": "Test",
-            "groups": [],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": null,
-            "last_name": "Number One",
-            "password": "pbkdf2_sha256$216000$QA5Yw6bnFz9L$Z04Y+unZpYUF9JBzhvMtyKfgFeIN1ocknqqfXQ6R+ak=",
-            "user_permissions": [],
-            "username": "testAccountManager"
-        },
-        "model": "auth.user",
-        "pk": 42
-    },
-    {
-        "fields": {
-            "date_joined": "2021-04-26T01:11:38.962Z",
-            "email": "placeholder.email@gmail.com",
-            "first_name": "Test",
-            "groups": [],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": null,
-            "last_name": "Number Two",
-            "password": "pbkdf2_sha256$216000$npy5LLVDM5a9$k5HjQkYd6ueHw1h3Rxy/naIaSaBgfHDYrPszDDep8Jk=",
-            "user_permissions": [],
-            "username": "testOwner2"
-        },
-        "model": "auth.user",
-        "pk": 41
-    },
-    {
-        "fields": {
-            "date_joined": "2021-04-25T21:19:27.814Z",
-            "email": "driver.gang@gmail.com",
-            "first_name": "Mister",
-            "groups": [],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": null,
-            "last_name": "Driver",
-            "password": "pbkdf2_sha256$216000$Gp5CKS6aZ4cD$U8ubT8iLWLfW5WgNFwZOswTAsRDUT7c2v9Xou6yadXQ=",
-            "user_permissions": [],
-            "username": "testDriver"
-        },
-        "model": "auth.user",
-        "pk": 39
-    },
-    {
-        "fields": {
-            "date_joined": "2021-04-25T14:41:12.126Z",
-            "email": "production.guy@gmail.com",
-            "first_name": "Production",
-            "groups": [],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": null,
-            "last_name": "Man",
-            "password": "pbkdf2_sha256$216000$OnNMbxkN76BX$Ut7tR+4qIIa16R9oPMGLLh3FJraI87ur7l9Hn4LkqY4=",
-            "user_permissions": [],
-            "username": "testProduction"
-        },
-        "model": "auth.user",
-        "pk": 38
-    },
-    {
-        "fields": {
-            "date_joined": "2021-03-27T18:17:04Z",
-            "email": "ian.ligot@obf.ateneo.edu",
-            "first_name": "Ian Red",
-            "groups": [],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": null,
-            "last_name": "Ligot",
-            "password": "pbkdf2_sha256$216000$dlVcE5nh58A9$V0Cv3FEVIJp2zI0DOjFFeWwWPxC7oeWufDbBf71k9Y8=",
-            "user_permissions": [],
-            "username": "ulap2019"
-        },
-        "model": "auth.user",
-        "pk": 31
-    },
-    {
-        "fields": {
-            "date_joined": "2021-03-04T10:32:53Z",
-            "email": "asiancollege@email.com",
-            "first_name": "Asian College",
-            "groups": [],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": null,
-            "last_name": "",
-            "password": "pbkdf2_sha256$216000$XTp5fcxLFw0p$VGYh0G3xx3RJz0iJABEWhhquBFW1AWA0CgVAviKTCQk=",
-            "user_permissions": [],
-            "username": "asiancollege"
-        },
-        "model": "auth.user",
-        "pk": 4
-    },
-    {
-        "fields": {
-            "date_joined": "2021-03-04T10:32:15Z",
-            "email": "dosabel@email.com",
-            "first_name": "Diogenes",
-            "groups": [],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": null,
-            "last_name": "Osabel",
-            "password": "pbkdf2_sha256$216000$av9AuLA4rCDN$ZQ2jn2h9fI1WWRDNBoPu9IpzUgkue+xxqqZpkHCgr/g=",
-            "user_permissions": [],
-            "username": "dosabel"
-        },
-        "model": "auth.user",
-        "pk": 3
-    },
-    {
-        "fields": {
-            "date_joined": "2021-03-04T10:19:29Z",
-            "email": "clayusatest@email.com",
-            "first_name": "Cynthia",
-            "groups": [],
-            "is_active": true,
-            "is_staff": false,
-            "is_superuser": false,
-            "last_login": null,
-            "last_name": "Layusa",
-            "password": "pbkdf2_sha256$216000$NoUbxEUnnNCR$qDuAkljKKPwApIwiXzxkY09ojolUGXaHKq97J7D/1+I=",
-            "user_permissions": [],
-            "username": "clayusa"
-        },
-        "model": "auth.user",
-        "pk": 2
-    },
-    {
-        "fields": {
-            "account_manager_key": null,
-            "job_position": "AM",
-            "license_number": null,
-            "middle_name": "Account Manager",
-            "mobile_number": "1234567890",
-            "organization_name": "",
-            "owner_key": null,
-            "plate_number": "",
-            "production_staff_position": null,
-            "shipping_address": "",
-            "user": 42
-        },
-        "model": "api.account",
-        "pk": 38
-    },
-    {
-        "fields": {
-            "account_manager_key": null,
-            "job_position": "O",
-            "license_number": null,
-            "middle_name": "Owner",
-            "mobile_number": "1234567890",
-            "organization_name": "",
-            "owner_key": null,
-            "plate_number": "",
-            "production_staff_position": null,
-            "shipping_address": "",
-            "user": 41
-        },
-        "model": "api.account",
-        "pk": 37
-    },
-    {
-        "fields": {
-            "account_manager_key": null,
-            "job_position": "D",
-            "license_number": null,
-            "middle_name": "Man",
-            "mobile_number": "",
-            "organization_name": "",
-            "owner_key": null,
-            "plate_number": null,
-            "production_staff_position": null,
-            "shipping_address": "",
-            "user": 39
-        },
-        "model": "api.account",
-        "pk": 35
-    },
-    {
-        "fields": {
-            "account_manager_key": null,
-            "job_position": "P",
-            "license_number": null,
-            "middle_name": "Guy",
-            "mobile_number": "",
-            "organization_name": "",
-            "owner_key": null,
-            "plate_number": null,
-            "production_staff_position": null,
-            "shipping_address": "",
-            "user": 38
-        },
-        "model": "api.account",
-        "pk": 34
-    },
-    {
-        "fields": {
-            "account_manager_key": null,
-            "job_position": null,
-            "license_number": null,
-            "middle_name": "Account",
-            "mobile_number": "",
-            "organization_name": "",
-            "owner_key": null,
-            "plate_number": null,
-            "production_staff_position": null,
-            "shipping_address": "",
-            "user": null
-        },
-        "model": "api.account",
-        "pk": 30
-    },
-    {
-        "fields": {
-            "account_manager_key": null,
-            "job_position": "O",
-            "license_number": null,
-            "middle_name": "Dela Cruz",
-            "mobile_number": null,
-            "organization_name": "",
-            "owner_key": null,
-            "plate_number": null,
-            "production_staff_position": null,
-            "shipping_address": null,
-            "user": 31
-        },
-        "model": "api.account",
-        "pk": 26
-    },
-    {
-        "fields": {
-            "account_manager_key": null,
-            "job_position": null,
-            "license_number": null,
-            "middle_name": null,
-            "mobile_number": "09130000000",
-            "organization_name": "",
-            "owner_key": null,
-            "plate_number": null,
-            "production_staff_position": null,
-            "shipping_address": "2345 Moon St., Star City",
-            "user": 4
-        },
-        "model": "api.account",
-        "pk": 4
-    },
-    {
-        "fields": {
-            "account_manager_key": null,
-            "job_position": null,
-            "license_number": null,
-            "middle_name": "M",
-            "mobile_number": "09120000000",
-            "organization_name": "",
-            "owner_key": null,
-            "plate_number": null,
-            "production_staff_position": null,
-            "shipping_address": "123 Data St., Computer City",
-            "user": 3
-        },
-        "model": "api.account",
-        "pk": 3
-    },
-    {
-        "fields": {
-            "account_manager_key": null,
-            "job_position": null,
-            "license_number": null,
-            "middle_name": null,
-            "mobile_number": "09000000000",
-            "organization_name": "",
-            "owner_key": null,
-            "plate_number": null,
-            "production_staff_position": null,
-            "shipping_address": "00, Asdf St., Alphabet City",
-            "user": 2
-        },
-        "model": "api.account",
-        "pk": 2
-    },
-    {
-        "fields": {
-            "product_description": "This test product is a book",
-            "product_name": "Book",
-            "product_price": 4000.0
-        },
-        "model": "api.product",
-        "pk": 1
-    },
-    {
-        "fields": {
-            "binding_base_price": 0.00625,
-            "binding_type": "Perfect Binding"
-        },
-        "model": "api.binding",
-        "pk": 2
-    },
-    {
-        "fields": {
-            "approval_date": "2021-04-28T11:11:08Z",
-            "approval_status": "approved",
-            "client": 3,
-            "created_date": "2021-04-23T09:44:35Z",
-            "cutting_costs": 1000.0,
-            "margin_of_error": 0.1,
-            "markup_percentage": 0.1,
-            "packaging_costs": 1000.0,
-            "page_length": 6.0,
-            "page_width": 9.0,
-            "pages_can_fit": 8,
-            "printing_process": "digital",
-            "product_type": 1,
-            "project_file_path": "",
-            "project_name": "A Continuing Pastoral Accompaniment of the BECs in the Philippines: A 50 Year Journey",
-            "quantity": 6000,
-            "spread_length": 12.0,
-            "spread_width": 18.0,
-            "total_binding_costs": 10000.0,
-            "total_folds": 125,
-            "total_pages": 500,
-            "transport_costs": 1000.0
-        },
-        "model": "api.quotation",
-        "pk": 3
-    },
-    {
-        "fields": {
-            "binding_base_price": 0.00625,
-            "binding_type": "Hardbound"
-        },
-        "model": "api.binding",
-        "pk": 1
-    },
-    {
-        "fields": {
-            "base_price": 0.00725,
-            "lamination_type": "Plastic Matte",
-            "min_rate": 1100.0
-        },
-        "model": "api.lamination",
-        "pk": 1
-    },
-    {
-        "fields": {
-            "approval_date": null,
-            "approval_status": "computed",
-            "client": 4,
-            "created_date": "2021-03-13T09:44:35Z",
-            "cutting_costs": 10000.0,
-            "margin_of_error": 0.1,
-            "markup_percentage": 0.25,
-            "packaging_costs": 5000.0,
-            "page_length": 8.0,
-            "page_width": 8.0,
-            "pages_can_fit": 4,
-            "printing_process": "offset",
-            "product_type": 1,
-            "project_file_path": "",
-            "project_name": "Yearbook",
-            "quantity": 400,
-            "spread_length": 8.0,
-            "spread_width": 16.0,
-            "total_binding_costs": 600.0,
-            "total_folds": 4,
-            "total_pages": 200,
-            "transport_costs": 1000.0
-        },
-        "model": "api.quotation",
-        "pk": 2
-    },
-    {
-        "fields": {
-            "binding_base_price": 5.0,
-            "binding_type": "Saddle-stitched"
-        },
-        "model": "api.binding",
-        "pk": 4
-    },
-    {
-        "fields": {
-            "approval_date": null,
-            "approval_status": "in_progress",
-            "client": 2,
-            "created_date": "2021-03-08T09:44:35Z",
-            "cutting_costs": 200.0,
-            "margin_of_error": 0.1,
-            "markup_percentage": 0.15,
-            "packaging_costs": 200.0,
-            "page_length": 8.5,
-            "page_width": 11.0,
-            "pages_can_fit": 4,
-            "printing_process": "offset",
-            "product_type": 1,
-            "project_file_path": "",
-            "project_name": "OISCA Forest Booklet",
-            "quantity": 300,
-            "spread_length": 11.0,
-            "spread_width": 17.0,
-            "total_binding_costs": 500.0,
-            "total_folds": 4,
-            "total_pages": 36,
-            "transport_costs": 400.0
-        },
-        "model": "api.quotation",
-        "pk": 1
-    },
-    {
-        "fields": {
-            "binding": 2,
-            "item_type": "cover",
-            "lamination": 1,
-            "no_colors": 4,
-            "no_impressions_per_plate": 6000,
-            "no_plates_per_copy": 1,
-            "no_sheets_ordered_for_copy": 0.25,
-            "paper": 27,
-            "quotation": 3
-        },
-        "model": "api.quotationitem",
-        "pk": 6
-    },
-    {
-        "fields": {
-            "binding": null,
-            "item_type": "inner",
-            "lamination": null,
-            "no_colors": 4,
-            "no_impressions_per_plate": 400,
-            "no_plates_per_copy": 1,
-            "no_sheets_ordered_for_copy": 25.0,
-            "paper": 22,
-            "quotation": 2
-        },
-        "model": "api.quotationitem",
-        "pk": 5
-    },
-    {
-        "fields": {
-            "binding": 4,
-            "item_type": "cover",
-            "lamination": 1,
-            "no_colors": 4,
-            "no_impressions_per_plate": 300,
-            "no_plates_per_copy": 1,
-            "no_sheets_ordered_for_copy": 0.25,
-            "paper": 27,
-            "quotation": 1
-        },
-        "model": "api.quotationitem",
-        "pk": 4
-    },
-    {
-        "fields": {
-            "binding": 2,
-            "item_type": "inner",
-            "lamination": null,
-            "no_colors": 1,
-            "no_impressions_per_plate": 6000,
-            "no_plates_per_copy": 62,
-            "no_sheets_ordered_for_copy": 15.625,
-            "paper": 31,
-            "quotation": 3
-        },
-        "model": "api.quotationitem",
-        "pk": 3
-    },
-    {
-        "fields": {
-            "binding": 1,
-            "item_type": "cover",
-            "lamination": 1,
-            "no_colors": 4,
-            "no_impressions_per_plate": 400,
-            "no_plates_per_copy": 50,
-            "no_sheets_ordered_for_copy": 25.0,
-            "paper": 22,
-            "quotation": 2
-        },
-        "model": "api.quotationitem",
-        "pk": 2
-    },
-    {
-        "fields": {
-            "binding": 4,
-            "item_type": "inner",
-            "lamination": null,
-            "no_colors": 4,
-            "no_impressions_per_plate": 300,
-            "no_plates_per_copy": 9,
-            "no_sheets_ordered_for_copy": 2.25,
-            "paper": 19,
-            "quotation": 1
-        },
-        "model": "api.quotationitem",
-        "pk": 1
     }
 ]
