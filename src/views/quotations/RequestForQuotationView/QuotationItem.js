@@ -89,7 +89,10 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].no_colors`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation.items[index].no_colors}
+                                value={props.values.quotation.items[index] ? 
+                                    props.values.quotation.items[index].no_colors :
+                                    null
+                                }
                                 variant="outlined"
                             >
                                 <MenuItem value={1}>
@@ -113,10 +116,13 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].lamination`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation.items[index].lamination}
+                                value={props.values.quotation.items[index] ? 
+                                    props.values.quotation.items[index].lamination :
+                                    null
+                                }
                                 variant="outlined"
                             >
-                                {props.laminationTypes.map((laminationType, index)=>{
+                                {props.laminationTypes && props.laminationTypes.map((laminationType, index)=>{
                                     return (
                                         <MenuItem value={laminationType.id}>
                                             {laminationType.lamination_type}
@@ -135,10 +141,13 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].binding`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation.items[index].binding}
+                                value={props.values.quotation.items[index] ? 
+                                    props.values.quotation.items[index].binding : 
+                                    null
+                                }
                                 variant="outlined"
                             >
-                                {props.bindingTypes.map((bindingType, index)=>{
+                                {props.bindingTypes && props.bindingTypes.map((bindingType, index)=>{
                                     return (
                                         <MenuItem value={bindingType.id}>
                                             {bindingType.binding_type}
@@ -157,10 +166,13 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].paper`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation.items[index].paper}
+                                value={props.values.quotation.items[index] ? 
+                                    props.values.quotation.items[index].paper : 
+                                    null
+                                }
                                 variant="outlined"
                             >
-                                {props.paperTypes.map((paperType, index)=>{
+                                {props.paperTypes && props.paperTypes.map((paperType, index)=>{
                                     return (
                                         <MenuItem value={paperType.id}>
                                             {paperType.paper_type}

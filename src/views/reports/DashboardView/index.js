@@ -65,11 +65,11 @@ const Dashboard = () => {
   const {finishedJobOrders : finished } = useSelector(state=>state.jobOrder);
 
   useEffect(()=>{
-    async function fetchData() {
-      await dispatch(getComputedQuotations())
-      await dispatch(getInProgressQuotations())
-      await dispatch(getInProductionJobOrders())
-      await dispatch(getPendingJobOrders())
+    function fetchData() {
+      dispatch(getComputedQuotations())
+      dispatch(getInProgressQuotations())
+      dispatch(getInProductionJobOrders())
+      dispatch(getPendingJobOrders())
     }
     fetchData();
   },[])
@@ -166,10 +166,19 @@ const Dashboard = () => {
                     </Typography>
                   </Box>
                   <Grid container spacing={3}>
-                    <AwaitingComputation
+                    {
+                      in_progress && 
+                      <AwaitingComputation
+                        classes={classes}
+                        in_progress={in_progress}
+                      />
+                    }
+                    {computed && 
+                    <AwaitingApproval
                       classes={classes}
-                      in_progress={in_progress}
+                      computed={computed}
                     />
+                    }
                     <AwaitingApproval
                       classes={classes}
                       computed={computed}
@@ -188,15 +197,21 @@ const Dashboard = () => {
                     </Box>
                     
                     <Grid container spacing={3}>
-                      <InProduction
-                        classes={classes}
-                        in_production={in_production}
-                      />
+                      {
+                        in_production &&
+                        <InProduction
+                          classes={classes}
+                          in_production={in_production}
+                        />
+                      }
+                      {
+                        out_for_delivery && 
+                        <OutForDelivery
+                          classes={classes}
+                          out_for_delivery={out_for_delivery}
+                        />
+                      }
                       
-                      <OutForDelivery
-                        classes={classes}
-                        out_for_delivery={out_for_delivery}
-                      />
                     </Grid>
                   </Box>
                 </Box>,

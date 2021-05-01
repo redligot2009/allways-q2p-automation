@@ -64,26 +64,26 @@ const ProductList = () => {
     }
   }
 
-  async function fetchData () {
-    await dispatch(getProfile())
+  function fetchData () {
+    dispatch(getProfile())
     switch(currentUserProfile.job_position)
     {
       case 'O':
-        await dispatch(getPendingJobOrders())
-        await dispatch(getInProductionJobOrders())
+        dispatch(getPendingJobOrders())
+        dispatch(getInProductionJobOrders())
         break;
       case 'AM':
-        await dispatch(getPendingJobOrders())
-        await dispatch(getInProductionJobOrders())
+        dispatch(getPendingJobOrders())
+        dispatch(getInProductionJobOrders())
         break;
       case 'P':
         break;
       case 'D':
         break;
       default:
-        await dispatch(getInProgressQuotations(currentUserProfile.id))
-        await dispatch(getComputedQuotations(currentUserProfile.id))
-        await dispatch(getInProductionJobOrders(currentUserProfile.id))
+        dispatch(getInProgressQuotations(currentUserProfile.id))
+        dispatch(getComputedQuotations(currentUserProfile.id))
+        dispatch(getInProductionJobOrders(currentUserProfile.id))
     }
     
   }
@@ -155,7 +155,6 @@ const ProductList = () => {
                   <QuotationCardComputed
                     className={classes.productCard}
                     quotation={quotation}
-                    fetchData={fetchData}
                   />
                   </Box>
                 </Grid>
@@ -185,7 +184,6 @@ const ProductList = () => {
                   <QuotationCardComputed
                     className={classes.productCard}
                     quotation={quotation}
-                    fetchData={fetchData}
                   />
                   </Box>
                 </Grid>

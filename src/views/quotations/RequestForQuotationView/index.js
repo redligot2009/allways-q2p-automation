@@ -186,7 +186,7 @@ const RequestForQuotation = (props) => {
                             quotation: {
                                 "project_name": "",
                                 "product_type": 1,
-                                "client": currentUserProfile.id,
+                                "client": currentUserProfile ? currentUserProfile.id : "",
                                 "page_length":8.5,
                                 "page_width":11,
                                 "quantity": 1,
