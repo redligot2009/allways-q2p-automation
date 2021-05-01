@@ -1,14 +1,18 @@
 FROM python:3.9-buster
 
-ADD . / backend/
 WORKDIR /backend/
 
-RUN pip install pipenv
+# ADD . / backend/
+COPY Pipfile Pipfile.lock /backend/
 
-RUN pipenv install --system --deploy
+RUN pip install pipenv && pipenv install --system --deploy
+
+COPY . /backend/
 
 RUN ["python","manage.py","migrate"]
 
 RUN ["python","manage.py","loaddata", "all_test_data.json"]
 
-CMD ["python","manage.py","runserver"]
+CMD ["python","manage.py","runserver","0.0.0.0:8000"]
+
+EXPOSE 8000
