@@ -9,8 +9,10 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 // axios configuration
-axios.defaults.baseURL = "http://127.0.0.1:8000/";
-
+if(process.env.NODE_ENV=="development")
+{
+  axios.defaults.baseURL = "http://127.0.0.1:8000/";
+}
 // React stuff
 ReactDOM.render((
   <Provider store={store}>
