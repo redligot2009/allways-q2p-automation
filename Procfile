@@ -1,2 +1,2 @@
-release: python manage.py migrate && loaddata all_test_data.json
+release: python manage.py migrate
 web: gunicorn backend.wsgi --log-file -
