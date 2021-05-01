@@ -239,7 +239,7 @@ class Quotation(models.Model):
     project_name = models.CharField(default="Unnamed Project",max_length=255,null=False)
     
     # When was the request for quotation created by client?
-    created_date = models.DateTimeField(default=timezone.now(),null=False)
+    created_date = models.DateTimeField(auto_now_add=True,null=False)
     
     # String representation of a quotation
     def __str__(self):
@@ -278,7 +278,7 @@ class Quotation(models.Model):
     total_pages=models.IntegerField(default=1,null=False)
     
     # WHEN WAS THE QUOTATION CREATED?
-    created_date=models.DateTimeField(default=timezone.now(),null=False)
+    created_date=models.DateTimeField(auto_now_add=True,null=False)
     
     # PATH TO WHERE CLIENT'S UPLOADED FILES ARE
     project_file_path=models.CharField(max_length=255, blank=True)
@@ -649,4 +649,4 @@ class JobOrder(models.Model):
     # Status of the "job"
     production_status=models.CharField(max_length=11, choices=STATUS)
     # When was the quotation created as a job order?
-    created_date = models.DateTimeField(null=False,blank=False, default=timezone.now())
+    created_date = models.DateTimeField(null=False,blank=False, auto_now_add=True)

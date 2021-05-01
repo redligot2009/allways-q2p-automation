@@ -32,10 +32,12 @@ const InProduction = (props) => {
               key={jobOrder.id}
             >
               <Box mt={2}>
-                <JobOrderCard
+                {jobOrder && 
+                  <JobOrderCard
                     className={props.classes.JobOrderCard}
                     jobOrder={jobOrder}
-                />
+                  />
+                }
               </Box>
             </Grid>
         ))}

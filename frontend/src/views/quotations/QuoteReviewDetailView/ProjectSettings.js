@@ -88,7 +88,7 @@ const ProjectSettings = (props) =>
                 value={
                     props.values.quotation ? 
                     format(new Date(props.values.quotation.created_date),"yyyy-MM-dd") : 
-                    new Date(Date.now())
+                    format(Date.now(),"yyyy-MM-dd")
                 }
                 // defaultValue={values.quotation.created_date}
                 variant="filled"
