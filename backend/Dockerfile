@@ -15,4 +15,5 @@ RUN ["python","manage.py","loaddata", "all_test_data.json"]
 
 EXPOSE 8000
 
-CMD ["python","manage.py","runserver","0.0.0.0:8000"]
+# CMD ["python","manage.py","runserver","0.0.0.0:8000"]
+CMD gunicorn backend.wsgi --log-file - -b 0.0.0.0:8000 --reload

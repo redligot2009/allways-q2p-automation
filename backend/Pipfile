@@ -17,6 +17,7 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 graphviz = "*"
 whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 

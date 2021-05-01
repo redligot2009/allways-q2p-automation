@@ -1,11 +1,12 @@
 FROM node:slim
 
+RUN mkdir /app/
 WORKDIR /app/
 
-COPY package.json /app/
+ADD package.json /app/package.json
+RUN npm install
+ADD . /app/
 
-COPY . /app/
-
-EXPOSE 3000
+# EXPOSE 3000
 
 CMD npm start
