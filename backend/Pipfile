@@ -19,6 +19,7 @@ graphviz = "*"
 whitenoise = "*"
 gunicorn = "*"
 django-heroku = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
