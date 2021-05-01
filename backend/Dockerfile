@@ -13,6 +13,6 @@ RUN ["python","manage.py","migrate"]
 
 RUN ["python","manage.py","loaddata", "all_test_data.json"]
 
-CMD ["python","manage.py","runserver","0.0.0.0:8000"]
-
 EXPOSE 8000
+
+CMD ["python","manage.py","runserver","0.0.0.0:8000"]

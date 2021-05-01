@@ -16,6 +16,7 @@ markdown = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
 graphviz = "*"
+whitenoise = "*"
 
 [dev-packages]
 
