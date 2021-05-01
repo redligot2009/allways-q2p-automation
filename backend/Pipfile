@@ -18,6 +18,7 @@ djangorestframework-simplejwt = "*"
 graphviz = "*"
 whitenoise = "*"
 gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 
