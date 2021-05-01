@@ -372,7 +372,7 @@ const RequestForQuotation = (props) => {
                                         <FieldArray name="quotation.items">
                                             {
                                                 ({ push, remove }) => {
-                                                    return (
+                                                    return ( (laminationTypes && paperTypes && bindingTypes) ?
                                                     <QuotationItem
                                                         handleBlur={handleBlur}
                                                         handleChange={handleChange}
@@ -382,7 +382,7 @@ const RequestForQuotation = (props) => {
                                                         laminationTypes={laminationTypes}
                                                         paperTypes={paperTypes}
                                                         bindingTypes={bindingTypes}
-                                                    />
+                                                    /> : <></>
                                                     )
                                                 }}
                                         </FieldArray>

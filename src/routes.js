@@ -42,7 +42,7 @@ function Routes() {
           })
         }
       }
-    , 15000);
+    , 150000);
   // useEffect(()=>{
   //   (async function fetchProfile () {
   //     await dispatch(getProfile())
