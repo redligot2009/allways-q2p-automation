@@ -22,25 +22,39 @@ import QuotationReviewDetail from 'src/views/quotations/QuoteReviewDetailView';
 import RequestForQuotation from 'src/views/quotations/RequestForQuotationView';
 import ProductView from 'src/views/product/ProductListView';
 import EmployeeView from 'src/views/employee/EmployeeListView';
+import {useInterval} from 'src/_helpers/hooks'
 
 function Routes() {
 
   const dispatch = useDispatch()
 
   const fetchProfileFinished = useRef(false);
-
-  useEffect(()=>{
-    (async function fetchProfile () {
-      await dispatch(getProfile())
-            .then((response)=>{
-              fetchProfileFinished.current = true;
-            })
-            .catch((error)=>{
-              dispatch(logout())
-              fetchProfileFinished.current = true;
-            })
-    })();
-  },[]);
+  useInterval(
+    () => { 
+        async function fetchProfile () {
+        await dispatch(getProfile())
+          .then((response)=>{
+            fetchProfileFinished.current = true;
+          })
+          .catch((error)=>{
+            dispatch(logout())
+            fetchProfileFinished.current = true;
+          })
+        }
+      }
+    , 15000);
+  // useEffect(()=>{
+  //   (async function fetchProfile () {
+  //     await dispatch(getProfile())
+  //           .then((response)=>{
+  //             fetchProfileFinished.current = true;
+  //           })
+  //           .catch((error)=>{
+  //             dispatch(logout())
+  //             fetchProfileFinished.current = true;
+  //           })
+  //   })();
+  // },[]);
 
   const { profile: currentUserProfile } = useSelector((state) => state.auth)
   
