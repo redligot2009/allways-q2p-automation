@@ -32,7 +32,7 @@ const QuotationItem = (props) => {
             {props.values.quotation.items.map(
                 (item,index) => 
                 {
-                    return (
+                    return ( item && 
                         <Grid item xs={12} key={item.id}>
                             <Grid container>
                                 <Grid item xs={10}>
@@ -150,72 +150,79 @@ const QuotationItem = (props) => {
                                 variant="outlined"
                             >
                             </TextField>
-                            <TextField
-                                select
-                                label="Lamination Type"
-                                fullWidth
-                                margin="normal"
-                                name={`quotation.items[${index}].lamination`}
-                                onBlur={props.handleBlur}
-                                onChange={props.handleChange}
-                                value={props.values.quotation.items[index].lamination}
-                                variant="outlined"
-                            >
-                                {props.laminationTypes.map((laminationType, index)=>{
-                                    return (
-                                        <MenuItem value={laminationType.id}>
-                                            {laminationType.lamination_type}
-                                        </MenuItem>
-                                    )
-                                })}
-                                <MenuItem value={null}>
-                                    None
-                                </MenuItem>
-                            </TextField>
-                            <TextField
-                                select
-                                label="Binding Type"
-                                fullWidth
-                                margin="normal"
-                                name={`quotation.items[${index}].binding`}
-                                onBlur={props.handleBlur}
-                                onChange={props.handleChange}
-                                value={props.values.quotation.items[index].binding}
-                                variant="outlined"
-                            >
-                                {props.bindingTypes.map((bindingType, index)=>{
-                                    return (
-                                        <MenuItem value={bindingType.id}>
-                                            {bindingType.binding_type}
-                                        </MenuItem>
-                                    )
-                                })}
-                                <MenuItem value={null}>
-                                    None
-                                </MenuItem>
-                            </TextField>
-                            <TextField
-                                select
-                                label="Paper Type"
-                                fullWidth
-                                margin="normal"
-                                name={`quotation.items[${index}].paper`}
-                                onBlur={props.handleBlur}
-                                onChange={props.handleChange}
-                                value={props.values.quotation.items[index].paper}
-                                variant="outlined"
-                            >
-                                {props.paperTypes.map((paperType, index)=>{
-                                    return (
-                                        <MenuItem value={paperType.id}>
-                                            {paperType.paper_type}
-                                        </MenuItem>
-                                    )
-                                })}
-                                <MenuItem value={null}>
-                                    None
-                                </MenuItem>
-                            </TextField>
+                            {props.laminationTypes  && 
+                                <TextField
+                                    select
+                                    label="Lamination Type"
+                                    fullWidth
+                                    margin="normal"
+                                    name={`quotation.items[${index}].lamination`}
+                                    onBlur={props.handleBlur}
+                                    onChange={props.handleChange}
+                                    value={props.values.quotation.items[index].lamination}
+                                    variant="outlined"
+                                >
+                                    {props.laminationTypes.map((laminationType, index)=>{
+                                        return (
+                                            <MenuItem value={laminationType.id}>
+                                                {laminationType.lamination_type}
+                                            </MenuItem>
+                                        )
+                                    })}
+                                    <MenuItem value={null}>
+                                        None
+                                    </MenuItem>
+                                </TextField>
+                            }
+                            {props.bindingTypes && 
+                                <TextField
+                                    select
+                                    label="Binding Type"
+                                    fullWidth
+                                    margin="normal"
+                                    name={`quotation.items[${index}].binding`}
+                                    onBlur={props.handleBlur}
+                                    onChange={props.handleChange}
+                                    value={props.values.quotation.items[index].binding}
+                                    variant="outlined"
+                                >
+                                    {props.bindingTypes.map((bindingType, index)=>{
+                                        return (
+                                            <MenuItem value={bindingType.id}>
+                                                {bindingType.binding_type}
+                                            </MenuItem>
+                                        )
+                                    })}
+                                    <MenuItem value={null}>
+                                        None
+                                    </MenuItem>
+                                </TextField>
+                            }
+                            {props.paperTypes &&
+                                <TextField
+                                    select
+                                    label="Paper Type"
+                                    fullWidth
+                                    margin="normal"
+                                    name={`quotation.items[${index}].paper`}
+                                    onBlur={props.handleBlur}
+                                    onChange={props.handleChange}
+                                    value={props.values.quotation.items[index].paper}
+                                    variant="outlined"
+                                >
+                                    {props.paperTypes.map((paperType, index)=>{
+                                        return (
+                                            <MenuItem value={paperType.id}>
+                                                {paperType.paper_type}
+                                            </MenuItem>
+                                        )
+                                    })}
+                                    <MenuItem value={null}>
+                                        None
+                                    </MenuItem>
+                                </TextField>
+                            }
+                            
                         </Grid>
                         )
                     }
