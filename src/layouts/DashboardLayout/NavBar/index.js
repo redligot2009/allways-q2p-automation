@@ -30,6 +30,8 @@ import { getProfile, logout } from "../../../_actions/auth";
 
 import {getJobPosition, limitVisibility} from "../../../_helpers";
 
+import {v4} from "uuid";
+
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
     width: 256
@@ -230,7 +232,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             limitVisibility(
               <NavItem
                 href={item.href}
-                key={item.title}
+                key={v4()}
                 title={item.title}
                 icon={item.icon}
                 onClick={item.handleClick}

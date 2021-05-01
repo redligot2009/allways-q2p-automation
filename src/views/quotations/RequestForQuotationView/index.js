@@ -177,9 +177,7 @@ const RequestForQuotation = (props) => {
                 overflow="auto"
                 height="100%"
             >
-                <Container 
-                    maxWidth={800}
-                >
+                <Container>
                     <Formik
                         enableReinitialize={true}
                         initialValues={{
