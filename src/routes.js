@@ -11,9 +11,7 @@ import CustomerListView from 'src/views/customer/CustomerListView';
 import DashboardView from 'src/views/reports/DashboardView';
 import LoginView from 'src/views/auth/LoginView';
 import NotFoundView from 'src/views/errors/NotFoundView';
-import TrackingAMListView from 'src/views/tracking_am/ProductListView';
-import TrackingPRODListView from 'src/views/tracking_prod/ProductListView';
-import TrackingDELListView from 'src/views/tracking_deliv/ProductListView';
+
 import TrackingCUSTListView from 'src/views/tracking_cus/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
@@ -29,9 +27,8 @@ function Routes() {
   const dispatch = useDispatch()
 
   const fetchProfileFinished = useRef(false);
-  useInterval(
-    () => { 
-        async function fetchProfile () {
+  useInterval(() => { 
+      async function fetchProfile () {
         await dispatch(getProfile())
           .then((response)=>{
             fetchProfileFinished.current = true;
@@ -40,9 +37,24 @@ function Routes() {
             dispatch(logout())
             fetchProfileFinished.current = true;
           })
-        }
       }
-    , 150000);
+      fetchProfile();
+    }
+    , 15000);
+
+  useEffect(()=>{
+    async function initialFetchProfile () {
+      await dispatch(getProfile())
+        .then((response)=>{
+          fetchProfileFinished.current = true;
+        })
+        .catch((error)=>{
+          dispatch(logout())
+          fetchProfileFinished.current = true;
+        })
+    }
+    initialFetchProfile()
+  }, [])
   // useEffect(()=>{
   //   (async function fetchProfile () {
   //     await dispatch(getProfile())
@@ -97,13 +109,7 @@ function Routes() {
         { path: 'products', element: limitRouteAccess([],<ProductView />)},
         { path: 'settings', element: limitRouteAccess([],<SettingsView />)},
         { path: '*', element: limitRouteAccess([],<Navigate to="/404" />)},
-        { path: 'tracking', children: [
-          { path: 'AM', element: limitRouteAccess(['O','AM',], <TrackingAMListView />) },
-          { path: 'O', element: limitRouteAccess(['O','AM',], <TrackingAMListView />) },
-          { path: 'P', element: limitRouteAccess(['P'], <TrackingPRODListView />) },
-          { path: 'D', element: limitRouteAccess(['D'], <TrackingDELListView />) },
-          { path: '', element: limitRouteAccess([], <TrackingCUSTListView />) },
-        ]}
+        { path: 'tracking', element: limitRouteAccess([], <TrackingCUSTListView />) },
       ]
     },
     {
