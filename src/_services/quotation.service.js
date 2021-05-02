@@ -91,7 +91,8 @@ const updateQuotation = (quotation, cancelToken) => {
         'no_plates_per_copy',
         'no_impressions_per_plate',
         'no_sheets_ordered_for_copy',
-        'quotation'
+        'quotation',
+        'extra_plates',
     ]
 
     const filteredQuotationData = getFilteredObject(quotation,allowedQuotationFields)
@@ -99,6 +100,7 @@ const updateQuotation = (quotation, cancelToken) => {
     filteredQuotationData.items = filteredQuotationItemsData;
 
     const updateResult = axios.put(`api/quotations/${quotation.id}/`,filteredQuotationData,{cancelToken: cancelToken})
+    console.log("HERE IS WHAT IT LOOKS LIKE:")
     console.log(filteredQuotationData);
     console.log(JSON.stringify(filteredQuotationData));
     return updateResult;

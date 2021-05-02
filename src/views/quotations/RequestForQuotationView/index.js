@@ -30,7 +30,7 @@ import axios from 'axios';
 
 import {createQuotation} from "../../../_actions/quotation";
 
-import QuotationItem from '../QuotationItem';
+import QuotationItem from './QuotationItem';
 
 import { toast } from 'react-toastify';
 
@@ -122,41 +122,41 @@ const RequestForQuotation = (props) => {
     const [laminationTypes, setLaminationTypes] = useState([])
     const [bindingTypes, setBindingTypes] = useState([])
     const { profile: currentUserProfile } = useSelector((state) => state.auth)
+
+    const [fetched, setFetched] = useState(false)
+    
+    const source = axios.CancelToken.source()
     
     async function fetchData()
     {
         try
         {
-            const paperResults = await axios.get('api/papers')
+            // const quoteResult = await axios.get(`api/quotations/${location.state.id}`)
+            console.log(quoteDetails);
+            // TODO: Convert these into Redux actions.
+            await axios.get('api/papers', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setPaperTypes(response.data)
                 })
-                .catch((error)=>{
 
-                })
-
-            const laminationResults = await axios.get('api/laminations')
+            await axios.get('api/laminations',{cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setLaminationTypes(response.data)
                 })
-                .catch((error)=>{
-
-                })
             
-            const bindingResults = await axios.get('api/bindings')
+            await axios.get('api/bindings', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setBindingTypes(response.data)
                 })
-                .catch((error)=>{
-
-                })
         }
         catch(error)
         {
-            toast.error("Product specifications failed to load.");
+            console.log(error);
+            setFetched(false);
+            handleGoBack();
         }
         // console.log(quoteDetails);
     }
@@ -164,11 +164,15 @@ const RequestForQuotation = (props) => {
     function handleCreateQuotation (quotation) {
         return dispatch(createQuotation(quotation))
     }
-    useEffect(() => {    
+    useEffect(() => {
         fetchData();
+        setFetched(true);
+        return ()=>{
+            source.cancel();
+        }
     }, [])
     // console.log(quoteDetails)
-    return (
+    return (fetched &&
         <Page
           className={classes.root}
           title="Request for Quotation"

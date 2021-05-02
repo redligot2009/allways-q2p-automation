@@ -26,16 +26,14 @@ import {format} from 'date-fns';
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
-import {uniqueId} from 'lodash';
-
 const QuotationItem = (props) => {
     return (
         <Container style={{maxHeight:540,overflow:'auto'}} mb={2}>
-            {props.values.quotation.items && props.values.quotation.items.map(
-                (quotationItem,index) => 
+            {props.values.quotation.items.map(
+                (item,index) => 
                 {
-                    return (
-                        <Grid item xs={12} key={uniqueId("quotation-item-individual-")}>
+                    return ( item && 
+                        <Grid item xs={12} key={item.id}>
                             <Grid container>
                                 <Grid item xs={10}>
                                     <Typography
@@ -46,7 +44,7 @@ const QuotationItem = (props) => {
                                         Quotation Item # {index+1}
                                     </Typography>
                                 </Grid>
-                                <Grid container justify="flex-end">
+                                <Grid container xs={2} justify="flex-end">
                                     <Button
                                         color="primary"
                                         // disabled={isSubmitting}
@@ -70,10 +68,7 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].item_type`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation ?
-                                    props.values.quotation.items[index].item_type:
-                                    ""
-                                }
+                                value={props.values.quotation.items[index].item_type}
                                 variant="outlined"
                             >
                                 <MenuItem value="inner">
@@ -94,10 +89,7 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].no_colors`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation ? 
-                                    props.values.quotation.items[index].no_colors :
-                                    ""
-                                }
+                                value={props.values.quotation.items[index].no_colors}
                                 variant="outlined"
                             >
                                 <MenuItem value={1}>
@@ -114,80 +106,123 @@ const QuotationItem = (props) => {
                                 </MenuItem>
                             </TextField>
                             <TextField
-                                select
-                                label="Lamination Type"
                                 fullWidth
+                                // inputProps = {
+                                //     { readOnly: true, }
+                                // }
+                                type="number"
+                                label="Number of Plates Per Copy"
                                 margin="normal"
-                                name={`quotation.items[${index}].lamination`}
+                                name={`quotation.items[${index}].no_plates_per_copy`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation ? 
-                                    props.values.quotation.items[index].lamination :
-                                    ""
-                                }
+                                value={props.values.quotation.items[index].no_plates_per_copy}
                                 variant="outlined"
                             >
-                                {props.laminationTypes && props.laminationTypes.map((laminationType, index)=>{
-                                    return (
-                                        <MenuItem value={laminationType.id}>
-                                            {laminationType.lamination_type}
-                                        </MenuItem>
-                                    )
-                                })}
-                                <MenuItem value={""}>
-                                    None
-                                </MenuItem>
                             </TextField>
                             <TextField
-                                select
-                                label="Binding Type"
                                 fullWidth
+                                // inputProps = {
+                                //     { readOnly: true, }
+                                // }
+                                type="number"
+                                label="Number of Impressions Per Plate"
                                 margin="normal"
-                                name={`quotation.items[${index}].binding`}
+                                name={`quotation.items[${index}].no_impressions_per_plate`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation ? 
-                                    props.values.quotation.items[index].binding : 
-                                    ""
-                                }
+                                value={props.values.quotation.items[index].no_impressions_per_plate}
                                 variant="outlined"
                             >
-                                {props.bindingTypes && props.bindingTypes.map((bindingType, index)=>{
-                                    return (
-                                        <MenuItem value={bindingType.id}>
-                                            {bindingType.binding_type}
-                                        </MenuItem>
-                                    )
-                                })}
-                                <MenuItem value={""}>
-                                    None
-                                </MenuItem>
                             </TextField>
                             <TextField
-                                select
-                                label="Paper Type"
                                 fullWidth
+                                // inputProps = {
+                                //     { readOnly: true, }
+                                // }
+                                type="number"
+                                label="Number of Paper Sheets Per Copy"
                                 margin="normal"
-                                name={`quotation.items[${index}].paper`}
+                                name={`quotation.items[${index}].no_sheets_ordered_for_copy`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation ? 
-                                    props.values.quotation.items[index].paper : 
-                                    ""
-                                }
+                                value={props.values.quotation.items[index].no_sheets_ordered_for_copy}
                                 variant="outlined"
                             >
-                                {props.paperTypes && props.paperTypes.map((paperType, index)=>{
-                                    return (
-                                        <MenuItem value={paperType.id}>
-                                            {paperType.paper_type}
-                                        </MenuItem>
-                                    )
-                                })}
-                                <MenuItem value={""}>
-                                    None
-                                </MenuItem>
                             </TextField>
+                            {props.laminationTypes  && 
+                                <TextField
+                                    select
+                                    label="Lamination Type"
+                                    fullWidth
+                                    margin="normal"
+                                    name={`quotation.items[${index}].lamination`}
+                                    onBlur={props.handleBlur}
+                                    onChange={props.handleChange}
+                                    value={props.values.quotation.items[index].lamination}
+                                    variant="outlined"
+                                >
+                                    {props.laminationTypes.map((laminationType, index)=>{
+                                        return (
+                                            <MenuItem value={laminationType.id}>
+                                                {laminationType.lamination_type}
+                                            </MenuItem>
+                                        )
+                                    })}
+                                    <MenuItem value={null}>
+                                        None
+                                    </MenuItem>
+                                </TextField>
+                            }
+                            {props.bindingTypes && 
+                                <TextField
+                                    select
+                                    label="Binding Type"
+                                    fullWidth
+                                    margin="normal"
+                                    name={`quotation.items[${index}].binding`}
+                                    onBlur={props.handleBlur}
+                                    onChange={props.handleChange}
+                                    value={props.values.quotation.items[index].binding}
+                                    variant="outlined"
+                                >
+                                    {props.bindingTypes.map((bindingType, index)=>{
+                                        return (
+                                            <MenuItem value={bindingType.id}>
+                                                {bindingType.binding_type}
+                                            </MenuItem>
+                                        )
+                                    })}
+                                    <MenuItem value={null}>
+                                        None
+                                    </MenuItem>
+                                </TextField>
+                            }
+                            {props.paperTypes &&
+                                <TextField
+                                    select
+                                    label="Paper Type"
+                                    fullWidth
+                                    margin="normal"
+                                    name={`quotation.items[${index}].paper`}
+                                    onBlur={props.handleBlur}
+                                    onChange={props.handleChange}
+                                    value={props.values.quotation.items[index].paper}
+                                    variant="outlined"
+                                >
+                                    {props.paperTypes.map((paperType, index)=>{
+                                        return (
+                                            <MenuItem value={paperType.id}>
+                                                {paperType.paper_type}
+                                            </MenuItem>
+                                        )
+                                    })}
+                                    <MenuItem value={null}>
+                                        None
+                                    </MenuItem>
+                                </TextField>
+                            }
+                            
                         </Grid>
                         )
                     }
@@ -196,7 +231,7 @@ const QuotationItem = (props) => {
             <Button
                 color="primary"
                 // disabled={isSubmitting}
-                // fullWidth
+                fullWidth
                 size="large"
                 type="button"
                 variant="outlined"
@@ -205,8 +240,12 @@ const QuotationItem = (props) => {
                         lamination: null,
                         binding: null,
                         paper: null,
+                        extra_plates: [],
                         item_type: "other",
                         no_colors: 4,
+                        no_plates_per_copy: 1,
+                        no_impressions_per_plate: 1,
+                        no_sheets_ordered_for_copy: 1,
                         quotation: props.values.quotation.id
                     })
                 }

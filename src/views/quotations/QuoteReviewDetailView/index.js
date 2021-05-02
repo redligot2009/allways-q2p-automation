@@ -31,7 +31,7 @@ import axios from 'axios';
 
 import {getQuotationById, updateQuotation} from "../../../_actions/quotation";
 
-import QuotationItem from '../QuotationItem';
+import QuotationItem from './QuotationItem';
 import ProjectSettings from './ProjectSettings';
 import Finishing from './Finishing';
 import PlatesRunningPaper from './PlatesRunningPaper';
@@ -93,17 +93,11 @@ const QuoteReviewDetail = (props) => {
                     // console.log(response.data)
                     setPaperTypes(response.data)
                 })
-                .catch((error)=>{
-
-                })
 
             await axios.get('api/laminations',{cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setLaminationTypes(response.data)
-                })
-                .catch((error)=>{
-
                 })
             
             await axios.get('api/bindings', {cancelToken: source.token})
@@ -111,12 +105,10 @@ const QuoteReviewDetail = (props) => {
                     // console.log(response.data)
                     setBindingTypes(response.data)
                 })
-                .catch((error)=>{
-
-                })
         }
         catch(error)
         {
+            console.log(error);
             setFetched(false);
             handleGoBack();
         }
@@ -130,15 +122,11 @@ const QuoteReviewDetail = (props) => {
         fetchData();
         setFetched(true);
         return ()=>{
-            setPaperTypes([])
-            setLaminationTypes([])
-            setBindingTypes([])
-            setFetched(false)
             source.cancel();
         }
     }, [])
     // console.log(quoteDetails)
-    return ( quoteDetails &&
+    return ( quoteDetails && fetched &&
         <Page
           className={classes.root}
           title="Quote Specifications Review"
@@ -192,10 +180,10 @@ const QuoteReviewDetail = (props) => {
                                             color="textPrimary"
                                             variant="h2"
                                         >
-                                            Quotation #{values.quotation.id || ""}
+                                            Quotation #{values.quotation.id}
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={12} sm={4}>
+                                    <Grid item xs={12} sm={4} alignContent="flex-end">
                                         <Button
                                             color="primary"
                                             // disabled={isSubmitting}
@@ -233,7 +221,7 @@ const QuoteReviewDetail = (props) => {
                                             <FieldArray name="quotation.items">
                                                 {
                                                     ({ push, remove }) => {
-                                                        return ( laminationTypes && paperTypes && bindingTypes &&
+                                                        return (
                                                         <QuotationItem
                                                             handleBlur={handleBlur}
                                                             handleChange={handleChange}
@@ -253,30 +241,24 @@ const QuoteReviewDetail = (props) => {
                                 <Grid item xs={12} sm={6}>
                                     <Box mb={3}>
                                         {/* PLATES RUNNING PAPER */}
-                                        {
-                                            values.quotation && (
-                                                <>
-                                                    <PlatesRunningPaper
-                                                        handleBlur={handleBlur}
-                                                        handleChange={handleChange}
-                                                        values={values}
-                                                    />
-
-                                                    <Finishing
-                                                        handleBlur={handleBlur}
-                                                        handleChange={handleChange}
-                                                        values={values}
-                                                    />
-
-                                                    <ExtraCosts
-                                                        handleBlur={handleBlur}
-                                                        handleChange={handleChange}
-                                                        values={values}
-                                                    />
-                                                </>
-                                            )
-                                        }
                                         
+                                        <PlatesRunningPaper
+                                            handleBlur={handleBlur}
+                                            handleChange={handleChange}
+                                            values={values}
+                                        />
+
+                                        <Finishing
+                                            handleBlur={handleBlur}
+                                            handleChange={handleChange}
+                                            values={values}
+                                        />
+
+                                        <ExtraCosts
+                                            handleBlur={handleBlur}
+                                            handleChange={handleChange}
+                                            values={values}
+                                        />
                                     </Box>
                                 </Grid>
                             </Grid>

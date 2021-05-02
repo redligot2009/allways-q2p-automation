@@ -85,7 +85,7 @@ const ProductList = () => {
       default:
         dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
         dispatch(getComputedQuotations(currentUserProfile.id,source.token))
-        dispatch(getInProductionJobOrders(currentUserProfile.id,source.token))
+        dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
     }
   }
 
