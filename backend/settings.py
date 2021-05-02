@@ -27,7 +27,7 @@ SECRET_KEY = 'u*y$6+c783%0(4s%@ri^%j=2+4h0)i^zhm5p=%a23r*0!&$&_y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','localhost','allways-q2p-automation.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -146,9 +146,11 @@ STATICFILES_DIRS = [
    
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-CORS_ALLOWED_ORIGINS = [
+CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
+    "http://localhost:5000",
     "http://127.0.0.1:3000",
+    "http://127.0.0.1:8000",
     "https://allways-q2p-automation.herokuapp.com"
 ]
 

@@ -2,6 +2,9 @@ from django.shortcuts import render
 import django_filters
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
+from django.http import HttpResponse, HttpResponseNotFound
+import os
+from django.views import View
 
 from .models import Account
 from .models import Invoice, JobOrder
@@ -18,6 +21,19 @@ from .serializers import QuotationItemSerializer, QuotationItemListSerializer, Q
 from .serializers import QuotationListSerializer, QuotationDetailSerializer, QuotationUpdateSerializer, QuotationSerializer
 
 import logging
+
+# SERVING REACT FRONTEND
+
+class Assets(View):
+
+    def get(self, _request, filename):
+        path = os.path.join(os.path.dirname(__file__), 'static', filename)
+
+        if os.path.isfile(path):
+            with open(path, 'rb') as file:
+                return HttpResponse(file.read(), content_type='application/javascript')
+        else:
+            return HttpResponseNotFound()
 
 #######################################
 ### USER / ACCOUNT RELATED VIEWSETS ###

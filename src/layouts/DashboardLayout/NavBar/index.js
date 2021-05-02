@@ -228,7 +228,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       </Box>
       <Divider />
       <Box p={2}>
-        {/* <List>
+        <List>
           {currentUserProfile && items && items.map((item, index) => (
             limitVisibility(
               <NavItem
@@ -242,7 +242,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               currentUserProfile.job_position,
             )
           ))}
-        </List> */}
+        </List>
       </Box>
     </Box>
   );

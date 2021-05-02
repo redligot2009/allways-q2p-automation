@@ -4,6 +4,8 @@
   "licence": "MIT",
   "version": "1.0.0",
   "private": false,
+  "homepage": ".",
+  "proxy": "http://localhost:8000",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -70,7 +72,7 @@
     "prettier": "^1.19.1"
   },
   "engines": {
-      "node": "14.6.0",
-      "npm": "6.14.9"
+    "node": "14.6.0",
+    "npm": "6.14.9"
   }
 }
