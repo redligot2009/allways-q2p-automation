@@ -7,7 +7,7 @@ QUOTATION API SERVICE FUNCTIONS
 ///////////////////////////////
 */
 
-const createQuotation = (quotation) => {
+const createQuotation = (quotation, cancelToken) => {
     // console.log(quotation);
     const allowedQuotationFields = [
         "project_name",
@@ -33,23 +33,24 @@ const createQuotation = (quotation) => {
     const filteredQuotationItemsData = getFilteredObject(quotation.items,allowedQuotationItemFields)
     filteredQuotationData.items = filteredQuotationItemsData;
     
-    const createResult = axios.post(`api/quotations/`,filteredQuotationData)
+    const createResult = axios.post(`api/quotations/`,filteredQuotationData,{cancelToken: cancelToken})
     return createResult;
 }
 
-const retrieveQuotation = (id) => {
-    const quoteResult = axios.get(`api/quotations/${id}`)
+const retrieveQuotation = (id, cancelToken) => {
+    console.log(`api/quotations/${id}`)
+    const quoteResult = axios.get(`api/quotations/${id}`,{cancelToken: cancelToken})
     return quoteResult;
 }
 
-const retrieveQuotations = (approval_status=null,client=null) => {
+const retrieveQuotations = (approval_status=null,client=null, cancelToken) => {
     // TODO: Add support for filtering quotations by client
     const urlParams = {
         "approval_status" : approval_status,
         "client" : client,
     }
     let requestURL = getResultURL("api/quotations/", urlParams);
-    const quotationsListResult = axios.get(requestURL);
+    const quotationsListResult = axios.get(requestURL,{cancelToken: cancelToken});
     return quotationsListResult;
 }
 
@@ -58,7 +59,7 @@ const deleteQuotation = (id) =>
   // TODO: Implement API call to delete quotation by ID.
 }
 
-const updateQuotation = (quotation) => {
+const updateQuotation = (quotation, cancelToken) => {
     // console.log(quotation);
     const allowedQuotationFields = [
         "project_name",
@@ -97,7 +98,7 @@ const updateQuotation = (quotation) => {
     const filteredQuotationItemsData = getFilteredObject(quotation.items,allowedQuotationItemFields)
     filteredQuotationData.items = filteredQuotationItemsData;
 
-    const updateResult = axios.put(`api/quotations/${quotation.id}/`,filteredQuotationData)
+    const updateResult = axios.put(`api/quotations/${quotation.id}/`,filteredQuotationData,{cancelToken: cancelToken})
     console.log(filteredQuotationData);
     console.log(JSON.stringify(filteredQuotationData));
     return updateResult;

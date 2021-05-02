@@ -75,15 +75,20 @@ const QuoteReviewDetail = (props) => {
     const [paperTypes, setPaperTypes] = useState([]);
     const [laminationTypes, setLaminationTypes] = useState([])
     const [bindingTypes, setBindingTypes] = useState([])
+
+    const [fetched, setFetched] = useState(false)
     
+    const source = axios.CancelToken.source()
+
     async function fetchData()
     {
         try
         {
             // const quoteResult = await axios.get(`api/quotations/${location.state.id}`)
-            await dispatch(getQuotationById(location.state.id))
+            await dispatch(getQuotationById(location.state.id,source.token))
+            console.log(quoteDetails);
             // TODO: Convert these into Redux actions.
-            const paperResults = await axios.get('api/papers')
+            await axios.get('api/papers', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setPaperTypes(response.data)
@@ -92,7 +97,7 @@ const QuoteReviewDetail = (props) => {
 
                 })
 
-            const laminationResults = await axios.get('api/laminations')
+            await axios.get('api/laminations',{cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setLaminationTypes(response.data)
@@ -101,7 +106,7 @@ const QuoteReviewDetail = (props) => {
 
                 })
             
-            const bindingResults = await axios.get('api/bindings')
+            await axios.get('api/bindings', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setBindingTypes(response.data)
@@ -112,19 +117,28 @@ const QuoteReviewDetail = (props) => {
         }
         catch(error)
         {
+            setFetched(false);
             handleGoBack();
         }
         // console.log(quoteDetails);
     }
 
     function handleUpdateQuotation (quotation) {
-        dispatch(updateQuotation(quotation))
+        dispatch(updateQuotation(quotation,source.token))
     }
     useEffect(() => {
         fetchData();
+        setFetched(true);
+        return ()=>{
+            setPaperTypes([])
+            setLaminationTypes([])
+            setBindingTypes([])
+            setFetched(false)
+            source.cancel();
+        }
     }, [])
     // console.log(quoteDetails)
-    return (
+    return ( quoteDetails &&
         <Page
           className={classes.root}
           title="Quote Specifications Review"
@@ -239,24 +253,30 @@ const QuoteReviewDetail = (props) => {
                                 <Grid item xs={12} sm={6}>
                                     <Box mb={3}>
                                         {/* PLATES RUNNING PAPER */}
+                                        {
+                                            values.quotation && (
+                                                <>
+                                                    <PlatesRunningPaper
+                                                        handleBlur={handleBlur}
+                                                        handleChange={handleChange}
+                                                        values={values}
+                                                    />
+
+                                                    <Finishing
+                                                        handleBlur={handleBlur}
+                                                        handleChange={handleChange}
+                                                        values={values}
+                                                    />
+
+                                                    <ExtraCosts
+                                                        handleBlur={handleBlur}
+                                                        handleChange={handleChange}
+                                                        values={values}
+                                                    />
+                                                </>
+                                            )
+                                        }
                                         
-                                        <PlatesRunningPaper
-                                            handleBlur={handleBlur}
-                                            handleChange={handleChange}
-                                            values={values}
-                                        />
-
-                                        <Finishing
-                                            handleBlur={handleBlur}
-                                            handleChange={handleChange}
-                                            values={values}
-                                        />
-
-                                        <ExtraCosts
-                                            handleBlur={handleBlur}
-                                            handleChange={handleChange}
-                                            values={values}
-                                        />
                                     </Box>
                                 </Grid>
                             </Grid>

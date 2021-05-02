@@ -35,14 +35,14 @@ const QuotationReviewList = () => {
   const { computedQuotations: computed} = useSelector((state)=>state.quotation);
   const { inProgressQuotations: in_progress} = useSelector((state)=>state.quotation);
   const { approvedQuotations : approved} = useSelector((state)=>state.quotation);
-  
+  const source = axios.CancelToken.source()
   useInterval(() => {
     async function fetchData(){
       try
       {
-        await dispatch(getComputedQuotations());
-        await dispatch(getInProgressQuotations());
-        await dispatch(getApprovedQuotations())
+        await dispatch(getComputedQuotations("",source.token));
+        await dispatch(getInProgressQuotations("",source.token));
+        await dispatch(getApprovedQuotations("",source.token))
         // console.log(in_progress);
         // console.log(computed);
       }
@@ -54,7 +54,11 @@ const QuotationReviewList = () => {
     fetchData();
   },1000)
   //computed, in_progress, approved
-
+  useEffect(() => {
+    return () => {
+      source.cancel();
+    }
+  }, [])
   return (
     <Page
       className={classes.root}

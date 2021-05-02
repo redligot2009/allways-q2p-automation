@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
 const PlatesRunningPaper = (props) => {
-    return (props.values &&
+    return (props.values.quotation &&
         <Grid item xs={12}>
             <Typography
                 color="textPrimary"

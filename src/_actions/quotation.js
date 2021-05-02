@@ -15,7 +15,7 @@ import {
 
 import QuotationService from '../_services/quotation.service';
 
-export const createQuotation = (quotation) => (dispatch) => {
+export const createQuotation = (quotation, cancelToken) => (dispatch) => {
     return QuotationService.createQuotation(quotation)
         .then((response)=>{
             dispatch({
@@ -32,8 +32,8 @@ export const createQuotation = (quotation) => (dispatch) => {
         })
 }
 
-export const updateQuotation = (quotation) => (dispatch) => {
-    return QuotationService.updateQuotation(quotation)
+export const updateQuotation = (quotation, cancelToken) => (dispatch) => {
+    return QuotationService.updateQuotation(quotation,cancelToken)
         .then((response)=>{
             console.log("YES! ", response.data)
             dispatch({
@@ -52,9 +52,9 @@ export const updateQuotation = (quotation) => (dispatch) => {
         })
 }
 
-export const approveQuotation = (id) => (dispatch) => {
+export const approveQuotation = (id,cancelToken) => (dispatch) => {
     
-    return QuotationService.retrieveQuotation(id)
+    return QuotationService.retrieveQuotation(id,cancelToken)
         .then((response)=>{
             
             dispatch({
@@ -94,9 +94,9 @@ export const approveQuotation = (id) => (dispatch) => {
         })
 }
 
-export const archiveQuotation = (id) => (dispatch) => {
+export const archiveQuotation = (id,cancelToken) => (dispatch) => {
     
-    return QuotationService.retrieveQuotation(id)
+    return QuotationService.retrieveQuotation(id,cancelToken)
         .then((response)=>{
             
             dispatch({
@@ -132,8 +132,8 @@ export const archiveQuotation = (id) => (dispatch) => {
         })
 }
 
-export const getQuotationById = (id) => (dispatch) => {
-    return QuotationService.retrieveQuotation(id)
+export const getQuotationById = (id, cancelToken) => (dispatch) => {
+    return QuotationService.retrieveQuotation(id, cancelToken)
         .then((response)=>{
             dispatch({
                 type: RETRIEVE_QUOTATION_SUCCESS,
@@ -149,8 +149,8 @@ export const getQuotationById = (id) => (dispatch) => {
         })
 };
 
-export const getComputedQuotations = (client="") => (dispatch) => {
-    return QuotationService.retrieveQuotations("computed",client)
+export const getComputedQuotations = (client="", cancelToken) => (dispatch) => {
+    return QuotationService.retrieveQuotations("computed",client,cancelToken)
         .then((response)=>{
             // console.log(response.data);
             dispatch({
@@ -167,8 +167,8 @@ export const getComputedQuotations = (client="") => (dispatch) => {
         })
 }
 
-export const getInProgressQuotations = (client="") => (dispatch) => {
-    return QuotationService.retrieveQuotations("in_progress",client)
+export const getInProgressQuotations = (client="", cancelToken) => (dispatch) => {
+    return QuotationService.retrieveQuotations("in_progress",client,cancelToken)
         .then((response)=>{
             dispatch({
                 type: RETRIEVE_IN_PROGRESS_QUOTATIONS_SUCCESS,
@@ -184,8 +184,8 @@ export const getInProgressQuotations = (client="") => (dispatch) => {
         })
 }
 
-export const getApprovedQuotations = () => (dispatch) => {
-    return QuotationService.retrieveQuotations("approved")
+export const getApprovedQuotations = (cancelToken) => (dispatch) => {
+    return QuotationService.retrieveQuotations("approved","",cancelToken)
         .then((response)=>{
             dispatch({
                 type: RETRIEVE_APPROVED_QUOTATIONS_SUCCESS,

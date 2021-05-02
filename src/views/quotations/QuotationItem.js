@@ -31,7 +31,7 @@ import {uniqueId} from 'lodash';
 const QuotationItem = (props) => {
     return (
         <Container style={{maxHeight:540,overflow:'auto'}} mb={2}>
-            {props.values && props.values.quotation.items.map(
+            {props.values.quotation.items && props.values.quotation.items.map(
                 (quotationItem,index) => 
                 {
                     return (

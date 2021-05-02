@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {useSelector, useDispatch } from 'react-redux';
 import {
   Box,
@@ -41,6 +42,7 @@ const ProductList = () => {
   const [products] = useState(data);
 
   const dispatch = useDispatch();
+  const source = axios.CancelToken.source()
 
   const {profile : currentUserProfile} = useSelector(state=>state.auth)
   const { inProgressQuotations } = useSelector (state=>state.quotation);
@@ -69,27 +71,27 @@ const ProductList = () => {
     switch(currentUserProfile.job_position)
     {
       case 'O':
-        dispatch(getPendingJobOrders())
-        dispatch(getInProductionJobOrders())
+        dispatch(getPendingJobOrders(source.token))
+        dispatch(getInProductionJobOrders("","",source.token))
         break;
       case 'AM':
-        dispatch(getPendingJobOrders())
-        dispatch(getInProductionJobOrders())
+        dispatch(getPendingJobOrders(source.token))
+        dispatch(getInProductionJobOrders("","",source.token))
         break;
       case 'P':
         break;
       case 'D':
         break;
       default:
-        dispatch(getInProgressQuotations(currentUserProfile.id))
-        dispatch(getComputedQuotations(currentUserProfile.id))
-        dispatch(getInProductionJobOrders(currentUserProfile.id))
+        dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
+        dispatch(getComputedQuotations(currentUserProfile.id,source.token))
+        dispatch(getInProductionJobOrders(currentUserProfile.id,source.token))
     }
   }
 
   useEffect(()=>{
     async function initialFetchData () {
-      await dispatch(getProfile())
+      await dispatch(getProfile(source.token))
       .then((response)=>{
         fetchData()
         setInitialFetchDataFinished(true);
@@ -99,6 +101,9 @@ const ProductList = () => {
       })
     }
     initialFetchData();
+    return () => {
+      source.cancel();
+    }
   },[])
 
   useInterval(()=>{
@@ -118,7 +123,7 @@ const ProductList = () => {
   },2000);
 
 
-  return (
+  return ( initialFetchDataFinished && 
     <Page
       className={classes.root}
       title="Order Tracking"

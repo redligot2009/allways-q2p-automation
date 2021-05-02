@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import { Link as RouterLink, useNavigate, useHistory, Link } from 'react-router-dom';
 
@@ -66,15 +66,18 @@ const Dashboard = () => {
   const {inProgressJobOrders : in_production} = useSelector(state=>state.jobOrder);
   const {outForDeliveryJobOrders : out_for_delivery} = useSelector(state=>state.jobOrder);
   const {finishedJobOrders : finished } = useSelector(state=>state.jobOrder);
-
+  const source = axios.CancelToken.source()
   useEffect(()=>{
     function fetchData() {
-      dispatch(getComputedQuotations())
-      dispatch(getInProgressQuotations())
-      dispatch(getInProductionJobOrders())
-      dispatch(getPendingJobOrders())
+      dispatch(getComputedQuotations("",source.token))
+      dispatch(getInProgressQuotations("",source.token))
+      dispatch(getInProductionJobOrders("","",source.token))
+      dispatch(getPendingJobOrders(source.token))
     }
     fetchData();
+    return () => {
+      source.cancel();
+    }
   },[])
 
   return (currentUserProfile && 

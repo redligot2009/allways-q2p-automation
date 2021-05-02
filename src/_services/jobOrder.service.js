@@ -7,14 +7,14 @@ JOB ORDER API SERVICE FUNCTIONS
 ///////////////////////////////
 */
 
-const createJobOrder = (quotation, manager) => {
+const createJobOrder = (quotation, manager, cancelToken) => {
   // TODO: Test if createJobOrder functioning
   const newJobOrder = {
     quotation:  quotation.id,
     manager: manager.id,
     production_status: "pending",
   }
-  const createResult = axios.post(`api/joborders/`,newJobOrder)
+  const createResult = axios.post(`api/joborders/`,newJobOrder,{cancelToken: cancelToken})
   .then((response)=>{
     console.log(response.data)
     return response;
@@ -26,14 +26,14 @@ const createJobOrder = (quotation, manager) => {
   return createResult;
 }
 
-const retrieveJobOrder = (id) => {
+const retrieveJobOrder = (id, cancelToken) => {
  
   // TODO: Test if retrieveJobOrder functioning
-  const jobOrderResult = axios.get(`api/joborders/${id}`)
+  const jobOrderResult = axios.get(`api/joborders/${id}`,{cancelToken: cancelToken})
   return jobOrderResult;
 }
 
-const retrieveJobOrders = (production_status="", manager="", client="") => {
+const retrieveJobOrders = (production_status="", manager="", client="", cancelToken) => {
   // TODO: Test if retrieveJobOrders functioning
   const urlParams = {
     "production_status" : production_status,
@@ -41,18 +41,18 @@ const retrieveJobOrders = (production_status="", manager="", client="") => {
     "quotation__client" : client,
   }
   let requestURL = getResultURL("api/joborders/", urlParams);
-  //console.log(requestURL);
-  const jobOrdersListResult = axios.get(requestURL);
+  console.log(requestURL);
+  const jobOrdersListResult = axios.get(requestURL,{cancelToken: cancelToken});
   return jobOrdersListResult;
 }
 
-const updateJobOrder = (jobOrder) => {
+const updateJobOrder = (jobOrder, cancelToken) => {
   // TODO: Test if updateJobOrder functioning
-  const updateResult = axios.put(`api/quotations/${jobOrder.id}/`,jobOrder)
+  const updateResult = axios.put(`api/quotations/${jobOrder.id}/`,jobOrder,{cancelToken: cancelToken})
   return updateResult;
 }
 
-const deleteJobOrder = (id) => {
+const deleteJobOrder = (id, cancelToken) => {
   // TODO: Implement API call to delete a specific job order
 }
 

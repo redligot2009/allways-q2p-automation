@@ -10,13 +10,20 @@ import Routes from 'src/routes';
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "./_actions/auth";
 import { useInterval } from './_helpers/hooks';
-
+import axios from 'axios';
 
 const App = () => {
   const dispatch = useDispatch();
+  const source = axios.CancelToken.source()
   useInterval(()=>{
-    dispatch(getProfile())
+    dispatch(getProfile(source.token))
   }, 150000)
+
+  useEffect(() => {
+    return () => {
+      source.cancel();
+    }
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>

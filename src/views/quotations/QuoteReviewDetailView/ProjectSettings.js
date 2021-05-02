@@ -28,7 +28,7 @@ import axios from 'axios';
 
 const ProjectSettings = (props) => 
 {
-    return (props.values && 
+    return (props.values.quotation && 
     <Grid item xs={12}>
         <Typography
             color="textPrimary"
@@ -69,7 +69,7 @@ const ProjectSettings = (props) =>
                 name="quotation.client.full_name"
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
-                value={props.values.quotation.client.full_name + " (" +  props.values.quotation.client.user + ")"}
+                value={ props.values.quotation.client ? props.values.quotation.client.full_name + " (" +  props.values.quotation.client.user + ")" : ""}
                 variant="filled"
             >
 
@@ -86,7 +86,7 @@ const ProjectSettings = (props) =>
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 value={
-                    props.values.quotation ? 
+                    props.values.quotation.created_date ? 
                     format(new Date(props.values.quotation.created_date),"yyyy-MM-dd") : 
                     format(Date.now(),"yyyy-MM-dd")
                 }

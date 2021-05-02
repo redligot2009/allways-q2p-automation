@@ -48,7 +48,7 @@ const QuotationCard = ({ className, quotation, ...rest }) => {
     }
   }
 
-  return (
+  return (quotation && 
     <Card
       className={clsx(classes.root, className)}
       {...rest}
@@ -278,6 +278,7 @@ const QuotationCard = ({ className, quotation, ...rest }) => {
             color="primary"
             onClick={
               ()=>{
+                console.log(quotation.id);
                 navigate('/app/quote/detail',{state: {id: quotation.id}})
               }
             }

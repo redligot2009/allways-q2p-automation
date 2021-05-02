@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
@@ -38,6 +39,7 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+  const source = axios.CancelToken.source()
 
   const {profile : currentUserProfile} = useSelector(state=>state.auth);
   const { currentQuotation } = useSelector(state=>state.quotation);
@@ -56,7 +58,7 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
         return "Unknown";
     }
   }
-
+  
   const isUserClient = () => {
     try
     {
@@ -75,6 +77,12 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
       return false;
     }
   }
+
+  useEffect(() => {
+    return () => {
+      source.cancel();
+    }
+  }, [])
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
@@ -309,7 +317,7 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
                   onClick={async ()=>{
                     // console.log("YO!");
                     // console.log(quotation);
-                    dispatch(approveQuotation(quotation.id));
+                    dispatch(approveQuotation(quotation.id,source.token));
                     // props.fetchData();
                   }}
                 >
@@ -326,9 +334,9 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
                   color="primary" 
                   md={3}
                   onClick={()=>{
-                    dispatch(archiveQuotation(quotation.id))
+                    dispatch(archiveQuotation(quotation.id, source.token))
                     .then((response)=>{
-                      dispatch(createJobOrder(currentQuotation,currentUserProfile))
+                      dispatch(createJobOrder(currentQuotation,currentUserProfile,source.token))
                     })
                     .catch((error)=>{
 

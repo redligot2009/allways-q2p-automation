@@ -2,7 +2,7 @@ import axios from "axios";
 import authHeader from "./auth-header";
 import {getFilteredObject} from "../_helpers/";
 
-const register = (newAccount) => {
+const register = (newAccount, cancelToken) => {
   let user = getFilteredObject(newAccount,[
     "username",
     "email",
@@ -20,19 +20,19 @@ const register = (newAccount) => {
   account.user = user.id;
   // console.log("RESULTING OBJECTS: ", account, ", \n", user)
   // console.log("RESULTING QUERY: ", JSON.stringify(account))
-  let result = axios.post("auth/users/", user)
+  let result = axios.post("auth/users/", user,{cancelToken: cancelToken})
   .then((response) => {
-    axios.put(`api/accounts/${user.username}/`,account)
+    axios.put(`api/accounts/${user.username}/`,account,{cancelToken: cancelToken})
   });
   return result;
 };
 
-const login = (username, password) => {
+const login = (username, password, cancelToken) => {
   return axios
     .post("auth/jwt/create", {
       username,
       password,
-    })
+    },{cancelToken: cancelToken})
     .then((response) => {
       if (response.data.access) {
         localStorage.setItem("user", JSON.stringify(response.data));
@@ -41,13 +41,13 @@ const login = (username, password) => {
     });
 };
 
-const getProfile = () => {
+const getProfile = (cancelToken) => {
   return axios
     .get("auth/users/me/", { headers: authHeader() })
     .then((response) => {
       
       const result = axios
-        .get(`api/accounts/${response.data.username}/`, { headers: authHeader() })
+        .get(`api/accounts/${response.data.username}/`, { headers: authHeader(), cancelToken: cancelToken})
         .then((response)=>{
           // console.log(response.data);
           return response.data;
@@ -62,13 +62,13 @@ const getProfile = () => {
     })
 }
 
-const updateProfile = (username, account) => {
-  return axios.put(`api/accounts/${username}`, account);
+const updateProfile = (username, account, cancelToken) => {
+  return axios.put(`api/accounts/${username}`, account,{cancelToken: cancelToken});
 }
 
-const verifyLoggedIn = () => {
+const verifyLoggedIn = (cancelToken) => {
   const user = JSON.parse(localStorage.getItem("user"));
-  return axios.post('/auth/jwt/verify',user.access)
+  return axios.post('/auth/jwt/verify',user.access,{cancelToken: cancelToken})
       .then((response)=>{
         return user;
       })

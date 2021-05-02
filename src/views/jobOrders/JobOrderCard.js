@@ -53,7 +53,7 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
     }
   }
 
-  return (
+  return (jobOrder &&
     <Card
       className={clsx(classes.root, className)}
       {...rest}

@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
 const ExtraCosts = (props) => {
-    return (
+    return ( props.values.quotation && 
         <Grid item xs={12}>
             <Typography
                 color="textPrimary"

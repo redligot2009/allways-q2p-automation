@@ -25,9 +25,9 @@ import {
 import AuthService from "../_services/auth.service";
 import UsersService from "../_services/users.service";
 
-export const createNewEmployee = (account) => (dispatch) => {
+export const createNewEmployee = (account, cancelToken) => (dispatch) => {
 
-  return AuthService.register(account)
+  return AuthService.register(account, cancelToken)
       .then(
         (response) => {
             dispatch({
@@ -44,9 +44,9 @@ export const createNewEmployee = (account) => (dispatch) => {
       );
 }
 
-export const updateEmployeeProfile = (username, account) => (dispatch) => {
+export const updateEmployeeProfile = (username, account, cancelToken) => (dispatch) => {
 
-  return AuthService.updateProfile(username.account)
+  return AuthService.updateProfile(username.account, cancelToken)
     .then((response)=>{
       dispatch({
         type: PROFILE_UPDATE_SUCCESS
@@ -61,9 +61,9 @@ export const updateEmployeeProfile = (username, account) => (dispatch) => {
     })
 }
 
-export const getProductionEmployees = () => (dispatch) => {
+export const getProductionEmployees = (cancelToken) => (dispatch) => {
 
-  return UsersService.getEmployees("P")
+  return UsersService.getEmployees("P", cancelToken)
     .then((response)=>{
       dispatch({
         type: PRODUCTION_EMPLOYEES_FOUND,
@@ -79,9 +79,9 @@ export const getProductionEmployees = () => (dispatch) => {
     })
 }
 
-export const getDriverEmployees = () => (dispatch) => {
+export const getDriverEmployees = (cancelToken) => (dispatch) => {
 
-  return UsersService.getEmployees("D")
+  return UsersService.getEmployees("D", cancelToken)
     .then((response)=>{
       dispatch({
         type: DRIVER_EMPLOYEES_FOUND,
@@ -97,9 +97,9 @@ export const getDriverEmployees = () => (dispatch) => {
     })
 }
 
-export const getOwnerEmployees = () => (dispatch) =>{
+export const getOwnerEmployees = (cancelToken) => (dispatch) =>{
 
-  return UsersService.getEmployees("O")
+  return UsersService.getEmployees("O", cancelToken)
     .then((response)=>{
       dispatch({
         type: OWNER_EMPLOYEES_FOUND,
@@ -115,9 +115,9 @@ export const getOwnerEmployees = () => (dispatch) =>{
     })
 }
 
-export const getAccountManagerEmployees = () => (dispatch) =>{ 
+export const getAccountManagerEmployees = (cancelToken) => (dispatch) =>{ 
 
-  return UsersService.getEmployees("AM")
+  return UsersService.getEmployees("AM", cancelToken)
   .then((response)=>{
     dispatch({
       type: ACCOUNT_MANAGER_EMPLOYEES_FOUND,
@@ -135,9 +135,9 @@ export const getAccountManagerEmployees = () => (dispatch) =>{
   })
 }
 
-export const getAllAccounts = () => (dispatch) =>{
+export const getAllAccounts = (cancelToken) => (dispatch) =>{
 
-  return UsersService.getEmployees("")
+  return UsersService.getEmployees("", cancelToken)
     .then((response)=>{
       dispatch({
         type: ALL_ACCOUNTS_FOUND,

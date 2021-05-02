@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
 const Finishing = (props) => {
-    return(
+    return( props.values.quotation &&
         <Grid item xs={12}>
             <Typography
                 color="textPrimary"

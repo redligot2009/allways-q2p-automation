@@ -9,9 +9,9 @@ import {
 
 import JobOrderService from "../_services/jobOrder.service";
 
-export const createJobOrder = (quotation, manager) => (dispatch) => {
+export const createJobOrder = (quotation, manager,cancelToken) => (dispatch) => {
     // TODO: Test if createJobOrder action is functioning
-    return JobOrderService.createJobOrder(quotation, manager)
+    return JobOrderService.createJobOrder(quotation, manager,cancelToken)
         .then((response)=>{
             dispatch({
                 type: CREATE_JOB_ORDER_SUCCESS,
@@ -25,8 +25,8 @@ export const createJobOrder = (quotation, manager) => (dispatch) => {
         })
 }
 
-export const getPendingJobOrders = () => (dispatch) => {
-    return JobOrderService.retrieveJobOrders("pending")
+export const getPendingJobOrders = (cancelToken) => (dispatch) => {
+    return JobOrderService.retrieveJobOrders("pending","","",cancelToken)
         .then((response)=>{
             dispatch({
                 type: RETRIEVE_PENDING_JOB_ORDERS_SUCCESS,
@@ -42,8 +42,8 @@ export const getPendingJobOrders = () => (dispatch) => {
         })
 }
 
-export const getInProductionJobOrders = (client="",manager="") => (dispatch) => {
-    return JobOrderService.retrieveJobOrders("inprogress",manager,client)
+export const getInProductionJobOrders = (client="",manager="",cancelToken) => (dispatch) => {
+    return JobOrderService.retrieveJobOrders("inprogress",manager,client,cancelToken)
         .then((response)=>{
             dispatch({
                 type: RETRIEVE_IN_PROGRESS_JOB_ORDERS_SUCCESS,
@@ -61,14 +61,14 @@ export const getInProductionJobOrders = (client="",manager="") => (dispatch) => 
         })
 }
 
-export const startJobOrderProduction = (jobOrder) => {
+export const startJobOrderProduction = (jobOrder,cancelToken) => {
     // TODO: Implement action for starting a pending job order
 }
 
-export const startJobOrderDelivery = (jobOrder) => {
+export const startJobOrderDelivery = (jobOrder,cancelToken) => {
     // TODO: Implement action for starting job order delivery
 }
 
-export const finishJobOrder = (jobOrder) => {
+export const finishJobOrder = (jobOrder,cancelToken) => {
     // TODO: Implement action for finishing a job order.
 }
