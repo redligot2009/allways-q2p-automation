@@ -59,7 +59,7 @@ const QuotationReviewList = () => {
       source.cancel();
     }
   }, [])
-  return (
+  return (in_progress && computed && approved &&
     <Page
       className={classes.root}
       title="Quote Review"
@@ -75,7 +75,7 @@ const QuotationReviewList = () => {
               Awaiting Computation
             </Typography>
               <Box mt={2}>
-                {in_progress ? in_progress.map((quotation) => (
+                {in_progress ? in_progress.map((quotation) => (quotation &&
                   <Grid item key={quotation.id} lg={12} md={12} xs={12}>
                     <Box mt={2}>
                       <QuotationCard 
@@ -92,7 +92,7 @@ const QuotationReviewList = () => {
                 Awaiting Approval
               </Typography>
               <Box mt={2}>
-                {computed ? computed.map((quotation) => (
+                {computed ? computed.map((quotation) => (quotation &&
                   <Grid item key={quotation.id} lg={12} md={12} xs={12}>
                     <Box mt={2}>
                       <QuotationCardComputed
@@ -109,7 +109,7 @@ const QuotationReviewList = () => {
                 Approved
               </Typography>
               <Box mt={2}>
-                {approved ? approved.map((quotation) => (
+                {approved ? approved.map((quotation) => (quotation &&
                   <Grid item key={quotation.id} lg={12} md={12} xs={12}>
                     <Box mt={2}>
                       <QuotationCardComputed

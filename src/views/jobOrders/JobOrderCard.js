@@ -70,7 +70,7 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
             gutterBottom 
             variant="h4"
           >
-            {jobOrder && jobOrder.quotation.project_name}
+            {jobOrder.quotation ? jobOrder.quotation.project_name : null}
           </Typography>
           
           <Grid 
@@ -95,7 +95,7 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
                 gutterBottom 
                 variant="body1"
               >
-                {jobOrder && jobOrder.quotation.client.full_name}
+                {jobOrder.quotation ? jobOrder.quotation.client.full_name : null}
               </Typography>
             </Grid>
             <Grid 
@@ -116,7 +116,7 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
                 gutterBottom 
                 variant="body1"
               >
-                {jobOrder && jobOrder.quotation.product_type.product_name}
+                {jobOrder.quotation ? jobOrder.quotation.product_type.product_name : null}
               </Typography>
             </Grid>
             <Grid 
@@ -141,7 +141,7 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
                 gutterBottom 
                 variant="body1"
               >
-                {(Number)(jobOrder && jobOrder.quotation.page_length).toFixed(2)}" x {(Number)(jobOrder && jobOrder.quotation.page_width).toFixed(2)}"
+                {(Number)(jobOrder.quotation && jobOrder.quotation.page_length).toFixed(2)}" x {(Number)(jobOrder.quotation && jobOrder.quotation.page_width).toFixed(2)}"
               </Typography>
             </Grid>
 
@@ -163,7 +163,7 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
                 gutterBottom 
                 variant="body1"
               >
-                {jobOrder && jobOrder.quotation.paper_types}
+                {jobOrder.quotation && jobOrder.quotation.paper_types}
               </Typography>
             </Grid>
           </Grid>
@@ -189,7 +189,7 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
                 gutterBottom 
                 variant="body1"
               >
-                {jobOrder && jobOrder.quotation.lamination_types}
+                {jobOrder.quotation && jobOrder.quotation.lamination_types}
               </Typography>
             </Grid>
             <Grid 
@@ -210,7 +210,7 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
                 gutterBottom 
                 variant="body1"
               >
-                {jobOrder.quotation.binding_types}
+                {jobOrder.quotation && jobOrder.quotation.binding_types}
               </Typography>
             </Grid>
             <Grid 

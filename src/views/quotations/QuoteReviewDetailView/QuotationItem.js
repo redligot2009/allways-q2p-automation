@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
 const QuotationItem = (props) => {
-    return (
+    return (props.values.quotation.items && 
         <Container style={{maxHeight:540,overflow:'auto'}} mb={2}>
             {props.values.quotation.items.map(
                 (item,index) => 

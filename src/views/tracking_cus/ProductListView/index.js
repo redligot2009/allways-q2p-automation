@@ -66,26 +66,33 @@ const ProductList = () => {
     }
   }
 
-  function fetchData () {
-    dispatch(getProfile())
-    switch(currentUserProfile.job_position)
+  async function fetchData () {
+    await dispatch(getProfile(source.token))
+    try
     {
-      case 'O':
-        dispatch(getPendingJobOrders(source.token))
-        dispatch(getInProductionJobOrders("","",source.token))
-        break;
-      case 'AM':
-        dispatch(getPendingJobOrders(source.token))
-        dispatch(getInProductionJobOrders("","",source.token))
-        break;
-      case 'P':
-        break;
-      case 'D':
-        break;
-      default:
-        dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
-        dispatch(getComputedQuotations(currentUserProfile.id,source.token))
-        dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
+      switch(currentUserProfile.job_position)
+      {
+        case 'O':
+          dispatch(getPendingJobOrders(source.token))
+          dispatch(getInProductionJobOrders("","",source.token))
+          break;
+        case 'AM':
+          dispatch(getPendingJobOrders(source.token))
+          dispatch(getInProductionJobOrders("","",source.token))
+          break;
+        case 'P':
+          break;
+        case 'D':
+          break;
+        default:
+          dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
+          dispatch(getComputedQuotations(currentUserProfile.id,source.token))
+          dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
+      }
+    }
+    catch(error)
+    {
+      console.log(error)
     }
   }
 
@@ -101,6 +108,11 @@ const ProductList = () => {
       })
     }
     initialFetchData();
+    console.log(inProgressQuotations)
+    console.log(computedQuotations)
+    console.log(inProgressJobOrders)
+    console.log(pendingJobOrders)
+    console.log(outForDeliveryJobOrders)
     return () => {
       source.cancel();
     }
@@ -116,6 +128,7 @@ const ProductList = () => {
       catch(error)
       {
         console.log(error)
+        source.cancel();
       }
       // console.log(computedQuotations)
     }
@@ -123,7 +136,7 @@ const ProductList = () => {
   },2000);
 
 
-  return ( initialFetchDataFinished && 
+  return ( initialFetchDataFinished && currentUserProfile &&
     <Page
       className={classes.root}
       title="Order Tracking"
@@ -138,7 +151,7 @@ const ProductList = () => {
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
-        {initialFetchDataFinished && currentUserProfile && 
+        {initialFetchDataFinished && currentUserProfile && inProgressQuotations &&
           limitVisibility(
           <Grid item xs={12} md={4}>
             <Typography
@@ -149,7 +162,8 @@ const ProductList = () => {
               Awaiting Computation
             </Typography>
             <Box mt={2}>
-              {inProgressQuotations && inProgressQuotations.map((quotation) => (
+              {inProgressQuotations && inProgressQuotations.map((quotation) => 
+              (quotation && 
                 <Grid
                   item
                   key={quotation.id}
@@ -178,7 +192,8 @@ const ProductList = () => {
               Pending Approval
             </Typography>
             <Box mt={2}>
-              {computedQuotations && computedQuotations.map((quotation) => (
+              {computedQuotations && computedQuotations.map((quotation) => 
+              (quotation && 
                 <Grid
                   item
                   key={quotation.id}
@@ -193,7 +208,7 @@ const ProductList = () => {
               ))}
             </Box>
           </Grid>,
-          ['C'], 
+          ['C', 'AM', 'O'], 
           currentUserProfile.job_position
           )}
           {initialFetchDataFinished && currentUserProfile && pendingJobOrders &&
@@ -207,7 +222,8 @@ const ProductList = () => {
               Pending Job Orders
             </Typography>
             <Box mt={2}>
-              {pendingJobOrders && pendingJobOrders.map((jobOrder) => (
+              {pendingJobOrders && pendingJobOrders.map((jobOrder) => 
+              (jobOrder &&
                 <Grid
                   item
                   key={jobOrder.id}
@@ -237,7 +253,8 @@ const ProductList = () => {
                 In Production
               </Typography>
               <Box mt={2}>
-                {inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
+                {inProgressJobOrders && inProgressJobOrders.map((jobOrder) => 
+                (jobOrder &&
                   <Grid
                     item
                     key={jobOrder.id}
@@ -253,7 +270,8 @@ const ProductList = () => {
               </Box>
             </Grid>
             ,
-            ['D'],
+            ['D','O','AM'],
+            currentUserProfile.job_position
           )}
           
             <Grid item xs={12} md={4}>
@@ -265,7 +283,9 @@ const ProductList = () => {
                 Out for Delivery
               </Typography>
                 <Box mt={2}>
-                  {initialFetchDataFinished && outForDeliveryJobOrders && outForDeliveryJobOrders.map((jobOrder) => (
+                  {initialFetchDataFinished && outForDeliveryJobOrders && currentUserProfile &&
+                  outForDeliveryJobOrders.map((jobOrder) => 
+                  (jobOrder &&
                     <Grid
                       item
                       key={jobOrder.id}

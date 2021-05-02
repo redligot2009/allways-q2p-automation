@@ -55,7 +55,7 @@ const ProjectSettings = (props) =>
                 name="quotation.project_name"
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
-                value={props.values.quotation.project_name}
+                value={props.values.quotation && props.values.quotation.project_name}
                 variant="outlined"
             >
             </TextField>    
@@ -69,7 +69,7 @@ const ProjectSettings = (props) =>
                 name="quotation.client.full_name"
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
-                value={ props.values.quotation.client ? props.values.quotation.client.full_name + " (" +  props.values.quotation.client.user + ")" : ""}
+                value={ props.values.quotation.client ? (props.values.quotation.client.full_name + " (" +  props.values.quotation.client.user + ")") : ""}
                 variant="filled"
             >
 

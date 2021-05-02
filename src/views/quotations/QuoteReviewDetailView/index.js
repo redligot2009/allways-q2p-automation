@@ -109,7 +109,6 @@ const QuoteReviewDetail = (props) => {
         catch(error)
         {
             console.log(error);
-            setFetched(false);
             handleGoBack();
         }
         // console.log(quoteDetails);
@@ -123,10 +122,11 @@ const QuoteReviewDetail = (props) => {
         setFetched(true);
         return ()=>{
             source.cancel();
+            handleGoBack();
         }
     }, [])
     // console.log(quoteDetails)
-    return ( quoteDetails && fetched &&
+    return ( (fetched && quoteDetails && laminationTypes && paperTypes && bindingTypes) &&
         <Page
           className={classes.root}
           title="Quote Specifications Review"
@@ -171,7 +171,7 @@ const QuoteReviewDetail = (props) => {
                         isSubmitting,
                         touched,
                         values
-                    }) => (values.quotation &&
+                    }) => (values.quotation && fetched && quoteDetails && laminationTypes && paperTypes && bindingTypes &&
                         <Form onSubmit={handleSubmit}>
                             <Box mb={3}>
                                 <Grid container>
@@ -180,7 +180,7 @@ const QuoteReviewDetail = (props) => {
                                             color="textPrimary"
                                             variant="h2"
                                         >
-                                            Quotation #{values.quotation.id}
+                                            Quotation #{values.quotation ? values.quotation.id : null}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={4} alignContent="flex-end">
@@ -204,11 +204,13 @@ const QuoteReviewDetail = (props) => {
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={6}>
                                     <Box mb={3}>
-                                        <ProjectSettings
-                                            handleBlur={handleBlur}
-                                            handleChange={handleChange}
-                                            values={values}
-                                        />
+                                        {values.quotation && 
+                                            <ProjectSettings
+                                                handleBlur={handleBlur}
+                                                handleChange={handleChange}
+                                                values={values}
+                                            />
+                                        }
                                         <Grid item xs={12}>
                                             <Typography
                                                 color="textPrimary"
@@ -219,7 +221,7 @@ const QuoteReviewDetail = (props) => {
                                             </Typography>
                                             
                                             <FieldArray name="quotation.items">
-                                                {
+                                                {laminationTypes && paperTypes && bindingTypes && values.quotation.items ?
                                                     ({ push, remove }) => {
                                                         return (
                                                         <QuotationItem
@@ -233,7 +235,9 @@ const QuoteReviewDetail = (props) => {
                                                             bindingTypes={bindingTypes}
                                                         />
                                                         )
-                                                    }}
+                                                    }:
+                                                    null
+                                                }
                                             </FieldArray>
                                         </Grid>
                                     </Box>
@@ -242,23 +246,26 @@ const QuoteReviewDetail = (props) => {
                                     <Box mb={3}>
                                         {/* PLATES RUNNING PAPER */}
                                         
-                                        <PlatesRunningPaper
-                                            handleBlur={handleBlur}
-                                            handleChange={handleChange}
-                                            values={values}
-                                        />
+                                        {values.quotation && 
+                                            <>
+                                                <PlatesRunningPaper
+                                                    handleBlur={handleBlur}
+                                                    handleChange={handleChange}
+                                                    values={values}
+                                                />
+                                                <Finishing
+                                                    handleBlur={handleBlur}
+                                                    handleChange={handleChange}
+                                                    values={values}
+                                                />
 
-                                        <Finishing
-                                            handleBlur={handleBlur}
-                                            handleChange={handleChange}
-                                            values={values}
-                                        />
-
-                                        <ExtraCosts
-                                            handleBlur={handleBlur}
-                                            handleChange={handleChange}
-                                            values={values}
-                                        />
+                                                <ExtraCosts
+                                                    handleBlur={handleBlur}
+                                                    handleChange={handleChange}
+                                                    values={values}
+                                                />
+                                            </>
+                                        }
                                     </Box>
                                 </Grid>
                             </Grid>
