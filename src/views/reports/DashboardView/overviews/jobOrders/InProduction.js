@@ -15,7 +15,7 @@ import {
 import JobOrderCard from '../../../../jobOrders/JobOrderCard';
 
 const InProduction = (props) => {
-    return (
+    return (props.in_production && 
       <Grid item xs={12} sm={6}>
         <Box mb={1}>
           <Typography className={props.classes.name}
@@ -26,7 +26,7 @@ const InProduction = (props) => {
           </Typography>
         </Box>
         <Grid container style={{maxHeight:480,overflow:'auto'}}>
-          {props.in_production && props.in_production.map((jobOrder) => (
+          {props.in_production.length > 0 && props.in_production.map((jobOrder) => (
             <Grid
               item xs={12}
               key={jobOrder.id}

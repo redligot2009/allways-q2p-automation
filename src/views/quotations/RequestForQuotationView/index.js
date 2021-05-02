@@ -30,7 +30,7 @@ import axios from 'axios';
 
 import {createQuotation} from "../../../_actions/quotation";
 
-import QuotationItem from './QuotationItem';
+import QuotationItem from '../QuotationItem';
 
 import { toast } from 'react-toastify';
 

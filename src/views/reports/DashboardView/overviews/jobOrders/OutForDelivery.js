@@ -15,7 +15,7 @@ import {
 import JobOrderCard from '../../../../jobOrders/JobOrderCard';
 
 const OutForDelivery = (props) => {
-    return (
+    return (props.out_for_delivery &&
     <Grid item xs={12} sm={6}>
         <Box mb={1}>
           <Typography className={props.classes.name}

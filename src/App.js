@@ -9,8 +9,14 @@ import theme from 'src/theme';
 import Routes from 'src/routes';
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "./_actions/auth";
+import { useInterval } from './_helpers/hooks';
+
 
 const App = () => {
+  const dispatch = useDispatch();
+  useInterval(()=>{
+    dispatch(getProfile())
+  }, 150000)
 
   return (
     <ThemeProvider theme={theme}>

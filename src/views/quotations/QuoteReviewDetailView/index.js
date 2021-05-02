@@ -31,7 +31,7 @@ import axios from 'axios';
 
 import {getQuotationById, updateQuotation} from "../../../_actions/quotation";
 
-import QuotationItem from './QuotationItem';
+import QuotationItem from '../QuotationItem';
 import ProjectSettings from './ProjectSettings';
 import Finishing from './Finishing';
 import PlatesRunningPaper from './PlatesRunningPaper';
@@ -178,10 +178,10 @@ const QuoteReviewDetail = (props) => {
                                             color="textPrimary"
                                             variant="h2"
                                         >
-                                            Quotation #{values.quotation.id}
+                                            Quotation #{values.quotation.id || ""}
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={12} sm={4} alignContent="flex-end">
+                                    <Grid item xs={12} sm={4}>
                                         <Button
                                             color="primary"
                                             // disabled={isSubmitting}
@@ -219,7 +219,7 @@ const QuoteReviewDetail = (props) => {
                                             <FieldArray name="quotation.items">
                                                 {
                                                     ({ push, remove }) => {
-                                                        return (
+                                                        return ( laminationTypes && paperTypes && bindingTypes &&
                                                         <QuotationItem
                                                             handleBlur={handleBlur}
                                                             handleChange={handleChange}

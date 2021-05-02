@@ -162,7 +162,7 @@ const ProductList = () => {
           ['C'], 
           currentUserProfile.job_position
           )}
-          {initialFetchDataFinished && currentUserProfile && 
+          {initialFetchDataFinished && currentUserProfile && computedQuotations &&
           limitVisibility(
           <Grid item xs={12} md={4}>
             <Typography
@@ -191,7 +191,7 @@ const ProductList = () => {
           ['C'], 
           currentUserProfile.job_position
           )}
-          {initialFetchDataFinished && currentUserProfile && 
+          {initialFetchDataFinished && currentUserProfile && pendingJobOrders &&
           limitVisibility(
           <Grid item xs={12} md={4}>
             <Typography
@@ -221,7 +221,8 @@ const ProductList = () => {
           ['O','AM',],
           currentUserProfile.job_position,
           )}
-          {limitVisibility(
+          {initialFetchDataFinished && currentUserProfile && inProgressJobOrders && 
+          limitVisibility(
             <Grid item xs={12} md={4}>
               <Typography
                 className={classes.name}
@@ -231,7 +232,7 @@ const ProductList = () => {
                 In Production
               </Typography>
               <Box mt={2}>
-                {initialFetchDataFinished && inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
+                {inProgressJobOrders && inProgressJobOrders.map((jobOrder) => (
                   <Grid
                     item
                     key={jobOrder.id}

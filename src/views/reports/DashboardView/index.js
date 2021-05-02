@@ -39,6 +39,9 @@ from '../../../_actions/quotation';
 import {getInProductionJobOrders, getPendingJobOrders} 
 from '../../../_actions/jobOrder';
 
+import {limitVisibility}
+from '../../../_helpers/';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -74,24 +77,6 @@ const Dashboard = () => {
     fetchData();
   },[])
 
-  const limitVisibility = (element, roles, exclude=false) => {
-    if(exclude===false)
-    {
-      if(roles.includes(currentUserProfile.job_position))
-      {
-        return element;
-      }
-    }
-    else
-    {
-      if(!(roles.includes(currentUserProfile.job_position)))
-      {
-        return element;
-      }
-    }
-    return <></>
-  }
-
   return (currentUserProfile && 
     <Page
       className={classes.root}
@@ -120,7 +105,8 @@ const Dashboard = () => {
                     <QuoteReview />
                   </Link>
                 </Grid>,
-                ['O','AM']
+                ['O','AM'],
+                currentUserProfile.job_position
               )}
               
               <Grid item lg={3} sm={6} xl={3} xs={12}>
@@ -135,7 +121,8 @@ const Dashboard = () => {
                     <RequestForQuotation />
                   </Link>
                 </Grid>,
-                ['O','AM','P','D'], true
+                ['C'],
+                currentUserProfile.job_position
               )}
 
               {limitVisibility(
@@ -144,7 +131,8 @@ const Dashboard = () => {
                     <ManageEmployees />
                   </Link>
                 </Grid>,
-                ['O','AM']
+                ['O','AM'],
+                currentUserProfile.job_position
               )}
               
               <Grid item lg={3} sm={6} xl={3} xs={12}>
@@ -215,7 +203,8 @@ const Dashboard = () => {
                     </Grid>
                   </Box>
                 </Box>,
-                ['O','AM']
+                ['O','AM'],
+                currentUserProfile.job_position
               )}
         </Grid>
       </Container>

@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
 const ProjectSummaryDialog = (props) => {
-    return (
+    return (props.values &&
         <Dialog open={props.openDialog} onClose={props.handleCloseDialog} fullWidth={true} maxWidth = {'sm'}>
             <DialogTitle>
                 <Typography

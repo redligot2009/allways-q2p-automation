@@ -28,7 +28,7 @@ import axios from 'axios';
 
 const ProjectSettings = (props) => 
 {
-    return (
+    return (props.values && 
     <Grid item xs={12}>
         <Typography
             color="textPrimary"
