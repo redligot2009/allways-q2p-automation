@@ -85,20 +85,18 @@ const ProductList = () => {
         dispatch(getComputedQuotations(currentUserProfile.id))
         dispatch(getInProductionJobOrders(currentUserProfile.id))
     }
-    
   }
 
   useEffect(()=>{
     async function initialFetchData () {
-      try
-      {
-        await fetchData()
+      await dispatch(getProfile())
+      .then((response)=>{
+        fetchData()
         setInitialFetchDataFinished(true);
-      }
-      catch(error)
-      {
-        console.log(error)
-      }
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
     }
     initialFetchData();
   },[])

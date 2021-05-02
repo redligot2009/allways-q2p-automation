@@ -31,6 +31,7 @@ import { getProfile, logout } from "../../../_actions/auth";
 import {getJobPosition, limitVisibility} from "../../../_helpers";
 
 import {v4} from "uuid";
+import { uniqueId } from 'lodash';
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -228,11 +229,11 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Divider />
       <Box p={2}>
         <List>
-          {currentUserProfile && items.map((item) => (
+          {currentUserProfile && items.map((item, index) => (
             limitVisibility(
               <NavItem
                 href={item.href}
-                key={v4()}
+                key={uniqueId("navbar-item-")}
                 title={item.title}
                 icon={item.icon}
                 onClick={item.handleClick}

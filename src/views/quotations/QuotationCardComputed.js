@@ -107,7 +107,7 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
                 STATUS: { getApprovalStatus() }
               </Typography>
             </Grid>
-            <Grid item xs={12} direction="column">
+            <Grid item xs={12}>
               <Typography 
                   color="textSecondary" 
                   variant="h5" 

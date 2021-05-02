@@ -22,8 +22,7 @@ const App = () => {
           autoClose={2000}
           draggable={false}
         />
-        <Routes>
-        </Routes>
+        <Routes/>
     </ThemeProvider>
   );
 };

@@ -26,14 +26,16 @@ import {format} from 'date-fns';
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
+import {uniqueId} from 'lodash';
+
 const QuotationItem = (props) => {
     return (
         <Container style={{maxHeight:540,overflow:'auto'}} mb={2}>
             {props.values.quotation.items.map(
-                (item,index) => 
+                (quotationItem,index) => 
                 {
                     return (
-                        <Grid item xs={12} key={item.id}>
+                        <Grid item xs={12} key={uniqueId("quotation-item-individual-")}>
                             <Grid container>
                                 <Grid item xs={10}>
                                     <Typography
@@ -44,7 +46,7 @@ const QuotationItem = (props) => {
                                         Quotation Item # {index+1}
                                     </Typography>
                                 </Grid>
-                                <Grid container xs={2} justify="flex-end">
+                                <Grid container justify="flex-end">
                                     <Button
                                         color="primary"
                                         // disabled={isSubmitting}
@@ -68,7 +70,10 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].item_type`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation.items[index].item_type}
+                                value={props.values.quotation ?
+                                    props.values.quotation.items[index].item_type:
+                                    ""
+                                }
                                 variant="outlined"
                             >
                                 <MenuItem value="inner">
@@ -89,9 +94,9 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].no_colors`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation.items[index] ? 
+                                value={props.values.quotation ? 
                                     props.values.quotation.items[index].no_colors :
-                                    null
+                                    ""
                                 }
                                 variant="outlined"
                             >
@@ -116,9 +121,9 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].lamination`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation.items[index] ? 
+                                value={props.values.quotation ? 
                                     props.values.quotation.items[index].lamination :
-                                    null
+                                    ""
                                 }
                                 variant="outlined"
                             >
@@ -129,7 +134,7 @@ const QuotationItem = (props) => {
                                         </MenuItem>
                                     )
                                 })}
-                                <MenuItem value={null}>
+                                <MenuItem value={""}>
                                     None
                                 </MenuItem>
                             </TextField>
@@ -141,9 +146,9 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].binding`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation.items[index] ? 
+                                value={props.values.quotation ? 
                                     props.values.quotation.items[index].binding : 
-                                    null
+                                    ""
                                 }
                                 variant="outlined"
                             >
@@ -154,7 +159,7 @@ const QuotationItem = (props) => {
                                         </MenuItem>
                                     )
                                 })}
-                                <MenuItem value={null}>
+                                <MenuItem value={""}>
                                     None
                                 </MenuItem>
                             </TextField>
@@ -166,9 +171,9 @@ const QuotationItem = (props) => {
                                 name={`quotation.items[${index}].paper`}
                                 onBlur={props.handleBlur}
                                 onChange={props.handleChange}
-                                value={props.values.quotation.items[index] ? 
+                                value={props.values.quotation ? 
                                     props.values.quotation.items[index].paper : 
-                                    null
+                                    ""
                                 }
                                 variant="outlined"
                             >
@@ -179,7 +184,7 @@ const QuotationItem = (props) => {
                                         </MenuItem>
                                     )
                                 })}
-                                <MenuItem value={null}>
+                                <MenuItem value={""}>
                                     None
                                 </MenuItem>
                             </TextField>

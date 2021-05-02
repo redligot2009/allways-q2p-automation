@@ -34,6 +34,8 @@ import QuotationItem from './QuotationItem';
 
 import { toast } from 'react-toastify';
 
+import {uniqueId} from 'lodash';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       backgroundColor: theme.palette.background.dark,
@@ -184,22 +186,22 @@ const RequestForQuotation = (props) => {
                             quotation: {
                                 "project_name": "",
                                 "product_type": 1,
-                                "client": currentUserProfile ? currentUserProfile.id : "",
+                                "client": (currentUserProfile ? currentUserProfile.id : ""),
                                 "page_length":8.5,
                                 "page_width":11,
                                 "quantity": 1,
                                 "total_pages":1,
                                 "items": [{
-                                    lamination: null,
-                                    binding: null,
-                                    paper: null,
+                                    lamination: "",
+                                    binding: "",
+                                    paper: "",
                                     item_type: "cover",
                                     no_colors: 4
                                 },
                                 {
-                                    lamination: null,
-                                    binding: null,
-                                    paper: null,
+                                    lamination: "",
+                                    binding: "",
+                                    paper: "",
                                     item_type: "inner",
                                     no_colors: 4
                                 }]
@@ -232,14 +234,14 @@ const RequestForQuotation = (props) => {
                         isSubmitting,
                         touched,
                         values
-                    }) => (values.quotation &&
+                    }) => (values.quotation !== null &&
                         <Form onSubmit={handleSubmit}>
                             <Box mb={3}>
                                 <Typography
                                     color="textPrimary"
                                     variant="h2"
                                 >
-                                    Quotation #{values.quotation.id}
+                                    New Quotation
                                 </Typography>
                                 
                             </Box>
@@ -270,7 +272,7 @@ const RequestForQuotation = (props) => {
                                             name="quotation.project_name"
                                             onBlur={handleBlur}
                                             onChange={handleChange}
-                                            value={values.quotation.project_name}
+                                            value={values.quotation ? values.quotation.project_name : ""}
                                             variant="outlined"
                                         />
                                         <Grid container spacing={3}>
@@ -302,7 +304,7 @@ const RequestForQuotation = (props) => {
                                                     name="quotation.total_pages"
                                                     onBlur={handleBlur}
                                                     onChange={handleChange}
-                                                    value={values.quotation.total_pages}
+                                                    value={values.quotation ? values.quotation.total_pages : 0}
                                                     variant="outlined"
                                                 />
                                             </Grid>
@@ -336,7 +338,7 @@ const RequestForQuotation = (props) => {
                                                     name="quotation.page_length"
                                                     onBlur={handleBlur}
                                                     onChange={handleChange}
-                                                    value={values.quotation.page_length}
+                                                    value={values.quotation ? values.quotation.page_length : 0}
                                                     variant="outlined"
                                                 />
                                             </Grid>
@@ -352,7 +354,7 @@ const RequestForQuotation = (props) => {
                                                     name="quotation.page_width"
                                                     onBlur={handleBlur}
                                                     onChange={handleChange}
-                                                    value={values.quotation.page_width}
+                                                    value={values.quotation ? values.quotation.page_width : 0}
                                                     variant="outlined"
                                                 />
                                             </Grid>

@@ -8,6 +8,8 @@ import {
   makeStyles
 } from '@material-ui/core';
 
+import {uniqueId} from 'lodash';
+
 const useStyles = makeStyles((theme) => ({
   item: {
     display: 'flex',
@@ -54,6 +56,7 @@ const NavItem = ({
       className={clsx(classes.item, className)}
       disableGutters
       {...rest}
+      key={uniqueId("navbar-item-")}
     >
       <Button
         activeClassName={classes.active}
