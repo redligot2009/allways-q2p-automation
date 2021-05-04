@@ -136,7 +136,7 @@ const ProductList = () => {
   },2000);
 
 
-  return ( initialFetchDataFinished && currentUserProfile &&
+  return ( currentUserProfile &&
     <Page
       className={classes.root}
       title="Order Tracking"
@@ -151,7 +151,7 @@ const ProductList = () => {
         </Typography>
         <Box mt={2}>
         <Grid container spacing={3}>
-        {initialFetchDataFinished && currentUserProfile && inProgressQuotations &&
+        {currentUserProfile && inProgressQuotations &&
           limitVisibility(
           <Grid item xs={12} md={4}>
             <Typography
