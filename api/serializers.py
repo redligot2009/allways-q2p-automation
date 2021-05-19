@@ -285,10 +285,14 @@ class QuotationUpdateSerializer(serializers.ModelSerializer):
             instance.approval_date = None
         
         instance.save()
-        
         try:
             for item_data in items_data:
-                item = items.pop(0)
+                # Get the quotation item first in the current list of quotation items
+                if(len(items) > 0):
+                    item = items.pop(0)
+                else:
+                # Handle case for when the quotation item is new and hasn't been added before (in which case, you create a new quotation item)
+                    item = QuotationItem.objects.create(quotation=instance)
                 item.item_type = item_data.get('item_type',item.item_type)
                 item.paper = item_data.get('paper',item.paper)
                 item.lamination = item_data.get('lamination',item.lamination)

@@ -151,15 +151,26 @@ const QuoteReviewDetail = (props) => {
                             if(values.finishComputing)
                             {
                                 values.quotation.approval_status="computed";
-                                await handleUpdateQuotation(values.quotation);
-                                toast.success("Quotation successfully submitted for approval!")
-                                navigate('/app/quote/review')
+                                await handleUpdateQuotation(values.quotation)
+                                .then(response=>{
+                                    toast.success("Quotation successfully submitted for approval!")
+                                    navigate('/app/quote/review')
+                                })
+                                .catch(error=>{
+                                    toast.error(error.toString())
+                                })
                             }
                             else
                             {
-                                handleUpdateQuotation(values.quotation);
-                                toast.success("Quotation changes successfully saved!")
-                                fetchData();
+                                await handleUpdateQuotation(values.quotation)
+                                .then((response)=>{
+                                    toast.success("Quotation changes successfully saved!")
+                                    fetchData();
+                                })
+                                .catch((error)=>{
+                                    toast.error(error.toString())
+                                })
+                                
                             }
                         }}
                     >
