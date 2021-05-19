@@ -26,6 +26,8 @@ function Routes() {
 
   const dispatch = useDispatch()
 
+  const { profile: currentUserProfile } = useSelector((state) => state.auth)
+
   const fetchProfileFinished = useRef(false);
   useInterval(() => { 
       async function fetchProfile () {
@@ -34,7 +36,10 @@ function Routes() {
             fetchProfileFinished.current = true;
           })
           .catch((error)=>{
-            dispatch(logout())
+            if(currentUserProfile !== null)
+            {
+              dispatch(logout())
+            }
             fetchProfileFinished.current = true;
           })
       }
@@ -49,26 +54,15 @@ function Routes() {
           fetchProfileFinished.current = true;
         })
         .catch((error)=>{
-          dispatch(logout())
+          if(currentUserProfile !== null)
+          {
+            dispatch(logout())
+          }
           fetchProfileFinished.current = true;
         })
     }
     initialFetchProfile()
   }, [])
-  // useEffect(()=>{
-  //   (async function fetchProfile () {
-  //     await dispatch(getProfile())
-  //           .then((response)=>{
-  //             fetchProfileFinished.current = true;
-  //           })
-  //           .catch((error)=>{
-  //             dispatch(logout())
-  //             fetchProfileFinished.current = true;
-  //           })
-  //   })();
-  // },[]);
-
-  const { profile: currentUserProfile } = useSelector((state) => state.auth)
   
   // console.log("Found profile, ", currentUserProfile);
 
