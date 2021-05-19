@@ -17,10 +17,15 @@ Run virtual environment in terminal
 ```cmd
 pipenv shell
 ```
+### NEW STEP (as of May 20, 2021) ###
+Add a `.env` file with the following contents:
+```
+DATABASE_URL=sqlite:///db.sqlite3
+```
+**Why?** This is in order to let your local copy know that it is supposed to use SQLite as the testing database.
 
-Make migrations to enable Django admin site and all our app's models.
+Make migrations at the root directory to enable Django admin site and all our app's models.
 ```cmd
-cd backend
 python manage.py migrate
 ```
 
@@ -29,7 +34,7 @@ Load all test data for the API.
 python manage.py loaddata all_test_data.json
 ```
 
-Once you're in the backend directory, set up a superuser for development purposes.
+Afterwards, set up a superuser for development purposes.
 ```cmd
 python manage.py createsuperuser
 ```
@@ -72,17 +77,16 @@ python manage.py createsuperuser
 
 ## **Installation Instructions** (React Frontend)
 
-Navigate to the `frontend` folder, and run `npm install` to install the project dependencies.
+At the root directory, run `npm install` to install the project dependencies.
 
 ```cmd
-cd frontend
 npm install
 ```
 
 Now you're all set on the frontend 😊
 
 ## **How to run backend Django development server for the API**
-Navigate to mysite directory using `cd backend` if you haven't already, then run the following command.
+From the root directory, run the following command.
 ```cmd
 python manage.py runserver
 ```
@@ -135,12 +139,37 @@ python manage.py createsuperuser
 
 ## **How to run frontend React development server**
 
-Navigate to `frontend` folder, and run `npm start`. More instructions on specific frontend commands in `frontend/README.md` document.
+From the root directory, run `npm start`. More instructions on specific frontend commands in `frontend/README.md` document.
 
 ```cmd
-cd frontend
 npm start
 ```
+
+## How to push to the live version of the app on Heroku
+
+**Normally, you will not have to do this yourself** (except if you're Red). But just for the sake of understanding, this is how one would actually push latest changes onto Heroku: 
+
+### Step 1: Setting up Heroku CLI ###
+1. **Create an account at Heroku**
+2. **Install Heroku CLI** from the Heroku website.
+3. **Run** `heroku login`. It will prompt you to log in via a new window on your browser.
+4. **Enter your credentials** from your Heroku account, and log in. You can now close this window.
+5. **Add the Heroku Git remote** to your Git remote repositories by running the following command: `heroku git:remote -a allways-q2p-automation`
+
+### Step 2: Pushing changes onto the live Heroku app
+1. After you have made any changes to the source code, and have merged all changes to the master branch, simply run `git push heroku master` to "replicate" the changes on the live app.
+
+    This process really does take a long time (a few minutes),
+2. Once the terminal log has finished, and it has notified you that the app has been successfully deployed, you should be able to see it live on Heroku by going to the URL: https://allways-q2p-automation.herokuapp.com.
+
+### NOTES ABOUT THE LIVE VERSION ###
+- It is slower than the local version. API calls can take several seconds longer than when it is run on your local machine.
+- There are bugs that are more apparent here as compared to the local version.
+- We will fix this all up eventually, but for now please bear with it! :) 
+- It uses PostgreSQL as the backend database rather than SQLite.
+- Rather than running `python manage.py`, it runs `gunicorn backend.wsgi --log-file -`
+  - Gunicorn is an HTTP server that has been set up for serving both the Django REST Framework API only when deployed live. 
+  - Static files (particularly, the React frontend build) are served through the `whitenoise` middleware.
 
 ## IMPORTANT NOTES:
 
