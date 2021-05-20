@@ -88,19 +88,19 @@ const QuoteReviewDetail = (props) => {
             await dispatch(getQuotationById(location.state.id,source.token))
             console.log(quoteDetails);
             // TODO: Convert these into Redux actions. Remove awaits.
-            await axios.get('api/papers', {cancelToken: source.token})
+            axios.get('api/papers', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setPaperTypes(response.data)
                 })
 
-            await axios.get('api/laminations',{cancelToken: source.token})
+            axios.get('api/laminations',{cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setLaminationTypes(response.data)
                 })
             
-            await axios.get('api/bindings', {cancelToken: source.token})
+            axios.get('api/bindings', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setBindingTypes(response.data)
@@ -118,10 +118,15 @@ const QuoteReviewDetail = (props) => {
         dispatch(updateQuotation(quotation,source.token))
     }
 
-    // TODO: Should not be calling every component mount. Should only be called during initial page load.
+    // TODO: Getting project specs should not be calling every component mount. Should only be called during initial page load.
     useEffect(() => {
-        fetchData();
-        setFetched(true);
+        fetchData()
+            .then((response)=>{
+                setFetched(true);
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
         return ()=>{
             source.cancel();
             handleGoBack();

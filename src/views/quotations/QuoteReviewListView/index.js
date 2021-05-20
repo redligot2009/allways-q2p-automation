@@ -41,10 +41,9 @@ const QuotationReviewList = () => {
     async function fetchData(){
       try
       {
-        // TODO: Remove awaits
-        await dispatch(getComputedQuotations("",source.token));
-        await dispatch(getInProgressQuotations("",source.token));
-        await dispatch(getApprovedQuotations("",source.token))
+        dispatch(getComputedQuotations("",source.token));
+        dispatch(getInProgressQuotations("",source.token));
+        dispatch(getApprovedQuotations("",source.token))
         // console.log(in_progress);
         // console.log(computed);
       }
@@ -54,7 +53,7 @@ const QuotationReviewList = () => {
       }
     }
     fetchData();
-  },1000)
+  },5000)
   //computed, in_progress, approved
   useEffect(() => {
     return () => {
