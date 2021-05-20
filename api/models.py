@@ -612,11 +612,7 @@ When a quote is approved, it is made into a job order that is sent to the produc
 who will update the status as the project moves along.
 
 TODO: 
-- Invoice Implementation (most likely not within scope of deliverable # 2)
-- Test functionality of JobOrder model.
-
-FINISHED:
-- JobOrder model initial setup.
+- Fully implement Invoice model.
 
 """
 

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3)
   }
 }));
-
+// TODO: Make fully functional for testing tomorrow
 const SettingsView = () => {
   const classes = useStyles();
 

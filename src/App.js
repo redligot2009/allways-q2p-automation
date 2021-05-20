@@ -12,9 +12,12 @@ import { getProfile, logout } from "./_actions/auth";
 import { useInterval } from './_helpers/hooks';
 import axios from 'axios';
 
+// TODO: Maybe fetch all one-time fetch data that doesn't change in the App.js instead of scattered everywhere.
+
 const App = () => {
   const dispatch = useDispatch();
   const source = axios.CancelToken.source()
+  // TODO: Remove regular fetching of profile. Only fetch profile once on page load.
   useInterval(()=>{
     dispatch(getProfile(source.token))
   }, 150000)

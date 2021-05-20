@@ -118,6 +118,7 @@ const ProductList = () => {
     }
   },[])
 
+  // TODO: Do not fetch if have fetched once already. Or possibly, increase timeout.
   useInterval(()=>{
     async function reFetchData (){
       // console.log(currentUserProfile)

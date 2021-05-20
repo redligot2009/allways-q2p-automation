@@ -87,7 +87,7 @@ const QuoteReviewDetail = (props) => {
             // const quoteResult = await axios.get(`api/quotations/${location.state.id}`)
             await dispatch(getQuotationById(location.state.id,source.token))
             console.log(quoteDetails);
-            // TODO: Convert these into Redux actions.
+            // TODO: Convert these into Redux actions. Remove awaits.
             await axios.get('api/papers', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
@@ -117,6 +117,8 @@ const QuoteReviewDetail = (props) => {
     function handleUpdateQuotation (quotation) {
         dispatch(updateQuotation(quotation,source.token))
     }
+
+    // TODO: Should not be calling every component mount. Should only be called during initial page load.
     useEffect(() => {
         fetchData();
         setFetched(true);

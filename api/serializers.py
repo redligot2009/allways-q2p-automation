@@ -376,7 +376,7 @@ class QuotationSerializer(serializers.ModelSerializer):
 =================================================
 """
 
-# UNUSED Invoice serializer for future purposes
+# TODO: Implement Invoice Serializer
 class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invoice

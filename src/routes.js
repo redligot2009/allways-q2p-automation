@@ -29,6 +29,7 @@ function Routes() {
   const { profile: currentUserProfile } = useSelector((state) => state.auth)
 
   const fetchProfileFinished = useRef(false);
+  // TODO: Get rid of useInterval. Make functional with only one initial call.
   useInterval(() => { 
       async function fetchProfile () {
         await dispatch(getProfile())
@@ -84,7 +85,7 @@ function Routes() {
     // console.log("what is happening?")
     return element;
   }
-  
+  // TODO: Change default home page to log-in screen
   let routes = [
     {
       path: 'app',

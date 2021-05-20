@@ -36,10 +36,12 @@ const QuotationReviewList = () => {
   const { inProgressQuotations: in_progress} = useSelector((state)=>state.quotation);
   const { approvedQuotations : approved} = useSelector((state)=>state.quotation);
   const source = axios.CancelToken.source()
+  // TODO: Do not make fetch if current fetch is still ongoing. Possibly remove useInterval and just call once instead.
   useInterval(() => {
     async function fetchData(){
       try
       {
+        // TODO: Remove awaits
         await dispatch(getComputedQuotations("",source.token));
         await dispatch(getInProgressQuotations("",source.token));
         await dispatch(getApprovedQuotations("",source.token))
