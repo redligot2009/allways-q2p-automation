@@ -170,10 +170,6 @@ const Dashboard = () => {
                       computed={computed}
                     />
                     }
-                    <AwaitingApproval
-                      classes={classes}
-                      computed={computed}
-                    />
                   </Grid>
                   <Box ml={1} width={1} height={1}>
                     <Box my={2}>
