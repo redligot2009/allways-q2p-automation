@@ -9,9 +9,6 @@ import {
   Typography
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import ProductCard from './ProductCard';
-import ProductCardDelivery from './ProductCardDelivery';
-import ProductCardProd from './ProductCardProd';
 import QuotationCardComputed from '../../quotations/QuotationCardComputed';
 import JobOrderCard from '../../jobOrders/JobOrderCard';
 import data from './data';
@@ -19,7 +16,7 @@ import data from './data';
 import { getComputedQuotations, updateQuotation, getQuotationById, approveQuotation, getInProgressQuotations } from "../../../_actions/quotation";
 import { getInProductionJobOrders, getPendingJobOrders } from '../../../_actions/jobOrder';
 import { useInterval } from "../../../_helpers/hooks"
-import { limitVisibility } from "../../../_helpers/";
+import { limitVisibility } from "../../../_helpers";
 import { getProfile } from "../../../_actions/auth";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
@@ -37,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 // TODO: Implement "ViewOrder.js" page
 // This is basically a simplified and non-interactable version of the Quote Review detail page
 
-const ProductList = () => {
+const OrderTrackingList = () => {
   const classes = useStyles();
   const [products] = useState(data);
 
@@ -53,21 +50,8 @@ const ProductList = () => {
   const { currentQuotation } = useSelector(state=>state.quotation);
 
   const [initialFetchDataFinished, setInitialFetchDataFinished]  = useState(false);
-  
-  const isUserClient = () => {
-    switch(currentUserProfile.job_position)
-    {
-      case "":
-        return true;
-      case null:
-        return true;
-      default:
-        return false;
-    }
-  }
 
   async function fetchData () {
-    await dispatch(getProfile(source.token))
     try
     {
       switch(currentUserProfile.job_position)
@@ -90,7 +74,7 @@ const ProductList = () => {
           dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
       }
     }
-    catch(error)
+    catch (error)
     {
       console.log(error)
     }
@@ -98,46 +82,53 @@ const ProductList = () => {
 
   useEffect(()=>{
     async function initialFetchData () {
-      await dispatch(getProfile(source.token))
-      .then((response)=>{
-        fetchData()
-        setInitialFetchDataFinished(true);
-      })
-      .catch((error)=>{
-        console.log(error);
-      })
+      await fetchData()
     }
-    initialFetchData();
-    console.log(inProgressQuotations)
-    console.log(computedQuotations)
-    console.log(inProgressJobOrders)
-    console.log(pendingJobOrders)
-    console.log(outForDeliveryJobOrders)
+    
+    dispatch(getProfile())
+    .then((response) =>
+      {
+        initialFetchData()
+      }
+    )
+    .catch((error)=>{
+      console.log("Error fetching user profile");
+      source.cancel();
+    })
+    // console.log(inProgressQuotations)
+    // console.log(computedQuotations)
+    // console.log(inProgressJobOrders)
+    // console.log(pendingJobOrders)
+    // console.log(outForDeliveryJobOrders)
     return () => {
       source.cancel();
     }
   },[])
 
-  // TODO: Do not fetch if have fetched once already. Or possibly, increase timeout.
   useInterval(()=>{
     async function reFetchData (){
       // console.log(currentUserProfile)
       try
       {
         await fetchData()
+        setInitialFetchDataFinished(true);
       }
       catch(error)
       {
         console.log(error)
         source.cancel();
       }
+      // console.log(inProgressQuotations)
       // console.log(computedQuotations)
+      // console.log(inProgressJobOrders)
+      // console.log(pendingJobOrders)
+      // console.log(outForDeliveryJobOrders)
     }
     reFetchData()
-  },2000);
+  },3000);
 
 
-  return ( currentUserProfile &&
+  return ( initialFetchDataFinished && currentUserProfile &&
     <Page
       className={classes.root}
       title="Order Tracking"
@@ -308,4 +299,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default OrderTrackingList;
