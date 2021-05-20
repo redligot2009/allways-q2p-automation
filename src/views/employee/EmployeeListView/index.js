@@ -16,6 +16,9 @@ import {
 import Page from 'src/components/Page';
 import EmployeeCard from './EmployeeCard';
 import AddEmployeeDialog from './AddEmployeeDialog';
+
+import ClipLoader from "react-spinners/ClipLoader";
+
 import data from './data';
 import {
   getAccountManagerEmployees,
@@ -102,7 +105,7 @@ const EmployeeList = () => {
               </Typography>
               <Box my={1}>
                 <Grid container style={{maxHeight:540,overflow:'auto'}} my={1}>
-                  {accountManagers && accountManagers.map((employee) => (
+                  {accountManagers ? accountManagers.map((employee) => (
                     <Grid
                       item
                       key={employee.id}
@@ -113,8 +116,12 @@ const EmployeeList = () => {
                         employee={employee}
                       />
                     </Grid>
-                  ))}
-                  {owners && owners.map((employee) => (
+                  )):
+                  <>
+                    <ClipLoader loading={true} size={50} />
+                  </>
+                  }
+                  {owners ? owners.map((employee) => (
                     <Grid
                       item
                       key={employee.id}
@@ -125,7 +132,11 @@ const EmployeeList = () => {
                         employee={employee}
                       />
                     </Grid>
-                  ))}
+                  )):
+                  <>
+                    <ClipLoader loading={true} size={50} />
+                  </>
+                }
                 </Grid>
               </Box>
               <Grid container>
@@ -175,7 +186,7 @@ const EmployeeList = () => {
               </Typography>
               <Box my={1}>
                 <Grid container style={{maxHeight:540,overflow:'auto'}}>
-                  {productionEmployees && productionEmployees.map((employee) => (
+                  {productionEmployees ? productionEmployees.map((employee) => (
                     <Grid
                       item
                       key={employee.id}
@@ -186,7 +197,10 @@ const EmployeeList = () => {
                         employee={employee}
                       />
                     </Grid>
-                  ))}  
+                  )):
+                  <>
+                    <ClipLoader loading={true} size={50} />
+                  </>}  
                 </Grid>
               </Box>
               <Button
@@ -215,7 +229,7 @@ const EmployeeList = () => {
                 </Typography>
                 <Box my={1}>
                   <Grid container style={{maxHeight:540,overflow:'auto'}}>
-                    {driverEmployees && driverEmployees.map((employee) => (
+                    {driverEmployees ? driverEmployees.map((employee) => (
                       <Grid
                         item
                         key={employee.id}
@@ -226,7 +240,10 @@ const EmployeeList = () => {
                           employee={employee}
                         />
                       </Grid>
-                    ))}
+                    )):
+                    <>
+                      <ClipLoader loading={true} size={50} />
+                    </>}
                   </Grid>
                 </Box>
                 <Button

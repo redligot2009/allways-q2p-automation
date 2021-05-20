@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {toast} from 'react-toastify';
+import ClipLoader from "react-spinners/ClipLoader";
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik, Form, FieldArray, getIn } from 'formik';
@@ -115,7 +116,7 @@ const QuoteReviewDetail = (props) => {
     }
 
     function handleUpdateQuotation (quotation) {
-        dispatch(updateQuotation(quotation,source.token))
+        return dispatch(updateQuotation(quotation,source.token))
     }
 
     // TODO: Should not be calling every component mount. Should only be called during initial page load.
@@ -128,7 +129,7 @@ const QuoteReviewDetail = (props) => {
         }
     }, [])
     // console.log(quoteDetails)
-    return ( (fetched && quoteDetails && laminationTypes && paperTypes && bindingTypes) &&
+    return ( (fetched && quoteDetails && laminationTypes && paperTypes && bindingTypes) ?
         <Page
           className={classes.root}
           title="Quote Specifications Review"
@@ -330,7 +331,10 @@ const QuoteReviewDetail = (props) => {
                     </Formik>
                 </Container>
             </Box>
-        </Page>
+        </Page> :
+        <>
+            <ClipLoader loading={true} size={150} />
+        </>
     );
 }
 

@@ -13,6 +13,8 @@ import QuotationCardComputed from '../../quotations/QuotationCardComputed';
 import JobOrderCard from '../../jobOrders/JobOrderCard';
 import data from './data';
 
+import ClipLoader from "react-spinners/ClipLoader";
+
 import { getComputedQuotations, updateQuotation, getQuotationById, approveQuotation, getInProgressQuotations } from "../../../_actions/quotation";
 import { getInProductionJobOrders, getPendingJobOrders } from '../../../_actions/jobOrder';
 import { useInterval } from "../../../_helpers/hooks"
@@ -128,7 +130,7 @@ const OrderTrackingList = () => {
   },3000);
 
 
-  return ( initialFetchDataFinished && currentUserProfile &&
+  return ( (initialFetchDataFinished && currentUserProfile) ?
     <Page
       className={classes.root}
       title="Order Tracking"
@@ -295,7 +297,10 @@ const OrderTrackingList = () => {
             </Grid>
           </Box>
       </Container>
-    </Page>
+    </Page> :
+      <>
+        <ClipLoader loading={true} size={150} />
+      </>
   );
 };
 

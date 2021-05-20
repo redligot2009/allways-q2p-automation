@@ -25,6 +25,8 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
+import ClipLoader from "react-spinners/ClipLoader";
+
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../../_actions/auth";
 
@@ -208,6 +210,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           src={user.avatar}
           to="/app/account"
         />
+        {currentUserProfile ? 
         <Box
           ml={1}
         >
@@ -225,11 +228,16 @@ const NavBar = ({ onMobileClose, openMobile }) => {
             {user.jobTitle}
           </Typography>
         </Box>
+        :
+          <>
+            <ClipLoader loading={true} size={50} />
+          </>
+        }
       </Box>
       <Divider />
       <Box p={2}>
         <List>
-          {currentUserProfile && items && items.map((item, index) => (
+          {(currentUserProfile && items) ? items.map((item, index) => (
             limitVisibility(
               <NavItem
                 href={item.href}
@@ -241,7 +249,11 @@ const NavBar = ({ onMobileClose, openMobile }) => {
               item.restrict_to,
               currentUserProfile.job_position,
             )
-          ))}
+          )):
+          <>
+            <ClipLoader loading={true} size={50} />
+          </>
+          }
         </List>
       </Box>
     </Box>

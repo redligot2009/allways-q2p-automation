@@ -12,6 +12,7 @@ import QuotationCardComputed from '../QuotationCardComputed';
 // import data from './data';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import {getComputedQuotations, getInProgressQuotations, getApprovedQuotations} from "../../../_actions/quotation";
 import {useInterval} from "../../../_helpers/hooks";
@@ -53,14 +54,14 @@ const QuotationReviewList = () => {
       }
     }
     fetchData();
-  },5000)
+  },3000)
   //computed, in_progress, approved
   useEffect(() => {
     return () => {
       source.cancel();
     }
   }, [])
-  return (in_progress && computed && approved &&
+  return ((in_progress && computed && approved)?
     <Page
       className={classes.root}
       title="Quote Review"
@@ -125,7 +126,10 @@ const QuotationReviewList = () => {
           </Grid>
         </Box>
       </Container>
-    </Page>
+    </Page>:
+    <>
+      <ClipLoader loading={true} size={150} />
+    </>
   );
 };
 

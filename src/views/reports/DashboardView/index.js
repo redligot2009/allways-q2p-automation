@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
+import ClipLoader from "react-spinners/ClipLoader";
 import { Link as RouterLink, useNavigate, useHistory, Link } from 'react-router-dom';
 
 import {
@@ -80,7 +81,7 @@ const Dashboard = () => {
     }
   },[])
 
-  return (currentUserProfile && 
+  return (currentUserProfile ? 
     <Page
       className={classes.root}
       title="Dashboard"
@@ -207,7 +208,10 @@ const Dashboard = () => {
               )}
         </Grid>
       </Container>
-    </Page>
+    </Page> :
+    <>
+      <ClipLoader loading={true} size={150} />
+    </>
   );
 };
 

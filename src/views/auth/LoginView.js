@@ -38,11 +38,16 @@ const LoginView = (props) => {
 
   useEffect(()=>{
     async function fetchProfile () {
-      await dispatch(getProfile(source.token))  
-      if(currentUserProfile !== null)
-      {
-        dispatch(logout())
-      }
+      await dispatch(getProfile(source.token))
+      .then((response)=>{
+        if(currentUserProfile !== null)
+        {
+          dispatch(logout())
+        }
+      })
+      .catch((error)=>{
+        
+      })
     }
     fetchProfile();
     return () => {
