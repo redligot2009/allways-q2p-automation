@@ -29,33 +29,38 @@ function Routes() {
   const { profile: currentUserProfile } = useSelector((state) => state.auth)
 
   const fetchProfileFinished = useRef(false);
-  
-  const verifyProfile = async () =>
-  {
-    await dispatch(getProfile())
-      .then((response)=>{
-        fetchProfileFinished.current = true;
-      })
-      .catch((error)=>{
-        if(currentUserProfile !== null)
-        {
-          dispatch(logout())
-        }
-        fetchProfileFinished.current = true;
-      })
-  }
-
+  // TODO: Get rid of useInterval. Make functional with only one initial call.
   useInterval(() => { 
-      async function reFetchProfile () {
-        verifyProfile()
+      async function fetchProfile () {
+        await dispatch(getProfile())
+          .then((response)=>{
+            fetchProfileFinished.current = true;
+          })
+          .catch((error)=>{
+            if(currentUserProfile !== null)
+            {
+              dispatch(logout())
+            }
+            fetchProfileFinished.current = true;
+          })
       }
-      reFetchProfile();
+      fetchProfile();
     }
     , 15000);
 
   useEffect(()=>{
     async function initialFetchProfile () {
-      verifyProfile()
+      await dispatch(getProfile())
+        .then((response)=>{
+          fetchProfileFinished.current = true;
+        })
+        .catch((error)=>{
+          if(currentUserProfile !== null)
+          {
+            dispatch(logout())
+          }
+          fetchProfileFinished.current = true;
+        })
     }
     initialFetchProfile()
   }, [])
@@ -76,11 +81,11 @@ function Routes() {
         // console.log("Go back to home")
         return <Navigate to="/"/>
       }
-      return element;
     }
-    return <Navigate to="/login"/>
     // console.log("what is happening?")
+    return element;
   }
+  // TODO: Change default home page to log-in screen
   let routes = [
     {
       path: 'app',
@@ -110,7 +115,7 @@ function Routes() {
         { path: 'logout', element: <Navigate to="/login"/>},
         { path: 'register', element: <RegisterView /> },
         { path: '404', element: <NotFoundView /> },
-        { path: '/', element: limitRouteAccess([],<Navigate to="/app/dashboard" />)},
+        { path: '/', element: <Navigate to="/app/dashboard" /> },
         { path: '*', element: <Navigate to="/404" /> }
       ]
     }

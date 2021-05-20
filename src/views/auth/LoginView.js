@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import axios from 'axios';
+import {useSelector, useDispatch} from 'react-redux'
 import { Link as RouterLink, useNavigate, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -16,9 +18,7 @@ import { ToastContainer, toast } from 'react-toastify';
 // import FacebookIcon from 'src/icons/Facebook';
 // import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
-
-import { useDispatch, useSelector } from "react-redux";
-import { login, getProfile } from "../../_actions/auth";
+import { login, getProfile, logout } from "../../_actions/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +33,22 @@ const LoginView = (props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector(state => state.auth);
+  const { profile: currentUserProfile } = useSelector((state) => state.auth)
+  const source = axios.CancelToken.source()
+
+  useEffect(()=>{
+    async function fetchProfile () {
+      await dispatch(getProfile(source.token))  
+      if(currentUserProfile !== null)
+      {
+        dispatch(logout())
+      }
+    }
+    fetchProfile();
+    return () => {
+      source.cancel();
+    }
+  },[])
 
   return (
     <Page
