@@ -34,14 +34,13 @@ const retrieveJobOrder = (id, cancelToken) => {
 }
 
 const retrieveJobOrders = (production_status="", manager="", client="", cancelToken) => {
-  // TODO: Test if retrieveJobOrders functioning
   const urlParams = {
     "production_status" : production_status,
     "manager" : manager,
     "quotation__client" : client,
   }
   let requestURL = getResultURL("api/joborders/", urlParams);
-  console.log(requestURL);
+  // console.log(requestURL);
   const jobOrdersListResult = axios.get(requestURL,{cancelToken: cancelToken});
   return jobOrdersListResult;
 }
