@@ -12,7 +12,7 @@ import DashboardView from 'src/views/reports/DashboardView';
 import LoginView from 'src/views/auth/LoginView';
 import NotFoundView from 'src/views/errors/NotFoundView';
 
-import TrackingCUSTListView from 'src/views/tracking_cus/ProductListView';
+import OrderTrackingView from 'src/views/tracking_cus/OrderTrackingView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
 import QuotationReviewList from 'src/views/quotations/QuoteReviewListView';
@@ -29,38 +29,33 @@ function Routes() {
   const { profile: currentUserProfile } = useSelector((state) => state.auth)
 
   const fetchProfileFinished = useRef(false);
-  // TODO: Get rid of useInterval. Make functional with only one initial call.
+  
+  const verifyProfile = async () =>
+  {
+    await dispatch(getProfile())
+      .then((response)=>{
+        fetchProfileFinished.current = true;
+      })
+      .catch((error)=>{
+        if(currentUserProfile !== null)
+        {
+          dispatch(logout())
+        }
+        fetchProfileFinished.current = true;
+      })
+  }
+
   useInterval(() => { 
-      async function fetchProfile () {
-        await dispatch(getProfile())
-          .then((response)=>{
-            fetchProfileFinished.current = true;
-          })
-          .catch((error)=>{
-            if(currentUserProfile !== null)
-            {
-              dispatch(logout())
-            }
-            fetchProfileFinished.current = true;
-          })
+      async function reFetchProfile () {
+        verifyProfile()
       }
-      fetchProfile();
+      reFetchProfile();
     }
     , 15000);
 
   useEffect(()=>{
     async function initialFetchProfile () {
-      await dispatch(getProfile())
-        .then((response)=>{
-          fetchProfileFinished.current = true;
-        })
-        .catch((error)=>{
-          if(currentUserProfile !== null)
-          {
-            dispatch(logout())
-          }
-          fetchProfileFinished.current = true;
-        })
+      verifyProfile()
     }
     initialFetchProfile()
   }, [])
@@ -81,11 +76,11 @@ function Routes() {
         // console.log("Go back to home")
         return <Navigate to="/"/>
       }
+      return element;
     }
+    return <Navigate to="/login"/>
     // console.log("what is happening?")
-    return element;
   }
-  // TODO: Change default home page to log-in screen
   let routes = [
     {
       path: 'app',
@@ -104,7 +99,7 @@ function Routes() {
         { path: 'products', element: limitRouteAccess([],<ProductView />)},
         { path: 'settings', element: limitRouteAccess([],<SettingsView />)},
         { path: '*', element: limitRouteAccess([],<Navigate to="/404" />)},
-        { path: 'tracking', element: limitRouteAccess([], <TrackingCUSTListView />) },
+        { path: 'tracking', element: limitRouteAccess([], <OrderTrackingView />) },
       ]
     },
     {
@@ -115,7 +110,7 @@ function Routes() {
         { path: 'logout', element: <Navigate to="/login"/>},
         { path: 'register', element: <RegisterView /> },
         { path: '404', element: <NotFoundView /> },
-        { path: '/', element: <Navigate to="/app/dashboard" /> },
+        { path: '/', element: limitRouteAccess([],<Navigate to="/app/dashboard" />)},
         { path: '*', element: <Navigate to="/404" /> }
       ]
     }
