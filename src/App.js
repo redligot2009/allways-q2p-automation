@@ -17,12 +17,13 @@ import axios from 'axios';
 const App = () => {
   const dispatch = useDispatch();
   const source = axios.CancelToken.source()
-  // TODO: Remove regular fetching of profile. Only fetch profile once on page load.
   useInterval(()=>{
     dispatch(getProfile(source.token))
   }, 150000)
 
   useEffect(() => {
+    dispatch(getProfile(source.token))
+    // TODO: dispatch actions to fetch paper, lamination, and binding types.
     return () => {
       source.cancel();
     }

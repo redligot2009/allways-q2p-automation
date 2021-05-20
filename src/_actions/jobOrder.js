@@ -10,7 +10,6 @@ import {
 import JobOrderService from "../_services/jobOrder.service";
 
 export const createJobOrder = (quotation, manager,cancelToken) => (dispatch) => {
-    // TODO: Test if createJobOrder action is functioning
     return JobOrderService.createJobOrder(quotation, manager,cancelToken)
         .then((response)=>{
             dispatch({
