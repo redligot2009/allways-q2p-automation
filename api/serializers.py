@@ -14,7 +14,7 @@ from .models import Quotation, QuotationItem, ExtraPlate, Product
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=get_user_model()
-        fields=('username','email','first_name','last_name')
+        fields=('id','username','email','first_name','last_name')
         
 from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
 
@@ -27,6 +27,9 @@ class UserCreateSerializer(BaseUserRegistrationSerializer):
 # Serializer for Account (user profile) details.
 class AccountDetailSerializer(serializers.ModelSerializer):
     full_name = serializers.ReadOnlyField()
+    user_id = serializers.PrimaryKeyRelatedField(read_only=True,source='user.id')
+    first_name = serializers.CharField(max_length=255,source='user.first_name', read_only=True)
+    last_name = serializers.CharField(max_length=255,source='user.last_name', read_only=True)
     user = serializers.StringRelatedField(read_only=True)
     email = serializers.CharField(max_length=255,source='user.email', read_only=True)
     class Meta:

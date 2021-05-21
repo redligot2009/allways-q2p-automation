@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   Box,
@@ -15,6 +15,8 @@ import {updateAccountProfile} from '../../../_actions/users';
 
 import {getProfile} from '../../../_actions/auth';
 
+import {useInterval} from '../../../_helpers/hooks';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
@@ -29,8 +31,19 @@ const SettingsView = () => {
   const dispatch = useDispatch();
 
   const {profile: currentUserProfile} = useSelector((state)=>state.auth)
+
+  useEffect(()=>{
+    dispatch(getProfile())
+    .then(response => console.log(currentUserProfile))
+  },[])
+
+  useInterval(()=>{
+    dispatch(getProfile())
+    .then(response => console.log(currentUserProfile))
+  }, 5000)
   // TODO: Add modal for confirm password upon hitting save details
-  return (
+  // TODO: Implement API updating of user info.
+  return (currentUserProfile && 
     <Page
       className={classes.root}
       title="Settings"
@@ -50,7 +63,7 @@ const SettingsView = () => {
             item
             xs={12}
           >
-            <ProfileDetails />
+            <ProfileDetails currentUserProfile={currentUserProfile} />
           </Grid>
         </Grid>
         

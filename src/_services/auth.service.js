@@ -62,8 +62,22 @@ const getProfile = (cancelToken) => {
     })
 }
 
-const updateProfile = (username, account, cancelToken) => {
-  return axios.put(`api/accounts/${username}`, account,{cancelToken: cancelToken});
+const updateProfile = (username, updatedAccount, cancelToken) => {
+  let user = getFilteredObject(updatedAccount,[
+    "username",
+    "email",
+    "first_name",
+    "last_name"
+  ])
+  let account = getFilteredObject(updatedAccount,[
+    "middle_name",
+    "shipping_address",
+    "mobile_number",
+  ])
+  return axios.patch(`auth/users/${updatedAccount.user_id}`, user,{cancelToken: cancelToken})
+    .then((response)=>{
+      axios.put(`api/accounts/${user.username}/`,account,{cancelToken: cancelToken})
+    });
 }
 
 const verifyLoggedIn = (cancelToken) => {

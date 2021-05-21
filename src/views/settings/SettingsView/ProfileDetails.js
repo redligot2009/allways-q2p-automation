@@ -19,39 +19,13 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const ProfileDetails = ({ className, ...rest }) => {
+const ProfileDetails = ({ className, currentUserProfile, ...rest }) => {
   const classes = useStyles();
-  // const [values, setValues] = useState({
-  //   first_name: 'Ian Red',
-  //   middle_name: 'D',
-  //   last_name: 'Ligot',
-  //   email: 'testemail@gmail.com',
-  //   mobile_number: '1234567890',
-  //   shipping_address: 'Project 4, Quezon City',
-  //   organization_name: 'Ateneo de Manila University',
-  //   job_position: 'Client',
-  // });
 
-  // const handleChange = (event) => {
-  //   setValues({
-  //     ...values,
-  //     [event.target.name]: event.target.value
-  //   });
-  // };
-
-  return (
+  return (currentUserProfile &&
     <Formik
       enableReinitialize={true}
-      initialValues={{
-        first_name: 'Ian Red',
-        middle_name: 'D',
-        last_name: 'Ligot',
-        email: 'testemail@gmail.com',
-        mobile_number: '1234567890',
-        shipping_address: 'Project 4, Quezon City',
-        organization_name: 'Ateneo de Manila University',
-        job_position: 'Client',
-      }}
+      initialValues={currentUserProfile}
       onSubmit={(values,actions)=>{
         
       }}
