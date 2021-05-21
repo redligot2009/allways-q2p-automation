@@ -20,6 +20,8 @@ const createJobOrder = (quotation, manager, cancelToken) => {
     return response;
   })
   .catch((error)=>{
+    console.log("ERROR");
+    console.log(error);
     console.log(JSON.stringify(newJobOrder))
     console.log(newJobOrder)
   })
@@ -29,7 +31,7 @@ const createJobOrder = (quotation, manager, cancelToken) => {
 const retrieveJobOrder = (id, cancelToken) => {
  
   // TODO: Test if retrieveJobOrder functioning
-  const jobOrderResult = axios.get(`api/joborders/${id}`,{cancelToken: cancelToken})
+  const jobOrderResult = axios.get(`api/joborders/${id}/`,{cancelToken: cancelToken})
   return jobOrderResult;
 }
 

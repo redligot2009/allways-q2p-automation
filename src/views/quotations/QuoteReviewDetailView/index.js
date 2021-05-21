@@ -130,14 +130,14 @@ const QuoteReviewDetail = (props) => {
         }
     }, [])
 
-    useInterval(()=>{
-        fetchData();
-        console.log(quoteDetails);
-        return () =>{
-            source.cancel();
-            handleGoBack();
-        }
-    }, 3000);
+    // useInterval(()=>{
+    //     fetchData();
+    //     console.log(quoteDetails);
+    //     return () =>{
+    //         source.cancel();
+    //         handleGoBack();
+    //     }
+    // }, 3000);
     // console.log(quoteDetails)
     return ( (fetched && quoteDetails && laminationTypes && paperTypes && bindingTypes) ?
         
