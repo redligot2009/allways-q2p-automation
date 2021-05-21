@@ -15,6 +15,8 @@ import {
   makeStyles
 } from '@material-ui/core';
 
+import {getJobPosition} from '../../../_helpers/index'
+
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
   first_name: 'Ian Red',
@@ -40,7 +42,7 @@ const Profile = ({ className, currentUserProfile, ...rest }) => {
 
   const dispatch = useDispatch();
 
-  return (
+  return (currentUserProfile &&
     <Card
       className={clsx(classes.root, className)}
       {...rest}
@@ -60,21 +62,21 @@ const Profile = ({ className, currentUserProfile, ...rest }) => {
             gutterBottom
             variant="h3"
           >
-            {user.first_name + " " + user.middle_name + " " + user.last_name}
+            {currentUserProfile.first_name + " " + currentUserProfile.middle_name + " " + currentUserProfile.last_name}
           </Typography>
           <Typography
             color="textPrimary"
             gutterBottom
             variant="body1"
           >
-            {user.organization_name}
+            {currentUserProfile.organization_name}
           </Typography>
           <Typography
             color="textPrimary"
             gutterBottom
             variant="body1"
           >
-            {user.job_position}
+            {getJobPosition(currentUserProfile.job_position)}
           </Typography>
           {/* <Typography
             color="textSecondary"

@@ -57,7 +57,7 @@ const SettingsView = () => {
             item
             xs={12}
           >
-            <Profile />
+            <Profile currentUserProfile={currentUserProfile}/>
           </Grid>
           <Grid
             item
