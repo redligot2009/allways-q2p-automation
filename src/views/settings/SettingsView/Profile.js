@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import moment from 'moment';
+import ClipLoader from "react-spinners/ClipLoader";
 import {useDispatch, useSelector} from 'react-redux';
 import {
   Avatar,
@@ -62,7 +63,11 @@ const Profile = ({ className, currentUserProfile, ...rest }) => {
             gutterBottom
             variant="h3"
           >
-            {currentUserProfile.first_name + " " + currentUserProfile.middle_name + " " + currentUserProfile.last_name}
+            {
+            (currentUserProfile.first_name && currentUserProfile.last_name) ?
+            <>{currentUserProfile.first_name + " " + currentUserProfile.middle_name + " " + currentUserProfile.last_name}</> 
+            :
+            <ClipLoader loading={true} size={150} />}
           </Typography>
           <Typography
             color="textPrimary"

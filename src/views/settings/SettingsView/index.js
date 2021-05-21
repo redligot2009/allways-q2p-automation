@@ -32,9 +32,13 @@ const SettingsView = () => {
 
   const {profile: currentUserProfile} = useSelector((state)=>state.auth)
 
-  useEffect(()=>{
+  async function fetchData () {
     dispatch(getProfile())
     .then(response => console.log(currentUserProfile))
+  }
+
+  useEffect(()=>{
+    fetchData();
   },[dispatch])
 
   // TODO: Add modal for confirm password upon hitting save details
@@ -53,13 +57,13 @@ const SettingsView = () => {
             item
             xs={12}
           >
-            <Profile currentUserProfile={currentUserProfile}/>
+            <Profile currentUserProfile={currentUserProfile} fetchData={fetchData}/>
           </Grid>
           <Grid
             item
             xs={12}
           >
-            <ProfileDetails currentUserProfile={currentUserProfile} />
+            <ProfileDetails currentUserProfile={currentUserProfile} fetchData={fetchData} />
           </Grid>
         </Grid>
         

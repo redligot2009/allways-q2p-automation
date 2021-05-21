@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const QuotationCardComputed = ({ className, quotation, ...rest }) => {
+const QuotationCardComputed = ({ className, quotation, fetchData, ...rest }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -82,7 +82,7 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
     return () => {
       source.cancel();
     }
-  }, [])
+  }, [source])
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
@@ -318,6 +318,7 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
                     // console.log("YO!");
                     // console.log(quotation);
                     dispatch(approveQuotation(quotation.id,source.token));
+                    fetchData();
                     // props.fetchData();
                   }}
                 >
@@ -341,6 +342,7 @@ const QuotationCardComputed = ({ className, quotation, ...rest }) => {
                     .catch((error)=>{
 
                     })
+                    fetchData()
                   }}
                 >
                   CREATE JOB ORDER

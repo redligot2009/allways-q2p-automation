@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const ProfileDetails = ({ className, currentUserProfile, ...rest }) => {
+const ProfileDetails = ({ className, currentUserProfile, fetchData, ...rest }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const source = axios.CancelToken.source();
@@ -39,6 +39,7 @@ const ProfileDetails = ({ className, currentUserProfile, ...rest }) => {
       onSubmit={(values,actions)=>{
         dispatch(updateProfile(values.user,values,source.token))
         .then((response)=>{
+          fetchData()
           console.log("SUCCESS")
         })
         .catch((error)=>{

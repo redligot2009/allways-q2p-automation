@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const JobOrderCard = ({ className, jobOrder, currentUserProfile, ...rest }) => {
+const JobOrderCard = ({ className, jobOrder, currentUserProfile, fetchData, ...rest }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();

@@ -54,7 +54,7 @@ const OrderTrackingList = () => {
   const [initialFetchDataFinished, setInitialFetchDataFinished]  = useState(false);
 
   async function fetchData () {
-    try
+    if(currentUserProfile)
     {
       switch(currentUserProfile.job_position)
       {
@@ -76,23 +76,17 @@ const OrderTrackingList = () => {
           dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
       }
     }
-    catch (error)
-    {
-      console.log(error)
-    }
   }
 
   useEffect(()=>{
     dispatch(getProfile())
-    .then((response) =>
-      {
-        fetchData()
-        setInitialFetchDataFinished(true)
-      }
-    )
+    .then(response=>{
+      console.log(currentUserProfile);  
+      fetchData();
+      setInitialFetchDataFinished(true)
+    })
     .catch((error)=>{
-      console.log("Error fetching user profile");
-      source.cancel();
+      console.log(error);
     })
     // console.log(inProgressQuotations)
     // console.log(computedQuotations)
@@ -171,6 +165,7 @@ const OrderTrackingList = () => {
                   <QuotationCardComputed
                     className={classes.productCard}
                     quotation={quotation}
+                    fetchData={fetchData}
                   />
                   </Box>
                 </Grid>
@@ -202,6 +197,7 @@ const OrderTrackingList = () => {
                       className={classes.JobOrderCard}
                       jobOrder={jobOrder}
                       currentUserProfile={currentUserProfile}
+                      fetchData={fetchData}
                     />
                   </Box>
                 </Grid>
