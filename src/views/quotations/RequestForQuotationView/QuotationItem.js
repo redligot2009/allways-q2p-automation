@@ -116,7 +116,7 @@ const QuotationItem = (props) => {
                                 value={props.values.quotation.items[index].lamination}
                                 variant="outlined"
                             >
-                                {props.laminationTypes.map((laminationType, index)=>{
+                                {props.laminationTypes && props.laminationTypes.map((laminationType, index)=>{
                                     return (
                                         <MenuItem value={laminationType.id}>
                                             {laminationType.lamination_type}
@@ -138,7 +138,7 @@ const QuotationItem = (props) => {
                                 value={props.values.quotation.items[index].binding}
                                 variant="outlined"
                             >
-                                {props.bindingTypes.map((bindingType, index)=>{
+                                {props.bindingTypes && props.bindingTypes.map((bindingType, index)=>{
                                     return (
                                         <MenuItem value={bindingType.id}>
                                             {bindingType.binding_type}
@@ -160,7 +160,7 @@ const QuotationItem = (props) => {
                                 value={props.values.quotation.items[index].paper}
                                 variant="outlined"
                             >
-                                {props.paperTypes.map((paperType, index)=>{
+                                {props.paperTypes && props.paperTypes.map((paperType, index)=>{
                                     return (
                                         <MenuItem value={paperType.id}>
                                             {paperType.paper_type}
