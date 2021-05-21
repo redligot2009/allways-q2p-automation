@@ -46,7 +46,7 @@ export const createNewEmployee = (account, cancelToken) => (dispatch) => {
 
 export const updateAccountProfile = (username, account, cancelToken) => (dispatch) => {
 
-  return AuthService.updateProfile(username.account, cancelToken)
+  return AuthService.updateProfile(username, account, cancelToken)
     .then((response)=>{
       dispatch({
         type: PROFILE_UPDATE_SUCCESS

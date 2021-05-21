@@ -1,4 +1,5 @@
 import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   Box,
   Container,
@@ -9,6 +10,10 @@ import Page from 'src/components/Page';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
 import Password from './Password';
+
+import {updateAccountProfile} from '../../../_actions/users';
+
+import {getProfile} from '../../../_actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
 // TODO: Make fully functional for testing tomorrow
 const SettingsView = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const {profile: currentUserProfile} = useSelector((state)=>state.auth)
 
   return (
     <Page
@@ -34,23 +42,19 @@ const SettingsView = () => {
         >
           <Grid
             item
-            lg={4}
-            md={6}
             xs={12}
           >
             <Profile />
           </Grid>
           <Grid
             item
-            lg={8}
-            md={6}
             xs={12}
           >
             <ProfileDetails />
           </Grid>
         </Grid>
         <Box mt={3}>
-          <Password />
+          {/* <Password /> */}
         </Box>
       </Container>
     </Page>

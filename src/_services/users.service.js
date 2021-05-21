@@ -10,5 +10,5 @@ const getEmployees = (jobPosition,cancelToken) => {
 // eslint-disable-next-line
 export default 
 {
-    getEmployees
+    getEmployees,
 }
