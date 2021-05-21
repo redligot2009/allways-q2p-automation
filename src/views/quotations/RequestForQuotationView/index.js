@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik, Form, FieldArray, getIn } from 'formik';
+import ClipLoader from "react-spinners/ClipLoader";
 import {
     Grid,
     Row,
@@ -172,7 +173,7 @@ const RequestForQuotation = (props) => {
         }
     }, [])
     // console.log(quoteDetails)
-    return (fetched &&
+    return ((fetched && laminationTypes && bindingTypes && paperTypes && currentUserProfile) ?
         <Page
           className={classes.root}
           title="Request for Quotation"
@@ -417,7 +418,10 @@ const RequestForQuotation = (props) => {
                     </Formik>
                 </Container>
             </Box>
-        </Page>
+        </Page>:
+        <>
+            <ClipLoader loading={true} size={150} />
+        </>
     );
 }
 
