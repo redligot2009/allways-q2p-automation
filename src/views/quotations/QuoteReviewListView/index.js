@@ -81,6 +81,7 @@ const QuotationReviewList = () => {
                       <QuotationCard 
                         className={classes.quotationCard} 
                         quotation={quotation}
+                        fetchData={fetchData}
                       />
                     </Box>
                   </Grid>
@@ -98,6 +99,7 @@ const QuotationReviewList = () => {
                       <QuotationCardComputed
                         className={classes.quotationCard}
                         quotation={quotation}
+                        fetchData={fetchData}
                       />
                     </Box>
                   </Grid>
@@ -115,6 +117,7 @@ const QuotationReviewList = () => {
                       <QuotationCardComputed
                         className={classes.quotationCard}
                         quotation={quotation}
+                        fetchData={fetchData}
                       />
                     </Box>
                   </Grid>

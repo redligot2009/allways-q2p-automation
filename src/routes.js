@@ -38,7 +38,7 @@ function Routes() {
           fetchProfileFinished.current = true;
         })
         .catch((error)=>{
-          if(currentUserProfile !== null)
+          if(currentUserProfile === null)
           {
             dispatch(logout())
           }

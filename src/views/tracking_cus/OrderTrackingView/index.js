@@ -135,6 +135,7 @@ const OrderTrackingList = () => {
                   <QuotationCardComputed
                     className={classes.productCard}
                     quotation={quotation}
+                    fetchData={fetchData}
                   />
                   </Box>
                 </Grid>
@@ -144,7 +145,7 @@ const OrderTrackingList = () => {
           ['C'], 
           currentUserProfile.job_position
           )}
-          {initialFetchDataFinished && currentUserProfile && computedQuotations &&
+          {computedQuotations &&
           limitVisibility(
           <Grid item xs={12} md={4}>
             <Typography
@@ -175,7 +176,7 @@ const OrderTrackingList = () => {
           ['C', 'AM', 'O'], 
           currentUserProfile.job_position
           )}
-          {initialFetchDataFinished && currentUserProfile && pendingJobOrders &&
+          {pendingJobOrders &&
           limitVisibility(
           <Grid item xs={12} md={4}>
             <Typography
@@ -207,7 +208,7 @@ const OrderTrackingList = () => {
           ['O','AM',],
           currentUserProfile.job_position,
           )}
-          {initialFetchDataFinished && currentUserProfile && inProgressJobOrders && 
+          {inProgressJobOrders && 
           limitVisibility(
             <Grid item xs={12} md={4}>
               <Typography
@@ -248,7 +249,7 @@ const OrderTrackingList = () => {
                 Out for Delivery
               </Typography>
                 <Box mt={2}>
-                  {initialFetchDataFinished && outForDeliveryJobOrders && currentUserProfile &&
+                  { outForDeliveryJobOrders &&
                   outForDeliveryJobOrders.map((jobOrder) => 
                   (jobOrder &&
                     <Grid
