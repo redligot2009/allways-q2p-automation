@@ -9,7 +9,7 @@ import {
 import Page from 'src/components/Page';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
-import Password from './Password';
+import ConfirmPassword from './ConfirmPassword';
 
 import {updateAccountProfile} from '../../../_actions/users';
 
@@ -29,7 +29,7 @@ const SettingsView = () => {
   const dispatch = useDispatch();
 
   const {profile: currentUserProfile} = useSelector((state)=>state.auth)
-
+  // TODO: Add modal for confirm password upon hitting save details
   return (
     <Page
       className={classes.root}
@@ -53,9 +53,7 @@ const SettingsView = () => {
             <ProfileDetails />
           </Grid>
         </Grid>
-        <Box mt={3}>
-          {/* <Password /> */}
-        </Box>
+        
       </Container>
     </Page>
   );
