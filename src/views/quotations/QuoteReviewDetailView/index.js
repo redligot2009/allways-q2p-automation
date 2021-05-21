@@ -57,19 +57,6 @@ const QuoteReviewDetail = (props) => {
 
     const [openDialog, setOpenDialog] = useState(false);
 
-    const handleOpenDialog = () => 
-    {
-        setOpenDialog(true)
-    }
-
-    const handleCloseDialog = () => {
-        setOpenDialog(false)
-    }
-
-    const handleGoBack = () => {
-        navigate('/app/quote/review')
-    }
-
     // const [quoteDetails, setQuoteDetails] = useState(null);
 
     const {currentQuotation : quoteDetails} = useSelector((state)=>state.quotation)
@@ -116,6 +103,22 @@ const QuoteReviewDetail = (props) => {
         // console.log(quoteDetails);
     }
 
+
+    const handleOpenDialog = () => 
+    {
+        fetchData();
+        setOpenDialog(true)
+    }
+
+    const handleCloseDialog = () => {
+        fetchData();
+        setOpenDialog(false)
+    }
+
+    const handleGoBack = () => {
+        navigate('/app/quote/review')
+    }
+
     function handleUpdateQuotation (quotation) {
         return dispatch(updateQuotation(quotation,source.token))
     }
@@ -128,7 +131,7 @@ const QuoteReviewDetail = (props) => {
             source.cancel();
             handleGoBack();
         }
-    }, [])
+    }, [dispatch])
 
     // useInterval(()=>{
     //     fetchData();
@@ -164,6 +167,7 @@ const QuoteReviewDetail = (props) => {
                             // console.log(values.quotation);
                             if(values.finishComputing)
                             {
+                                fetchData();
                                 values.quotation.approval_status="computed";
                                 await handleUpdateQuotation(values.quotation)
                                 .then(response=>{
@@ -176,6 +180,7 @@ const QuoteReviewDetail = (props) => {
                             }
                             else
                             {
+                                fetchData();
                                 await handleUpdateQuotation(values.quotation)
                                 .then((response)=>{
                                     toast.success("Quotation changes successfully saved!")

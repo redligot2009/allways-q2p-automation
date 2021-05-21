@@ -83,14 +83,11 @@ const OrderTrackingList = () => {
   }
 
   useEffect(()=>{
-    async function initialFetchData () {
-      await fetchData()
-    }
-    
     dispatch(getProfile())
     .then((response) =>
       {
-        initialFetchData()
+        fetchData()
+        setInitialFetchDataFinished(true)
       }
     )
     .catch((error)=>{
@@ -103,32 +100,10 @@ const OrderTrackingList = () => {
     // console.log(pendingJobOrders)
     // console.log(outForDeliveryJobOrders)
     return () => {
+      setInitialFetchDataFinished(false);
       source.cancel();
     }
-  },[])
-
-  useInterval(()=>{
-    async function reFetchData (){
-      // console.log(currentUserProfile)
-      try
-      {
-        await fetchData()
-        setInitialFetchDataFinished(true);
-      }
-      catch(error)
-      {
-        console.log(error)
-        source.cancel();
-      }
-      // console.log(inProgressQuotations)
-      // console.log(computedQuotations)
-      // console.log(inProgressJobOrders)
-      // console.log(pendingJobOrders)
-      // console.log(outForDeliveryJobOrders)
-    }
-    reFetchData()
-  },3000);
-
+  },[dispatch])
 
   return ( (initialFetchDataFinished && currentUserProfile) ?
     <Page

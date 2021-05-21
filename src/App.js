@@ -17,17 +17,14 @@ import axios from 'axios';
 const App = () => {
   const dispatch = useDispatch();
   const source = axios.CancelToken.source()
-  useInterval(()=>{
-    dispatch(getProfile(source.token))
-  }, 150000)
-
+  
   useEffect(() => {
     dispatch(getProfile(source.token))
     // TODO: dispatch actions to fetch paper, lamination, and binding types.
     return () => {
       source.cancel();
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <ThemeProvider theme={theme}>

@@ -30,23 +30,6 @@ function Routes() {
 
   const fetchProfileFinished = useRef(false);
   // TODO: Get rid of useInterval. Make functional with only one initial call.
-  useInterval(() => { 
-      async function fetchProfile () {
-        await dispatch(getProfile())
-          .then((response)=>{
-            fetchProfileFinished.current = true;
-          })
-          .catch((error)=>{
-            if(currentUserProfile !== null)
-            {
-              dispatch(logout())
-            }
-            fetchProfileFinished.current = true;
-          })
-      }
-      fetchProfile();
-    }
-    , 15000);
 
   useEffect(()=>{
     async function initialFetchProfile () {
@@ -63,7 +46,7 @@ function Routes() {
         })
     }
     initialFetchProfile()
-  }, [])
+  }, [dispatch])
   
   // console.log("Found profile, ", currentUserProfile);
 

@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 
 import { Formik, Form, FieldArray, getIn } from 'formik';
+import ClipLoader from "react-spinners/ClipLoader";
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { updateProfile } from '../../../_actions/auth'
@@ -31,7 +32,7 @@ const ProfileDetails = ({ className, currentUserProfile, ...rest }) => {
       source.cancel();
     }
   })
-  return (currentUserProfile &&
+  return (currentUserProfile ?
     <Formik
       enableReinitialize={true}
       initialValues={currentUserProfile}
@@ -64,7 +65,7 @@ const ProfileDetails = ({ className, currentUserProfile, ...rest }) => {
         isSubmitting,
         touched,
         values
-      }) => (
+      }) => (currentUserProfile &&
         <form
           className={clsx(classes.root, className)}
           {...rest}
@@ -206,7 +207,10 @@ const ProfileDetails = ({ className, currentUserProfile, ...rest }) => {
           </Card>
         </form>
       )}
-    </Formik>
+    </Formik>:
+      <>
+        <ClipLoader loading={true} size={50} />
+      </>
   );
 };
 

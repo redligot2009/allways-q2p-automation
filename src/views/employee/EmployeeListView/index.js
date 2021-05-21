@@ -63,11 +63,7 @@ const EmployeeList = () => {
 
   useEffect(()=>{
     handleFetchData();
-  },[])
-
-  useInterval(()=>{
-    handleFetchData();
-  }, 2000);
+  },[dispatch])
 
   const [openAddEmployeeDialog, setOpenAddEmployeeDialog] = useState(false);
   const [employeeType, setEmployeeType] = useState('O');
@@ -85,6 +81,7 @@ const EmployeeList = () => {
             setOpenAddEmployeeDialog(false);
           }}
           setOpenAddEmployeeDialog={setOpenAddEmployeeDialog}
+          handleFetchData={handleFetchData}
         />
         <Typography
           className={classes.name}

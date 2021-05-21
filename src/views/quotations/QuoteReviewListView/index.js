@@ -38,29 +38,27 @@ const QuotationReviewList = () => {
   const { approvedQuotations : approved} = useSelector((state)=>state.quotation);
   const source = axios.CancelToken.source()
   // TODO: Do not make fetch if current fetch is still ongoing. Possibly remove useInterval and just call once instead.
-  useInterval(() => {
-    async function fetchData(){
-      try
-      {
-        dispatch(getComputedQuotations("",source.token));
-        dispatch(getInProgressQuotations("",source.token));
-        dispatch(getApprovedQuotations("",source.token))
-        // console.log(in_progress);
-        // console.log(computed);
-      }
-      catch(error)
-      {
-        // console.log(error);
-      }
+  async function fetchData(){
+    try
+    {
+      dispatch(getComputedQuotations("",source.token));
+      dispatch(getInProgressQuotations("",source.token));
+      dispatch(getApprovedQuotations("",source.token))
+      // console.log(in_progress);
+      // console.log(computed);
     }
-    fetchData();
-  },3000)
+    catch(error)
+    {
+      // console.log(error);
+    }
+  }
   //computed, in_progress, approved
   useEffect(() => {
+    fetchData();
     return () => {
       source.cancel();
     }
-  }, [])
+  }, [dispatch])
   return ((in_progress && computed && approved)?
     <Page
       className={classes.root}

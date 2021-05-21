@@ -86,6 +86,7 @@ const AddEmployeeDialog = (props) => {
               .then((response)=>{
                 toast.success("New employee successfully created!");
                 props.setOpenAddEmployeeDialog(false)
+                props.handleFetchData()
               })
               .catch((error)=>{
                 // console.log("What the fuck is this", values)

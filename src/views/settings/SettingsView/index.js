@@ -35,12 +35,8 @@ const SettingsView = () => {
   useEffect(()=>{
     dispatch(getProfile())
     .then(response => console.log(currentUserProfile))
-  },[])
+  },[dispatch])
 
-  useInterval(()=>{
-    dispatch(getProfile())
-    .then(response => console.log(currentUserProfile))
-  }, 5000)
   // TODO: Add modal for confirm password upon hitting save details
   // TODO: Implement API updating of user info.
   return (currentUserProfile && 
