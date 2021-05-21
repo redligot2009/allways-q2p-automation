@@ -37,6 +37,9 @@ import OutForDelivery from './overviews/jobOrders/OutForDelivery';
 import {getComputedQuotations, getInProgressQuotations} 
 from '../../../_actions/quotation';
 
+import {logout}
+from '../../../_actions/auth';
+
 import {getInProductionJobOrders, getPendingJobOrders} 
 from '../../../_actions/jobOrder';
 
@@ -76,11 +79,37 @@ const Dashboard = () => {
       dispatch(getPendingJobOrders(source.token))
     }
     fetchData();
+    if(currentUserProfile === null)
+    {
+      dispatch(logout())
+    }
+    return () => {
+      source.cancel();
+    }
+  },[dispatch])
+  /*
+  const { profile: currentUserProfile } = useSelector((state) => state.auth)
+  const source = axios.CancelToken.source()
+
+  useEffect(()=>{
+    async function fetchProfile () {
+      await dispatch(getProfile(source.token))
+      .then((response)=>{
+        if(currentUserProfile === null)
+        {
+          dispatch(logout())
+        }
+      })
+      .catch((error)=>{
+        
+      })
+    }
+    fetchProfile();
     return () => {
       source.cancel();
     }
   },[])
-
+   */
   return (currentUserProfile ? 
     <Page
       className={classes.root}

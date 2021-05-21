@@ -40,7 +40,7 @@ const LoginView = (props) => {
     async function fetchProfile () {
       await dispatch(getProfile(source.token))
       .then((response)=>{
-        if(currentUserProfile !== null)
+        if(currentUserProfile === null)
         {
           dispatch(logout())
         }
