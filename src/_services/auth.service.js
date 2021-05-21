@@ -64,19 +64,47 @@ const getProfile = (cancelToken) => {
 
 const updateProfile = (username, updatedAccount, cancelToken) => {
   let user = getFilteredObject(updatedAccount,[
+    "id",
     "username",
     "email",
     "first_name",
     "last_name"
   ])
+  user.id = updatedAccount.user_id
+  user.username = username
   let account = getFilteredObject(updatedAccount,[
+    "id",
     "middle_name",
     "shipping_address",
     "mobile_number",
   ])
-  return axios.patch(`auth/users/${updatedAccount.user_id}`, user,{cancelToken: cancelToken})
+  return axios.put(`auth/users/${updatedAccount.user_id}/`, user,{ headers: authHeader(), cancelToken: cancelToken })
     .then((response)=>{
-      axios.put(`api/accounts/${user.username}/`,account,{cancelToken: cancelToken})
+      console.log(authHeader());
+      console.log(user)
+      console.log(account)
+      return axios.put(`api/accounts/${updatedAccount.user}/`,account,{cancelToken: cancelToken})
+      .then(response=>{
+        console.log(authHeader());
+        console.log(user)
+        console.log(account)
+        return response;
+      })
+      .catch((error)=>{
+        console.log(authHeader());
+        console.log(user)
+        console.log(account)
+        console.log(error);
+        return error;
+      })
+      // return response;
+    })
+    .catch((error)=>{
+      console.log(authHeader());
+      console.log(user)
+      console.log(account)
+      console.log(error);
+      return error;
     });
 }
 

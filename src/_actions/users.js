@@ -44,12 +44,13 @@ export const createNewEmployee = (account, cancelToken) => (dispatch) => {
       );
 }
 
-export const updateAccountProfile = (username, account, cancelToken) => (dispatch) => {
+export const updateAccountProfile = (username, updatedAccount, cancelToken) => (dispatch) => {
 
-  return AuthService.updateProfile(username, account, cancelToken)
+  return AuthService.updateProfile(username, updatedAccount, cancelToken)
     .then((response)=>{
       dispatch({
-        type: PROFILE_UPDATE_SUCCESS
+        type: PROFILE_UPDATE_SUCCESS,
+        payload: {profile: response.data},
       })
       return Promise.resolve();
     })

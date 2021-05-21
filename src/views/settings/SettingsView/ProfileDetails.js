@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
@@ -15,19 +15,35 @@ import {
 
 import { Formik, Form, FieldArray, getIn } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { updateProfile } from '../../../_actions/auth'
+import axios from 'axios';
 const useStyles = makeStyles(() => ({
   root: {}
 }));
 
 const ProfileDetails = ({ className, currentUserProfile, ...rest }) => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
+  const source = axios.CancelToken.source();
+  useEffect(()=>{
+    return ()=>{
+      source.cancel();
+    }
+  })
   return (currentUserProfile &&
     <Formik
       enableReinitialize={true}
       initialValues={currentUserProfile}
       onSubmit={(values,actions)=>{
-        
+        dispatch(updateProfile(values.user,values,source.token))
+        .then((response)=>{
+          console.log("SUCCESS")
+        })
+        .catch((error)=>{
+          console.log(error)
+          console.log(values);
+        })
       }}
       validationSchema={
         Yup.object().shape({
@@ -50,8 +66,6 @@ const ProfileDetails = ({ className, currentUserProfile, ...rest }) => {
         values
       }) => (
         <form
-          autoComplete="off"
-          noValidate
           className={clsx(classes.root, className)}
           {...rest}
         >
@@ -184,6 +198,7 @@ const ProfileDetails = ({ className, currentUserProfile, ...rest }) => {
               <Button
                 color="primary"
                 variant="contained"
+                onClick={handleSubmit}
               >
                 Save details
               </Button>

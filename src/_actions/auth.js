@@ -6,6 +6,8 @@ import {
     LOGOUT,
     PROFILE_FOUND,
     PROFILE_NOT_FOUND,
+    PROFILE_UPDATE_SUCCESS,
+    PROFILE_UPDATE_FAIL,
   } from "./types";
   
 import AuthService from "../_services/auth.service";
@@ -63,6 +65,25 @@ export const getProfile = () => (dispatch) => {
       (error) => {
         dispatch({
           type: PROFILE_NOT_FOUND,
+        });
+        return Promise.reject()
+      }
+    );
+}
+
+export const updateProfile = (username, updatedAccount, cancelToken) => (dispatch) => {
+  return AuthService.updateProfile(username,updatedAccount, cancelToken)
+    .then(
+      (response)=>{
+        dispatch({
+          type: PROFILE_UPDATE_SUCCESS,
+          payload: { profile: response.data },
+        });
+        return Promise.resolve()
+      },
+      (error) => {
+        dispatch({
+          type: PROFILE_UPDATE_FAIL,
         });
         return Promise.reject()
       }
