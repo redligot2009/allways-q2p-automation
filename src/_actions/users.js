@@ -44,7 +44,7 @@ export const createNewEmployee = (account, cancelToken) => (dispatch) => {
       );
 }
 
-export const updateEmployeeProfile = (username, account, cancelToken) => (dispatch) => {
+export const updateAccountProfile = (username, account, cancelToken) => (dispatch) => {
 
   return AuthService.updateProfile(username.account, cancelToken)
     .then((response)=>{

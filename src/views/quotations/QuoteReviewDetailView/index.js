@@ -23,6 +23,7 @@ import {
     Dialog, DialogContent, DialogTitle
 } from '@material-ui/core';
 import Page from 'src/components/Page';
+import {useInterval} from 'src/_helpers/hooks';
 import {format} from 'date-fns';
 
 import { useDispatch, useSelector } from "react-redux";
@@ -89,19 +90,19 @@ const QuoteReviewDetail = (props) => {
             await dispatch(getQuotationById(location.state.id,source.token))
             console.log(quoteDetails);
             // TODO: Convert these into Redux actions. Remove awaits.
-            await axios.get('api/papers', {cancelToken: source.token})
+            axios.get('api/papers', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setPaperTypes(response.data)
                 })
 
-            await axios.get('api/laminations',{cancelToken: source.token})
+            axios.get('api/laminations',{cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setLaminationTypes(response.data)
                 })
             
-            await axios.get('api/bindings', {cancelToken: source.token})
+             axios.get('api/bindings', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setBindingTypes(response.data)
@@ -128,8 +129,18 @@ const QuoteReviewDetail = (props) => {
             handleGoBack();
         }
     }, [])
+
+    useInterval(()=>{
+        fetchData();
+        console.log(quoteDetails);
+        return () =>{
+            source.cancel();
+            handleGoBack();
+        }
+    }, 3000);
     // console.log(quoteDetails)
     return ( (fetched && quoteDetails && laminationTypes && paperTypes && bindingTypes) ?
+        
         <Page
           className={classes.root}
           title="Quote Specifications Review"

@@ -39,7 +39,7 @@ const createQuotation = (quotation, cancelToken) => {
 
 const retrieveQuotation = (id, cancelToken) => {
     console.log(`api/quotations/${id}`)
-    const quoteResult = axios.get(`api/quotations/${id}`,{cancelToken: cancelToken})
+    const quoteResult = axios.get(`api/quotations/${id}/`,{cancelToken: cancelToken})
     return quoteResult;
 }
 
