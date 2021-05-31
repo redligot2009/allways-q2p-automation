@@ -35,7 +35,7 @@ import QuotationItem from './QuotationItem';
 
 import { toast } from 'react-toastify';
 
-import {uniqueId} from 'lodash';
+import {isNull, uniqueId} from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -135,22 +135,31 @@ const RequestForQuotation = (props) => {
             // const quoteResult = await axios.get(`api/quotations/${location.state.id}`)
             console.log(quoteDetails);
             // TODO: Convert these into Redux actions.
-            await axios.get('api/papers', {cancelToken: source.token})
+            await axios.get('api/papers/', {cancelToken: source.token})
                 .then((response)=>{
-                    // console.log(response.data)
+                    console.log(response.data)
                     setPaperTypes(response.data)
                 })
+                .catch((error)=>{
+                    setPaperTypes([])
+                })
 
-            await axios.get('api/laminations',{cancelToken: source.token})
+            await axios.get('api/laminations/',{cancelToken: source.token})
                 .then((response)=>{
-                    // console.log(response.data)
+                    console.log(response.data)
                     setLaminationTypes(response.data)
                 })
+                .catch((error)=>{
+                    setLaminationTypes([])
+                })
             
-            await axios.get('api/bindings', {cancelToken: source.token})
+            await axios.get('api/bindings/', {cancelToken: source.token})
                 .then((response)=>{
-                    // console.log(response.data)
+                    console.log(response.data)
                     setBindingTypes(response.data)
+                })
+                .catch((error)=>{
+                    setBindingTypes([])
                 })
         }
         catch(error)
@@ -377,7 +386,7 @@ const RequestForQuotation = (props) => {
                                         <FieldArray name="quotation.items">
                                             {
                                                 ({ push, remove }) => {
-                                                    return ( (laminationTypes && paperTypes && bindingTypes) ?
+                                                    return ( (laminationTypes !== null && paperTypes !== null && bindingTypes !== null) ?
                                                     <QuotationItem
                                                         handleBlur={handleBlur}
                                                         handleChange={handleChange}
@@ -387,7 +396,7 @@ const RequestForQuotation = (props) => {
                                                         laminationTypes={laminationTypes}
                                                         paperTypes={paperTypes}
                                                         bindingTypes={bindingTypes}
-                                                    /> : <></>
+                                                    /> : null
                                                     )
                                                 }}
                                         </FieldArray>

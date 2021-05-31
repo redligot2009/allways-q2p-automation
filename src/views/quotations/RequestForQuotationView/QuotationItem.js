@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
 const QuotationItem = (props) => {
-    return ( props.values.quotation &&
+    return ( (props.values.quotation) ?
         <Container style={{maxHeight:540,overflow:'auto'}} mb={2}>
             {props.values.quotation.items.map(
                 (item,index) => 
@@ -116,13 +116,13 @@ const QuotationItem = (props) => {
                                 value={props.values.quotation.items[index].lamination}
                                 variant="outlined"
                             >
-                                {props.laminationTypes && props.laminationTypes.map((laminationType, index)=>{
+                                {props.laminationTypes !== null ? (props.laminationTypes.map((laminationType, index)=>{
                                     return (
                                         <MenuItem value={laminationType.id}>
                                             {laminationType.lamination_type}
                                         </MenuItem>
                                     )
-                                })}
+                                })) : null}
                                 <MenuItem value={null}>
                                     None
                                 </MenuItem>
@@ -138,13 +138,13 @@ const QuotationItem = (props) => {
                                 value={props.values.quotation.items[index].binding}
                                 variant="outlined"
                             >
-                                {props.bindingTypes && props.bindingTypes.map((bindingType, index)=>{
+                                {props.bindingTypes !== null ? (props.bindingTypes.map((bindingType, index)=>{
                                     return (
                                         <MenuItem value={bindingType.id}>
                                             {bindingType.binding_type}
                                         </MenuItem>
                                     )
-                                })}
+                                })):null}
                                 <MenuItem value={null}>
                                     None
                                 </MenuItem>
@@ -160,13 +160,13 @@ const QuotationItem = (props) => {
                                 value={props.values.quotation.items[index].paper}
                                 variant="outlined"
                             >
-                                {props.paperTypes && props.paperTypes.map((paperType, index)=>{
+                                {props.paperTypes !== null ? (props.paperTypes.map((paperType, index)=>{
                                     return (
                                         <MenuItem value={paperType.id}>
                                             {paperType.paper_type}
                                         </MenuItem>
                                     )
-                                })}
+                                })) : null }
                                 <MenuItem value={null}>
                                     None
                                 </MenuItem>
@@ -197,7 +197,7 @@ const QuotationItem = (props) => {
                 Add new item
             </Button>
         </Container>
-    )
+    : null) 
 }
 
 export default QuotationItem;

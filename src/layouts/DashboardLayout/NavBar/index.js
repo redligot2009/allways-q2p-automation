@@ -185,6 +185,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
 
   useEffect(() => {
+    dispatch(getProfile())
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
