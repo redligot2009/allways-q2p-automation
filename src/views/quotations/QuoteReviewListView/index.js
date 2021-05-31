@@ -58,7 +58,7 @@ const QuotationReviewList = () => {
     return () => {
       source.cancel();
     }
-  }, [dispatch])
+  }, [])
   return ((in_progress && computed && approved)?
     <Page
       className={classes.root}

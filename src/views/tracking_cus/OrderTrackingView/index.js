@@ -54,52 +54,56 @@ const OrderTrackingList = () => {
   const [initialFetchDataFinished, setInitialFetchDataFinished]  = useState(false);
 
   async function fetchData () {
-    if(currentUserProfile)
+    try
     {
-      switch(currentUserProfile.job_position)
+      if(currentUserProfile)
       {
-        case 'O':
-          dispatch(getPendingJobOrders(source.token))
-          dispatch(getInProductionJobOrders("","",source.token))
-          break;
-        case 'AM':
-          dispatch(getPendingJobOrders(source.token))
-          dispatch(getInProductionJobOrders("","",source.token))
-          break;
-        case 'P':
-          break;
-        case 'D':
-          break;
-        default:
-          dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
-          dispatch(getComputedQuotations(currentUserProfile.id,source.token))
-          dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
+        switch(currentUserProfile.job_position)
+        {
+          case 'O':
+              dispatch(getPendingJobOrders(source.token))
+              dispatch(getInProductionJobOrders("","",source.token))
+            break;
+          case 'AM':
+              dispatch(getPendingJobOrders(source.token))
+              dispatch(getInProductionJobOrders("","",source.token))
+            break;
+          case 'P':
+            break;
+          case 'D':
+            break;
+          default:
+              dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
+              dispatch(getComputedQuotations(currentUserProfile.id,source.token))
+              dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
+            
+        }
       }
+    }
+    catch(error)
+    {
+      console.log(error);
     }
   }
 
   useEffect(()=>{
     dispatch(getProfile())
-    .then(response=>{
-      console.log(currentUserProfile);  
-      fetchData();
-      setInitialFetchDataFinished(true)
-    })
-    .catch((error)=>{
-      console.log(error);
-    })
+    return () => {
+      setInitialFetchDataFinished(false);
+      source.cancel();
+    }
+  },[])
+
+  useEffect(()=>{
+    fetchData();
     // console.log(inProgressQuotations)
     // console.log(computedQuotations)
     // console.log(inProgressJobOrders)
     // console.log(pendingJobOrders)
     // console.log(outForDeliveryJobOrders)
-    return () => {
-      setInitialFetchDataFinished(false);
-      source.cancel();
-    }
-  },[dispatch])
+  },[currentUserProfile])
 
-  return ( (initialFetchDataFinished && currentUserProfile) ?
+  return ( (currentUserProfile) ?
     <Page
       className={classes.root}
       title="Order Tracking"

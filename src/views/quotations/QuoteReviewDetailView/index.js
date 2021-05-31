@@ -77,19 +77,19 @@ const QuoteReviewDetail = (props) => {
             await dispatch(getQuotationById(location.state.id,source.token))
             console.log(quoteDetails);
             // TODO: Convert these into Redux actions. Remove awaits.
-            axios.get('api/papers', {cancelToken: source.token})
+            axios.get('api/papers/', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setPaperTypes(response.data)
                 })
 
-            axios.get('api/laminations',{cancelToken: source.token})
+            axios.get('api/laminations/',{cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setLaminationTypes(response.data)
                 })
             
-             axios.get('api/bindings', {cancelToken: source.token})
+             axios.get('api/bindings/', {cancelToken: source.token})
                 .then((response)=>{
                     // console.log(response.data)
                     setBindingTypes(response.data)

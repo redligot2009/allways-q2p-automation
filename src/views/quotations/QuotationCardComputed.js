@@ -79,10 +79,11 @@ const QuotationCardComputed = ({ className, quotation, fetchData, ...rest }) => 
   }
 
   useEffect(() => {
+    fetchData()
     return () => {
       source.cancel();
     }
-  }, [source])
+  }, [])
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
