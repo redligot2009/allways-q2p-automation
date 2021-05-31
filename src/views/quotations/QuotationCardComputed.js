@@ -79,7 +79,7 @@ const QuotationCardComputed = ({ className, quotation, fetchData, ...rest }) => 
   }
 
   useEffect(() => {
-    fetchData()
+    fetchData(dispatch)
     return () => {
       source.cancel();
     }
@@ -318,8 +318,9 @@ const QuotationCardComputed = ({ className, quotation, fetchData, ...rest }) => 
                   onClick={async ()=>{
                     // console.log("YO!");
                     // console.log(quotation);
-                    dispatch(approveQuotation(quotation.id,source.token));
-                    fetchData();
+                    await dispatch(approveQuotation(quotation.id,source.token));
+                    await fetchData(dispatch);
+                    navigate('/app/tracking',{replace:true})
                     // props.fetchData();
                   }}
                 >
@@ -335,15 +336,16 @@ const QuotationCardComputed = ({ className, quotation, fetchData, ...rest }) => 
                   variant="contained" 
                   color="primary" 
                   md={3}
-                  onClick={()=>{
-                    dispatch(archiveQuotation(quotation.id, source.token))
+                  onClick={async ()=>{
+                    await dispatch(createJobOrder(quotation,currentUserProfile,source.token))
                     .then((response)=>{
-                      dispatch(createJobOrder(currentQuotation,currentUserProfile,source.token))
+                      dispatch(archiveQuotation(quotation.id, source.token))
                     })
                     .catch((error)=>{
 
                     })
-                    fetchData()
+                    await fetchData(dispatch)
+                    navigate('/app/quote/review',{replace:true})
                   }}
                 >
                   CREATE JOB ORDER

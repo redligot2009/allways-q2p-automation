@@ -20,7 +20,7 @@ import { getInProductionJobOrders, getPendingJobOrders } from '../../../_actions
 import { useInterval } from "../../../_helpers/hooks"
 import { limitVisibility } from "../../../_helpers";
 import { getProfile } from "../../../_actions/auth";
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +41,8 @@ const OrderTrackingList = () => {
   const [products] = useState(data);
 
   const dispatch = useDispatch();
-  const source = axios.CancelToken.source()
+  const location = useLocation();
+  const source = axios.CancelToken.source();
 
   const {profile : currentUserProfile} = useSelector(state=>state.auth)
   const { inProgressQuotations } = useSelector (state=>state.quotation);
@@ -53,7 +54,7 @@ const OrderTrackingList = () => {
 
   const [initialFetchDataFinished, setInitialFetchDataFinished]  = useState(false);
 
-  async function fetchData () {
+  async function fetchData (dispatch) {
     try
     {
       if(currentUserProfile)
@@ -95,13 +96,13 @@ const OrderTrackingList = () => {
   },[])
 
   useEffect(()=>{
-    fetchData();
+    fetchData(dispatch);
     // console.log(inProgressQuotations)
     // console.log(computedQuotations)
     // console.log(inProgressJobOrders)
     // console.log(pendingJobOrders)
     // console.log(outForDeliveryJobOrders)
-  },[currentUserProfile])
+  },[currentUserProfile,location.key])
 
   return ( (currentUserProfile) ?
     <Page

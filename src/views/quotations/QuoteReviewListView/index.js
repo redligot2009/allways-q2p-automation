@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigate, useLocation} from 'react-router-dom';
 import {
   Box,
   Container,
@@ -32,13 +33,14 @@ const useStyles = makeStyles((theme) => ({
 const QuotationReviewList = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const { computedQuotations: computed} = useSelector((state)=>state.quotation);
   const { inProgressQuotations: in_progress} = useSelector((state)=>state.quotation);
   const { approvedQuotations : approved} = useSelector((state)=>state.quotation);
   const source = axios.CancelToken.source()
   // TODO: Do not make fetch if current fetch is still ongoing. Possibly remove useInterval and just call once instead.
-  async function fetchData(){
+  async function fetchData(dispatch){
     try
     {
       dispatch(getComputedQuotations("",source.token));
@@ -54,11 +56,11 @@ const QuotationReviewList = () => {
   }
   //computed, in_progress, approved
   useEffect(() => {
-    fetchData();
+    fetchData(dispatch);
     return () => {
       source.cancel();
     }
-  }, [])
+  }, [location.key])
   return ((in_progress && computed && approved)?
     <Page
       className={classes.root}

@@ -16,6 +16,7 @@ const createJobOrder = (quotation, manager, cancelToken) => {
   }
   const createResult = axios.post(`api/joborders/`,newJobOrder,{cancelToken: cancelToken})
   .then((response)=>{
+    console.log("SUCCESS");
     console.log(response.data)
     return response;
   })
