@@ -15,8 +15,19 @@ import data from './data';
 
 import ClipLoader from "react-spinners/ClipLoader";
 
-import { getComputedQuotations, updateQuotation, getQuotationById, approveQuotation, getInProgressQuotations } from "../../../_actions/quotation";
-import { getInProductionJobOrders, getPendingJobOrders } from '../../../_actions/jobOrder';
+import { 
+  getComputedQuotations, getInProgressQuotations, 
+  getQuotationById, 
+  updateQuotation, approveQuotation } 
+from "../../../_actions/quotation";
+
+import { 
+  getPendingJobOrders, getInProductionJobOrders,
+  getOutForDeliveryJobOrders, getFinishedJobOrders,
+  startJobOrderProduction, startJobOrderDelivery, 
+  finishJobOrder } 
+from '../../../_actions/jobOrder';
+
 import { useInterval } from "../../../_helpers/hooks"
 import { limitVisibility } from "../../../_helpers";
 import { getProfile } from "../../../_actions/auth";
@@ -50,6 +61,7 @@ const OrderTrackingList = () => {
   const { pendingJobOrders } = useSelector(state=>state.jobOrder)
   const { inProgressJobOrders } = useSelector(state=>state.jobOrder);
   const { outForDeliveryJobOrders } = useSelector(state=>state.jobOrder)
+  const { finishedJobOrders } = useSelector(state=>state.jobOrder)
   const { currentQuotation } = useSelector(state=>state.quotation);
 
   const [initialFetchDataFinished, setInitialFetchDataFinished]  = useState(false);
@@ -62,21 +74,28 @@ const OrderTrackingList = () => {
         switch(currentUserProfile.job_position)
         {
           case 'O':
-              dispatch(getPendingJobOrders(source.token))
-              dispatch(getInProductionJobOrders("","",source.token))
+            dispatch(getPendingJobOrders("","",source.token))
+            dispatch(getInProductionJobOrders("","",source.token))
+            dispatch(getOutForDeliveryJobOrders("","",source.token))
+            dispatch(getFinishedJobOrders("","",source.token))
             break;
           case 'AM':
-              dispatch(getPendingJobOrders(source.token))
-              dispatch(getInProductionJobOrders("","",source.token))
+            dispatch(getPendingJobOrders("","",source.token))
+            dispatch(getInProductionJobOrders("","",source.token))
+            dispatch(getOutForDeliveryJobOrders("","",source.token))
+            dispatch(getFinishedJobOrders("","",source.token))
             break;
           case 'P':
+            dispatch(getOutForDeliveryJobOrders("","",source.token))
             break;
           case 'D':
+            dispatch(getOutForDeliveryJobOrders("","",source.token))
             break;
           default:
-              dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
-              dispatch(getComputedQuotations(currentUserProfile.id,source.token))
-              dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
+            dispatch(getPendingJobOrders(currentUserProfile.id,"",source.token))
+            dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
+            dispatch(getComputedQuotations(currentUserProfile.id,source.token))
+            dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
             
         }
       }
@@ -178,7 +197,7 @@ const OrderTrackingList = () => {
               ))}
             </Box>
           </Grid>,
-          ['C', 'AM', 'O'], 
+          ['C'], 
           currentUserProfile.job_position
           )}
           {pendingJobOrders &&
@@ -210,7 +229,7 @@ const OrderTrackingList = () => {
               ))}
             </Box>
           </Grid>,
-          ['O','AM',],
+          ['O','AM'],
           currentUserProfile.job_position,
           )}
           {inProgressJobOrders && 
@@ -241,10 +260,10 @@ const OrderTrackingList = () => {
               </Box>
             </Grid>
             ,
-            ['D','O','AM'],
+            ['D','O','AM', 'C'],
             currentUserProfile.job_position
           )}
-          
+          {limitVisibility(
             <Grid item xs={12} sm={6}>
               <Typography
                 className={classes.name}
@@ -270,7 +289,10 @@ const OrderTrackingList = () => {
                     </Grid>
                   ))}
                 </Box>
-              </Grid>
+              </Grid>,
+                ['O','AM','P','D', 'C'],
+                currentUserProfile.job_position
+              )}
               {limitVisibility(
               <Grid item xs={12} sm={6}>
                   <Typography
@@ -281,8 +303,8 @@ const OrderTrackingList = () => {
                     Finished
                   </Typography>
                     <Box mt={2}>
-                      {/* { outForDeliveryJobOrders &&
-                      outForDeliveryJobOrders.map((jobOrder) => 
+                      { finishedJobOrders &&
+                      finishedJobOrders.map((jobOrder) => 
                       (jobOrder &&
                         <Grid
                           item
@@ -295,7 +317,7 @@ const OrderTrackingList = () => {
                             />
                           </Box>
                         </Grid>
-                      ))} */}
+                      ))}
                     </Box>
                   </Grid>,
                 ['O','AM'],

@@ -1,8 +1,16 @@
 import {
     CREATE_JOB_ORDER_SUCCESS,
     CREATE_JOB_ORDER_FAIL,
+
     RETRIEVE_IN_PROGRESS_JOB_ORDERS_SUCCESS,
     RETRIEVE_IN_PROGRESS_JOB_ORDERS_FAIL,
+
+    RETRIEVE_OUT_FOR_DELIVERY_JOB_ORDERS_SUCCESS,
+    RETRIEVE_OUT_FOR_DELIVERY_JOB_ORDERS_FAIL,
+
+    RETRIEVE_FINISHED_JOB_ORDERS_SUCCESS,
+    RETRIEVE_FINISHED_JOB_ORDERS_FAIL,
+
     RETRIEVE_PENDING_JOB_ORDERS_SUCCESS,
     RETRIEVE_PENDING_JOB_ORDERS_FAIL
 } from './types';
@@ -24,8 +32,8 @@ export const createJobOrder = (quotation, manager,cancelToken) => (dispatch) => 
         })
 }
 
-export const getPendingJobOrders = (cancelToken) => (dispatch) => {
-    return JobOrderService.retrieveJobOrders("pending","","",cancelToken)
+export const getPendingJobOrders = (client="",manager="",cancelToken) => (dispatch) => {
+    return JobOrderService.retrieveJobOrders("pending",manager,client,cancelToken)
         .then((response)=>{
             dispatch({
                 type: RETRIEVE_PENDING_JOB_ORDERS_SUCCESS,
@@ -54,6 +62,44 @@ export const getInProductionJobOrders = (client="",manager="",cancelToken) => (d
         .catch((error)=>{
             dispatch({
                 type: RETRIEVE_IN_PROGRESS_JOB_ORDERS_FAIL
+            })
+            //console.log(error)
+            return Promise.reject();
+        })
+}
+
+export const getOutForDeliveryJobOrders = (client="",manager="",cancelToken) => (dispatch) => {
+    return JobOrderService.retrieveJobOrders("delivery",manager,client,cancelToken)
+        .then((response)=>{
+            dispatch({
+                type: RETRIEVE_OUT_FOR_DELIVERY_JOB_ORDERS_SUCCESS,
+                payload: {jobOrders: response.data}
+            })
+            //console.log("SUCCESS!", response.data)
+            return Promise.resolve();
+        })
+        .catch((error)=>{
+            dispatch({
+                type: RETRIEVE_OUT_FOR_DELIVERY_JOB_ORDERS_FAIL,
+            })
+            //console.log(error)
+            return Promise.reject();
+        })
+}
+
+export const getFinishedJobOrders = (client="",manager="",cancelToken) => (dispatch) => {
+    return JobOrderService.retrieveJobOrders("finished",manager,client,cancelToken)
+        .then((response)=>{
+            dispatch({
+                type: RETRIEVE_FINISHED_JOB_ORDERS_SUCCESS,
+                payload: {jobOrders: response.data}
+            })
+            //console.log("SUCCESS!", response.data)
+            return Promise.resolve();
+        })
+        .catch((error)=>{
+            dispatch({
+                type: RETRIEVE_FINISHED_JOB_ORDERS_FAIL
             })
             //console.log(error)
             return Promise.reject();
