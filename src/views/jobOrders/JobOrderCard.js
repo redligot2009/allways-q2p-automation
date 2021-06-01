@@ -238,7 +238,10 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, fetchData, ...r
           </Grid>
         </Box>
         <Box>
-          { currentUserProfile && limitVisibility(
+          { currentUserProfile ? 
+            <>
+            {jobOrder.production_status === 'pending' && 
+            limitVisibility(
               <Button 
                 variant="outlined" 
                 color="primary"
@@ -248,12 +251,69 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, fetchData, ...r
                   }
                 }
               >
-                REVIEW PRODUCT SPECS
+                BEGIN PRODUCTION
               </Button>,
               ['O','AM'],
               currentUserProfile.job_position,
               false
-            )
+            )}
+
+            {jobOrder.production_status === 'inprogress' && 
+            limitVisibility(
+              <Button 
+                variant="outlined" 
+                color="primary"
+                onClick={
+                  ()=>{
+                    // navigate('/app/quote/detail',{state: {id: quotation.id}})
+                  }
+                }
+              >
+                FINISH PRODUCTION
+              </Button>,
+              ['O','AM','P'],
+              currentUserProfile.job_position,
+              false
+            )}
+
+            {jobOrder.production_status === 'delivery' && 
+            limitVisibility(
+              <Button 
+                variant="outlined" 
+                color="primary"
+                onClick={
+                  ()=>{
+                    // navigate('/app/quote/detail',{state: {id: quotation.id}})
+                  }
+                }
+              >
+                FINISH DELIVERY
+              </Button>,
+              ['O','AM','D'],
+              currentUserProfile.job_position,
+              false
+            )}
+
+            {jobOrder.production_status === 'finished' && 
+            limitVisibility(
+              <Button 
+                variant="outlined" 
+                color="primary"
+                onClick={
+                  ()=>{
+                    // navigate('/app/quote/detail',{state: {id: quotation.id}})
+                  }
+                }
+              >
+                CREATE INVOICE
+              </Button>,
+              ['O','AM'],
+              currentUserProfile.job_position,
+              false
+            )}
+            </> 
+            :
+            null
           }
           {/* <Button 
             variant="outlined" 
