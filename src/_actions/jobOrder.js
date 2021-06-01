@@ -12,7 +12,13 @@ import {
     RETRIEVE_FINISHED_JOB_ORDERS_FAIL,
 
     RETRIEVE_PENDING_JOB_ORDERS_SUCCESS,
-    RETRIEVE_PENDING_JOB_ORDERS_FAIL
+    RETRIEVE_PENDING_JOB_ORDERS_FAIL,
+    START_JOB_ORDER_SUCCESS,
+    START_JOB_ORDER_FAIL,
+    DELIVER_JOB_ORDER_SUCCESS,
+    DELIVER_JOB_ORDER_FAIL,
+    FINISH_JOB_ORDER_SUCCESS,
+    FINISH_JOB_ORDER_FAIL
 } from './types';
 
 import JobOrderService from "../_services/jobOrder.service";
@@ -106,14 +112,59 @@ export const getFinishedJobOrders = (client="",manager="",cancelToken) => (dispa
         })
 }
 
-export const startJobOrderProduction = (jobOrder,cancelToken) => {
+export const startJobOrderProduction = (jobOrder,cancelToken) => (dispatch) => {
     // TODO: Implement action for starting a pending job order
+    jobOrder.production_status = "inprogress";
+    return JobOrderService.updateJobOrder(jobOrder,cancelToken)
+        .then((response)=>{
+            dispatch({
+                type: START_JOB_ORDER_SUCCESS,
+                payload: {jobOrder: response.data}
+            })
+            console.log("SUCCESS!", response.data)
+            return Promise.resolve()
+        })
+        .catch((error)=>{
+            dispatch({type:START_JOB_ORDER_FAIL})
+            console.log(error, jobOrder)
+            return Promise.reject()
+        })
 }
 
-export const startJobOrderDelivery = (jobOrder,cancelToken) => {
+export const startJobOrderDelivery = (jobOrder,cancelToken)  => (dispatch) => {
+    jobOrder.production_status = "delivery";
+    return JobOrderService.updateJobOrder(jobOrder,cancelToken)
+        .then((response)=>{
+            dispatch({
+                type: DELIVER_JOB_ORDER_SUCCESS,
+                payload: {jobOrder: response.data}
+            })
+            console.log("SUCCESS!", response.data)
+            return Promise.resolve()
+        })
+        .catch((error)=>{
+            dispatch({type:DELIVER_JOB_ORDER_FAIL})
+            console.log(error, jobOrder)
+            return Promise.reject()
+        })
     // TODO: Implement action for starting job order delivery
 }
 
-export const finishJobOrder = (jobOrder,cancelToken) => {
+export const finishJobOrder = (jobOrder,cancelToken)  => (dispatch) => {
+    jobOrder.production_status = "finished";
+    return JobOrderService.updateJobOrder(jobOrder,cancelToken)
+        .then((response)=>{
+            dispatch({
+                type: FINISH_JOB_ORDER_SUCCESS,
+                payload: {jobOrder: response.data}
+            })
+            console.log("SUCCESS!", response.data)
+            return Promise.resolve()
+        })
+        .catch((error)=>{
+            dispatch({type:FINISH_JOB_ORDER_FAIL})
+            console.log(error, jobOrder)
+            return Promise.reject()
+        })
     // TODO: Implement action for finishing a job order.
 }

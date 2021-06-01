@@ -50,7 +50,16 @@ const retrieveJobOrders = (production_status="", manager="", client="", cancelTo
 
 const updateJobOrder = (jobOrder, cancelToken) => {
   // TODO: Test if updateJobOrder functioning
-  const updateResult = axios.put(`api/quotations/${jobOrder.id}/`,jobOrder,{cancelToken: cancelToken})
+  const allowedJobOrderFields = [
+    'id',
+    'production_status',
+    'quotation',
+    'manager',
+  ]
+  const updatedJobOrder = getFilteredObject(jobOrder,allowedJobOrderFields);
+  updatedJobOrder.quotation=jobOrder.quotation.id;
+  console.log(updatedJobOrder)
+  const updateResult = axios.put(`api/joborders/${updatedJobOrder.id}/`,updatedJobOrder,{cancelToken: cancelToken})
   return updateResult;
 }
 

@@ -253,6 +253,7 @@ const OrderTrackingList = () => {
                       <JobOrderCard
                         jobOrder={jobOrder}
                         currentUserProfile={currentUserProfile}
+                        fetchData={fetchData}
                       />
                     </Box>
                   </Grid>
@@ -260,7 +261,7 @@ const OrderTrackingList = () => {
               </Box>
             </Grid>
             ,
-            ['D','O','AM', 'C'],
+            ['O','AM','P','C'],
             currentUserProfile.job_position
           )}
           {limitVisibility(
@@ -284,13 +285,14 @@ const OrderTrackingList = () => {
                         <JobOrderCard
                           jobOrder={jobOrder}
                           currentUserProfile={currentUserProfile}
+                          fetchData={fetchData}
                         />
                       </Box>
                     </Grid>
                   ))}
                 </Box>
               </Grid>,
-                ['O','AM','P','D', 'C'],
+                ['O','AM', 'D', 'C'],
                 currentUserProfile.job_position
               )}
               {limitVisibility(
@@ -314,6 +316,7 @@ const OrderTrackingList = () => {
                             <JobOrderCard
                               jobOrder={jobOrder}
                               currentUserProfile={currentUserProfile}
+                              fetchData={fetchData}
                             />
                           </Box>
                         </Grid>

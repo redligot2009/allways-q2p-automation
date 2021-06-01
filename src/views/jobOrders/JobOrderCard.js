@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
@@ -17,6 +18,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { limitVisibility } from '../../_helpers/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { getProfile } from '../../_actions/auth';
+import { startJobOrderProduction, startJobOrderDelivery, finishJobOrder } from 'src/_actions/jobOrder';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +38,7 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, fetchData, ...r
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const source = axios.CancelToken.source()
 
   const getProductionStatus = () => {
     switch(jobOrder.production_status)
@@ -246,8 +249,10 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, fetchData, ...r
                 variant="outlined" 
                 color="primary"
                 onClick={
-                  ()=>{
-                    // navigate('/app/quote/detail',{state: {id: quotation.id}})
+                  async ()=>{
+                    await dispatch(startJobOrderProduction(jobOrder,source.token));
+                    await fetchData(dispatch);
+                    navigate('/app/tracking',{replace:true})
                   }
                 }
               >
@@ -264,8 +269,10 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, fetchData, ...r
                 variant="outlined" 
                 color="primary"
                 onClick={
-                  ()=>{
-                    // navigate('/app/quote/detail',{state: {id: quotation.id}})
+                  async ()=>{
+                    await dispatch(startJobOrderDelivery(jobOrder,source.token));
+                    await fetchData(dispatch);
+                    navigate('/app/tracking',{replace:true})
                   }
                 }
               >
@@ -282,8 +289,10 @@ const JobOrderCard = ({ className, jobOrder, currentUserProfile, fetchData, ...r
                 variant="outlined" 
                 color="primary"
                 onClick={
-                  ()=>{
-                    // navigate('/app/quote/detail',{state: {id: quotation.id}})
+                  async ()=>{
+                    await dispatch(finishJobOrder(jobOrder,source.token));
+                    await fetchData(dispatch);
+                    navigate('/app/tracking',{replace:true})
                   }
                 }
               >
