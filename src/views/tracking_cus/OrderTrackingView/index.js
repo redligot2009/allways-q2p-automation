@@ -118,10 +118,10 @@ const OrderTrackingList = () => {
           Order Tracking
         </Typography>
         <Box mt={2}>
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
         {currentUserProfile && inProgressQuotations &&
           limitVisibility(
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={6}>
             <Typography
               className={classes.name}
               color="textSecondary"
@@ -152,7 +152,7 @@ const OrderTrackingList = () => {
           )}
           {computedQuotations &&
           limitVisibility(
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={6}>
             <Typography
               className={classes.name}
               color="textSecondary"
@@ -183,7 +183,7 @@ const OrderTrackingList = () => {
           )}
           {pendingJobOrders &&
           limitVisibility(
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={6}>
             <Typography
               className={classes.name}
               color="textSecondary"
@@ -215,7 +215,7 @@ const OrderTrackingList = () => {
           )}
           {inProgressJobOrders && 
           limitVisibility(
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} sm={6}>
               <Typography
                 className={classes.name}
                 color="textSecondary"
@@ -245,7 +245,7 @@ const OrderTrackingList = () => {
             currentUserProfile.job_position
           )}
           
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} sm={6}>
               <Typography
                 className={classes.name}
                 color="textSecondary"
@@ -271,6 +271,36 @@ const OrderTrackingList = () => {
                   ))}
                 </Box>
               </Grid>
+              {limitVisibility(
+              <Grid item xs={12} sm={6}>
+                  <Typography
+                    className={classes.name}
+                    color="textSecondary"
+                    variant="h5"
+                  >
+                    Finished
+                  </Typography>
+                    <Box mt={2}>
+                      {/* { outForDeliveryJobOrders &&
+                      outForDeliveryJobOrders.map((jobOrder) => 
+                      (jobOrder &&
+                        <Grid
+                          item
+                          key={jobOrder.id}
+                        >
+                          <Box mt={2}>
+                            <JobOrderCard
+                              jobOrder={jobOrder}
+                              currentUserProfile={currentUserProfile}
+                            />
+                          </Box>
+                        </Grid>
+                      ))} */}
+                    </Box>
+                  </Grid>,
+                ['O','AM'],
+                currentUserProfile.job_position
+              )}
             </Grid>
           </Box>
       </Container>
