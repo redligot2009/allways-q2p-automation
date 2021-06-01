@@ -86,7 +86,7 @@ const OrderTrackingList = () => {
             dispatch(getFinishedJobOrders("","",source.token))
             break;
           case 'P':
-            dispatch(getOutForDeliveryJobOrders("","",source.token))
+            dispatch(getInProductionJobOrders("","",source.token))
             break;
           case 'D':
             dispatch(getOutForDeliveryJobOrders("","",source.token))
