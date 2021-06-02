@@ -12,7 +12,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-import QuotationCard from '../../cards/QuotationCard';
+import QuotationCard from '../../../../quotations/QuotationCard';
 
 const AwaitingApproval = (props) => {
     return (
@@ -26,7 +26,7 @@ const AwaitingApproval = (props) => {
               </Typography>
             </Box>
             <Grid container style={{maxHeight:480,overflow:'auto'}}>
-              {props.computed && props.computed.map((quotation) => (
+              {props.computed ? (props.computed.map((quotation) => (
                 <Grid
                   item
                   key={quotation.id}
@@ -38,7 +38,7 @@ const AwaitingApproval = (props) => {
                   />
                   </Box>
                 </Grid>
-            ))}
+            ))): null}
             </Grid>
         </Grid>
     );

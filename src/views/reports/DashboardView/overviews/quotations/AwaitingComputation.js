@@ -12,7 +12,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-import QuotationCard from '../../cards/QuotationCard';
+import QuotationCard from '../../../../quotations/QuotationCard';
 
 const AwaitingComputation = (props) => {
 

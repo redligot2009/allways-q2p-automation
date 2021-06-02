@@ -26,7 +26,8 @@ const OutForDelivery = (props) => {
           </Typography>
         </Box>
         <Grid container style={{maxHeight:480,overflow:'auto'}}>
-          {props.out_for_delivery && props.out_for_delivery.map((jobOrder) => (
+          {props.out_for_delivery ? 
+            (props.out_for_delivery.map((jobOrder) => (
             <Grid
               item
               key={jobOrder.id}
@@ -38,7 +39,7 @@ const OutForDelivery = (props) => {
                 />
               </Box>
             </Grid>
-        ))}
+        ))): null}
         </Grid>
     </Grid>
     );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
-import { Link as RouterLink, useNavigate, useHistory, Link } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useHistory, useLocation, Link } from 'react-router-dom';
 
 import {
   Container,
@@ -21,9 +21,6 @@ import ManageEmployees from './buttons/ManageEmployees';
 import OrderTracking from './buttons/OrderTracking';
 import AccountSettings from './buttons/AccountSettings';
 import RequestForQuotation from './buttons/RequestForQuotation';
-
-// CARDS
-import QuotationCard from './cards/QuotationCard';
 
 // QUOTATION-RELATED LISTS
 import AwaitingComputation from './overviews/quotations/AwaitingComputation';
@@ -64,6 +61,7 @@ const Dashboard = () => {
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   
   const {computedQuotations : computed} = useSelector(state => state.quotation);
   const {inProgressQuotations: in_progress} = useSelector(state=>state.quotation);
@@ -71,14 +69,54 @@ const Dashboard = () => {
   const {outForDeliveryJobOrders : out_for_delivery} = useSelector(state=>state.jobOrder);
   const {finishedJobOrders : finished } = useSelector(state=>state.jobOrder);
   const source = axios.CancelToken.source()
-  useEffect(()=>{
-    function fetchData() {
-      dispatch(getComputedQuotations("",source.token))
-      dispatch(getInProgressQuotations("",source.token))
-      dispatch(getInProductionJobOrders("","",source.token))
-      dispatch(getPendingJobOrders(source.token))
+
+  async function fetchData (dispatch) {
+    try
+    {
+      if(currentUserProfile)
+      {
+        switch(currentUserProfile.job_position)
+        {
+          case 'O':
+            dispatch(getComputedQuotations("",source.token));
+            dispatch(getInProgressQuotations("",source.token));
+            // dispatch(getApprovedQuotations("",source.token))
+            dispatch(getPendingJobOrders("","",source.token))
+            dispatch(getInProductionJobOrders("","",source.token))
+            // dispatch(getOutForDeliveryJobOrders("","",source.token))
+            // dispatch(getFinishedJobOrders("","",source.token))
+            break;
+          case 'AM':
+            dispatch(getComputedQuotations("",source.token));
+            dispatch(getInProgressQuotations("",source.token));
+            // dispatch(getApprovedQuotations("",source.token))
+            dispatch(getPendingJobOrders("","",source.token))
+            dispatch(getInProductionJobOrders("","",source.token))
+            // dispatch(getOutForDeliveryJobOrders("","",source.token))
+            // dispatch(getFinishedJobOrders("","",source.token))
+            break;
+          case 'P':
+            // dispatch(getInProductionJobOrders("","",source.token))
+            break;
+          case 'D':
+            // dispatch(getOutForDeliveryJobOrders("","",source.token))
+            break;
+          default:
+            dispatch(getPendingJobOrders(currentUserProfile.id,"",source.token))
+            dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
+            dispatch(getComputedQuotations(currentUserProfile.id,source.token))
+            dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
+            
+        }
+      }
     }
-    fetchData();
+    catch(error)
+    {
+      console.log(error);
+    }
+  }
+  useEffect(()=>{
+    fetchData(dispatch);
     if(currentUserProfile === null)
     {
       dispatch(logout())
@@ -86,7 +124,7 @@ const Dashboard = () => {
     return () => {
       source.cancel();
     }
-  },[dispatch])
+  },[dispatch, location.key])
   /*
   const { profile: currentUserProfile } = useSelector((state) => state.auth)
   const source = axios.CancelToken.source()
@@ -111,7 +149,7 @@ const Dashboard = () => {
   },[])
    */
   return (currentUserProfile ? 
-    <Page
+    (<Page
       className={classes.root}
       title="Dashboard"
     >
@@ -237,7 +275,7 @@ const Dashboard = () => {
               )}
         </Grid>
       </Container>
-    </Page> :
+    </Page>) :
     <>
       <ClipLoader loading={true} size={150} />
     </>
