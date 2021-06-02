@@ -90,7 +90,7 @@ const QuotationCard = ({ className, quotation, ...rest }) => {
                 gutterBottom 
                 variant="body1"
               >
-                {quotation.client.full_name}
+                {quotation.client ? quotation.client.full_name : null}
               </Typography>
             </Grid>
 
