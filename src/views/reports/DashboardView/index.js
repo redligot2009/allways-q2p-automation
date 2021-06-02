@@ -34,7 +34,7 @@ import OutForDelivery from './overviews/jobOrders/OutForDelivery';
 import {getComputedQuotations, getInProgressQuotations} 
 from '../../../_actions/quotation';
 
-import {logout}
+import {logout, getProfile}
 from '../../../_actions/auth';
 
 import {getInProductionJobOrders, getPendingJobOrders} 
@@ -115,6 +115,13 @@ const Dashboard = () => {
       console.log(error);
     }
   }
+  useEffect(()=>{
+    dispatch(getProfile())
+    return () => {
+      source.cancel();
+    }
+  },[])
+  
   useEffect(()=>{
     fetchData(dispatch);
     if(currentUserProfile === null)
