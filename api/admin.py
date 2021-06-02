@@ -131,7 +131,6 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         ("Project Settings", {
             'fields' : ('client',
                         'project_name',
-                        'created_date',
                         'approval_status',
                         'approval_date', 
                         'printing_process',
@@ -195,6 +194,7 @@ class QuotationAdmin(nested_admin.NestedModelAdmin):
         QuotationItemInline
     ]
     readonly_fields=(
+        'created_date',
         'total_no_plates',
         'total_plate_costs',
         'total_no_sheets',
