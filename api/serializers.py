@@ -201,6 +201,7 @@ class QuotationListSerializer(serializers.HyperlinkedModelSerializer):
                 'quantity',
                 'page_length',
                 'page_width',
+                'total_pages',
                 'spread_length',
                 'spread_width',
                 'paper_types',

@@ -17,6 +17,7 @@ const createQuotation = (quotation, cancelToken) => {
         "approval_status",
         "printing_process",
         "quantity",
+        "total_pages",
         "items"
     ]
     const allowedQuotationItemFields = [
