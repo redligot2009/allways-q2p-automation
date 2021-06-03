@@ -120,8 +120,8 @@ const Dashboard = () => {
     return () => {
       source.cancel();
     }
-  },[])
-  
+  },[location.key])
+
   useEffect(()=>{
     fetchData(dispatch);
     if(currentUserProfile === null)

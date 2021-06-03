@@ -112,7 +112,7 @@ const OrderTrackingList = () => {
       setInitialFetchDataFinished(false);
       source.cancel();
     }
-  },[])
+  },[location.key])
 
   useEffect(()=>{
     fetchData(dispatch);

@@ -528,7 +528,7 @@ class QuotationItem(models.Model):
     
     # Paper costs for particular quotation item
     def get_paper_costs(self):
-        if(self.paper.ream_cost != 0):
+        if(self.paper.ream_cost and self.paper.ream_cost != None):
             no_reams = (self.quotation.quantity * self.no_sheets_ordered_for_copy)/500
             return (no_reams * self.paper.ream_cost)
         else:
