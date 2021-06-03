@@ -96,6 +96,7 @@ const OrderTrackingList = () => {
             dispatch(getInProgressQuotations(currentUserProfile.id,source.token))
             dispatch(getComputedQuotations(currentUserProfile.id,source.token))
             dispatch(getInProductionJobOrders(currentUserProfile.id,"",source.token))
+            dispatch(getOutForDeliveryJobOrders(currentUserProfile.id,"",source.token))
             
         }
       }
