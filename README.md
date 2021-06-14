@@ -1,5 +1,62 @@
 # allways-q2p-automation
 
+## What is this?
+
+A very simple prototype of a future quote-to-payment automation process for a printing press named Allways Graphics and Printing Services. This was made in accomplishment of our MSYS 42 A class over the span of a few months.
+
+It uses Django + Django REST Framework on the backend as a RESTful API, which is consumed by a React frontend app, and is deployed live on Heroku using Heroku Postgres as its underlying production database. 
+
+(For those about to read into the source code, be warned that this was made under a lot of stress by a handful of students who are new to development. There are likely many unresolved issues and bugs as of writing, especially given the trickiness of the tech stack.)
+
+## How to use this?
+
+### Using the system as an Account Manager
+
+Log in as the following account as an "Account Manager."
+
+**Username:**
+testAccountManager
+
+**Password:**
+testpassword123!
+
+Explore the Dashboard, Quote Review, Order Tracking, and Manage Employees pages as you need.
+
+The Quote Review page is for seeing requests for quotations awaiting computation from clients, computing and sending them back to the client, and then awaiting their approval. 
+
+After a quotation's approval, you can then create a job order, and track its progress through production and delivery via the Order Tracking page. Here, if you are an Account Manager, you can trigger changes in the production and delivery statuses of a given job order via the "Finish Production" or "Finish Delivery" buttons on the cards of the page.
+
+### Using the system as a Production Employee or Deliveryman
+
+Apart from account managers, there are also the following types of accounts:
+
+Firstly, the production employee, which can update the production status of a job order from the Order Tracking page by pressing "Finish Production."
+
+**Username:**
+testProduction
+
+**Password:**
+testpassword123!
+
+
+And secondly, the delivery employee, which can update the delivery status of a job order from the Order Tracking page by pressing "Finish Delivery."
+
+**Username:**
+testDriver
+
+**Password:**
+testpassword123!
+
+With both production and delivery employees, any updates they made will be reflected on the end of the account manager upon a page refresh.
+
+### Using the system as a Client
+
+Alternatively, you can also create a new client account by logging out, and then signing up for a new account with your username, email, and first + last names. Afterwards, the user can log in using their username and password as account credentials.
+
+Upon logging in, you can go to the Request Quotation page to make a request for quotation, filling out certain specifications (page length, page width, quantity, project name, number of quotation items (e.g. cover, inner pages), as well as lamination, binding, and paper types for each. 
+
+Afterwards, the client can track the status of their orders via the Order Tracking page which will get updated upon page refresh of any updates made by the employees of Allways (whether Account Manager, Production Employee, or Deliveryman)
+
 ## **Installation Instructions for "fresh" copies** (Django Backend)
 
 First make sure that you have Python 3.9 (https://www.python.org/downloads/), pip (comes with Python by default), and pipenv (https://pypi.org/project/pipenv/) installed.
